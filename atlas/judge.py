@@ -25,10 +25,13 @@ def diagnostics(data,idx,pred):
     return {'residual_bias':float(residual.mean()),'rmse_by_target_quantile':bins,'max_absolute_residual':float(np.max(abs(residual)))}
 
 
-def evaluate(data,split,predictions):
+def evaluate(data,split,predictions,model_info=None):
     pv,pt=predictions;metric=data.spec.metric
     score=metric.score(data.y[split.valid],pv)
-    return {'metric_name':metric.name,'metric_value':score,'metric_direction':metric.direction,'standardized_utility':metric.utility(score),'diagnostics':diagnostics(data,split.valid,pv)}
+    detail={**(model_info or {}).get('diagnostics',{}),**diagnostics(data,split.valid,pv)}
+    train_metric=(model_info or {}).get('train_sample_metric')
+    if train_metric is not None:detail['train_validation_utility_gap']=metric.utility(train_metric)-metric.utility(score)
+    return {'metric_name':metric.name,'metric_value':score,'metric_direction':metric.direction,'standardized_utility':metric.utility(score),'diagnostics':detail}
 
 
 def meaningful_gain(new,old):return new>old+max(1e-5,abs(old)*.0005)

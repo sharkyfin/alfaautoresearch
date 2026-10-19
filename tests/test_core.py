@@ -144,3 +144,10 @@ def test_malicious_column_is_data_and_compiler_literal(tmp_path):
     r=validate({'model_family':'hist','params':{'iterations':25},'feature_ops':[{'op':'product','columns':[name,'x1']}],'max_runtime_sec':10},data.spec)
     source=compile_recipe(r,tmp_path/'job.json',Path(__file__).resolve().parents[1]);compile(source,'recipe','exec')
     p,t,i=fit_predict(data,r,s.train,s.valid,threads=1);assert np.isfinite(p).all();checkpoint(data,t)
+
+@pytest.mark.parametrize('positive',[0,1])
+def test_binary_probability_and_f1_metric_identity(positive):
+    y=np.array([0,0,0,1,1]);p=np.array([[.9,.1],[.6,.4],[.3,.7],[.2,.8],[.45,.55]])
+    assert Metric('f1',2,positive).score(y,p)==pytest.approx(sk.f1_score(y,p.argmax(1),pos_label=positive))
+    assert Metric('roc_auc',2,positive).score(y,p)==pytest.approx(sk.roc_auc_score(y==positive,p[:,positive]))
+    assert Metric('average_precision',2,positive).score(y,p)==pytest.approx(sk.average_precision_score(y==positive,p[:,positive]))

@@ -82,3 +82,20 @@ RLIMIT_AS, parent проверяет RSS всего дерева и wall-clock; 
 `runs/` — локальные recipe.py, splits, predictions, журнал и champion.json;
 `submission.zip` — source-only архив с корневым solution.py.
 На платформу архив автоматически не отправляется.
+
+## Воспроизведение публичных опытов
+
+Публичные исходные файлы не включаются в git и ZIP. При доступности общих Drive-ссылок:
+
+```sh
+.venv/bin/python scripts/download_official.py
+.venv/bin/python scripts/prepare_public.py
+.venv/bin/python scripts/run_dev.py artifacts/data/regression/task.md --budget 360 --run-dir runs/my-regression
+.venv/bin/python scripts/run_dev.py artifacts/data/classification/task.md --budget 360 --run-dir runs/my-classification
+```
+
+Сначала проверены 18 фактических fit/predict комбинаций: шесть семейств ×
+регрессия, бинарная и многоклассовая классификация. Актуальный итог тестов и
+метрик находится в [reports/EVALUATION.md](reports/EVALUATION.md).
+Исследовательские прогоны с изменявшимся кодом помечены exploratory;
+итоговые сравнения используют копию исходников с фиксированным SHA256.

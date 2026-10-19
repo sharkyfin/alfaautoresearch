@@ -153,3 +153,26 @@ def test_qwen_retries_without_optional_json_protocol(monkeypatch):
     assert client.propose({}) is None
     assert client.propose({})=={'model_family':'hist'}
     assert client.calls==2 and 'response_format' not in bodies[1]
+
+def test_inferior_models_do_not_replace_dummy(tmp_path,monkeypatch):
+    from atlas import orchestration
+    task=create(tmp_path/'data');data=load(read_inputs(task));checkpoint(data,dummy_prediction(data.y,data.spec,len(data.test)))
+    expected=data.inputs.output.read_bytes()
+    def bad_fit(self,recipe,split,timeout,seed=42,**kwargs):
+        self.counter+=1
+        predictions=(np.full(len(split.valid),1e6),np.full(len(self.data.test),1e6))
+        return {'status':'ok','experiment_id':f'exp_{self.counter:04d}','recipe':recipe,'runtime_sec':.01,'peak_memory_mb':1.,'diagnostics':{}},predictions
+    monkeypatch.setattr(Executor,'run',bad_fit)
+    assert orchestration.run(task,budget_seconds=30,max_experiments=6,mode='deterministic',run_dir=tmp_path/'run')==0
+    assert data.inputs.output.read_bytes()==expected
+    summary=json.loads((tmp_path/'run/summary.json').read_text());assert summary['accepted_experiments']==0
+
+
+def test_researcher_sees_champion_without_raw_predictions(tmp_path):
+    from atlas.agent import researcher_context
+    data=load(read_inputs(create(tmp_path)));data.spec.validation_plan=design(data).json()
+    champion={'experiment_id':'exp_1','recipe':{'model_family':'hist'},'metric_value':1.,'diagnostics':{'bias':.1},'predictions':np.ones(10000)}
+    context=researcher_context(data,[],champion,100)
+    assert context['champion']['recipe']['model_family']=='hist'
+    assert 'predictions' not in context['champion']
+    assert len(json.dumps(context).encode())<20000

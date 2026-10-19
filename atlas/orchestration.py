@@ -66,7 +66,7 @@ def run(task_path,started=None,budget_seconds=10500,mode='auto',seed=42,threads=
             remaining=budget.search_remaining
             if is_research and champion:
                 if actual_mode=='live-agent' and qwen.available:
-                    context=researcher_context(data,history,champion['experiment_id'],remaining)
+                    context=researcher_context(data,history,champion,remaining)
                     context['recipe_rejections']=[e for e in qwen.events if e['status']=='recipe_rejected'][-3:]
                     proposed=qwen.propose(context,timeout=max(1,min(20,remaining*.1)))
                     if proposed is not None:raw=proposed;origin='qwen'
@@ -92,9 +92,10 @@ def run(task_path,started=None,budget_seconds=10500,mode='auto',seed=42,threads=
             result['origin']=origin;result['accepted']=False
             if result['status']=='ok' and predictions is not None:
                 try:
-                    result.update(evaluate(data,split,predictions))
+                    result.update(evaluate(data,split,predictions,result))
                     utility=result['standardized_utility']
-                    accepted=champion is None or meaningful_gain(utility,champion['standardized_utility'])
+                    reference=champion['standardized_utility'] if champion else initial_utility
+                    accepted=reference is None or meaningful_gain(utility,reference)
                     result['accepted']=accepted;result['accepted_reason']='objective gain on fixed holdout' if accepted else 'no meaningful objective gain'
                     candidate={**result,'predictions':predictions,'split':split}
                     finalists.append(candidate);finalists.sort(key=lambda c:-c['standardized_utility']);finalists=finalists[:3]
@@ -122,7 +123,7 @@ def run(task_path,started=None,budget_seconds=10500,mode='auto',seed=42,threads=
                     result['accepted']=False;result['phase']='confirmation'
                     if result['status']=='ok' and predictions is not None:
                         try:
-                            result.update(evaluate(data,second,predictions));confirmed[candidate['experiment_id']]={**result,'predictions':predictions,'split':second}
+                            result.update(evaluate(data,second,predictions,result));confirmed[candidate['experiment_id']]={**result,'predictions':predictions,'split':second}
                             utilities=[candidate['standardized_utility'],result['standardized_utility']]
                             candidate['robust_utility']=float(np.mean(utilities)-.25*np.std(utilities))
                             candidate['confirmation_metric']=result['metric_value']

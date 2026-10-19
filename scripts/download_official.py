@@ -17,6 +17,12 @@ def fetch(file_id: str, path: Path):
 
 if __name__=='__main__':
     manifest=[]
+    folders={'classification':'1d89FU5gTbwpNfPIh78GbZO7fPzj806u8','regression':'1Wv-FZQHIRawf71S9Rfs4GkAEvGoayTUx'}
+    for kind,id_ in folders.items():
+        path=Path(f'artifacts/official/{kind}-folder.html')
+        if not path.exists():
+            path.parent.mkdir(parents=True,exist_ok=True)
+            with urllib.request.urlopen('https://drive.google.com/drive/folders/'+id_,timeout=60) as response:path.write_bytes(response.read())
     for kind in ['classification','regression']:
         s=Path(f'artifacts/official/{kind}-folder.html').read_text()
         for id_,body in re.findall(r'<tr data-selectable data-id="([^"]+)"(.*?)</tr>',s,re.S):
