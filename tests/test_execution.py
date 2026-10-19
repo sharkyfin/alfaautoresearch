@@ -119,3 +119,37 @@ def test_kill9_real_fit_keeps_checkpoint(tmp_path):
     finally:
         if p.poll() is None:p.kill();p.wait()
         log.close()
+
+def test_kill_during_atomic_finalization(tmp_path):
+    task=create(tmp_path/'data');data=load(read_inputs(task));checkpoint(data,dummy_prediction(data.y,data.spec,len(data.test)))
+    before=data.inputs.output.read_bytes();root=Path(__file__).resolve().parents[1]
+    script=tmp_path/'writer.py'
+    script.write_text('import sys,os,time\nfrom pathlib import Path\n'+f'sys.path.insert(0,{str(root)!r})\n'+
+      'from atlas.task import load\nfrom atlas.contract import read_inputs\nfrom atlas.submit import checkpoint,dummy_prediction\n'+
+      f'data=load(read_inputs({str(task)!r}))\n'+
+      'def paused_replace(a,b):\n    Path("ready").write_text(str(a))\n    time.sleep(60)\n'+
+      'os.replace=paused_replace\ncheckpoint(data,dummy_prediction(data.y,data.spec,len(data.test)))\n')
+    log=(tmp_path/'writer.log').open('w');proc=subprocess.Popen([sys.executable,str(script)],cwd=tmp_path,stdout=log,stderr=log)
+    try:
+        deadline=time.monotonic()+20
+        while time.monotonic()<deadline and not (tmp_path/'ready').exists():
+            assert proc.poll() is None
+            time.sleep(.02)
+        assert (tmp_path/'ready').exists()
+        proc.kill();proc.wait(timeout=3)
+        assert data.inputs.output.read_bytes()==before
+    finally:
+        if proc.poll() is None:proc.kill();proc.wait()
+        log.close()
+
+def test_qwen_retries_without_optional_json_protocol(monkeypatch):
+    import urllib.error
+    bodies=[]
+    def transport(body,timeout):
+        bodies.append(body)
+        if 'response_format' in body:raise urllib.error.HTTPError('https://organizer.invalid',400,'unsupported response format',None,None)
+        return {'choices':[{'message':{'content':'{"model_family":"hist"}'}}]}
+    client=configured(monkeypatch,transport)
+    assert client.propose({}) is None
+    assert client.propose({})=={'model_family':'hist'}
+    assert client.calls==2 and 'response_format' not in bodies[1]

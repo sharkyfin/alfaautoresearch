@@ -66,7 +66,9 @@ def run(task_path,started=None,budget_seconds=10500,mode='auto',seed=42,threads=
             remaining=budget.search_remaining
             if is_research and champion:
                 if actual_mode=='live-agent' and qwen.available:
-                    proposed=qwen.propose(researcher_context(data,history,champion['experiment_id'],remaining),timeout=max(1,min(20,remaining*.1)))
+                    context=researcher_context(data,history,champion['experiment_id'],remaining)
+                    context['recipe_rejections']=[e for e in qwen.events if e['status']=='recipe_rejected'][-3:]
+                    proposed=qwen.propose(context,timeout=max(1,min(20,remaining*.1)))
                     if proposed is not None:raw=proposed;origin='qwen'
                 elif actual_mode=='mock-agent' and scheduler.research_index<=3:
                     raw=mock_hypothesis(data.spec,champion,scheduler.research_index);origin='mock'

@@ -9,7 +9,7 @@ class QwenClient:
     def __init__(self,mode='disabled',max_calls=8,max_tokens=16000,transport=None):
         self.mode=mode;self.max_calls=max_calls;self.max_tokens=max_tokens;self.calls=0;self.tokens=0;self.failures=0;self.open=False;self.transport=transport;self.events=[]
         self.endpoint=os.environ.get('OPENAI_BASE_URL','');self.model=os.environ.get('OPENAI_MODEL','');self.key=os.environ.get('OPENAI_API_KEY','')
-        self.configured=bool(self.endpoint and self.model and self.key)
+        self.configured=bool(self.endpoint and self.model and self.key);self.json_mode=True
         if mode=='live' and not self.configured:self.open=True;self.events.append({'status':'unconfigured_organizer_api'})
     @property
     def available(self):return self.mode=='live' and not self.open and self.calls<self.max_calls and self.tokens<self.max_tokens
@@ -25,6 +25,7 @@ class QwenClient:
         if len(compact.encode())>20000:
             self.events.append({'status':'context_too_large'});self.failures+=1;return None
         body={'model':self.model,'messages':[{'role':'system','content':SYSTEM},{'role':'user','content':compact}],'max_tokens':1200,'temperature':.2,'response_format':{'type':'json_object'}}
+        if not self.json_mode:body.pop('response_format',None)
         try:
             if self.transport:response=self.transport(body,timeout)
             else:
@@ -41,6 +42,13 @@ class QwenClient:
             if not isinstance(recipe,dict):raise ValueError('Expected object')
             self.failures=0;self.events.append({'status':'response','call':self.calls,'tokens':self.tokens})
             return recipe
+        except urllib.error.HTTPError as error:
+            self.failures+=1
+            if error.code in {400,422} and self.json_mode:
+                self.json_mode=False;self.events.append({'status':'retry_without_response_format','call':self.calls})
+            else:self.events.append({'status':'api_failure','exception_class':'HTTPError','http_status':error.code,'call':self.calls})
+            if self.failures>=3:self.open=True;self.events.append({'status':'circuit_open'})
+            return None
         except (ValueError,KeyError,IndexError,TypeError,OSError,TimeoutError) as error:
             self.failures+=1;self.events.append({'status':'api_failure','exception_class':type(error).__name__,'call':self.calls})
             if self.failures>=3:self.open=True;self.events.append({'status':'circuit_open'})

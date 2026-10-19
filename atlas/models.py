@@ -84,4 +84,10 @@ def fit_predict(data,recipe,train_idx,valid_idx,seed=42,threads=8,refit=False,it
         except AttributeError:pass
     importance=getattr(model,'feature_importances_',None)
     diagnostics={'feature_importance':dict(sorted(zip(f.columns,map(float,importance)),key=lambda t:-t[1])[:15])} if importance is not None else {}
-    return pv,pt,{'iterations':int(best),'features':len(f.columns),'diagnostics':diagnostics}
+    train_metric=None
+    try:
+        sample=xa.iloc[:2048] if hasattr(xa,'iloc') else xa[:2048]
+        train_metric=spec.metric.score(data.y[train_idx][:2048],predict(sample))
+    except ValueError as error:
+        diagnostics['training_metric_unavailable']=str(error)[:200]
+    return pv,pt,{'iterations':int(best),'features':len(f.columns),'diagnostics':diagnostics,'train_sample_metric':train_metric}

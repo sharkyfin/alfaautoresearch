@@ -134,3 +134,13 @@ def test_reproducibility(tmp_path):
     a=fit_predict(data,recipe,s.train,s.valid,seed=11,threads=1)
     b=fit_predict(data,recipe,s.train,s.valid,seed=11,threads=1)
     assert np.array_equal(a[0],b[0]) and np.array_equal(a[1],b[1])
+
+def test_malicious_column_is_data_and_compiler_literal(tmp_path):
+    task=create(tmp_path);old=pd.read_csv(tmp_path/'train.csv');name="x'); __import__('os').system('false'); #"
+    for filename in ['train.csv','test.csv']:
+        frame=pd.read_csv(tmp_path/filename);frame.rename(columns={'x0':name}).to_csv(tmp_path/filename,index=False)
+    dictionary=pd.read_csv(tmp_path/'data_dictionary.csv');dictionary.loc[dictionary.feature=='x0','feature']=name;dictionary.to_csv(tmp_path/'data_dictionary.csv',index=False)
+    data=load(read_inputs(task));s=design(data);data.spec.validation_plan=s.json()
+    r=validate({'model_family':'hist','params':{'iterations':25},'feature_ops':[{'op':'product','columns':[name,'x1']}],'max_runtime_sec':10},data.spec)
+    source=compile_recipe(r,tmp_path/'job.json',Path(__file__).resolve().parents[1]);compile(source,'recipe','exec')
+    p,t,i=fit_predict(data,r,s.train,s.valid,threads=1);assert np.isfinite(p).all();checkpoint(data,t)

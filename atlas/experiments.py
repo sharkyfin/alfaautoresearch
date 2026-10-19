@@ -19,6 +19,7 @@ class Executor:
         source=compile_recipe(recipe,job_path,Path(__file__).resolve().parent.parent)
         script=directory/'recipe.py';script.write_text(source)
         result=run_process([sys.executable,'-I',str(script)],directory,timeout,self.memory_mb,self.threads,self.should_stop)
+        result['warnings']=[]
         result.update(experiment_id=eid,recipe_hash=recipe_hash(recipe),source_template_hash=hashlib.sha256(source.encode()).hexdigest(),seed=seed,split_id=split.id,refit=refit,recipe=recipe)
         info_path=directory/'result.json'
         if info_path.exists():

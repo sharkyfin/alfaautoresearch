@@ -150,6 +150,11 @@ def profile(train,test,spec):
         info={'dtype':str(s.dtype),'missing':round(float(s.isna().mean()),4),'cardinality':int(s.nunique())}
         if c in spec.numeric_features:
             a=pd.to_numeric(s,errors='coerce').replace([np.inf,-np.inf],np.nan)
+            test_numeric=pd.to_numeric(t,errors='coerce').replace([np.inf,-np.inf],np.nan)
+            scale=float(a.std()) if a.notna().sum()>1 else 0.
+            info['median_shift_std']=float((test_numeric.median()-a.median())/scale) if scale>0 and np.isfinite(scale) and a.notna().any() and test_numeric.notna().any() else 0.
+            info['zero_fraction']=float((a==0).mean())
+            info['nonfinite_or_missing_fraction']=float(a.isna().mean())
             info['quantiles']={str(k):float(v) for k,v in a.quantile([0,.25,.5,.75,1]).items() if np.isfinite(v)}
         elif c not in spec.datetime_candidates:
             info['unseen_fraction']=float((~t.isin(s.dropna())).mean());info['median_length']=float(s.dropna().astype(str).str.len().median() or 0)
