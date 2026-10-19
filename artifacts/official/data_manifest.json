@@ -1,0 +1,52 @@
+[
+  {
+    "kind": "classification",
+    "id": "1jQEwly8fLipVk6f8iM0poVwPD1lAo1X8",
+    "name": "data_dictionary.csv"
+  },
+  {
+    "kind": "classification",
+    "id": "1lwWumLZdv7XDkxxCk6tqhu4VtFbmqB4l",
+    "name": "sample_submission.csv"
+  },
+  {
+    "kind": "classification",
+    "id": "1GNzZXQ3rGezpy_vAItzTml82GhIbEKrZ",
+    "name": "task.md"
+  },
+  {
+    "kind": "classification",
+    "id": "1MagJAodMc1IrCOP_cqS2kHDaJh-br7Hz",
+    "name": "test.csv"
+  },
+  {
+    "kind": "classification",
+    "id": "1rzceF6sa83Bqoe3HSfL90s1LYjRSWoUv",
+    "name": "train.csv"
+  },
+  {
+    "kind": "regression",
+    "id": "11KgxLjtTzDBInClx_2bTGs1dLGMo1VXS",
+    "name": "data_dictionary.csv"
+  },
+  {
+    "kind": "regression",
+    "id": "1EnK_wuXAbhznCZn61DFrA0mXQVbQaXOp",
+    "name": "sample_submission.csv"
+  },
+  {
+    "kind": "regression",
+    "id": "1KHIW5Toc6D4Si8XXAo16PMBNJdLtbacA",
+    "name": "task.md"
+  },
+  {
+    "kind": "regression",
+    "id": "1QJrnlKHpTuMuGLozrP_HNb3a8PQcfo3A",
+    "name": "test.csv"
+  },
+  {
+    "kind": "regression",
+    "id": "13FFSUKNgi-5Y9wxjknjAeSN6CwW4Hezg",
+    "name": "train.csv"
+  }
+]

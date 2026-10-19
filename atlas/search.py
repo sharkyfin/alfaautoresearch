@@ -1,0 +1,68 @@
+"""Lean cost-aware portfolio, local search and evidence-guided mock researcher."""
+from __future__ import annotations
+import copy
+import numpy as np
+from .recipes import recipe_hash
+
+
+def recipe(family,params=None,ops=None,statement='',transform='none'):
+    return {'model_family':family,'params':params or {},'feature_ops':ops or [],'target_transform':transform,'statement':statement,'max_runtime_sec':300}
+
+
+def initial_portfolio(spec,budget=10800):
+    rounds=150 if budget<120 else 500 if budget<900 else 1800
+    out=[recipe('linear',{'C':1} if spec.classification else {'alpha':10},statement='Fast regularized linear baseline')]
+    if 'lightgbm' in spec.available_capabilities:out.append(recipe('lightgbm',{'iterations':rounds,'num_leaves':31,'min_child_samples':30},statement='Fast leaf-wise booster with categorical handling'))
+    if 'catboost' in spec.available_capabilities:out.append(recipe('catboost',{'iterations':min(rounds,150) if spec.classification and budget<600 else rounds,'depth':7},statement='Native categorical symmetric booster'))
+    out.append(recipe('hist',{'iterations':min(350,rounds)},statement='Histogram boosting diversity'))
+    out.append(recipe('extra_trees',{'iterations':min(250,rounds),'min_samples_leaf':2},statement='Randomized trees for complementary errors'))
+    if 'xgboost' in spec.available_capabilities:out.append(recipe('xgboost',{'iterations':rounds,'max_depth':6},statement='Regularized histogram booster diversity'))
+    return out
+
+class SearchController:
+    def __init__(self,spec,budget,mode='deterministic',seed=42):
+        self.spec=spec;self.budget=budget;self.mode=mode;self.rng=np.random.default_rng(seed);self.stage='INITIALIZE';self.seen=set();self.failures={};self.research_index=0
+        self.queue=initial_portfolio(spec,budget.total)
+    def next(self,champion):
+        if self.queue:
+            self.stage='MODEL_DIVERSITY';return self.queue.pop(0)
+        self.stage='RESEARCH';self.research_index+=1
+        if not champion or self.research_index>24:return None
+        spec=self.spec;base=copy.deepcopy(champion['recipe']);base.pop('validation_plan_id',None);base['parent_experiment']=champion['experiment_id'];base['id']=f'local_{self.research_index}'
+        family=base['model_family'];i=self.research_index
+        # Test semantic/weighting changes before expensive hyperparameter variants.
+        if spec.classification and i==1 and family!='linear':
+            base['params']['weight']='sqrt';base['statement']='Minority recall may improve with sqrt-balanced sample weights'
+        elif not spec.classification and i==1 and min(spec.profile['target']['quantiles'].values())>=0:
+            base['target_transform']='log1p';base['statement']='Skewed nonnegative target may benefit from log training, scored on original scale'
+        elif i in {2,3} and spec.categorical_features:
+            base['feature_ops']=[{'op':'frequency','columns':spec.categorical_features[:8]}];base['statement']='Fold-fitted category frequency may expose rarity without target leakage'
+            if i==3:base['params']['weight']='balanced' if spec.classification else 'none'
+        elif i in {4,5} and len(spec.numeric_features)>=2:
+            cols=spec.numeric_features[:2];base['feature_ops']=[{'op':'ratio' if i==4 else 'product','columns':cols}];base['statement']='Bounded numeric interaction may capture nonlinear rates'
+        elif i==6 and spec.numeric_features:
+            base['feature_ops']=[{'op':'clip','columns':spec.numeric_features[:8]}];base['statement']='Fold-fitted clipped copies may reduce outlier sensitivity while retaining originals'
+        elif i==7 and len(spec.categorical_features)>=2:
+            base['feature_ops']=[{'op':'combine','columns':spec.categorical_features[:2]}];base['statement']='Categorical composition may expose conditional patterns'
+        elif i==8 and spec.categorical_features and spec.numeric_features:
+            base['feature_ops']=[{'op':'group_mean','columns':[spec.categorical_features[0],spec.numeric_features[0]]}];base['statement']='Training-fold feature aggregate may capture group scale without target encoding'
+        else:
+            base['statement']='Focused local hyperparameter search around measured champion'
+            if family=='catboost':base['params'].update(depth=int(self.rng.choice([5,6,8,9])),l2_leaf_reg=float(self.rng.choice([1,3,10,30])),learning_rate=float(self.rng.choice([.025,.04,.08])))
+            elif family=='lightgbm':base['params'].update(num_leaves=int(self.rng.choice([15,31,63,127])),min_child_samples=int(self.rng.choice([10,30,60,100])),reg_lambda=float(self.rng.choice([0,1,5,20])))
+            elif family=='xgboost':base['params'].update(max_depth=int(self.rng.choice([3,5,7,9])),min_child_weight=int(self.rng.choice([1,5,15])))
+            elif family=='extra_trees':base['params'].update(min_samples_leaf=int(self.rng.choice([1,3,5,10])),max_features=float(self.rng.choice([.5,.8,1.])))
+            elif family=='hist':base['params'].update(max_leaf_nodes=int(self.rng.choice([15,31,63])),l2_regularization=float(self.rng.choice([0,1,10])))
+            else:base['params'].update({'C':float(self.rng.choice([.01,.1,10,100]))} if spec.classification else {'alpha':float(self.rng.choice([.1,1,100,1000]))})
+        return base
+
+
+def mock_hypothesis(spec,champion,number):
+    base=copy.deepcopy(champion['recipe']);base['id']=f'mock_hyp_{number}';base['parent_experiment']=champion['experiment_id']
+    if spec.classification:
+        base['params']['weight']='sqrt' if number%2 else 'balanced';base['statement']='Mock researcher: class imbalance evidence suggests increasing minority influence'
+    elif len(spec.numeric_features)>=2:
+        base['feature_ops']=[{'op':'ratio' if number%2 else 'product','columns':spec.numeric_features[:2]}];base['statement']='Mock researcher: test an explicit interaction against unchanged split'
+    elif spec.categorical_features:
+        base['feature_ops']=[{'op':'frequency','columns':spec.categorical_features[:4]}];base['statement']='Mock researcher: fold-fitted rarity hypothesis'
+    return base

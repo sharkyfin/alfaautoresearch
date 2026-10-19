@@ -1,0 +1,13 @@
+.venv/
+.bootstrap/
+__pycache__/
+.pytest_cache/
+*.pyc
+artifacts/data/
+artifacts/official/*.html
+artifacts/official/*.download
+runs/
+.env
+submission.zip
+reports/stress/data/
+artifacts/official/render/
