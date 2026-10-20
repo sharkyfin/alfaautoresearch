@@ -212,3 +212,10 @@ def test_qwen_prompt_budget_blocks_request_before_network(monkeypatch):
     assert client.propose({'untrusted_data':{'description':'task'}}) is None
     assert client.open and not seen
     assert client.events[-1]['status']=='token_budget_exhausted'
+
+def test_researcher_capabilities_include_executor_weight_dsl(tmp_path):
+    from atlas.agent import researcher_context
+    data=load(read_inputs(create(tmp_path,'binary_imbalance')))
+    ctx=researcher_context(data,[],None,100)
+    for family,params in ctx['capabilities']['models'].items():
+        assert params['weight']==['none','sqrt','balanced']

@@ -190,3 +190,12 @@ def test_required_gap_is_never_silently_reduced(tmp_path):
     task=create(tmp_path,'future');task.write_text(task.read_text()+'\ngap_rows: 1000\n')
     data=load(read_inputs(task));s=design(data)
     assert s.kind=='unsupported_gap' and len(s.valid)==0
+
+def test_all_missing_categorical_profile_is_finite(tmp_path):
+    task=create(tmp_path)
+    for name in ['train.csv','test.csv']:
+        frame=pd.read_csv(tmp_path/name,dtype={'id':'string'});frame['category']=np.nan;frame.to_csv(tmp_path/name,index=False)
+    data=load(read_inputs(task));json.dumps(data.spec.json(),allow_nan=False)
+    assert data.spec.profile['columns']['category']['median_length']==0
+    s=design(data);p,t,info=fit_predict(data,{'model_family':'linear','params':{}},s.train,s.valid,threads=1)
+    assert np.isfinite(p).all();checkpoint(data,t)
