@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "/Users/mac/Documents/projects/alfaautoresearch/scripts/live_ablation.py", line 136, in <module>
+    if __name__=='__main__':raise SystemExit(main())
+                                             ^^^^^^
+  File "/Users/mac/Documents/projects/alfaautoresearch/scripts/live_ablation.py", line 87, in main
+    for col in data.spec.output_columns:
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'TaskSpec' object has no attribute 'output_columns'

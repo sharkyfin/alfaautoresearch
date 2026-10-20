@@ -1,0 +1,534 @@
+{
+  "status": "complete",
+  "manifest": {
+    "runtime_code_sha256": "8eeaf53a57a0eb34e56286a8b97f0eddf516c82a8cb4cd299fea1c4615191e60",
+    "frozen_files_sha256": {
+      "solution.py": "a651d3fddc75d24355d8f0e592dfa45557437326db272a6b817575b1c60c421d",
+      "atlas/__init__.py": "32652b410444c85705834dce792c30cc5dda339daf0ac2c02c7fe8444f6a0cc6",
+      "atlas/agent.py": "ec604bba1a51d035a217d022321d9eb10e5cf23649658a0434fc1696c8c8c2ab",
+      "atlas/budget.py": "061e5979e02f1afffc49855195aaa3f3c19a903180e6da649ebb8360357dc7a3",
+      "atlas/contract.py": "49467a2094bc895005b6256f1f8abaf11aa099854173a26afce1d72e736cca44",
+      "atlas/ensemble.py": "0a4bf941c7f91c063b4ad87fae4b7b5936c6735a598141766995082428d82c93",
+      "atlas/experiments.py": "828e8f28900330d7a3d81e1920febb8b4bf029cf846407903108f4c1796faa38",
+      "atlas/features.py": "b76c522ab7db2a0a8903d82347e85314c5a6f2e1c8417d88ce927bf09ab2ed17",
+      "atlas/judge.py": "4b2469ef5c98efb6beb9d2d44d808bff68d2056de1bbbfa07bebeb632ad8f0d4",
+      "atlas/metrics.py": "e9daad44ad2d88fcf9ff573614b06c2ec77537a7452dce31cc7499eacedb257f",
+      "atlas/models.py": "84ef392fcbbec8f8d9a6cffbd1633b5ca046ee531afb5c71bb3a71cae5a94599",
+      "atlas/orchestration.py": "9b501e54541555fc13fa4c1cc012e49187a163880fa9199772f5b2be6bcfb051",
+      "atlas/recipes.py": "c9f765a824d1307a4aac09ae86135ad901f2a5c08a2b372a56f72238f001c988",
+      "atlas/search.py": "b8803e489e970b66229efb4efcce15f9c3529213cd179fcb48a742e120d84636",
+      "atlas/submit.py": "f71f3653f6143862533d4d4f386ec5214f887ef6cd09fcf00702fe5e66a3496a",
+      "atlas/task.py": "4c29d4ffa0e1c6ae481cb9f65985b4e7f3d4ca2de7f1c574916f0076bd1dd99e",
+      "atlas/utils.py": "6c4737b8442961f0f1cce626cf932a6c05a62026db654030146e01f8b35be737",
+      "atlas/validation.py": "026f28390303a350e55ac6319b8ca7ffcc91d3385cda20912e947eba555284eb",
+      "atlas/worker.py": "8803ca07f8e709ff43b82fe6540848ace9e9af3eb7dbf4173a8856532aecb314",
+      "scripts/run_dev.py": "b1c8beb5858edbde76ad955d50570c42c473f73cfcdac47ab88715c476bdf95e",
+      "scripts/run_openrouter.py": "4443485f58b20e747833876a853cf05ba00ca4aefa0ee78479839b905c9ee4c1",
+      "scripts/openrouter_client.py": "8d75c8868744bd0e56b9ae8a8052f5ca836688c8f469b5bd0fe3b2276bf9ddd1",
+      "scripts/run_organizer.py": "ac2e91941be6129279f6615d812d0a1d766e80d5507cac586831e027870c7b30",
+      "scripts/live_ablation.py": "831df6fe1c1bbf83e197cb47180b80e91a510dbd660479f26f1584a44b760738"
+    },
+    "provider": "organizer",
+    "model": "qwen/qwen3.8-27b",
+    "seeds": [
+      17
+    ],
+    "tasks": [
+      "iid",
+      "integer_labels"
+    ],
+    "rows": 600,
+    "budget_seconds": 240.0,
+    "threads": 2,
+    "max_experiments": 12,
+    "max_calls_per_live_run": 2,
+    "max_live_calls": 4,
+    "quota_before": null,
+    "pid": 52434,
+    "started_at_unix": 1792517551.2432709,
+    "evaluation": "Original task metric, fixed common holdout; no test labels used",
+    "mode_order": "Alternating first variant across pairs; one process at a time"
+  },
+  "runs": [
+    {
+      "task": "iid",
+      "seed": 17,
+      "variant": "deterministic",
+      "input_sha256": {
+        "test.csv": "18c319f87a7cb75289f3cefa77b329da4ef2a5b82959f998792a6c11b6a006dc",
+        "task.md": "5b443640f648226abc8d3db73b0c702a53a540b76c6cf1a8d341a841bc682dae",
+        "train.csv": "1399bdeab20dccc860b5fd1815f38db096d7b2bd12c76925db1eca94d7c3d05b",
+        "data_dictionary.csv": "ddddf03c0125bd281674a8e23189ddf05f630b57972d384a3f6284e2bac4b47f",
+        "sample_submission.csv": "0d6671f149421b40ad6faa0d1f9f5e5678bcaf6925f2f9c4011efd2c50deb8e9"
+      },
+      "log": "runs/organizer-paired-v3/iid_17/deterministic.log",
+      "status": "ok",
+      "returncode": 0,
+      "controller_seconds": 27.62512404700101,
+      "runtime_code_sha256": "8eeaf53a57a0eb34e56286a8b97f0eddf516c82a8cb4cd299fea1c4615191e60",
+      "mode": "deterministic",
+      "budget_seconds": 240.0,
+      "elapsed_seconds": 27.371321666010772,
+      "first_checkpoint_latency": 1.1322307660011575,
+      "validation": {
+        "id": "e0398becaa955c3f",
+        "kind": "random",
+        "reason": "IID regression; no evidence for grouped/forward validation",
+        "seed": 17,
+        "train_rows": 480,
+        "valid_rows": 120
+      },
+      "metric": "rmse",
+      "dummy_utility": -2.577369806418841,
+      "experiments": 17,
+      "successful_experiments": 17,
+      "accepted_experiments": 7,
+      "champion_metric": 0.5371596763427791,
+      "champion_recipe": {
+        "model_family": "xgboost",
+        "params": {
+          "iterations": 500,
+          "max_depth": 6
+        },
+        "feature_ops": [
+          {
+            "op": "product",
+            "columns": [
+              "x0",
+              "x1"
+            ]
+          }
+        ],
+        "target_transform": "none",
+        "max_runtime_sec": 36.0,
+        "validation_plan_id": "e0398becaa955c3f",
+        "id": "local_5",
+        "statement": "Bounded numeric interaction may capture nonlinear rates",
+        "parent_experiment": "exp_0010"
+      },
+      "confirmation_metric": 0.34201670053028477,
+      "ensemble": {
+        "weights": [
+          0.75,
+          0.25
+        ],
+        "metric_value": 0.5921497227388296,
+        "confirmation_metric": 0.3325212286812973,
+        "robust_utility": -0.46233547571006345
+      },
+      "multipliers": null,
+      "qwen_calls": 0,
+      "qwen_proposals": 0,
+      "qwen_tokens": 0,
+      "qwen_events": [],
+      "max_live_worker_threads": 13,
+      "peak_worker_memory_mb": 145.5234375,
+      "cancelled": false,
+      "output": "/Users/mac/Documents/projects/alfaautoresearch/runs/organizer-paired-v3/iid_17/data/submission.csv",
+      "output_sha256": "3c2849c5d8ceaa90758021b998d8a3ee9fd6bda0288d795fc0aedc0ed4f3c4b6",
+      "full_refit_published": true,
+      "researcher_provider": "organizer-qwen",
+      "researcher_model": null,
+      "researcher_calls": 0,
+      "researcher_proposals": 0,
+      "researcher_tokens": 0,
+      "researcher_events": [],
+      "metric_direction": -1,
+      "selected_metric": 0.5921497227388296,
+      "live_fits": 0,
+      "live_accepted": 0,
+      "reported_live_cost_usd": null,
+      "organizer_reported_cost": null,
+      "output_valid": true
+    },
+    {
+      "task": "iid",
+      "seed": 17,
+      "variant": "organizer",
+      "input_sha256": {
+        "test.csv": "18c319f87a7cb75289f3cefa77b329da4ef2a5b82959f998792a6c11b6a006dc",
+        "task.md": "5b443640f648226abc8d3db73b0c702a53a540b76c6cf1a8d341a841bc682dae",
+        "train.csv": "1399bdeab20dccc860b5fd1815f38db096d7b2bd12c76925db1eca94d7c3d05b",
+        "data_dictionary.csv": "ddddf03c0125bd281674a8e23189ddf05f630b57972d384a3f6284e2bac4b47f",
+        "sample_submission.csv": "0d6671f149421b40ad6faa0d1f9f5e5678bcaf6925f2f9c4011efd2c50deb8e9"
+      },
+      "log": "runs/organizer-paired-v3/iid_17/organizer.log",
+      "status": "ok",
+      "returncode": 0,
+      "controller_seconds": 35.77219330899243,
+      "runtime_code_sha256": "8eeaf53a57a0eb34e56286a8b97f0eddf516c82a8cb4cd299fea1c4615191e60",
+      "mode": "live-agent",
+      "budget_seconds": 240.0,
+      "elapsed_seconds": 35.480366173011134,
+      "first_checkpoint_latency": 1.0569386249990202,
+      "validation": {
+        "id": "e0398becaa955c3f",
+        "kind": "random",
+        "reason": "IID regression; no evidence for grouped/forward validation",
+        "seed": 17,
+        "train_rows": 480,
+        "valid_rows": 120
+      },
+      "metric": "rmse",
+      "dummy_utility": -2.577369806418841,
+      "experiments": 17,
+      "successful_experiments": 17,
+      "accepted_experiments": 6,
+      "champion_metric": 0.5287640640565024,
+      "champion_recipe": {
+        "model_family": "xgboost",
+        "params": {
+          "iterations": 500,
+          "max_depth": 3,
+          "min_child_weight": 1
+        },
+        "feature_ops": [
+          {
+            "op": "product",
+            "columns": [
+              "x0",
+              "x1"
+            ]
+          }
+        ],
+        "target_transform": "none",
+        "max_runtime_sec": 36.0,
+        "validation_plan_id": "e0398becaa955c3f",
+        "id": "local_7",
+        "statement": "Focused local hyperparameter search around measured champion",
+        "parent_experiment": "exp_0008"
+      },
+      "confirmation_metric": 0.2890968963220334,
+      "ensemble": {
+        "weights": [
+          0.75,
+          0.25
+        ],
+        "metric_value": 0.5267031209371911,
+        "confirmation_metric": 0.28811475802119396,
+        "robust_utility": -0.40740893947919254
+      },
+      "multipliers": null,
+      "qwen_calls": 2,
+      "qwen_proposals": 2,
+      "qwen_tokens": 12339,
+      "qwen_events": [
+        {
+          "status": "api_usage",
+          "call": 1,
+          "response_model": "qwen/qwen3.8-27b",
+          "prompt_tokens": 5480,
+          "completion_tokens": 710,
+          "reported_cost": 0.30922254792
+        },
+        {
+          "status": "response",
+          "call": 1,
+          "tokens": 6190
+        },
+        {
+          "status": "api_usage",
+          "call": 2,
+          "response_model": "qwen/qwen3.8-27b",
+          "prompt_tokens": 5539,
+          "completion_tokens": 610,
+          "reported_cost": 0.283567093056
+        },
+        {
+          "status": "response",
+          "call": 2,
+          "tokens": 12339
+        }
+      ],
+      "max_live_worker_threads": 13,
+      "peak_worker_memory_mb": 145.19140625,
+      "cancelled": false,
+      "output": "/Users/mac/Documents/projects/alfaautoresearch/runs/organizer-paired-v3/iid_17/data/submission.csv",
+      "output_sha256": "1fa6f92dd164466c7c458500cf5beec0d4175bd66eb99fe8b7d06e5a569e6d19",
+      "full_refit_published": true,
+      "researcher_provider": "organizer-qwen",
+      "researcher_model": "qwen/qwen3.8-27b",
+      "researcher_calls": 2,
+      "researcher_proposals": 2,
+      "researcher_tokens": 12339,
+      "researcher_events": [
+        {
+          "status": "api_usage",
+          "call": 1,
+          "response_model": "qwen/qwen3.8-27b",
+          "prompt_tokens": 5480,
+          "completion_tokens": 710,
+          "reported_cost": 0.30922254792
+        },
+        {
+          "status": "response",
+          "call": 1,
+          "tokens": 6190
+        },
+        {
+          "status": "api_usage",
+          "call": 2,
+          "response_model": "qwen/qwen3.8-27b",
+          "prompt_tokens": 5539,
+          "completion_tokens": 610,
+          "reported_cost": 0.283567093056
+        },
+        {
+          "status": "response",
+          "call": 2,
+          "tokens": 12339
+        }
+      ],
+      "metric_direction": -1,
+      "selected_metric": 0.5267031209371911,
+      "live_fits": 2,
+      "live_accepted": 1,
+      "reported_live_cost_usd": null,
+      "organizer_reported_cost": 0.592789640976,
+      "output_valid": true
+    },
+    {
+      "task": "integer_labels",
+      "seed": 17,
+      "variant": "organizer",
+      "input_sha256": {
+        "test.csv": "18c319f87a7cb75289f3cefa77b329da4ef2a5b82959f998792a6c11b6a006dc",
+        "task.md": "20909a07f97fa931cc066078b4caab8c17646a7b0605c6c74800058059fcd328",
+        "train.csv": "be70ca61e985df81a9dfae5c2e509bbc33ea1a3978dc7be10dd02bda2cbe103f",
+        "data_dictionary.csv": "ddddf03c0125bd281674a8e23189ddf05f630b57972d384a3f6284e2bac4b47f",
+        "sample_submission.csv": "02a36ab1bbda4fa5e8b4cc9ed4c8780670f9c3474bea4158df8eb84a98276bd6"
+      },
+      "log": "runs/organizer-paired-v3/integer_labels_17/organizer.log",
+      "status": "ok",
+      "returncode": 0,
+      "controller_seconds": 52.381435142990085,
+      "runtime_code_sha256": "8eeaf53a57a0eb34e56286a8b97f0eddf516c82a8cb4cd299fea1c4615191e60",
+      "mode": "live-agent",
+      "budget_seconds": 240.0,
+      "elapsed_seconds": 52.116922462999355,
+      "first_checkpoint_latency": 1.0838345119991573,
+      "validation": {
+        "id": "fabc69d449d0edea",
+        "kind": "stratified",
+        "reason": "IID classification",
+        "seed": 17,
+        "train_rows": 480,
+        "valid_rows": 120
+      },
+      "metric": "f1_macro",
+      "dummy_utility": 0.1818181818181818,
+      "experiments": 16,
+      "successful_experiments": 16,
+      "accepted_experiments": 5,
+      "champion_metric": 0.8989944918251257,
+      "champion_recipe": {
+        "model_family": "lightgbm",
+        "params": {
+          "iterations": 500,
+          "num_leaves": 63,
+          "min_child_samples": 100,
+          "weight": "sqrt",
+          "reg_lambda": 0.0
+        },
+        "feature_ops": [
+          {
+            "op": "ratio",
+            "columns": [
+              "x0",
+              "x1"
+            ]
+          }
+        ],
+        "target_transform": "none",
+        "max_runtime_sec": 36.0,
+        "validation_plan_id": "fabc69d449d0edea",
+        "id": "local_7",
+        "statement": "Focused local hyperparameter search around measured champion",
+        "parent_experiment": "exp_0010"
+      },
+      "confirmation_metric": 0.8838656470235419,
+      "ensemble": null,
+      "multipliers": null,
+      "qwen_calls": 2,
+      "qwen_proposals": 2,
+      "qwen_tokens": 5987,
+      "qwen_events": [
+        {
+          "status": "api_failure",
+          "exception_class": "TimeoutError",
+          "call": 1
+        },
+        {
+          "status": "api_usage",
+          "call": 2,
+          "response_model": "qwen/qwen3.8-27b",
+          "prompt_tokens": 5294,
+          "completion_tokens": 693,
+          "reported_cost": 0.300638417976
+        },
+        {
+          "status": "response",
+          "call": 2,
+          "tokens": 5987
+        }
+      ],
+      "max_live_worker_threads": 13,
+      "peak_worker_memory_mb": 141.76171875,
+      "cancelled": false,
+      "output": "/Users/mac/Documents/projects/alfaautoresearch/runs/organizer-paired-v3/integer_labels_17/data/submission.csv",
+      "output_sha256": "8665406b9ba1c3746c7f55ecb39b5c7add9da87848d0c9d80d39435c01c201de",
+      "full_refit_published": true,
+      "researcher_provider": "organizer-qwen",
+      "researcher_model": "qwen/qwen3.8-27b",
+      "researcher_calls": 2,
+      "researcher_proposals": 2,
+      "researcher_tokens": 5987,
+      "researcher_events": [
+        {
+          "status": "api_failure",
+          "exception_class": "TimeoutError",
+          "call": 1
+        },
+        {
+          "status": "api_usage",
+          "call": 2,
+          "response_model": "qwen/qwen3.8-27b",
+          "prompt_tokens": 5294,
+          "completion_tokens": 693,
+          "reported_cost": 0.300638417976
+        },
+        {
+          "status": "response",
+          "call": 2,
+          "tokens": 5987
+        }
+      ],
+      "metric_direction": 1,
+      "selected_metric": 0.8989944918251257,
+      "live_fits": 1,
+      "live_accepted": 0,
+      "reported_live_cost_usd": null,
+      "organizer_reported_cost": 0.300638417976,
+      "output_valid": true
+    },
+    {
+      "task": "integer_labels",
+      "seed": 17,
+      "variant": "deterministic",
+      "input_sha256": {
+        "test.csv": "18c319f87a7cb75289f3cefa77b329da4ef2a5b82959f998792a6c11b6a006dc",
+        "task.md": "20909a07f97fa931cc066078b4caab8c17646a7b0605c6c74800058059fcd328",
+        "train.csv": "be70ca61e985df81a9dfae5c2e509bbc33ea1a3978dc7be10dd02bda2cbe103f",
+        "data_dictionary.csv": "ddddf03c0125bd281674a8e23189ddf05f630b57972d384a3f6284e2bac4b47f",
+        "sample_submission.csv": "02a36ab1bbda4fa5e8b4cc9ed4c8780670f9c3474bea4158df8eb84a98276bd6"
+      },
+      "log": "runs/organizer-paired-v3/integer_labels_17/deterministic.log",
+      "status": "ok",
+      "returncode": 0,
+      "controller_seconds": 26.67599212800269,
+      "runtime_code_sha256": "8eeaf53a57a0eb34e56286a8b97f0eddf516c82a8cb4cd299fea1c4615191e60",
+      "mode": "deterministic",
+      "budget_seconds": 240.0,
+      "elapsed_seconds": 26.38427715099533,
+      "first_checkpoint_latency": 1.06737912799872,
+      "validation": {
+        "id": "fabc69d449d0edea",
+        "kind": "stratified",
+        "reason": "IID classification",
+        "seed": 17,
+        "train_rows": 480,
+        "valid_rows": 120
+      },
+      "metric": "f1_macro",
+      "dummy_utility": 0.1818181818181818,
+      "experiments": 16,
+      "successful_experiments": 16,
+      "accepted_experiments": 4,
+      "champion_metric": 0.8703639681167772,
+      "champion_recipe": {
+        "model_family": "lightgbm",
+        "params": {
+          "iterations": 500,
+          "num_leaves": 31,
+          "min_child_samples": 30,
+          "weight": "sqrt"
+        },
+        "feature_ops": [
+          {
+            "op": "ratio",
+            "columns": [
+              "x0",
+              "x1"
+            ]
+          }
+        ],
+        "target_transform": "none",
+        "max_runtime_sec": 36.0,
+        "validation_plan_id": "fabc69d449d0edea",
+        "id": "local_4",
+        "statement": "Bounded numeric interaction may capture nonlinear rates",
+        "parent_experiment": "exp_0007"
+      },
+      "confirmation_metric": 0.877101409603442,
+      "ensemble": null,
+      "multipliers": null,
+      "qwen_calls": 0,
+      "qwen_proposals": 0,
+      "qwen_tokens": 0,
+      "qwen_events": [],
+      "max_live_worker_threads": 24,
+      "peak_worker_memory_mb": 157.328125,
+      "cancelled": false,
+      "output": "/Users/mac/Documents/projects/alfaautoresearch/runs/organizer-paired-v3/integer_labels_17/data/submission.csv",
+      "output_sha256": "9f5b2243e629335059c2c66671b4b8683c3a6a0f1c38dff3972b2be82a1fce62",
+      "full_refit_published": true,
+      "researcher_provider": "organizer-qwen",
+      "researcher_model": null,
+      "researcher_calls": 0,
+      "researcher_proposals": 0,
+      "researcher_tokens": 0,
+      "researcher_events": [],
+      "metric_direction": 1,
+      "selected_metric": 0.8703639681167772,
+      "live_fits": 0,
+      "live_accepted": 0,
+      "reported_live_cost_usd": null,
+      "organizer_reported_cost": null,
+      "output_valid": true
+    }
+  ],
+  "pairs": [
+    {
+      "task": "iid",
+      "seed": 17,
+      "status": "compared",
+      "metric": "rmse",
+      "deterministic": 0.5921497227388296,
+      "organizer": 0.5267031209371911,
+      "utility_difference": 0.06544660180163853,
+      "relative_improvement": 0.11052373966998218,
+      "deterministic_seconds": 27.371321666010772,
+      "live_seconds": 35.480366173011134,
+      "live_calls": 2,
+      "live_fits": 2,
+      "live_accepted": 1
+    },
+    {
+      "task": "integer_labels",
+      "seed": 17,
+      "status": "compared",
+      "metric": "f1_macro",
+      "deterministic": 0.8703639681167772,
+      "organizer": 0.8989944918251257,
+      "utility_difference": 0.02863052370834851,
+      "relative_improvement": 0.03289488622822577,
+      "deterministic_seconds": 26.38427715099533,
+      "live_seconds": 52.116922462999355,
+      "live_calls": 2,
+      "live_fits": 1,
+      "live_accepted": 0
+    }
+  ],
+  "quota_after": null,
+  "finished_at_unix": 1792517693.8830311
+}

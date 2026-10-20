@@ -1,0 +1,7 @@
+{
+  "status": "resolved",
+  "command": "uv pip compile artifacts/official/requirements-folder.txt --python-version 3.12 --python-platform linux --no-header -o .bootstrap/official-linux-resolved.txt",
+  "source_sha256": "9173b0388532fbd2a709e4f4b3029e3b9ccab685fce43a85261ffa1ba95efbe6",
+  "resolved_sha256": "062b09b1c79522163f722bfdcd79eb35df603b6d060c66cea738e6b2a0961351",
+  "note": "Resolution only; not full environment installation. Earlier wheels-only attempt failed because json2html is source-only; ordinary source metadata resolution succeeded."
+}

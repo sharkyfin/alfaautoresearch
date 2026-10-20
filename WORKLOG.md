@@ -85,3 +85,70 @@ All 154 tests passed against unchanged runtime digest
 99d4c0b96295fe16e018fba0f83ba27c91b0400854a028d384660208d8bbe244.
 The official archive was rebuilt and verified with scripts/finalize_release.py;
 source and archive digests match the 154-test result.
+
+## Organizer access and corrected platform upload contract
+
+The user supplied organizer access and a new Drive instruction. Chrome read the
+complete public Markdown; a verbatim copy is artifacts/official/qwen-access-guide.md.
+This explicitly supersedes the prior nested-archive assumption: Boosters copies
+only root .py files and root requirements.txt, then runs python3 solution.py task.md
+in the task directory. The former archive is withdrawn as incompatible with this
+clarification; earlier extraction checks did not simulate that copy filter.
+
+Organizer credentials are stored only in ignored .env.organizer.local (0600).
+The first JSON smoke succeeded with qwen/qwen3.8-27b, 122 reported tokens.
+A genuine Qwen recipe subsequently compiled and fitted an XGBoost candidate,
+which the independent judge accepted. A frozen equal-budget campaign is recorded
+under organizer-paired-v1; it is distinct from the completed free OpenRouter
+campaign (8 pairs: 3 wins, 3 losses, 2 ties, median normalized gain zero).
+No consistent LLM quality advantage is claimed.
+
+The root-only builder stages unchanged own modules as flat Python files plus a
+bootstrap that verifies hashes and recreates the package under allowed /tmp.
+It bundles the Drive-folder requirements verbatim. The new verifier copies only
+eligible root files into a fresh task cwd, checks a fitted checkpoint, sends
+SIGTERM and compares the runtime code digest. No keys, datasets or third-party
+packages enter the archive. OPENAI_MODEL is now optional, as the official proxy
+substitutes the task model. Requests use the explicitly approved httpx 0.28.1.
+
+Offline comparison on four current contexts found a 10KB cap retained objective
+and complete executor capabilities while reducing conservative request estimates
+from 7.6–8.5K to 6.2–6.6K tokens. The previous 14KB cap sometimes exhausted the
+16K per-run token allowance after one response. The smaller cap is undergoing
+live validation; old campaign snapshots remain immutable. Full Linux/Python3.12
+resolution of the official dependency file succeeded; this is not a full image
+installation. The initial wheels-only attempt failed on source-only json2html;
+normal metadata resolution succeeded without changing the official requirements.
+
+Lima v2.2.1 was downloaded locally and its release digest verified. A VZ/Ubuntu
+24.04 configuration validates with 8CPU/8GiB and no host mounts; the home folder
+and key files will not be exposed to the guest. Exact Linux execution remains
+pending until a measured linux-verification.json is produced. Physical 32GiB
+conditions and the actual platform route cannot be reproduced on this 16GiB Mac.
+
+Organizer-paired-v1 completed: 16 valid runs / 8 pairs, one win, no losses,
+seven ties, median normalized improvement zero. Fourteen live requests produced
+two fitted Qwen recipes, one accepted; most failures were bounded API timeouts.
+Reported costs of received responses sum to 0.9019238703696 (the response schema
+does not name currency; timed-out requests may have unreported cost). This is
+not a complete billing audit. The updated 10KB/httpx source is now checked in
+organizer-paired-v2 on three tasks at equal 240s limits within each pair. V1
+used 120s, so differences between campaign versions are not attributable solely
+to prompt compaction. No significance or consistent quality gain is claimed.
+
+The live development proxy contradicted the guide's claim that arbitrary model
+names are accepted: provided-task-model returned HTTP403 key_model_access_denied.
+The optional OPENAI_MODEL fallback now uses the exact documented Qwen model name;
+no endpoint or key is embedded. organizer-paired-v3 explicitly passed --omit-model,
+confirming the two-variable environment: four API calls, three fitted recipes,
+one accepted. Its two equal-budget pairs improved RMSE 0.592150 -> 0.526703 and
+Macro F1 0.870364 -> 0.898994. This small sample does not establish significance.
+
+The full suite then found a real signal-handler race: 158 passed / 1 failed,
+source unchanged. Immediately after the first CSV appeared, SIGTERM could arrive
+before handler installation, yielding -15. run() now installs/restores signal
+handlers around the entire orchestration, including initial checkpoint setup.
+A deterministic subprocess regression test injects SIGTERM exactly after that
+atomic publication; both signal tests pass. The failure log is preserved as
+reports/tests-f6cefadcf2.log. A new full suite and current-source live pair precede
+packaging and Linux execution; no failed suite is treated as a release pass.

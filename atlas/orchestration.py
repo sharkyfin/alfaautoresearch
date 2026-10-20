@@ -20,6 +20,18 @@ from .ensemble import choose_blend,tune_multipliers,adjust_probabilities
 def emit(event,**values):print(json.dumps({'event':event,**values},ensure_ascii=False,allow_nan=False),flush=True)
 
 def run(task_path,started=None,budget_seconds=10500,mode='auto',seed=42,threads=8,max_experiments=30,memory_mb=24576,run_dir=None,strict=True,research_client=None):
+    # Install before the first atomic CSV becomes visible. A platform SIGTERM
+    # immediately after that checkpoint must take the graceful path as well.
+    stop={'requested':False}
+    def handle_signal(signum,frame):stop['requested']=True
+    old_handlers={s:signal.signal(s,handle_signal) for s in (signal.SIGTERM,signal.SIGINT)}
+    try:
+        return _run(task_path,started,budget_seconds,mode,seed,threads,max_experiments,memory_mb,run_dir,strict,research_client,stop)
+    finally:
+        for sig,handler in old_handlers.items():signal.signal(sig,handler)
+
+
+def _run(task_path,started,budget_seconds,mode,seed,threads,max_experiments,memory_mb,run_dir,strict,research_client,stop):
     source_digest=code_digest()
     start=started or time.monotonic();budget=Budget(float(budget_seconds),start)
     inputs=read_inputs(task_path);data=load(inputs,strict=strict)
@@ -35,9 +47,6 @@ def run(task_path,started=None,budget_seconds=10500,mode='auto',seed=42,threads=
         parent=inputs.task_path.parent/'.atlas';parent.mkdir(exist_ok=True)
         directory=Path(tempfile.mkdtemp(prefix=time.strftime('%Y%m%d_%H%M%S')+'_',dir=parent))
     (directory/'task_spec.json').write_text(json.dumps(data.spec.json(),ensure_ascii=False,indent=2,allow_nan=False))
-    stop={'requested':False}
-    def handle_signal(signum,frame):stop['requested']=True
-    old_handlers={s:signal.signal(s,handle_signal) for s in (signal.SIGTERM,signal.SIGINT)}
     history=[];finalists=[];family_best={};champion=None;confirmed={};blend=None;multipliers=None;refit_published=False
     split=design(data,seed);data.spec.validation_plan=split.json()
     data.spec.suspicious_leakage_features=leakage_signals(data,split.train)
@@ -172,7 +181,6 @@ def run(task_path,started=None,budget_seconds=10500,mode='auto',seed=42,threads=
         (directory/'error.txt').write_text(traceback.format_exc())
         return 0 if inputs.output.exists() else 1
     finally:
-        for sig,handler in old_handlers.items():signal.signal(sig,handler)
         summary={'runtime_code_sha256':source_digest,'mode':actual_mode,'budget_seconds':budget.total,'elapsed_seconds':time.monotonic()-start,'first_checkpoint_latency':first_latency,'validation':split.json(),'metric':data.spec.metric.name,'dummy_utility':initial_utility,'experiments':len(history),'successful_experiments':sum(r['status']=='ok' for r in history),'accepted_experiments':sum(r.get('accepted',False) for r in history),'champion_metric':champion['metric_value'] if champion else None,'champion_recipe':champion['recipe'] if champion else None,'confirmation_metric':champion.get('confirmation_metric') if champion else None,'ensemble':{k:v for k,v in blend.items() if k not in {'components','predictions'}} if blend else None,'multipliers':{k:v for k,v in multipliers.items() if k!='predictions'} if multipliers else None,'qwen_calls':qwen.requests,'qwen_proposals':qwen.calls,'qwen_tokens':qwen.tokens,'qwen_events':qwen.events,'max_live_worker_threads':max((r.get('max_live_threads',0) for r in history),default=0),'peak_worker_memory_mb':max((r['peak_memory_mb'] for r in history),default=0),'cancelled':stop['requested'],'output':str(inputs.output),'output_sha256':hashlib.sha256(inputs.output.read_bytes()).hexdigest() if inputs.output.exists() else None}
         summary['full_refit_published']=refit_published
         summary.update(researcher_provider=research_provider,researcher_model=qwen.model if qwen.configured else None,researcher_calls=qwen.requests,researcher_proposals=qwen.calls,researcher_tokens=qwen.tokens,researcher_events=qwen.events)

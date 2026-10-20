@@ -25,25 +25,31 @@ The prediction file present at timeout is evaluated; early completion permitted.
 Task inputs: train.csv, test.csv, data_dictionary.csv, sample_submission.csv.
 Public metrics RMSE and macro F1; private metrics unknown.
 
-## UNVERIFIED
+## Latest organizer clarification (takes precedence)
 
-- Evaluation endpoint/model values and whether Qwen route is reachable in evaluation container.
-- Maximum disk quota, cgroup layout, extra platform wrapper arguments and whether script.py on PDF p17 is a typo.
-- Exact private probability-column conventions and additional target types.
+Source: [official instruction](https://drive.google.com/file/d/17yxOkrdFHeQFX29iCz3f6noMs3l9cW2v/view),
+read in Chrome and downloaded verbatim as artifacts/official/qwen-access-guide.md.
 
-## BLOCKED
+- All uploaded files must be at ZIP root: solution.py, own .py modules, official requirements.txt.
+- Only root .py and requirements.txt are copied into the task directory. Nested atlas/ is discarded.
+- Exact invocation: python3 solution.py task.md, cwd is the task directory.
+- Runtime may create directories in the task folder and /tmp. Our flat bootstrap reconstructs only our own unchanged sources there; no packages or binaries are bundled.
+- ZIP limit 100MB; 8CPU, 32GB RAM, 10800 seconds.
+- Environment supplies OPENAI_BASE_URL and OPENAI_API_KEY. OPENAI_MODEL is optional. The guide promises model rewriting; a real development call with a generic name returned HTTP403 key_model_access_denied. Runtime therefore defaults to the guide's qwen/qwen3.8-27b name, still allowing an environment override.
+- Local development endpoint https://changellenge.up.railway.app/v1, model qwen/qwen3.8-27b. These values are NOT hardcoded in runtime.
+- Shared key budget 600RUB/day, reset 03:00 Moscow. Platform submission quota is separate.
+- User supplied organizer credentials; local JSON smoke succeeded and a real Qwen proposal compiled, fitted and passed independent scoring. See reports/organizer-protocol-smoke.json and organizer-paired reports.
 
-No organizer API credentials or actual organizer endpoint/model values provided. Live Qwen verification and true organizer-live-vs-deterministic ablation cannot run yet. Deterministic and mock-agent modes are tested independently.
+The former nested ZIP was incompatible with this clarification and is superseded.
+New verification must simulate the actual root-file copy filter, not extract and run nested modules.
 
-Docker is not installed on the development host: neither PATH nor standard
-Docker Desktop/Homebrew CLI paths contain it (rechecked 2026-10-20 Moscow).
-The macOS tests cannot verify Linux RLIMIT_AS, cgroups, the actual 8CPU/32GiB
-image, or its route to Qwen. Dockerfile.verify is prepared for an independent
-container check; it has not been executed.
+## Unverified environment details
 
-## Release policy
-
-Until all release gates pass, submission.zip is explicitly provisional. Public file download succeeded using the normal Drive download-confirmation form; access restrictions were not bypassed.
+Actual organizer image and platform network route, disk quota, cgroup layout,
+private probability schema and additional target types. A local Linux VM test
+cannot prove the platform route or physical 32GiB conditions on a 16GiB host.
+Current local execution gates are recorded in reports/final-release-audit.json.
+Public downloads used the normal Drive download-confirmation form.
 
 ## Public Markdown contract (CONFIRMED FROM FILE)
 
@@ -54,10 +60,10 @@ Both outputs have id then target; finite values / valid original labels, test ro
 Public regression explicitly describes contemporaneous observed weather: not a forecasting task.
 Public classification primary Macro F1 is distinguished from auxiliary accuracy and weighted F1.
 
-## API blocker confirmed by user
+## Development backends
 
-The user confirmed that organizer Qwen settings are not yet available. No live
-organizer-Qwen calls have been attempted.
+The earlier organizer-key blocker is resolved by the latest user message.
+Local key files remain ignored and are excluded from runtime workers and ZIP.
 
 On 2026-10-20 the user separately authorized a free OpenRouter backend for
 development and browser access to their account to obtain a key. OpenRouter's
@@ -74,3 +80,7 @@ The Drive folder contains a second requirements.txt (ID 1M4-df5jF4Zfni5R9_cmnTWQ
 It adds langchain-openai and omits requests/aiohttp compared with the PDF-linked
 file. All ATLAS runtime dependencies are in the intersection, at identical pins.
 Both versions are preserved under artifacts/official; neither is silently replaced.
+
+The ZIP uses the folder version verbatim as root requirements.txt. A Linux/Python3.12
+resolution of that complete file succeeded via uv pip compile (reports/official-requirements-resolution.log);
+this is dependency-resolution evidence, not an installation of the full organizer image.

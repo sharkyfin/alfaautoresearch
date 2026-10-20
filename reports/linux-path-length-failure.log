@@ -1,0 +1,8 @@
+Isolated Linux verification; no host directory mounts or API credentials.
+
+COMMAND ["start", "--name=atlas-verify", "--tty=false", "--mount-none", "/Users/mac/Documents/projects/alfaautoresearch/.bootstrap/atlas-linux.yaml"]
+time="2026-10-20T20:40:04+03:00" level=info msg="Terminal is not available, proceeding without opening an editor"
+time="2026-10-20T20:40:04+03:00" level=fatal msg="instance name `atlas-verify` too long: `/Users/mac/Documents/projects/alfaautoresearch/.bootstrap/lima-state/atlas-verify/ssh.sock.1234567890123456` must be less than UNIX_PATH_MAX=104 characters, but is 107"
+
+COMMAND ["stop", "--tty=false", "atlas-verify"]
+time="2026-10-20T20:40:04+03:00" level=fatal msg="open /Users/mac/Documents/projects/alfaautoresearch/.bootstrap/lima-state/atlas-verify/lima.yaml: no such file or directory"

@@ -1,0 +1,36 @@
+........................................................................ [ 45%]
+...................................................................F.... [ 90%]
+...............                                                          [100%]
+=================================== FAILURES ===================================
+_______________ test_sigterm_orchestrator_preserves_valid_output _______________
+tests/test_execution.py:125: in test_sigterm_orchestrator_preserves_valid_output
+    assert p.returncode==0
+E   AssertionError: assert -15 == 0
+E    +  where -15 = <Popen: returncode: -15 args: ['/Users/mac/Documents/projects/alfaautoresear...>.returncode
+=============================== warnings summary ===============================
+tests/test_core.py::test_real_model_apis[iid-lightgbm]
+  /Users/mac/Documents/projects/alfaautoresearch/.venv/lib/python3.12/site-packages/matplotlib/_fontconfig_pattern.py:64: PyparsingDeprecationWarning: 'oneOf' deprecated - use 'one_of'
+    prop = Group((name + Suppress("=") + comma_separated(value)) | oneOf(_CONSTANTS))
+
+tests/test_core.py::test_real_model_apis[iid-lightgbm]
+tests/test_core.py::test_real_model_apis[iid-lightgbm]
+tests/test_core.py::test_real_model_apis[iid-lightgbm]
+tests/test_core.py::test_real_model_apis[iid-lightgbm]
+tests/test_core.py::test_real_model_apis[iid-lightgbm]
+tests/test_core.py::test_real_model_apis[iid-lightgbm]
+  /Users/mac/Documents/projects/alfaautoresearch/.venv/lib/python3.12/site-packages/matplotlib/_fontconfig_pattern.py:85: PyparsingDeprecationWarning: 'parseString' deprecated - use 'parse_string'
+    parse = parser.parseString(pattern)
+
+tests/test_core.py::test_real_model_apis[iid-lightgbm]
+tests/test_core.py::test_real_model_apis[iid-lightgbm]
+tests/test_core.py::test_real_model_apis[iid-lightgbm]
+tests/test_core.py::test_real_model_apis[iid-lightgbm]
+tests/test_core.py::test_real_model_apis[iid-lightgbm]
+tests/test_core.py::test_real_model_apis[iid-lightgbm]
+  /Users/mac/Documents/projects/alfaautoresearch/.venv/lib/python3.12/site-packages/matplotlib/_fontconfig_pattern.py:89: PyparsingDeprecationWarning: 'resetCache' deprecated - use 'reset_cache'
+    parser.resetCache()
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/test_execution.py::test_sigterm_orchestrator_preserves_valid_output
+1 failed, 158 passed, 13 warnings in 57.98s

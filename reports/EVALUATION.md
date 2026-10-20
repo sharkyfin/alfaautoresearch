@@ -1,8 +1,8 @@
 # Evaluation evidence
 
-Current runtime source SHA256: `99d4c0b96295fe16e018fba0f83ba27c91b0400854a028d384660208d8bbe244`.
+Current runtime source SHA256: `b1fa509ddea5537172c227f44f74a6a8eb1f3b902532f535c52d02a117436e6e`.
 
-Automated suite: **154 passed**, 13 warnings in 71.89s.
+Automated suite: **160 passed**, 13 warnings in 62.97s.
 Command: `.venv/bin/python -m pytest tests -q --tb=short`.
 Warnings in the current suite are upstream Matplotlib/pyparsing deprecations. Historical failure logs are retained; all-tests.log is the current result.
 
@@ -95,9 +95,80 @@ Among 62 scored nondegenerate tasks: 59 gains, 1 losses, 2 ties versus a trainin
 
 Ambiguous dictionary targets and unsupported multi-target samples are classified as unsupported; these cases are not counted as successful model runs. Constant-target and one-class tasks receive a valid constant prediction.
 
-## Equal-budget ablation
+## Live equal-budget comparisons
 
-**Live organizer-Qwen ablation is BLOCKED:** user confirmed organizer credentials/endpoint/model settings are not available. Zero organizer-Qwen calls were made. The following is a mock-infrastructure comparison and cannot establish Qwen research value. A separately authorized OpenRouter development run is reported below and is not a Qwen ablation.
+### openrouter: complete
+
+Frozen runtime `99d4c0b96295fe16e018fba0f83ba27c91b0400854a028d384660208d8bbe244`; 90s per run, 2 configured threads, max 12 exploration fits. Same data, validation, seed and configured limits in each pair; variants run sequentially. The max-experiment cap can finish before the time limit.
+
+| Task | Seed | Deterministic | Live | Normalized gain | Deterministic seconds | Live seconds | Live fits / accepted |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| iid | 17 | 0.59215 | 0.520117 | 12.16% | 30.68 | 42.29 | 1 / 1 |
+| skew | 17 | 10.3535 | 9.15863 | 11.54% | 24.59 | 45.04 | 2 / 1 |
+| integer_labels | 17 | 0.900164 | 0.882175 | -2.00% | 29.19 | 45.27 | 2 / 0 |
+| multiclass_imbalance | 17 | 0.827867 | 0.827867 | 0.00% | 26.32 | 37.72 | 2 / 0 |
+| iid | 43 | 0.342654 | 0.342654 | -0.00% | 26.78 | 43.61 | 2 / 0 |
+| skew | 43 | 10.8688 | 12.8454 | -18.19% | 27.74 | 49.51 | 2 / 0 |
+| integer_labels | 43 | 0.827451 | 0.830569 | 0.38% | 26.55 | 36.54 | 2 / 0 |
+| multiclass_imbalance | 43 | 0.936499 | 0.924413 | -1.29% | 25.33 | 41.24 | 1 / 1 |
+
+8 pairs: 3 wins, 3 losses, 2 ties; median normalized improvement 0.00%. No statistical significance claim.
+Reported cost for this campaign was zero. Three wins, three losses and two ties do not establish consistent quality benefit. Some live proposals displace useful deterministic exploration under the fixed attempt cap; this motivates reducing research frequency.
+
+### organizer: complete
+
+Frozen runtime `297cd1660340ab5e6fc21f20ab664c4783800e189f65b5c4aac1252ca12c16f8`; 120s per run, 2 configured threads, max 12 exploration fits. Same data, validation, seed and configured limits in each pair; variants run sequentially. The max-experiment cap can finish before the time limit.
+
+| Task | Seed | Deterministic | Live | Normalized gain | Deterministic seconds | Live seconds | Live fits / accepted |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| iid | 17 | 0.59215 | 0.539781 | 8.84% | 32.68 | 35.03 | 1 / 1 |
+| skew | 17 | 10.2945 | 10.2945 | -0.00% | 29.21 | 50.26 | 0 / 0 |
+| integer_labels | 17 | 0.870364 | 0.870364 | 0.00% | 27.53 | 41.88 | 1 / 0 |
+| multiclass_imbalance | 17 | 0.827867 | 0.827867 | 0.00% | 30.72 | 47.25 | 0 / 0 |
+| iid | 43 | 0.335903 | 0.335903 | -0.00% | 35.11 | 51.08 | 0 / 0 |
+| skew | 43 | 12.8859 | 12.8859 | -0.00% | 41.25 | 49.28 | 0 / 0 |
+| integer_labels | 43 | 0.830304 | 0.830304 | 0.00% | 32.97 | 56.45 | 0 / 0 |
+| multiclass_imbalance | 43 | 0.936499 | 0.936499 | 0.00% | 28.53 | 30.85 | 0 / 0 |
+
+8 pairs: 1 wins, 0 losses, 7 ties; median normalized improvement -0.00%. No statistical significance claim.
+
+### organizer: complete
+
+Frozen runtime `beb2077d43d13e37db990734b32b03ef716b6fed27c647c8623b29749389bde5`; 240s per run, 2 configured threads, max 12 exploration fits. Same data, validation, seed and configured limits in each pair; variants run sequentially. The max-experiment cap can finish before the time limit.
+
+| Task | Seed | Deterministic | Live | Normalized gain | Deterministic seconds | Live seconds | Live fits / accepted |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| iid | 43 | 0.335903 | 0.335903 | -0.00% | 29.10 | 29.32 | 0 / 0 |
+| skew | 43 | 12.8859 | 12.8859 | -0.00% | 31.74 | 50.90 | 1 / 0 |
+| integer_labels | 43 | 0.830304 | 0.830304 | 0.00% | 31.26 | 71.43 | 0 / 0 |
+
+3 pairs: 0 wins, 0 losses, 3 ties; median normalized improvement -0.00%. No statistical significance claim.
+
+### organizer: complete
+
+Frozen runtime `8eeaf53a57a0eb34e56286a8b97f0eddf516c82a8cb4cd299fea1c4615191e60`; 240s per run, 2 configured threads, max 12 exploration fits. Same data, validation, seed and configured limits in each pair; variants run sequentially. The max-experiment cap can finish before the time limit.
+
+| Task | Seed | Deterministic | Live | Normalized gain | Deterministic seconds | Live seconds | Live fits / accepted |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| iid | 17 | 0.59215 | 0.526703 | 11.05% | 27.37 | 35.48 | 2 / 1 |
+| integer_labels | 17 | 0.870364 | 0.898994 | 3.29% | 26.38 | 52.12 | 1 / 0 |
+
+2 pairs: 2 wins, 0 losses, 0 ties; median normalized improvement 7.17%. No statistical significance claim.
+
+### organizer: complete
+
+Frozen runtime `b1fa509ddea5537172c227f44f74a6a8eb1f3b902532f535c52d02a117436e6e`; 240s per run, 2 configured threads, max 12 exploration fits. Same data, validation, seed and configured limits in each pair; variants run sequentially. The max-experiment cap can finish before the time limit.
+
+| Task | Seed | Deterministic | Live | Normalized gain | Deterministic seconds | Live seconds | Live fits / accepted |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| iid | 17 | 0.59215 | 0.520911 | 12.03% | 28.27 | 39.07 | 2 / 1 |
+
+1 pairs: 1 wins, 0 losses, 0 ties; median normalized improvement 12.03%. No statistical significance claim.
+
+
+## Historical mock infrastructure comparison
+
+The following older mock experiment cannot establish Qwen research value. Its source snapshot differs from the current live experiments.
 
 | Task | Seed | Deterministic | Mock agent | Utility difference | Deterministic seconds | Mock seconds |
 |---|---:|---:|---:|---:|---:|---:|
@@ -135,9 +206,9 @@ Scaled 3h scheduling simulation: nominal 10800s × 1/180 = 60s actual budget; se
 ## Release limits
 
 - macOS development host: 12 logical CPUs, 16 GiB RAM; worker threads capped at 8.
-- Docker is unavailable locally. Linux RLIMIT_AS path and exact 8-CPU/32-GiB Docker environment still require verification.
-- Archive was unpacked into a clean temporary directory and the official root CLI was exercised for regression and multiclass, with SIGTERM after a fitted checkpoint.
+- Linux container verification is recorded separately in linux-verification.json when available. A local 16GiB host cannot reproduce physical 32GiB conditions.
+- The new archive has only root Python files and official requirements.txt. verify_zip.py reproduces the platform copy filter and exact task cwd; its current results are in zip-verification.json.
 - No platform submission has been made. Daily team submission allowance cannot be inferred locally.
 - Pretrained models/external training datasets are absent from runtime and ZIP.
 
-The next most valuable experiment is a live organizer-Qwen paired ablation on the frozen suite at equal time budgets; first verify its endpoint and JSON protocol. Until settings are available, the archive remains explicitly provisional.
+The next quality experiment should preserve the deterministic exploration queue while reducing LLM frequency; verify its effect on skewed regression and minority-class F1 under equal budgets. Local verification status and remaining gates are in final-release-audit.json; no platform score is available.

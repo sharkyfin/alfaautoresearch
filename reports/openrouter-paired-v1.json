@@ -1,0 +1,63 @@
+{
+  "status": "aborted_before_training",
+  "manifest": {
+    "runtime_code_sha256": "99d4c0b96295fe16e018fba0f83ba27c91b0400854a028d384660208d8bbe244",
+    "frozen_files_sha256": {
+      "solution.py": "a651d3fddc75d24355d8f0e592dfa45557437326db272a6b817575b1c60c421d",
+      "atlas/__init__.py": "32652b410444c85705834dce792c30cc5dda339daf0ac2c02c7fe8444f6a0cc6",
+      "atlas/agent.py": "acc7a831fc17e4d922e042ff5c5f8e6378a6454c41c94f993875d4698b8ca923",
+      "atlas/budget.py": "061e5979e02f1afffc49855195aaa3f3c19a903180e6da649ebb8360357dc7a3",
+      "atlas/contract.py": "49467a2094bc895005b6256f1f8abaf11aa099854173a26afce1d72e736cca44",
+      "atlas/ensemble.py": "0a4bf941c7f91c063b4ad87fae4b7b5936c6735a598141766995082428d82c93",
+      "atlas/experiments.py": "828e8f28900330d7a3d81e1920febb8b4bf029cf846407903108f4c1796faa38",
+      "atlas/features.py": "b76c522ab7db2a0a8903d82347e85314c5a6f2e1c8417d88ce927bf09ab2ed17",
+      "atlas/judge.py": "4b2469ef5c98efb6beb9d2d44d808bff68d2056de1bbbfa07bebeb632ad8f0d4",
+      "atlas/metrics.py": "e9daad44ad2d88fcf9ff573614b06c2ec77537a7452dce31cc7499eacedb257f",
+      "atlas/models.py": "84ef392fcbbec8f8d9a6cffbd1633b5ca046ee531afb5c71bb3a71cae5a94599",
+      "atlas/orchestration.py": "9b501e54541555fc13fa4c1cc012e49187a163880fa9199772f5b2be6bcfb051",
+      "atlas/recipes.py": "c9f765a824d1307a4aac09ae86135ad901f2a5c08a2b372a56f72238f001c988",
+      "atlas/search.py": "b8803e489e970b66229efb4efcce15f9c3529213cd179fcb48a742e120d84636",
+      "atlas/submit.py": "f71f3653f6143862533d4d4f386ec5214f887ef6cd09fcf00702fe5e66a3496a",
+      "atlas/task.py": "4c29d4ffa0e1c6ae481cb9f65985b4e7f3d4ca2de7f1c574916f0076bd1dd99e",
+      "atlas/utils.py": "6c4737b8442961f0f1cce626cf932a6c05a62026db654030146e01f8b35be737",
+      "atlas/validation.py": "026f28390303a350e55ac6319b8ca7ffcc91d3385cda20912e947eba555284eb",
+      "atlas/worker.py": "8803ca07f8e709ff43b82fe6540848ace9e9af3eb7dbf4173a8856532aecb314",
+      "scripts/run_dev.py": "b1c8beb5858edbde76ad955d50570c42c473f73cfcdac47ab88715c476bdf95e",
+      "scripts/run_openrouter.py": "4443485f58b20e747833876a853cf05ba00ca4aefa0ee78479839b905c9ee4c1",
+      "scripts/openrouter_client.py": "8d75c8868744bd0e56b9ae8a8052f5ca836688c8f469b5bd0fe3b2276bf9ddd1"
+    },
+    "model": "minimax/minimax-m3.1-flash:free",
+    "seeds": [
+      17,
+      43
+    ],
+    "tasks": [
+      "iid",
+      "skew",
+      "integer_labels",
+      "multiclass_imbalance"
+    ],
+    "rows": 600,
+    "budget_seconds": 90.0,
+    "threads": 2,
+    "max_experiments": 12,
+    "max_calls_per_live_run": 2,
+    "max_live_calls": 16,
+    "quota_before": {
+      "free_model_daily_requests": {
+        "used": 3,
+        "limit": 50,
+        "remaining": 47
+      },
+      "reported_usage_usd": 0
+    },
+    "pid": 48181,
+    "started_at_unix": 1792511454.682922,
+    "evaluation": "Original task metric, fixed common holdout; no test labels used",
+    "mode_order": "Alternating first variant across pairs; one process at a time"
+  },
+  "runs": [],
+  "pairs": [],
+  "failure": "Development harness referred to nonexistent TaskSpec.output_columns; corrected to actual sample columns",
+  "live_calls": 0
+}

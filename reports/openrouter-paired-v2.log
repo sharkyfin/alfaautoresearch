@@ -1,0 +1,16 @@
+{"completed": 1, "total": 16, "task": "iid", "seed": 17, "variant": "deterministic", "status": "ok", "score": 0.5921497227388296, "calls": 0, "seconds": 30.97}
+{"completed": 2, "total": 16, "task": "iid", "seed": 17, "variant": "openrouter", "status": "ok", "score": 0.5201174174171611, "calls": 2, "seconds": 42.55}
+{"completed": 3, "total": 16, "task": "skew", "seed": 17, "variant": "openrouter", "status": "ok", "score": 9.158631461945019, "calls": 2, "seconds": 45.34}
+{"completed": 4, "total": 16, "task": "skew", "seed": 17, "variant": "deterministic", "status": "ok", "score": 10.3534932919225, "calls": 0, "seconds": 24.85}
+{"completed": 5, "total": 16, "task": "integer_labels", "seed": 17, "variant": "deterministic", "status": "ok", "score": 0.9001642036124794, "calls": 0, "seconds": 29.39}
+{"completed": 6, "total": 16, "task": "integer_labels", "seed": 17, "variant": "openrouter", "status": "ok", "score": 0.8821747856230614, "calls": 2, "seconds": 45.55}
+{"completed": 7, "total": 16, "task": "multiclass_imbalance", "seed": 17, "variant": "openrouter", "status": "ok", "score": 0.8278666354938823, "calls": 2, "seconds": 37.98}
+{"completed": 8, "total": 16, "task": "multiclass_imbalance", "seed": 17, "variant": "deterministic", "status": "ok", "score": 0.8278666354938823, "calls": 0, "seconds": 26.52}
+{"completed": 9, "total": 16, "task": "iid", "seed": 43, "variant": "openrouter", "status": "ok", "score": 0.3426540624829526, "calls": 2, "seconds": 43.84}
+{"completed": 10, "total": 16, "task": "iid", "seed": 43, "variant": "deterministic", "status": "ok", "score": 0.3426540624829526, "calls": 0, "seconds": 27.02}
+{"completed": 11, "total": 16, "task": "skew", "seed": 43, "variant": "deterministic", "status": "ok", "score": 10.868807678933187, "calls": 0, "seconds": 27.96}
+{"completed": 12, "total": 16, "task": "skew", "seed": 43, "variant": "openrouter", "status": "ok", "score": 12.845389900411439, "calls": 2, "seconds": 49.74}
+{"completed": 13, "total": 16, "task": "integer_labels", "seed": 43, "variant": "openrouter", "status": "ok", "score": 0.83056884635832, "calls": 2, "seconds": 36.78}
+{"completed": 14, "total": 16, "task": "integer_labels", "seed": 43, "variant": "deterministic", "status": "ok", "score": 0.8274513114938647, "calls": 0, "seconds": 26.77}
+{"completed": 15, "total": 16, "task": "multiclass_imbalance", "seed": 43, "variant": "deterministic", "status": "ok", "score": 0.9364988558352403, "calls": 0, "seconds": 25.54}
+{"completed": 16, "total": 16, "task": "multiclass_imbalance", "seed": 43, "variant": "openrouter", "status": "ok", "score": 0.9244126659856997, "calls": 2, "seconds": 41.47}

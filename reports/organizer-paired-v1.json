@@ -1,0 +1,1750 @@
+{
+  "status": "complete",
+  "manifest": {
+    "runtime_code_sha256": "297cd1660340ab5e6fc21f20ab664c4783800e189f65b5c4aac1252ca12c16f8",
+    "frozen_files_sha256": {
+      "solution.py": "a651d3fddc75d24355d8f0e592dfa45557437326db272a6b817575b1c60c421d",
+      "atlas/__init__.py": "32652b410444c85705834dce792c30cc5dda339daf0ac2c02c7fe8444f6a0cc6",
+      "atlas/agent.py": "32d6e05f764814cc43118daa5e10e64cb21fe684f327eb2faf831d8cf56da7d7",
+      "atlas/budget.py": "061e5979e02f1afffc49855195aaa3f3c19a903180e6da649ebb8360357dc7a3",
+      "atlas/contract.py": "49467a2094bc895005b6256f1f8abaf11aa099854173a26afce1d72e736cca44",
+      "atlas/ensemble.py": "0a4bf941c7f91c063b4ad87fae4b7b5936c6735a598141766995082428d82c93",
+      "atlas/experiments.py": "828e8f28900330d7a3d81e1920febb8b4bf029cf846407903108f4c1796faa38",
+      "atlas/features.py": "b76c522ab7db2a0a8903d82347e85314c5a6f2e1c8417d88ce927bf09ab2ed17",
+      "atlas/judge.py": "4b2469ef5c98efb6beb9d2d44d808bff68d2056de1bbbfa07bebeb632ad8f0d4",
+      "atlas/metrics.py": "e9daad44ad2d88fcf9ff573614b06c2ec77537a7452dce31cc7499eacedb257f",
+      "atlas/models.py": "84ef392fcbbec8f8d9a6cffbd1633b5ca046ee531afb5c71bb3a71cae5a94599",
+      "atlas/orchestration.py": "9b501e54541555fc13fa4c1cc012e49187a163880fa9199772f5b2be6bcfb051",
+      "atlas/recipes.py": "c9f765a824d1307a4aac09ae86135ad901f2a5c08a2b372a56f72238f001c988",
+      "atlas/search.py": "b8803e489e970b66229efb4efcce15f9c3529213cd179fcb48a742e120d84636",
+      "atlas/submit.py": "f71f3653f6143862533d4d4f386ec5214f887ef6cd09fcf00702fe5e66a3496a",
+      "atlas/task.py": "4c29d4ffa0e1c6ae481cb9f65985b4e7f3d4ca2de7f1c574916f0076bd1dd99e",
+      "atlas/utils.py": "6c4737b8442961f0f1cce626cf932a6c05a62026db654030146e01f8b35be737",
+      "atlas/validation.py": "026f28390303a350e55ac6319b8ca7ffcc91d3385cda20912e947eba555284eb",
+      "atlas/worker.py": "8803ca07f8e709ff43b82fe6540848ace9e9af3eb7dbf4173a8856532aecb314",
+      "scripts/run_dev.py": "b1c8beb5858edbde76ad955d50570c42c473f73cfcdac47ab88715c476bdf95e",
+      "scripts/run_openrouter.py": "4443485f58b20e747833876a853cf05ba00ca4aefa0ee78479839b905c9ee4c1",
+      "scripts/openrouter_client.py": "8d75c8868744bd0e56b9ae8a8052f5ca836688c8f469b5bd0fe3b2276bf9ddd1",
+      "scripts/run_organizer.py": "cc127dc699781465a0ed8e017a1efd6a77a65180c1609b3ec076fb99de9cdd95",
+      "scripts/live_ablation.py": "bf1becf2f7fcc3eb626d383dd86d5891779087976bb499ae5c19165c0379696e"
+    },
+    "provider": "organizer",
+    "model": "qwen/qwen3.8-27b",
+    "seeds": [
+      17,
+      43
+    ],
+    "tasks": [
+      "iid",
+      "skew",
+      "integer_labels",
+      "multiclass_imbalance"
+    ],
+    "rows": 600,
+    "budget_seconds": 120.0,
+    "threads": 2,
+    "max_experiments": 12,
+    "max_calls_per_live_run": 2,
+    "max_live_calls": 16,
+    "quota_before": null,
+    "pid": 50343,
+    "started_at_unix": 1792516603.410898,
+    "evaluation": "Original task metric, fixed common holdout; no test labels used",
+    "mode_order": "Alternating first variant across pairs; one process at a time"
+  },
+  "runs": [
+    {
+      "task": "iid",
+      "seed": 17,
+      "variant": "deterministic",
+      "input_sha256": {
+        "test.csv": "18c319f87a7cb75289f3cefa77b329da4ef2a5b82959f998792a6c11b6a006dc",
+        "task.md": "5b443640f648226abc8d3db73b0c702a53a540b76c6cf1a8d341a841bc682dae",
+        "train.csv": "1399bdeab20dccc860b5fd1815f38db096d7b2bd12c76925db1eca94d7c3d05b",
+        "data_dictionary.csv": "ddddf03c0125bd281674a8e23189ddf05f630b57972d384a3f6284e2bac4b47f",
+        "sample_submission.csv": "0d6671f149421b40ad6faa0d1f9f5e5678bcaf6925f2f9c4011efd2c50deb8e9"
+      },
+      "log": "runs/organizer-paired-v1/iid_17/deterministic.log",
+      "status": "ok",
+      "returncode": 0,
+      "controller_seconds": 32.96401156799402,
+      "runtime_code_sha256": "297cd1660340ab5e6fc21f20ab664c4783800e189f65b5c4aac1252ca12c16f8",
+      "mode": "deterministic",
+      "budget_seconds": 120.0,
+      "elapsed_seconds": 32.68239326099865,
+      "first_checkpoint_latency": 1.3880558439996094,
+      "validation": {
+        "id": "e0398becaa955c3f",
+        "kind": "random",
+        "reason": "IID regression; no evidence for grouped/forward validation",
+        "seed": 17,
+        "train_rows": 480,
+        "valid_rows": 120
+      },
+      "metric": "rmse",
+      "dummy_utility": -2.577369806418841,
+      "experiments": 17,
+      "successful_experiments": 17,
+      "accepted_experiments": 7,
+      "champion_metric": 0.5371596763427791,
+      "champion_recipe": {
+        "model_family": "xgboost",
+        "params": {
+          "iterations": 500,
+          "max_depth": 6
+        },
+        "feature_ops": [
+          {
+            "op": "product",
+            "columns": [
+              "x0",
+              "x1"
+            ]
+          }
+        ],
+        "target_transform": "none",
+        "max_runtime_sec": 18.0,
+        "validation_plan_id": "e0398becaa955c3f",
+        "id": "local_5",
+        "statement": "Bounded numeric interaction may capture nonlinear rates",
+        "parent_experiment": "exp_0010"
+      },
+      "confirmation_metric": 0.34201670053028477,
+      "ensemble": {
+        "weights": [
+          0.75,
+          0.25
+        ],
+        "metric_value": 0.5921497227388296,
+        "confirmation_metric": 0.3325212286812973,
+        "robust_utility": -0.46233547571006345
+      },
+      "multipliers": null,
+      "qwen_calls": 0,
+      "qwen_proposals": 0,
+      "qwen_tokens": 0,
+      "qwen_events": [],
+      "max_live_worker_threads": 13,
+      "peak_worker_memory_mb": 146.13671875,
+      "cancelled": false,
+      "output": "/Users/mac/Documents/projects/alfaautoresearch/runs/organizer-paired-v1/iid_17/data/submission.csv",
+      "output_sha256": "3c2849c5d8ceaa90758021b998d8a3ee9fd6bda0288d795fc0aedc0ed4f3c4b6",
+      "full_refit_published": true,
+      "researcher_provider": "organizer-qwen",
+      "researcher_model": null,
+      "researcher_calls": 0,
+      "researcher_proposals": 0,
+      "researcher_tokens": 0,
+      "researcher_events": [],
+      "metric_direction": -1,
+      "selected_metric": 0.5921497227388296,
+      "live_fits": 0,
+      "live_accepted": 0,
+      "reported_live_cost_usd": null,
+      "organizer_reported_cost": null,
+      "output_valid": true
+    },
+    {
+      "task": "iid",
+      "seed": 17,
+      "variant": "organizer",
+      "input_sha256": {
+        "test.csv": "18c319f87a7cb75289f3cefa77b329da4ef2a5b82959f998792a6c11b6a006dc",
+        "task.md": "5b443640f648226abc8d3db73b0c702a53a540b76c6cf1a8d341a841bc682dae",
+        "train.csv": "1399bdeab20dccc860b5fd1815f38db096d7b2bd12c76925db1eca94d7c3d05b",
+        "data_dictionary.csv": "ddddf03c0125bd281674a8e23189ddf05f630b57972d384a3f6284e2bac4b47f",
+        "sample_submission.csv": "0d6671f149421b40ad6faa0d1f9f5e5678bcaf6925f2f9c4011efd2c50deb8e9"
+      },
+      "log": "runs/organizer-paired-v1/iid_17/organizer.log",
+      "status": "ok",
+      "returncode": 0,
+      "controller_seconds": 35.4649084929988,
+      "runtime_code_sha256": "297cd1660340ab5e6fc21f20ab664c4783800e189f65b5c4aac1252ca12c16f8",
+      "mode": "live-agent",
+      "budget_seconds": 120.0,
+      "elapsed_seconds": 35.02771344000939,
+      "first_checkpoint_latency": 1.188235899011488,
+      "validation": {
+        "id": "e0398becaa955c3f",
+        "kind": "random",
+        "reason": "IID regression; no evidence for grouped/forward validation",
+        "seed": 17,
+        "train_rows": 480,
+        "valid_rows": 120
+      },
+      "metric": "rmse",
+      "dummy_utility": -2.577369806418841,
+      "experiments": 16,
+      "successful_experiments": 16,
+      "accepted_experiments": 8,
+      "champion_metric": 0.5397806507539359,
+      "champion_recipe": {
+        "model_family": "xgboost",
+        "params": {
+          "iterations": 1000,
+          "max_depth": 5,
+          "learning_rate": 0.05,
+          "min_child_weight": 5,
+          "reg_lambda": 1.0,
+          "subsample": 0.9,
+          "colsample_bytree": 0.9
+        },
+        "feature_ops": [
+          {
+            "op": "product",
+            "columns": [
+              "x0",
+              "x1"
+            ]
+          }
+        ],
+        "target_transform": "none",
+        "max_runtime_sec": 18.0,
+        "validation_plan_id": "e0398becaa955c3f",
+        "id": "local_5",
+        "statement": "Bounded numeric interaction may capture nonlinear rates",
+        "parent_experiment": "exp_0010"
+      },
+      "confirmation_metric": 0.23425425402053698,
+      "ensemble": null,
+      "multipliers": null,
+      "qwen_calls": 1,
+      "qwen_proposals": 2,
+      "qwen_tokens": 8954,
+      "qwen_events": [
+        {
+          "status": "api_usage",
+          "call": 1,
+          "response_model": "qwen/qwen3.8-27b",
+          "prompt_tokens": 8249,
+          "completion_tokens": 705,
+          "reported_cost": 0.367523545896
+        },
+        {
+          "status": "response",
+          "call": 1,
+          "tokens": 8954
+        },
+        {
+          "status": "token_budget_exhausted"
+        }
+      ],
+      "max_live_worker_threads": 13,
+      "peak_worker_memory_mb": 140.84375,
+      "cancelled": false,
+      "output": "/Users/mac/Documents/projects/alfaautoresearch/runs/organizer-paired-v1/iid_17/data/submission.csv",
+      "output_sha256": "1b8b04be115a1d723a7098581bcccc27f37abe2e7144ad2bed7c635bb8fbe29e",
+      "full_refit_published": true,
+      "researcher_provider": "organizer-qwen",
+      "researcher_model": "qwen/qwen3.8-27b",
+      "researcher_calls": 1,
+      "researcher_proposals": 2,
+      "researcher_tokens": 8954,
+      "researcher_events": [
+        {
+          "status": "api_usage",
+          "call": 1,
+          "response_model": "qwen/qwen3.8-27b",
+          "prompt_tokens": 8249,
+          "completion_tokens": 705,
+          "reported_cost": 0.367523545896
+        },
+        {
+          "status": "response",
+          "call": 1,
+          "tokens": 8954
+        },
+        {
+          "status": "token_budget_exhausted"
+        }
+      ],
+      "metric_direction": -1,
+      "selected_metric": 0.5397806507539359,
+      "live_fits": 1,
+      "live_accepted": 1,
+      "reported_live_cost_usd": null,
+      "organizer_reported_cost": 0.367523545896,
+      "output_valid": true
+    },
+    {
+      "task": "skew",
+      "seed": 17,
+      "variant": "organizer",
+      "input_sha256": {
+        "test.csv": "18c319f87a7cb75289f3cefa77b329da4ef2a5b82959f998792a6c11b6a006dc",
+        "task.md": "5b443640f648226abc8d3db73b0c702a53a540b76c6cf1a8d341a841bc682dae",
+        "train.csv": "e4badb1273afd2f28140e6315e35d7ac051f9a292e080396aefca40da75fe45f",
+        "data_dictionary.csv": "ddddf03c0125bd281674a8e23189ddf05f630b57972d384a3f6284e2bac4b47f",
+        "sample_submission.csv": "0d6671f149421b40ad6faa0d1f9f5e5678bcaf6925f2f9c4011efd2c50deb8e9"
+      },
+      "log": "runs/organizer-paired-v1/skew_17/organizer.log",
+      "status": "ok",
+      "returncode": 0,
+      "controller_seconds": 50.490142018010374,
+      "runtime_code_sha256": "297cd1660340ab5e6fc21f20ab664c4783800e189f65b5c4aac1252ca12c16f8",
+      "mode": "live-agent",
+      "budget_seconds": 120.0,
+      "elapsed_seconds": 50.25971193400619,
+      "first_checkpoint_latency": 1.1870317720022285,
+      "validation": {
+        "id": "e0398becaa955c3f",
+        "kind": "random",
+        "reason": "IID regression; no evidence for grouped/forward validation",
+        "seed": 17,
+        "train_rows": 480,
+        "valid_rows": 120
+      },
+      "metric": "rmse",
+      "dummy_utility": -42.2324691012357,
+      "experiments": 16,
+      "successful_experiments": 16,
+      "accepted_experiments": 4,
+      "champion_metric": 10.294473373702743,
+      "champion_recipe": {
+        "model_family": "xgboost",
+        "params": {
+          "iterations": 500,
+          "max_depth": 6
+        },
+        "feature_ops": [
+          {
+            "op": "clip",
+            "columns": [
+              "x0",
+              "x1",
+              "x2",
+              "x3",
+              "x4"
+            ]
+          }
+        ],
+        "target_transform": "none",
+        "max_runtime_sec": 18.0,
+        "validation_plan_id": "e0398becaa955c3f",
+        "id": "local_6",
+        "statement": "Fold-fitted clipped copies may reduce outlier sensitivity while retaining originals",
+        "parent_experiment": "exp_0006"
+      },
+      "confirmation_metric": 17.2196278719715,
+      "ensemble": null,
+      "multipliers": null,
+      "qwen_calls": 2,
+      "qwen_proposals": 2,
+      "qwen_tokens": 0,
+      "qwen_events": [
+        {
+          "status": "api_failure",
+          "exception_class": "TimeoutError",
+          "call": 1
+        },
+        {
+          "status": "api_failure",
+          "exception_class": "TimeoutError",
+          "call": 2
+        }
+      ],
+      "max_live_worker_threads": 13,
+      "peak_worker_memory_mb": 146.56640625,
+      "cancelled": false,
+      "output": "/Users/mac/Documents/projects/alfaautoresearch/runs/organizer-paired-v1/skew_17/data/submission.csv",
+      "output_sha256": "3f64f328969e3142042059ca647817de28008c93515c1b39fa4951c80a154bf1",
+      "full_refit_published": true,
+      "researcher_provider": "organizer-qwen",
+      "researcher_model": "qwen/qwen3.8-27b",
+      "researcher_calls": 2,
+      "researcher_proposals": 2,
+      "researcher_tokens": 0,
+      "researcher_events": [
+        {
+          "status": "api_failure",
+          "exception_class": "TimeoutError",
+          "call": 1
+        },
+        {
+          "status": "api_failure",
+          "exception_class": "TimeoutError",
+          "call": 2
+        }
+      ],
+      "metric_direction": -1,
+      "selected_metric": 10.294473373702743,
+      "live_fits": 0,
+      "live_accepted": 0,
+      "reported_live_cost_usd": null,
+      "organizer_reported_cost": null,
+      "output_valid": true
+    },
+    {
+      "task": "skew",
+      "seed": 17,
+      "variant": "deterministic",
+      "input_sha256": {
+        "test.csv": "18c319f87a7cb75289f3cefa77b329da4ef2a5b82959f998792a6c11b6a006dc",
+        "task.md": "5b443640f648226abc8d3db73b0c702a53a540b76c6cf1a8d341a841bc682dae",
+        "train.csv": "e4badb1273afd2f28140e6315e35d7ac051f9a292e080396aefca40da75fe45f",
+        "data_dictionary.csv": "ddddf03c0125bd281674a8e23189ddf05f630b57972d384a3f6284e2bac4b47f",
+        "sample_submission.csv": "0d6671f149421b40ad6faa0d1f9f5e5678bcaf6925f2f9c4011efd2c50deb8e9"
+      },
+      "log": "runs/organizer-paired-v1/skew_17/deterministic.log",
+      "status": "ok",
+      "returncode": 0,
+      "controller_seconds": 29.43991840099625,
+      "runtime_code_sha256": "297cd1660340ab5e6fc21f20ab664c4783800e189f65b5c4aac1252ca12c16f8",
+      "mode": "deterministic",
+      "budget_seconds": 120.0,
+      "elapsed_seconds": 29.205305401002988,
+      "first_checkpoint_latency": 1.11297235400707,
+      "validation": {
+        "id": "e0398becaa955c3f",
+        "kind": "random",
+        "reason": "IID regression; no evidence for grouped/forward validation",
+        "seed": 17,
+        "train_rows": 480,
+        "valid_rows": 120
+      },
+      "metric": "rmse",
+      "dummy_utility": -42.2324691012357,
+      "experiments": 16,
+      "successful_experiments": 16,
+      "accepted_experiments": 4,
+      "champion_metric": 10.294473373702743,
+      "champion_recipe": {
+        "model_family": "xgboost",
+        "params": {
+          "iterations": 500,
+          "max_depth": 6
+        },
+        "feature_ops": [
+          {
+            "op": "clip",
+            "columns": [
+              "x0",
+              "x1",
+              "x2",
+              "x3",
+              "x4"
+            ]
+          }
+        ],
+        "target_transform": "none",
+        "max_runtime_sec": 18.0,
+        "validation_plan_id": "e0398becaa955c3f",
+        "id": "local_6",
+        "statement": "Fold-fitted clipped copies may reduce outlier sensitivity while retaining originals",
+        "parent_experiment": "exp_0006"
+      },
+      "confirmation_metric": 17.2196278719715,
+      "ensemble": null,
+      "multipliers": null,
+      "qwen_calls": 0,
+      "qwen_proposals": 0,
+      "qwen_tokens": 0,
+      "qwen_events": [],
+      "max_live_worker_threads": 13,
+      "peak_worker_memory_mb": 146.94140625,
+      "cancelled": false,
+      "output": "/Users/mac/Documents/projects/alfaautoresearch/runs/organizer-paired-v1/skew_17/data/submission.csv",
+      "output_sha256": "3f64f328969e3142042059ca647817de28008c93515c1b39fa4951c80a154bf1",
+      "full_refit_published": true,
+      "researcher_provider": "organizer-qwen",
+      "researcher_model": null,
+      "researcher_calls": 0,
+      "researcher_proposals": 0,
+      "researcher_tokens": 0,
+      "researcher_events": [],
+      "metric_direction": -1,
+      "selected_metric": 10.294473373702743,
+      "live_fits": 0,
+      "live_accepted": 0,
+      "reported_live_cost_usd": null,
+      "organizer_reported_cost": null,
+      "output_valid": true
+    },
+    {
+      "task": "integer_labels",
+      "seed": 17,
+      "variant": "deterministic",
+      "input_sha256": {
+        "test.csv": "18c319f87a7cb75289f3cefa77b329da4ef2a5b82959f998792a6c11b6a006dc",
+        "task.md": "20909a07f97fa931cc066078b4caab8c17646a7b0605c6c74800058059fcd328",
+        "train.csv": "be70ca61e985df81a9dfae5c2e509bbc33ea1a3978dc7be10dd02bda2cbe103f",
+        "data_dictionary.csv": "ddddf03c0125bd281674a8e23189ddf05f630b57972d384a3f6284e2bac4b47f",
+        "sample_submission.csv": "02a36ab1bbda4fa5e8b4cc9ed4c8780670f9c3474bea4158df8eb84a98276bd6"
+      },
+      "log": "runs/organizer-paired-v1/integer_labels_17/deterministic.log",
+      "status": "ok",
+      "returncode": 0,
+      "controller_seconds": 27.744198098007473,
+      "runtime_code_sha256": "297cd1660340ab5e6fc21f20ab664c4783800e189f65b5c4aac1252ca12c16f8",
+      "mode": "deterministic",
+      "budget_seconds": 120.0,
+      "elapsed_seconds": 27.532777200001874,
+      "first_checkpoint_latency": 1.212884070002474,
+      "validation": {
+        "id": "fabc69d449d0edea",
+        "kind": "stratified",
+        "reason": "IID classification",
+        "seed": 17,
+        "train_rows": 480,
+        "valid_rows": 120
+      },
+      "metric": "f1_macro",
+      "dummy_utility": 0.1818181818181818,
+      "experiments": 16,
+      "successful_experiments": 16,
+      "accepted_experiments": 4,
+      "champion_metric": 0.8703639681167772,
+      "champion_recipe": {
+        "model_family": "lightgbm",
+        "params": {
+          "iterations": 500,
+          "num_leaves": 31,
+          "min_child_samples": 30,
+          "weight": "sqrt"
+        },
+        "feature_ops": [
+          {
+            "op": "ratio",
+            "columns": [
+              "x0",
+              "x1"
+            ]
+          }
+        ],
+        "target_transform": "none",
+        "max_runtime_sec": 18.0,
+        "validation_plan_id": "fabc69d449d0edea",
+        "id": "local_4",
+        "statement": "Bounded numeric interaction may capture nonlinear rates",
+        "parent_experiment": "exp_0007"
+      },
+      "confirmation_metric": 0.877101409603442,
+      "ensemble": null,
+      "multipliers": null,
+      "qwen_calls": 0,
+      "qwen_proposals": 0,
+      "qwen_tokens": 0,
+      "qwen_events": [],
+      "max_live_worker_threads": 13,
+      "peak_worker_memory_mb": 158.8203125,
+      "cancelled": false,
+      "output": "/Users/mac/Documents/projects/alfaautoresearch/runs/organizer-paired-v1/integer_labels_17/data/submission.csv",
+      "output_sha256": "9f5b2243e629335059c2c66671b4b8683c3a6a0f1c38dff3972b2be82a1fce62",
+      "full_refit_published": true,
+      "researcher_provider": "organizer-qwen",
+      "researcher_model": null,
+      "researcher_calls": 0,
+      "researcher_proposals": 0,
+      "researcher_tokens": 0,
+      "researcher_events": [],
+      "metric_direction": 1,
+      "selected_metric": 0.8703639681167772,
+      "live_fits": 0,
+      "live_accepted": 0,
+      "reported_live_cost_usd": null,
+      "organizer_reported_cost": null,
+      "output_valid": true
+    },
+    {
+      "task": "integer_labels",
+      "seed": 17,
+      "variant": "organizer",
+      "input_sha256": {
+        "test.csv": "18c319f87a7cb75289f3cefa77b329da4ef2a5b82959f998792a6c11b6a006dc",
+        "task.md": "20909a07f97fa931cc066078b4caab8c17646a7b0605c6c74800058059fcd328",
+        "train.csv": "be70ca61e985df81a9dfae5c2e509bbc33ea1a3978dc7be10dd02bda2cbe103f",
+        "data_dictionary.csv": "ddddf03c0125bd281674a8e23189ddf05f630b57972d384a3f6284e2bac4b47f",
+        "sample_submission.csv": "02a36ab1bbda4fa5e8b4cc9ed4c8780670f9c3474bea4158df8eb84a98276bd6"
+      },
+      "log": "runs/organizer-paired-v1/integer_labels_17/organizer.log",
+      "status": "ok",
+      "returncode": 0,
+      "controller_seconds": 42.13025330399978,
+      "runtime_code_sha256": "297cd1660340ab5e6fc21f20ab664c4783800e189f65b5c4aac1252ca12c16f8",
+      "mode": "live-agent",
+      "budget_seconds": 120.0,
+      "elapsed_seconds": 41.88250360800885,
+      "first_checkpoint_latency": 1.1019911129988031,
+      "validation": {
+        "id": "fabc69d449d0edea",
+        "kind": "stratified",
+        "reason": "IID classification",
+        "seed": 17,
+        "train_rows": 480,
+        "valid_rows": 120
+      },
+      "metric": "f1_macro",
+      "dummy_utility": 0.1818181818181818,
+      "experiments": 16,
+      "successful_experiments": 16,
+      "accepted_experiments": 4,
+      "champion_metric": 0.8703639681167772,
+      "champion_recipe": {
+        "model_family": "lightgbm",
+        "params": {
+          "iterations": 500,
+          "num_leaves": 31,
+          "min_child_samples": 30,
+          "weight": "sqrt"
+        },
+        "feature_ops": [
+          {
+            "op": "ratio",
+            "columns": [
+              "x0",
+              "x1"
+            ]
+          }
+        ],
+        "target_transform": "none",
+        "max_runtime_sec": 18.0,
+        "validation_plan_id": "fabc69d449d0edea",
+        "id": "local_4",
+        "statement": "Bounded numeric interaction may capture nonlinear rates",
+        "parent_experiment": "exp_0007"
+      },
+      "confirmation_metric": 0.877101409603442,
+      "ensemble": null,
+      "multipliers": null,
+      "qwen_calls": 2,
+      "qwen_proposals": 2,
+      "qwen_tokens": 7265,
+      "qwen_events": [
+        {
+          "status": "api_failure",
+          "exception_class": "TimeoutError",
+          "call": 1
+        },
+        {
+          "status": "api_usage",
+          "call": 2,
+          "response_model": "qwen/qwen3.8-27b",
+          "prompt_tokens": 6542,
+          "completion_tokens": 723,
+          "reported_cost": 0.335599629768
+        },
+        {
+          "status": "response",
+          "call": 2,
+          "tokens": 7265
+        }
+      ],
+      "max_live_worker_threads": 13,
+      "peak_worker_memory_mb": 140.66015625,
+      "cancelled": false,
+      "output": "/Users/mac/Documents/projects/alfaautoresearch/runs/organizer-paired-v1/integer_labels_17/data/submission.csv",
+      "output_sha256": "9f5b2243e629335059c2c66671b4b8683c3a6a0f1c38dff3972b2be82a1fce62",
+      "full_refit_published": true,
+      "researcher_provider": "organizer-qwen",
+      "researcher_model": "qwen/qwen3.8-27b",
+      "researcher_calls": 2,
+      "researcher_proposals": 2,
+      "researcher_tokens": 7265,
+      "researcher_events": [
+        {
+          "status": "api_failure",
+          "exception_class": "TimeoutError",
+          "call": 1
+        },
+        {
+          "status": "api_usage",
+          "call": 2,
+          "response_model": "qwen/qwen3.8-27b",
+          "prompt_tokens": 6542,
+          "completion_tokens": 723,
+          "reported_cost": 0.335599629768
+        },
+        {
+          "status": "response",
+          "call": 2,
+          "tokens": 7265
+        }
+      ],
+      "metric_direction": 1,
+      "selected_metric": 0.8703639681167772,
+      "live_fits": 1,
+      "live_accepted": 0,
+      "reported_live_cost_usd": null,
+      "organizer_reported_cost": 0.335599629768,
+      "output_valid": true
+    },
+    {
+      "task": "multiclass_imbalance",
+      "seed": 17,
+      "variant": "organizer",
+      "input_sha256": {
+        "test.csv": "18c319f87a7cb75289f3cefa77b329da4ef2a5b82959f998792a6c11b6a006dc",
+        "task.md": "20909a07f97fa931cc066078b4caab8c17646a7b0605c6c74800058059fcd328",
+        "train.csv": "2187ad1722dcbb924c0261a8fa90e385164c30778891a8c74f790862955cb39b",
+        "data_dictionary.csv": "c8eba9f11d08e4ca679e1ca32a50830f4eb5ad3ac1cd21668a866a8b794f0f2a",
+        "sample_submission.csv": "4e03b6aa8f594ccfe7d6e209df2ec53c1146ef66cd0644c2fced7f41ceaecf6a"
+      },
+      "log": "runs/organizer-paired-v1/multiclass_imbalance_17/organizer.log",
+      "status": "ok",
+      "returncode": 0,
+      "controller_seconds": 47.475775322003756,
+      "runtime_code_sha256": "297cd1660340ab5e6fc21f20ab664c4783800e189f65b5c4aac1252ca12c16f8",
+      "mode": "live-agent",
+      "budget_seconds": 120.0,
+      "elapsed_seconds": 47.25023083099222,
+      "first_checkpoint_latency": 1.0322033099946566,
+      "validation": {
+        "id": "c7855d9ed94f022c",
+        "kind": "stratified",
+        "reason": "IID classification",
+        "seed": 17,
+        "train_rows": 480,
+        "valid_rows": 120
+      },
+      "metric": "f1_macro",
+      "dummy_utility": 0.2838915470494418,
+      "experiments": 16,
+      "successful_experiments": 16,
+      "accepted_experiments": 4,
+      "champion_metric": 0.8278666354938823,
+      "champion_recipe": {
+        "model_family": "lightgbm",
+        "params": {
+          "iterations": 500,
+          "num_leaves": 31,
+          "min_child_samples": 30,
+          "weight": "sqrt",
+          "stopping_metric": "primary"
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 18.0,
+        "validation_plan_id": "c7855d9ed94f022c",
+        "id": "candidate",
+        "statement": "Measured minority-weighted booster with early stopping on the actual primary metric",
+        "parent_experiment": null
+      },
+      "confirmation_metric": 0.8053571428571429,
+      "ensemble": null,
+      "multipliers": null,
+      "qwen_calls": 2,
+      "qwen_proposals": 2,
+      "qwen_tokens": 0,
+      "qwen_events": [
+        {
+          "status": "api_failure",
+          "exception_class": "TimeoutError",
+          "call": 1
+        },
+        {
+          "status": "api_failure",
+          "exception_class": "TimeoutError",
+          "call": 2
+        }
+      ],
+      "max_live_worker_threads": 13,
+      "peak_worker_memory_mb": 163.8046875,
+      "cancelled": false,
+      "output": "/Users/mac/Documents/projects/alfaautoresearch/runs/organizer-paired-v1/multiclass_imbalance_17/data/submission.csv",
+      "output_sha256": "40f40c70cc5d7ebd0716e07cd2c14abf29973b5f9c4a70189d2f5ff3e48af7e0",
+      "full_refit_published": true,
+      "researcher_provider": "organizer-qwen",
+      "researcher_model": "qwen/qwen3.8-27b",
+      "researcher_calls": 2,
+      "researcher_proposals": 2,
+      "researcher_tokens": 0,
+      "researcher_events": [
+        {
+          "status": "api_failure",
+          "exception_class": "TimeoutError",
+          "call": 1
+        },
+        {
+          "status": "api_failure",
+          "exception_class": "TimeoutError",
+          "call": 2
+        }
+      ],
+      "metric_direction": 1,
+      "selected_metric": 0.8278666354938823,
+      "live_fits": 0,
+      "live_accepted": 0,
+      "reported_live_cost_usd": null,
+      "organizer_reported_cost": null,
+      "output_valid": true
+    },
+    {
+      "task": "multiclass_imbalance",
+      "seed": 17,
+      "variant": "deterministic",
+      "input_sha256": {
+        "test.csv": "18c319f87a7cb75289f3cefa77b329da4ef2a5b82959f998792a6c11b6a006dc",
+        "task.md": "20909a07f97fa931cc066078b4caab8c17646a7b0605c6c74800058059fcd328",
+        "train.csv": "2187ad1722dcbb924c0261a8fa90e385164c30778891a8c74f790862955cb39b",
+        "data_dictionary.csv": "c8eba9f11d08e4ca679e1ca32a50830f4eb5ad3ac1cd21668a866a8b794f0f2a",
+        "sample_submission.csv": "4e03b6aa8f594ccfe7d6e209df2ec53c1146ef66cd0644c2fced7f41ceaecf6a"
+      },
+      "log": "runs/organizer-paired-v1/multiclass_imbalance_17/deterministic.log",
+      "status": "ok",
+      "returncode": 0,
+      "controller_seconds": 30.928197950997856,
+      "runtime_code_sha256": "297cd1660340ab5e6fc21f20ab664c4783800e189f65b5c4aac1252ca12c16f8",
+      "mode": "deterministic",
+      "budget_seconds": 120.0,
+      "elapsed_seconds": 30.715472507014056,
+      "first_checkpoint_latency": 1.2385525910067372,
+      "validation": {
+        "id": "c7855d9ed94f022c",
+        "kind": "stratified",
+        "reason": "IID classification",
+        "seed": 17,
+        "train_rows": 480,
+        "valid_rows": 120
+      },
+      "metric": "f1_macro",
+      "dummy_utility": 0.2838915470494418,
+      "experiments": 16,
+      "successful_experiments": 16,
+      "accepted_experiments": 4,
+      "champion_metric": 0.8278666354938823,
+      "champion_recipe": {
+        "model_family": "lightgbm",
+        "params": {
+          "iterations": 500,
+          "num_leaves": 31,
+          "min_child_samples": 30,
+          "weight": "sqrt",
+          "stopping_metric": "primary"
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 18.0,
+        "validation_plan_id": "c7855d9ed94f022c",
+        "id": "candidate",
+        "statement": "Measured minority-weighted booster with early stopping on the actual primary metric",
+        "parent_experiment": null
+      },
+      "confirmation_metric": 0.8053571428571429,
+      "ensemble": null,
+      "multipliers": null,
+      "qwen_calls": 0,
+      "qwen_proposals": 0,
+      "qwen_tokens": 0,
+      "qwen_events": [],
+      "max_live_worker_threads": 13,
+      "peak_worker_memory_mb": 148.7578125,
+      "cancelled": false,
+      "output": "/Users/mac/Documents/projects/alfaautoresearch/runs/organizer-paired-v1/multiclass_imbalance_17/data/submission.csv",
+      "output_sha256": "40f40c70cc5d7ebd0716e07cd2c14abf29973b5f9c4a70189d2f5ff3e48af7e0",
+      "full_refit_published": true,
+      "researcher_provider": "organizer-qwen",
+      "researcher_model": null,
+      "researcher_calls": 0,
+      "researcher_proposals": 0,
+      "researcher_tokens": 0,
+      "researcher_events": [],
+      "metric_direction": 1,
+      "selected_metric": 0.8278666354938823,
+      "live_fits": 0,
+      "live_accepted": 0,
+      "reported_live_cost_usd": null,
+      "organizer_reported_cost": null,
+      "output_valid": true
+    },
+    {
+      "task": "iid",
+      "seed": 43,
+      "variant": "organizer",
+      "input_sha256": {
+        "test.csv": "8faf644ea855affa92164d0e488fa0417d4e35b38099b5c89bde489d4765960a",
+        "task.md": "5b443640f648226abc8d3db73b0c702a53a540b76c6cf1a8d341a841bc682dae",
+        "train.csv": "acdfa765e7de042b24cf4e1c5ac0b3a77cfc06801f83dec7cfbcdde6bb21df00",
+        "data_dictionary.csv": "ddddf03c0125bd281674a8e23189ddf05f630b57972d384a3f6284e2bac4b47f",
+        "sample_submission.csv": "0d6671f149421b40ad6faa0d1f9f5e5678bcaf6925f2f9c4011efd2c50deb8e9"
+      },
+      "log": "runs/organizer-paired-v1/iid_43/organizer.log",
+      "status": "ok",
+      "returncode": 0,
+      "controller_seconds": 51.312882780999644,
+      "runtime_code_sha256": "297cd1660340ab5e6fc21f20ab664c4783800e189f65b5c4aac1252ca12c16f8",
+      "mode": "live-agent",
+      "budget_seconds": 120.0,
+      "elapsed_seconds": 51.084893394989194,
+      "first_checkpoint_latency": 1.1054745489964262,
+      "validation": {
+        "id": "0530233375e66a90",
+        "kind": "random",
+        "reason": "IID regression; no evidence for grouped/forward validation",
+        "seed": 43,
+        "train_rows": 480,
+        "valid_rows": 120
+      },
+      "metric": "rmse",
+      "dummy_utility": -2.3249184869126767,
+      "experiments": 17,
+      "successful_experiments": 17,
+      "accepted_experiments": 5,
+      "champion_metric": 0.3549409249971781,
+      "champion_recipe": {
+        "model_family": "xgboost",
+        "params": {
+          "iterations": 500,
+          "max_depth": 6
+        },
+        "feature_ops": [
+          {
+            "op": "clip",
+            "columns": [
+              "x0",
+              "x1",
+              "x2",
+              "x3",
+              "x4"
+            ]
+          }
+        ],
+        "target_transform": "none",
+        "max_runtime_sec": 18.0,
+        "validation_plan_id": "0530233375e66a90",
+        "id": "local_6",
+        "statement": "Fold-fitted clipped copies may reduce outlier sensitivity while retaining originals",
+        "parent_experiment": "exp_0011"
+      },
+      "confirmation_metric": 0.4036707705927002,
+      "ensemble": {
+        "weights": [
+          0.5,
+          0.5
+        ],
+        "metric_value": 0.3359026154975937,
+        "confirmation_metric": 0.40250514601422444,
+        "robust_utility": -0.36920388075590904
+      },
+      "multipliers": null,
+      "qwen_calls": 2,
+      "qwen_proposals": 2,
+      "qwen_tokens": 0,
+      "qwen_events": [
+        {
+          "status": "api_failure",
+          "exception_class": "TimeoutError",
+          "call": 1
+        },
+        {
+          "status": "api_failure",
+          "exception_class": "TimeoutError",
+          "call": 2
+        }
+      ],
+      "max_live_worker_threads": 13,
+      "peak_worker_memory_mb": 147.609375,
+      "cancelled": false,
+      "output": "/Users/mac/Documents/projects/alfaautoresearch/runs/organizer-paired-v1/iid_43/data/submission.csv",
+      "output_sha256": "1bbd698938af4837571c3d33d13774f78ed451f27885dee45ec06bb9b4501838",
+      "full_refit_published": true,
+      "researcher_provider": "organizer-qwen",
+      "researcher_model": "qwen/qwen3.8-27b",
+      "researcher_calls": 2,
+      "researcher_proposals": 2,
+      "researcher_tokens": 0,
+      "researcher_events": [
+        {
+          "status": "api_failure",
+          "exception_class": "TimeoutError",
+          "call": 1
+        },
+        {
+          "status": "api_failure",
+          "exception_class": "TimeoutError",
+          "call": 2
+        }
+      ],
+      "metric_direction": -1,
+      "selected_metric": 0.3359026154975937,
+      "live_fits": 0,
+      "live_accepted": 0,
+      "reported_live_cost_usd": null,
+      "organizer_reported_cost": null,
+      "output_valid": true
+    },
+    {
+      "task": "iid",
+      "seed": 43,
+      "variant": "deterministic",
+      "input_sha256": {
+        "test.csv": "8faf644ea855affa92164d0e488fa0417d4e35b38099b5c89bde489d4765960a",
+        "task.md": "5b443640f648226abc8d3db73b0c702a53a540b76c6cf1a8d341a841bc682dae",
+        "train.csv": "acdfa765e7de042b24cf4e1c5ac0b3a77cfc06801f83dec7cfbcdde6bb21df00",
+        "data_dictionary.csv": "ddddf03c0125bd281674a8e23189ddf05f630b57972d384a3f6284e2bac4b47f",
+        "sample_submission.csv": "0d6671f149421b40ad6faa0d1f9f5e5678bcaf6925f2f9c4011efd2c50deb8e9"
+      },
+      "log": "runs/organizer-paired-v1/iid_43/deterministic.log",
+      "status": "ok",
+      "returncode": 0,
+      "controller_seconds": 35.32696786499582,
+      "runtime_code_sha256": "297cd1660340ab5e6fc21f20ab664c4783800e189f65b5c4aac1252ca12c16f8",
+      "mode": "deterministic",
+      "budget_seconds": 120.0,
+      "elapsed_seconds": 35.10642177100817,
+      "first_checkpoint_latency": 1.0777170820074389,
+      "validation": {
+        "id": "0530233375e66a90",
+        "kind": "random",
+        "reason": "IID regression; no evidence for grouped/forward validation",
+        "seed": 43,
+        "train_rows": 480,
+        "valid_rows": 120
+      },
+      "metric": "rmse",
+      "dummy_utility": -2.3249184869126767,
+      "experiments": 17,
+      "successful_experiments": 17,
+      "accepted_experiments": 5,
+      "champion_metric": 0.3549409249971781,
+      "champion_recipe": {
+        "model_family": "xgboost",
+        "params": {
+          "iterations": 500,
+          "max_depth": 6
+        },
+        "feature_ops": [
+          {
+            "op": "clip",
+            "columns": [
+              "x0",
+              "x1",
+              "x2",
+              "x3",
+              "x4"
+            ]
+          }
+        ],
+        "target_transform": "none",
+        "max_runtime_sec": 18.0,
+        "validation_plan_id": "0530233375e66a90",
+        "id": "local_6",
+        "statement": "Fold-fitted clipped copies may reduce outlier sensitivity while retaining originals",
+        "parent_experiment": "exp_0011"
+      },
+      "confirmation_metric": 0.4036707705927002,
+      "ensemble": {
+        "weights": [
+          0.5,
+          0.5
+        ],
+        "metric_value": 0.3359026154975937,
+        "confirmation_metric": 0.40250514601422444,
+        "robust_utility": -0.36920388075590904
+      },
+      "multipliers": null,
+      "qwen_calls": 0,
+      "qwen_proposals": 0,
+      "qwen_tokens": 0,
+      "qwen_events": [],
+      "max_live_worker_threads": 13,
+      "peak_worker_memory_mb": 147.4609375,
+      "cancelled": false,
+      "output": "/Users/mac/Documents/projects/alfaautoresearch/runs/organizer-paired-v1/iid_43/data/submission.csv",
+      "output_sha256": "1bbd698938af4837571c3d33d13774f78ed451f27885dee45ec06bb9b4501838",
+      "full_refit_published": true,
+      "researcher_provider": "organizer-qwen",
+      "researcher_model": null,
+      "researcher_calls": 0,
+      "researcher_proposals": 0,
+      "researcher_tokens": 0,
+      "researcher_events": [],
+      "metric_direction": -1,
+      "selected_metric": 0.3359026154975937,
+      "live_fits": 0,
+      "live_accepted": 0,
+      "reported_live_cost_usd": null,
+      "organizer_reported_cost": null,
+      "output_valid": true
+    },
+    {
+      "task": "skew",
+      "seed": 43,
+      "variant": "deterministic",
+      "input_sha256": {
+        "test.csv": "8faf644ea855affa92164d0e488fa0417d4e35b38099b5c89bde489d4765960a",
+        "task.md": "5b443640f648226abc8d3db73b0c702a53a540b76c6cf1a8d341a841bc682dae",
+        "train.csv": "641ed6cffc61ea3366c41fa030094d6945443c82ee439e674630b0607a5d1a0e",
+        "data_dictionary.csv": "ddddf03c0125bd281674a8e23189ddf05f630b57972d384a3f6284e2bac4b47f",
+        "sample_submission.csv": "0d6671f149421b40ad6faa0d1f9f5e5678bcaf6925f2f9c4011efd2c50deb8e9"
+      },
+      "log": "runs/organizer-paired-v1/skew_43/deterministic.log",
+      "status": "ok",
+      "returncode": 0,
+      "controller_seconds": 41.49599503001082,
+      "runtime_code_sha256": "297cd1660340ab5e6fc21f20ab664c4783800e189f65b5c4aac1252ca12c16f8",
+      "mode": "deterministic",
+      "budget_seconds": 120.0,
+      "elapsed_seconds": 41.25172036499134,
+      "first_checkpoint_latency": 1.1251191100018332,
+      "validation": {
+        "id": "0530233375e66a90",
+        "kind": "random",
+        "reason": "IID regression; no evidence for grouped/forward validation",
+        "seed": 43,
+        "train_rows": 480,
+        "valid_rows": 120
+      },
+      "metric": "rmse",
+      "dummy_utility": -35.222909945081014,
+      "experiments": 16,
+      "successful_experiments": 16,
+      "accepted_experiments": 4,
+      "champion_metric": 12.88594063445261,
+      "champion_recipe": {
+        "model_family": "catboost",
+        "params": {
+          "iterations": 500,
+          "depth": 7
+        },
+        "feature_ops": [
+          {
+            "op": "product",
+            "columns": [
+              "x0",
+              "x1"
+            ]
+          }
+        ],
+        "target_transform": "none",
+        "max_runtime_sec": 18.0,
+        "validation_plan_id": "0530233375e66a90",
+        "id": "local_5",
+        "statement": "Bounded numeric interaction may capture nonlinear rates",
+        "parent_experiment": "exp_0003"
+      },
+      "confirmation_metric": 13.247118122728253,
+      "ensemble": null,
+      "multipliers": null,
+      "qwen_calls": 0,
+      "qwen_proposals": 0,
+      "qwen_tokens": 0,
+      "qwen_events": [],
+      "max_live_worker_threads": 24,
+      "peak_worker_memory_mb": 155.546875,
+      "cancelled": false,
+      "output": "/Users/mac/Documents/projects/alfaautoresearch/runs/organizer-paired-v1/skew_43/data/submission.csv",
+      "output_sha256": "039b58fc3363e4538402cfc50793807c62b32f4b93a0efe1bf53f97d323e174d",
+      "full_refit_published": true,
+      "researcher_provider": "organizer-qwen",
+      "researcher_model": null,
+      "researcher_calls": 0,
+      "researcher_proposals": 0,
+      "researcher_tokens": 0,
+      "researcher_events": [],
+      "metric_direction": -1,
+      "selected_metric": 12.88594063445261,
+      "live_fits": 0,
+      "live_accepted": 0,
+      "reported_live_cost_usd": null,
+      "organizer_reported_cost": null,
+      "output_valid": true
+    },
+    {
+      "task": "skew",
+      "seed": 43,
+      "variant": "organizer",
+      "input_sha256": {
+        "test.csv": "8faf644ea855affa92164d0e488fa0417d4e35b38099b5c89bde489d4765960a",
+        "task.md": "5b443640f648226abc8d3db73b0c702a53a540b76c6cf1a8d341a841bc682dae",
+        "train.csv": "641ed6cffc61ea3366c41fa030094d6945443c82ee439e674630b0607a5d1a0e",
+        "data_dictionary.csv": "ddddf03c0125bd281674a8e23189ddf05f630b57972d384a3f6284e2bac4b47f",
+        "sample_submission.csv": "0d6671f149421b40ad6faa0d1f9f5e5678bcaf6925f2f9c4011efd2c50deb8e9"
+      },
+      "log": "runs/organizer-paired-v1/skew_43/organizer.log",
+      "status": "ok",
+      "returncode": 0,
+      "controller_seconds": 49.502631843992276,
+      "runtime_code_sha256": "297cd1660340ab5e6fc21f20ab664c4783800e189f65b5c4aac1252ca12c16f8",
+      "mode": "live-agent",
+      "budget_seconds": 120.0,
+      "elapsed_seconds": 49.28331052500289,
+      "first_checkpoint_latency": 1.2228971470030956,
+      "validation": {
+        "id": "0530233375e66a90",
+        "kind": "random",
+        "reason": "IID regression; no evidence for grouped/forward validation",
+        "seed": 43,
+        "train_rows": 480,
+        "valid_rows": 120
+      },
+      "metric": "rmse",
+      "dummy_utility": -35.222909945081014,
+      "experiments": 16,
+      "successful_experiments": 16,
+      "accepted_experiments": 4,
+      "champion_metric": 12.88594063445261,
+      "champion_recipe": {
+        "model_family": "catboost",
+        "params": {
+          "iterations": 500,
+          "depth": 7
+        },
+        "feature_ops": [
+          {
+            "op": "product",
+            "columns": [
+              "x0",
+              "x1"
+            ]
+          }
+        ],
+        "target_transform": "none",
+        "max_runtime_sec": 18.0,
+        "validation_plan_id": "0530233375e66a90",
+        "id": "local_5",
+        "statement": "Bounded numeric interaction may capture nonlinear rates",
+        "parent_experiment": "exp_0003"
+      },
+      "confirmation_metric": 13.247118122728253,
+      "ensemble": null,
+      "multipliers": null,
+      "qwen_calls": 1,
+      "qwen_proposals": 2,
+      "qwen_tokens": 8814,
+      "qwen_events": [
+        {
+          "status": "api_usage",
+          "call": 1,
+          "response_model": "qwen/qwen3.8-27b",
+          "prompt_tokens": 8207,
+          "completion_tokens": 607,
+          "reported_cost": 0.1988006947056
+        },
+        {
+          "status": "response",
+          "call": 1,
+          "tokens": 8814
+        },
+        {
+          "status": "recipe_rejected",
+          "reason": "Unknown recipe fields"
+        },
+        {
+          "status": "token_budget_exhausted"
+        }
+      ],
+      "max_live_worker_threads": 24,
+      "peak_worker_memory_mb": 160.30859375,
+      "cancelled": false,
+      "output": "/Users/mac/Documents/projects/alfaautoresearch/runs/organizer-paired-v1/skew_43/data/submission.csv",
+      "output_sha256": "039b58fc3363e4538402cfc50793807c62b32f4b93a0efe1bf53f97d323e174d",
+      "full_refit_published": true,
+      "researcher_provider": "organizer-qwen",
+      "researcher_model": "qwen/qwen3.8-27b",
+      "researcher_calls": 1,
+      "researcher_proposals": 2,
+      "researcher_tokens": 8814,
+      "researcher_events": [
+        {
+          "status": "api_usage",
+          "call": 1,
+          "response_model": "qwen/qwen3.8-27b",
+          "prompt_tokens": 8207,
+          "completion_tokens": 607,
+          "reported_cost": 0.1988006947056
+        },
+        {
+          "status": "response",
+          "call": 1,
+          "tokens": 8814
+        },
+        {
+          "status": "recipe_rejected",
+          "reason": "Unknown recipe fields"
+        },
+        {
+          "status": "token_budget_exhausted"
+        }
+      ],
+      "metric_direction": -1,
+      "selected_metric": 12.88594063445261,
+      "live_fits": 0,
+      "live_accepted": 0,
+      "reported_live_cost_usd": null,
+      "organizer_reported_cost": 0.1988006947056,
+      "output_valid": true
+    },
+    {
+      "task": "integer_labels",
+      "seed": 43,
+      "variant": "organizer",
+      "input_sha256": {
+        "test.csv": "8faf644ea855affa92164d0e488fa0417d4e35b38099b5c89bde489d4765960a",
+        "task.md": "20909a07f97fa931cc066078b4caab8c17646a7b0605c6c74800058059fcd328",
+        "train.csv": "603e0771399167fecf7602c503099066cbba0dd0a7589967095a60f9a6bf65aa",
+        "data_dictionary.csv": "ddddf03c0125bd281674a8e23189ddf05f630b57972d384a3f6284e2bac4b47f",
+        "sample_submission.csv": "02a36ab1bbda4fa5e8b4cc9ed4c8780670f9c3474bea4158df8eb84a98276bd6"
+      },
+      "log": "runs/organizer-paired-v1/integer_labels_43/organizer.log",
+      "status": "ok",
+      "returncode": 0,
+      "controller_seconds": 56.77592919800372,
+      "runtime_code_sha256": "297cd1660340ab5e6fc21f20ab664c4783800e189f65b5c4aac1252ca12c16f8",
+      "mode": "live-agent",
+      "budget_seconds": 120.0,
+      "elapsed_seconds": 56.448394218008616,
+      "first_checkpoint_latency": 1.7462056530057453,
+      "validation": {
+        "id": "789eb78b7bb9431b",
+        "kind": "stratified",
+        "reason": "IID classification",
+        "seed": 43,
+        "train_rows": 480,
+        "valid_rows": 120
+      },
+      "metric": "f1_macro",
+      "dummy_utility": 0.18473895582329317,
+      "experiments": 16,
+      "successful_experiments": 16,
+      "accepted_experiments": 3,
+      "champion_metric": 0.8303041419329019,
+      "champion_recipe": {
+        "model_family": "xgboost",
+        "params": {
+          "iterations": 500,
+          "max_depth": 6
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 18.0,
+        "validation_plan_id": "789eb78b7bb9431b",
+        "id": "candidate",
+        "statement": "Regularized histogram booster diversity",
+        "parent_experiment": null
+      },
+      "confirmation_metric": 0.7959534194828312,
+      "ensemble": null,
+      "multipliers": null,
+      "qwen_calls": 2,
+      "qwen_proposals": 2,
+      "qwen_tokens": 0,
+      "qwen_events": [
+        {
+          "status": "api_failure",
+          "exception_class": "TimeoutError",
+          "call": 1
+        },
+        {
+          "status": "api_failure",
+          "exception_class": "TimeoutError",
+          "call": 2
+        }
+      ],
+      "max_live_worker_threads": 13,
+      "peak_worker_memory_mb": 163.4609375,
+      "cancelled": false,
+      "output": "/Users/mac/Documents/projects/alfaautoresearch/runs/organizer-paired-v1/integer_labels_43/data/submission.csv",
+      "output_sha256": "c26f0271c7028570c69c7592f50a810b1a0078a60abcdb3882367acd80e6d9d9",
+      "full_refit_published": true,
+      "researcher_provider": "organizer-qwen",
+      "researcher_model": "qwen/qwen3.8-27b",
+      "researcher_calls": 2,
+      "researcher_proposals": 2,
+      "researcher_tokens": 0,
+      "researcher_events": [
+        {
+          "status": "api_failure",
+          "exception_class": "TimeoutError",
+          "call": 1
+        },
+        {
+          "status": "api_failure",
+          "exception_class": "TimeoutError",
+          "call": 2
+        }
+      ],
+      "metric_direction": 1,
+      "selected_metric": 0.8303041419329019,
+      "live_fits": 0,
+      "live_accepted": 0,
+      "reported_live_cost_usd": null,
+      "organizer_reported_cost": null,
+      "output_valid": true
+    },
+    {
+      "task": "integer_labels",
+      "seed": 43,
+      "variant": "deterministic",
+      "input_sha256": {
+        "test.csv": "8faf644ea855affa92164d0e488fa0417d4e35b38099b5c89bde489d4765960a",
+        "task.md": "20909a07f97fa931cc066078b4caab8c17646a7b0605c6c74800058059fcd328",
+        "train.csv": "603e0771399167fecf7602c503099066cbba0dd0a7589967095a60f9a6bf65aa",
+        "data_dictionary.csv": "ddddf03c0125bd281674a8e23189ddf05f630b57972d384a3f6284e2bac4b47f",
+        "sample_submission.csv": "02a36ab1bbda4fa5e8b4cc9ed4c8780670f9c3474bea4158df8eb84a98276bd6"
+      },
+      "log": "runs/organizer-paired-v1/integer_labels_43/deterministic.log",
+      "status": "ok",
+      "returncode": 0,
+      "controller_seconds": 33.21655180599191,
+      "runtime_code_sha256": "297cd1660340ab5e6fc21f20ab664c4783800e189f65b5c4aac1252ca12c16f8",
+      "mode": "deterministic",
+      "budget_seconds": 120.0,
+      "elapsed_seconds": 32.969219375998364,
+      "first_checkpoint_latency": 1.1351001699949848,
+      "validation": {
+        "id": "789eb78b7bb9431b",
+        "kind": "stratified",
+        "reason": "IID classification",
+        "seed": 43,
+        "train_rows": 480,
+        "valid_rows": 120
+      },
+      "metric": "f1_macro",
+      "dummy_utility": 0.18473895582329317,
+      "experiments": 16,
+      "successful_experiments": 16,
+      "accepted_experiments": 3,
+      "champion_metric": 0.8303041419329019,
+      "champion_recipe": {
+        "model_family": "xgboost",
+        "params": {
+          "iterations": 500,
+          "max_depth": 6
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 18.0,
+        "validation_plan_id": "789eb78b7bb9431b",
+        "id": "candidate",
+        "statement": "Regularized histogram booster diversity",
+        "parent_experiment": null
+      },
+      "confirmation_metric": 0.7959534194828312,
+      "ensemble": null,
+      "multipliers": null,
+      "qwen_calls": 0,
+      "qwen_proposals": 0,
+      "qwen_tokens": 0,
+      "qwen_events": [],
+      "max_live_worker_threads": 13,
+      "peak_worker_memory_mb": 152.37890625,
+      "cancelled": false,
+      "output": "/Users/mac/Documents/projects/alfaautoresearch/runs/organizer-paired-v1/integer_labels_43/data/submission.csv",
+      "output_sha256": "c26f0271c7028570c69c7592f50a810b1a0078a60abcdb3882367acd80e6d9d9",
+      "full_refit_published": true,
+      "researcher_provider": "organizer-qwen",
+      "researcher_model": null,
+      "researcher_calls": 0,
+      "researcher_proposals": 0,
+      "researcher_tokens": 0,
+      "researcher_events": [],
+      "metric_direction": 1,
+      "selected_metric": 0.8303041419329019,
+      "live_fits": 0,
+      "live_accepted": 0,
+      "reported_live_cost_usd": null,
+      "organizer_reported_cost": null,
+      "output_valid": true
+    },
+    {
+      "task": "multiclass_imbalance",
+      "seed": 43,
+      "variant": "deterministic",
+      "input_sha256": {
+        "test.csv": "8faf644ea855affa92164d0e488fa0417d4e35b38099b5c89bde489d4765960a",
+        "task.md": "20909a07f97fa931cc066078b4caab8c17646a7b0605c6c74800058059fcd328",
+        "train.csv": "fb5d2a8d1d33b12716c39643f090a5383a36cd4b1fb46a93fe6146f9a68c39d8",
+        "data_dictionary.csv": "c8eba9f11d08e4ca679e1ca32a50830f4eb5ad3ac1cd21668a866a8b794f0f2a",
+        "sample_submission.csv": "4e03b6aa8f594ccfe7d6e209df2ec53c1146ef66cd0644c2fced7f41ceaecf6a"
+      },
+      "log": "runs/organizer-paired-v1/multiclass_imbalance_43/deterministic.log",
+      "status": "ok",
+      "returncode": 0,
+      "controller_seconds": 28.839782130991807,
+      "runtime_code_sha256": "297cd1660340ab5e6fc21f20ab664c4783800e189f65b5c4aac1252ca12c16f8",
+      "mode": "deterministic",
+      "budget_seconds": 120.0,
+      "elapsed_seconds": 28.531092121993424,
+      "first_checkpoint_latency": 1.6753555489995051,
+      "validation": {
+        "id": "c9b8e4acfbf21a37",
+        "kind": "stratified",
+        "reason": "IID classification",
+        "seed": 43,
+        "train_rows": 480,
+        "valid_rows": 120
+      },
+      "metric": "f1_macro",
+      "dummy_utility": 0.28751974723538704,
+      "experiments": 16,
+      "successful_experiments": 16,
+      "accepted_experiments": 3,
+      "champion_metric": 0.9364988558352403,
+      "champion_recipe": {
+        "model_family": "linear",
+        "params": {
+          "C": 10.0,
+          "weight": "balanced"
+        },
+        "feature_ops": [
+          {
+            "op": "frequency",
+            "columns": [
+              "category"
+            ]
+          }
+        ],
+        "target_transform": "none",
+        "max_runtime_sec": 18.0,
+        "validation_plan_id": "c9b8e4acfbf21a37",
+        "id": "local_3",
+        "statement": "Fold-fitted category frequency may expose rarity without target leakage",
+        "parent_experiment": "exp_0009"
+      },
+      "confirmation_metric": 0.8244593088071349,
+      "ensemble": null,
+      "multipliers": null,
+      "qwen_calls": 0,
+      "qwen_proposals": 0,
+      "qwen_tokens": 0,
+      "qwen_events": [],
+      "max_live_worker_threads": 13,
+      "peak_worker_memory_mb": 146.0234375,
+      "cancelled": false,
+      "output": "/Users/mac/Documents/projects/alfaautoresearch/runs/organizer-paired-v1/multiclass_imbalance_43/data/submission.csv",
+      "output_sha256": "053385393829b5a8deee57d2caef60fe05b945825809fb0e33e29fb944f0f3f8",
+      "full_refit_published": true,
+      "researcher_provider": "organizer-qwen",
+      "researcher_model": null,
+      "researcher_calls": 0,
+      "researcher_proposals": 0,
+      "researcher_tokens": 0,
+      "researcher_events": [],
+      "metric_direction": 1,
+      "selected_metric": 0.9364988558352403,
+      "live_fits": 0,
+      "live_accepted": 0,
+      "reported_live_cost_usd": null,
+      "organizer_reported_cost": null,
+      "output_valid": true
+    },
+    {
+      "task": "multiclass_imbalance",
+      "seed": 43,
+      "variant": "organizer",
+      "input_sha256": {
+        "test.csv": "8faf644ea855affa92164d0e488fa0417d4e35b38099b5c89bde489d4765960a",
+        "task.md": "20909a07f97fa931cc066078b4caab8c17646a7b0605c6c74800058059fcd328",
+        "train.csv": "fb5d2a8d1d33b12716c39643f090a5383a36cd4b1fb46a93fe6146f9a68c39d8",
+        "data_dictionary.csv": "c8eba9f11d08e4ca679e1ca32a50830f4eb5ad3ac1cd21668a866a8b794f0f2a",
+        "sample_submission.csv": "4e03b6aa8f594ccfe7d6e209df2ec53c1146ef66cd0644c2fced7f41ceaecf6a"
+      },
+      "log": "runs/organizer-paired-v1/multiclass_imbalance_43/organizer.log",
+      "status": "ok",
+      "returncode": 0,
+      "controller_seconds": 31.110563820999232,
+      "runtime_code_sha256": "297cd1660340ab5e6fc21f20ab664c4783800e189f65b5c4aac1252ca12c16f8",
+      "mode": "live-agent",
+      "budget_seconds": 120.0,
+      "elapsed_seconds": 30.854410246989573,
+      "first_checkpoint_latency": 1.200925864992314,
+      "validation": {
+        "id": "c9b8e4acfbf21a37",
+        "kind": "stratified",
+        "reason": "IID classification",
+        "seed": 43,
+        "train_rows": 480,
+        "valid_rows": 120
+      },
+      "metric": "f1_macro",
+      "dummy_utility": 0.28751974723538704,
+      "experiments": 16,
+      "successful_experiments": 16,
+      "accepted_experiments": 3,
+      "champion_metric": 0.9364988558352403,
+      "champion_recipe": {
+        "model_family": "linear",
+        "params": {
+          "C": 10.0,
+          "weight": "balanced"
+        },
+        "feature_ops": [
+          {
+            "op": "frequency",
+            "columns": [
+              "category"
+            ]
+          }
+        ],
+        "target_transform": "none",
+        "max_runtime_sec": 18.0,
+        "validation_plan_id": "c9b8e4acfbf21a37",
+        "id": "local_3",
+        "statement": "Fold-fitted category frequency may expose rarity without target leakage",
+        "parent_experiment": "exp_0009"
+      },
+      "confirmation_metric": 0.8244593088071349,
+      "ensemble": null,
+      "multipliers": null,
+      "qwen_calls": 2,
+      "qwen_proposals": 2,
+      "qwen_tokens": 0,
+      "qwen_events": [
+        {
+          "status": "api_failure",
+          "exception_class": "URLError",
+          "call": 1
+        },
+        {
+          "status": "api_failure",
+          "exception_class": "URLError",
+          "call": 2
+        }
+      ],
+      "max_live_worker_threads": 13,
+      "peak_worker_memory_mb": 163.5390625,
+      "cancelled": false,
+      "output": "/Users/mac/Documents/projects/alfaautoresearch/runs/organizer-paired-v1/multiclass_imbalance_43/data/submission.csv",
+      "output_sha256": "053385393829b5a8deee57d2caef60fe05b945825809fb0e33e29fb944f0f3f8",
+      "full_refit_published": true,
+      "researcher_provider": "organizer-qwen",
+      "researcher_model": "qwen/qwen3.8-27b",
+      "researcher_calls": 2,
+      "researcher_proposals": 2,
+      "researcher_tokens": 0,
+      "researcher_events": [
+        {
+          "status": "api_failure",
+          "exception_class": "URLError",
+          "call": 1
+        },
+        {
+          "status": "api_failure",
+          "exception_class": "URLError",
+          "call": 2
+        }
+      ],
+      "metric_direction": 1,
+      "selected_metric": 0.9364988558352403,
+      "live_fits": 0,
+      "live_accepted": 0,
+      "reported_live_cost_usd": null,
+      "organizer_reported_cost": null,
+      "output_valid": true
+    }
+  ],
+  "pairs": [
+    {
+      "task": "iid",
+      "seed": 17,
+      "status": "compared",
+      "metric": "rmse",
+      "deterministic": 0.5921497227388296,
+      "organizer": 0.5397806507539359,
+      "utility_difference": 0.05236907198489371,
+      "relative_improvement": 0.08843890315894201,
+      "deterministic_seconds": 32.68239326099865,
+      "live_seconds": 35.02771344000939,
+      "live_calls": 1,
+      "live_fits": 1,
+      "live_accepted": 1
+    },
+    {
+      "task": "skew",
+      "seed": 17,
+      "status": "compared",
+      "metric": "rmse",
+      "deterministic": 10.294473373702743,
+      "organizer": 10.294473373702743,
+      "utility_difference": -0.0,
+      "relative_improvement": -0.0,
+      "deterministic_seconds": 29.205305401002988,
+      "live_seconds": 50.25971193400619,
+      "live_calls": 2,
+      "live_fits": 0,
+      "live_accepted": 0
+    },
+    {
+      "task": "integer_labels",
+      "seed": 17,
+      "status": "compared",
+      "metric": "f1_macro",
+      "deterministic": 0.8703639681167772,
+      "organizer": 0.8703639681167772,
+      "utility_difference": 0.0,
+      "relative_improvement": 0.0,
+      "deterministic_seconds": 27.532777200001874,
+      "live_seconds": 41.88250360800885,
+      "live_calls": 2,
+      "live_fits": 1,
+      "live_accepted": 0
+    },
+    {
+      "task": "multiclass_imbalance",
+      "seed": 17,
+      "status": "compared",
+      "metric": "f1_macro",
+      "deterministic": 0.8278666354938823,
+      "organizer": 0.8278666354938823,
+      "utility_difference": 0.0,
+      "relative_improvement": 0.0,
+      "deterministic_seconds": 30.715472507014056,
+      "live_seconds": 47.25023083099222,
+      "live_calls": 2,
+      "live_fits": 0,
+      "live_accepted": 0
+    },
+    {
+      "task": "iid",
+      "seed": 43,
+      "status": "compared",
+      "metric": "rmse",
+      "deterministic": 0.3359026154975937,
+      "organizer": 0.3359026154975937,
+      "utility_difference": -0.0,
+      "relative_improvement": -0.0,
+      "deterministic_seconds": 35.10642177100817,
+      "live_seconds": 51.084893394989194,
+      "live_calls": 2,
+      "live_fits": 0,
+      "live_accepted": 0
+    },
+    {
+      "task": "skew",
+      "seed": 43,
+      "status": "compared",
+      "metric": "rmse",
+      "deterministic": 12.88594063445261,
+      "organizer": 12.88594063445261,
+      "utility_difference": -0.0,
+      "relative_improvement": -0.0,
+      "deterministic_seconds": 41.25172036499134,
+      "live_seconds": 49.28331052500289,
+      "live_calls": 1,
+      "live_fits": 0,
+      "live_accepted": 0
+    },
+    {
+      "task": "integer_labels",
+      "seed": 43,
+      "status": "compared",
+      "metric": "f1_macro",
+      "deterministic": 0.8303041419329019,
+      "organizer": 0.8303041419329019,
+      "utility_difference": 0.0,
+      "relative_improvement": 0.0,
+      "deterministic_seconds": 32.969219375998364,
+      "live_seconds": 56.448394218008616,
+      "live_calls": 2,
+      "live_fits": 0,
+      "live_accepted": 0
+    },
+    {
+      "task": "multiclass_imbalance",
+      "seed": 43,
+      "status": "compared",
+      "metric": "f1_macro",
+      "deterministic": 0.9364988558352403,
+      "organizer": 0.9364988558352403,
+      "utility_difference": 0.0,
+      "relative_improvement": 0.0,
+      "deterministic_seconds": 28.531092121993424,
+      "live_seconds": 30.854410246989573,
+      "live_calls": 2,
+      "live_fits": 0,
+      "live_accepted": 0
+    }
+  ],
+  "quota_after": null,
+  "finished_at_unix": 1792517228.469546
+}

@@ -12,6 +12,7 @@ runs/
 .env.*.local
 .secrets/
 submission.zip
+artifacts/release/
 reports/stress/data/
 artifacts/official/render/
 reports/stress-final/data/

@@ -10,3 +10,4 @@ lightgbm==4.6.0
 xgboost==2.1.4
 psutil==6.1.1
 matplotlib==3.9.4
+httpx==0.28.1

@@ -1,0 +1,54 @@
+[
+  {
+    "case": "integer_labels_17",
+    "14000": {
+      "wire_bytes": 11835,
+      "estimated_tokens_with_output": 7576,
+      "history_entries": 6
+    },
+    "10000": {
+      "wire_bytes": 9795,
+      "estimated_tokens_with_output": 6556,
+      "history_entries": 4
+    }
+  },
+  {
+    "case": "multiclass_imbalance_17",
+    "14000": {
+      "wire_bytes": 11925,
+      "estimated_tokens_with_output": 7621,
+      "history_entries": 6
+    },
+    "10000": {
+      "wire_bytes": 9896,
+      "estimated_tokens_with_output": 6607,
+      "history_entries": 4
+    }
+  },
+  {
+    "case": "iid_17",
+    "14000": {
+      "wire_bytes": 13599,
+      "estimated_tokens_with_output": 8458,
+      "history_entries": 5
+    },
+    "10000": {
+      "wire_bytes": 9165,
+      "estimated_tokens_with_output": 6241,
+      "history_entries": 2
+    }
+  },
+  {
+    "case": "skew_17",
+    "14000": {
+      "wire_bytes": 13476,
+      "estimated_tokens_with_output": 8397,
+      "history_entries": 5
+    },
+    "10000": {
+      "wire_bytes": 9059,
+      "estimated_tokens_with_output": 6188,
+      "history_entries": 2
+    }
+  }
+]

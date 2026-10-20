@@ -1,0 +1,44 @@
+{
+  "status": "passed",
+  "environment": "OPENAI_BASE_URL and OPENAI_API_KEY only; run_organizer.py --omit-model removes OPENAI_MODEL",
+  "default_model": "qwen/qwen3.8-27b",
+  "runtime_code_sha256": "8eeaf53a57a0eb34e56286a8b97f0eddf516c82a8cb4cd299fea1c4615191e60",
+  "command": "python scripts/live_ablation.py --provider organizer --name organizer-paired-v3 --budget 240 --seeds 17 --tasks iid,integer_labels --max-calls 2 --omit-model",
+  "wrapper_sha256": "ac2e91941be6129279f6615d812d0a1d766e80d5507cac586831e027870c7b30",
+  "live_calls": 4,
+  "live_fits": 3,
+  "live_accepted": 1,
+  "pairs": [
+    {
+      "task": "iid",
+      "seed": 17,
+      "status": "compared",
+      "metric": "rmse",
+      "deterministic": 0.5921497227388296,
+      "organizer": 0.5267031209371911,
+      "utility_difference": 0.06544660180163853,
+      "relative_improvement": 0.11052373966998218,
+      "deterministic_seconds": 27.371321666010772,
+      "live_seconds": 35.480366173011134,
+      "live_calls": 2,
+      "live_fits": 2,
+      "live_accepted": 1
+    },
+    {
+      "task": "integer_labels",
+      "seed": 17,
+      "status": "compared",
+      "metric": "f1_macro",
+      "deterministic": 0.8703639681167772,
+      "organizer": 0.8989944918251257,
+      "utility_difference": 0.02863052370834851,
+      "relative_improvement": 0.03289488622822577,
+      "deterministic_seconds": 26.38427715099533,
+      "live_seconds": 52.116922462999355,
+      "live_calls": 2,
+      "live_fits": 1,
+      "live_accepted": 0
+    }
+  ],
+  "note": "The generic model string was rejected with HTTP403 key_model_access_denied, unlike the guide promise. The documented default works."
+}

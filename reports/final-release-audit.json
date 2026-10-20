@@ -1,9 +1,9 @@
 {
   "status": "PROVISIONAL",
-  "runtime_code_sha256": "99d4c0b96295fe16e018fba0f83ba27c91b0400854a028d384660208d8bbe244",
-  "archive_sha256": "a4b2692c5bb6c5549f9535d6072d48e38e6b30d208fb1c8af698996d22d9d0d1",
-  "archive_bytes": 37597,
-  "tests_passed": 154,
+  "runtime_code_sha256": "b1fa509ddea5537172c227f44f74a6a8eb1f3b902532f535c52d02a117436e6e",
+  "archive_sha256": "b9b4cb7a0c9309a6eab72f893b78d56b4f2ecee85ca0158a23b4b4f70e98df2b",
+  "archive_bytes": 40247,
+  "tests_passed": 160,
   "warnings": 13,
   "public_outputs": [
     {
@@ -32,18 +32,24 @@
       "scenario": "iid",
       "status": "passed",
       "accepted_checkpoint": true,
-      "returncode": 0
+      "returncode": 0,
+      "runtime_code_sha256": "b1fa509ddea5537172c227f44f74a6a8eb1f3b902532f535c52d02a117436e6e"
     },
     {
       "scenario": "integer_labels",
       "status": "passed",
       "accepted_checkpoint": true,
-      "returncode": 0
+      "returncode": 0,
+      "runtime_code_sha256": "b1fa509ddea5537172c227f44f74a6a8eb1f3b902532f535c52d02a117436e6e"
     }
   ],
   "blocked": [
-    "Organizer Qwen settings not yet available; live hypothesis loop and live equal-budget ablation unverified",
-    "Docker unavailable; exact Linux 8CPU/32GiB verification unperformed"
+    "Linux container execution of the current flat archive not yet verified"
+  ],
+  "limitations": [
+    "Local holdouts cannot establish private leaderboard quality",
+    "Scaled deadline simulation is not a real three-hour soak",
+    "Local host has 16GiB RAM; physical 32GiB conditions are not reproduced"
   ],
   "platform_submitted": false
 }

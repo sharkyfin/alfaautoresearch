@@ -1,6 +1,7 @@
 **
 !Dockerfile.verify
 !requirements-runtime.txt
-!solution.py
-!atlas/
-!atlas/*.py
+!artifacts/
+!artifacts/release/
+!artifacts/release/*.py
+!artifacts/release/requirements.txt

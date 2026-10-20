@@ -1,0 +1,6 @@
+{
+  "status": "failed",
+  "exception_class": "RuntimeError",
+  "log": "reports/linux-verification.log",
+  "controller_seconds": 0.17781524801102933
+}

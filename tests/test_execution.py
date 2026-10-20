@@ -40,6 +40,42 @@ def test_qwen_valid_limits_and_no_secrets(monkeypatch):
     assert 'test-not-real' not in json.dumps(seen)
     assert 'untrusted_data' in seen[0]['messages'][1]['content']
 
+def test_official_proxy_without_model_variable(monkeypatch):
+    monkeypatch.setenv('OPENAI_BASE_URL','https://organizer.invalid/v1')
+    monkeypatch.setenv('OPENAI_API_KEY','test-not-real')
+    monkeypatch.delenv('OPENAI_MODEL',raising=False)
+    seen=[]
+    def transport(body,timeout):
+        seen.append(body)
+        return {'choices':[{'message':{'content':'{"operation":"train_candidate"}'}}],'usage':{'total_tokens':10}}
+    client=QwenClient('live',transport=transport)
+    assert client.configured and client.available
+    assert client.propose({})['operation']=='train_candidate'
+    assert seen[0]['model']=='qwen/qwen3.8-27b' and client.requests==1
+
+@pytest.mark.parametrize('scenario',['ok','format_retry','timeout','oversized'])
+def test_approved_httpx_transport(monkeypatch,scenario):
+    import httpx
+    seen=[]
+    def handler(request):
+        seen.append(json.loads(request.content))
+        assert request.url==httpx.URL('https://organizer.invalid/v1/chat/completions')
+        assert request.headers['authorization']=='Bearer test-not-real'
+        if scenario=='timeout':raise httpx.ReadTimeout('mock timeout')
+        if scenario=='oversized':return httpx.Response(200,content=b'x'*65537)
+        if scenario=='format_retry' and len(seen)==1:return httpx.Response(422)
+        return httpx.Response(200,json={'choices':[{'message':{'content':'{"model_family":"hist"}'}}],'usage':{'total_tokens':40,'cost':.01}})
+    with httpx.Client(transport=httpx.MockTransport(handler)) as wire:
+        monkeypatch.setattr(httpx,'stream',lambda method,url,**kwargs:wire.stream(method,url,**{k:v for k,v in kwargs.items() if k!='trust_env'}))
+        client=configured(monkeypatch,None)
+        first=client.propose({})
+        if scenario=='format_retry':
+            assert first is None and not client.json_mode
+            assert client.propose({})=={'model_family':'hist'}
+            assert 'response_format' in seen[0] and 'response_format' not in seen[1]
+        elif scenario=='ok':assert first=={'model_family':'hist'} and client.tokens==40
+        else:assert first is None and client.failures==1
+
 def test_worker_timeout_and_memory(tmp_path):
     d=tmp_path/'timeout';d.mkdir()
     result=run_process([sys.executable,'-c','import time; time.sleep(30)'],d,.2,memory_mb=100)
@@ -90,6 +126,24 @@ def test_sigterm_orchestrator_preserves_valid_output(tmp_path):
     finally:
         if p.poll() is None:p.kill();p.wait()
         log.close()
+
+def test_sigterm_at_first_checkpoint_has_no_handler_gap(tmp_path):
+    task=create(tmp_path/'data',n=240);root=Path(__file__).resolve().parents[1]
+    script='''import os,signal,sys
+from atlas import orchestration
+original=orchestration.checkpoint
+def checkpoint_then_stop(*args,**kwargs):
+    original(*args,**kwargs)
+    os.kill(os.getpid(),signal.SIGTERM)
+orchestration.checkpoint=checkpoint_then_stop
+raise SystemExit(orchestration.run(sys.argv[1],budget_seconds=30,mode='deterministic',threads=1,run_dir=sys.argv[2]))
+'''
+    result=subprocess.run([sys.executable,'-c',script,str(task),str(tmp_path/'run')],cwd=root,capture_output=True,text=True,timeout=10)
+    assert result.returncode==0,result.stdout+result.stderr
+    summary=json.loads((tmp_path/'run/summary.json').read_text())
+    assert summary['cancelled'] and summary['successful_experiments']==0
+    frame=__import__('pandas').read_csv(task.parent/'submission.csv')
+    assert len(frame)==60 and frame.notna().all().all()
 
 def test_kill9_real_fit_keeps_checkpoint(tmp_path):
     # A heavy histogram fit is a real model worker, not a mocked sleeper.
@@ -229,12 +283,12 @@ def test_large_research_context_is_compacted_and_sent(monkeypatch):
     detail={'per_class':{f'class{i}':{'f1-score':i/100,'precision':.5,'recall':.5,'support':10} for i in range(100)},'confusion_matrix':[[10]*100 for _ in range(100)]}
     recipe={'model_family':'hist','params':{'iterations':100},'feature_ops':[],'statement':'hypothesis'}
     ctx={'objective':{'metric':'f1_macro','split':{'id':'fixed'}},'champion':{'experiment_id':'champ','recipe':recipe,'diagnostics':detail},'capabilities':{'models':{'hist':{'iterations':[20,3000],'weight':['none','sqrt','balanced']}}},'history':[{'recipe':recipe,'diagnostics':detail,'status':'ok'} for _ in range(6)],'untrusted_data':{'description':'Задача классификации. '*200,'features':[f'column_{i}' for i in range(100)],'dictionary':[{'column':f'column_{i}','description':'Описание '*20} for i in range(60)],'profile':{'columns':{f'column_{i}':{'dtype':'float','missing':.1,'quantiles':{'0':1.,'1':2.}} for i in range(100)}}}}
-    compact=compact_context(ctx);assert len(json.dumps(compact,ensure_ascii=False).encode())<=14000
+    compact=compact_context(ctx);assert len(json.dumps(compact,ensure_ascii=False).encode())<=10000
     assert compact['objective']['split']['id']=='fixed' and compact['champion']['recipe']['model_family']=='hist'
     assert compact['untrusted_data']['description'] and compact['capabilities']['models']['hist']['weight']
     client=configured(monkeypatch,transport)
     assert client.propose(ctx)=={'model_family':'hist'} and len(seen)==1
-    assert len(seen[0]['messages'][1]['content'].encode())<=14000
+    assert len(seen[0]['messages'][1]['content'].encode())<=10000
 
 def test_researcher_exposes_leakage_signals_and_tracks_wire_requests(tmp_path,monkeypatch):
     from atlas.agent import researcher_context

@@ -1,0 +1,1787 @@
+{
+  "status": "complete",
+  "manifest": {
+    "runtime_code_sha256": "99d4c0b96295fe16e018fba0f83ba27c91b0400854a028d384660208d8bbe244",
+    "frozen_files_sha256": {
+      "solution.py": "a651d3fddc75d24355d8f0e592dfa45557437326db272a6b817575b1c60c421d",
+      "atlas/__init__.py": "32652b410444c85705834dce792c30cc5dda339daf0ac2c02c7fe8444f6a0cc6",
+      "atlas/agent.py": "acc7a831fc17e4d922e042ff5c5f8e6378a6454c41c94f993875d4698b8ca923",
+      "atlas/budget.py": "061e5979e02f1afffc49855195aaa3f3c19a903180e6da649ebb8360357dc7a3",
+      "atlas/contract.py": "49467a2094bc895005b6256f1f8abaf11aa099854173a26afce1d72e736cca44",
+      "atlas/ensemble.py": "0a4bf941c7f91c063b4ad87fae4b7b5936c6735a598141766995082428d82c93",
+      "atlas/experiments.py": "828e8f28900330d7a3d81e1920febb8b4bf029cf846407903108f4c1796faa38",
+      "atlas/features.py": "b76c522ab7db2a0a8903d82347e85314c5a6f2e1c8417d88ce927bf09ab2ed17",
+      "atlas/judge.py": "4b2469ef5c98efb6beb9d2d44d808bff68d2056de1bbbfa07bebeb632ad8f0d4",
+      "atlas/metrics.py": "e9daad44ad2d88fcf9ff573614b06c2ec77537a7452dce31cc7499eacedb257f",
+      "atlas/models.py": "84ef392fcbbec8f8d9a6cffbd1633b5ca046ee531afb5c71bb3a71cae5a94599",
+      "atlas/orchestration.py": "9b501e54541555fc13fa4c1cc012e49187a163880fa9199772f5b2be6bcfb051",
+      "atlas/recipes.py": "c9f765a824d1307a4aac09ae86135ad901f2a5c08a2b372a56f72238f001c988",
+      "atlas/search.py": "b8803e489e970b66229efb4efcce15f9c3529213cd179fcb48a742e120d84636",
+      "atlas/submit.py": "f71f3653f6143862533d4d4f386ec5214f887ef6cd09fcf00702fe5e66a3496a",
+      "atlas/task.py": "4c29d4ffa0e1c6ae481cb9f65985b4e7f3d4ca2de7f1c574916f0076bd1dd99e",
+      "atlas/utils.py": "6c4737b8442961f0f1cce626cf932a6c05a62026db654030146e01f8b35be737",
+      "atlas/validation.py": "026f28390303a350e55ac6319b8ca7ffcc91d3385cda20912e947eba555284eb",
+      "atlas/worker.py": "8803ca07f8e709ff43b82fe6540848ace9e9af3eb7dbf4173a8856532aecb314",
+      "scripts/run_dev.py": "b1c8beb5858edbde76ad955d50570c42c473f73cfcdac47ab88715c476bdf95e",
+      "scripts/run_openrouter.py": "4443485f58b20e747833876a853cf05ba00ca4aefa0ee78479839b905c9ee4c1",
+      "scripts/openrouter_client.py": "8d75c8868744bd0e56b9ae8a8052f5ca836688c8f469b5bd0fe3b2276bf9ddd1",
+      "scripts/live_ablation.py": "596fdc4ae2384f3dad14009d9ecdd287b4e95a7c87bc299982e8a69e93b4d2e7"
+    },
+    "model": "minimax/minimax-m3.1-flash:free",
+    "seeds": [
+      17,
+      43
+    ],
+    "tasks": [
+      "iid",
+      "skew",
+      "integer_labels",
+      "multiclass_imbalance"
+    ],
+    "rows": 600,
+    "budget_seconds": 90.0,
+    "threads": 2,
+    "max_experiments": 12,
+    "max_calls_per_live_run": 2,
+    "max_live_calls": 16,
+    "quota_before": {
+      "free_model_daily_requests": {
+        "used": 3,
+        "limit": 50,
+        "remaining": 47
+      },
+      "reported_usage_usd": 0
+    },
+    "pid": 48233,
+    "started_at_unix": 1792511491.71447,
+    "evaluation": "Original task metric, fixed common holdout; no test labels used",
+    "mode_order": "Alternating first variant across pairs; one process at a time"
+  },
+  "runs": [
+    {
+      "task": "iid",
+      "seed": 17,
+      "variant": "deterministic",
+      "input_sha256": {
+        "test.csv": "18c319f87a7cb75289f3cefa77b329da4ef2a5b82959f998792a6c11b6a006dc",
+        "task.md": "5b443640f648226abc8d3db73b0c702a53a540b76c6cf1a8d341a841bc682dae",
+        "train.csv": "1399bdeab20dccc860b5fd1815f38db096d7b2bd12c76925db1eca94d7c3d05b",
+        "data_dictionary.csv": "ddddf03c0125bd281674a8e23189ddf05f630b57972d384a3f6284e2bac4b47f",
+        "sample_submission.csv": "0d6671f149421b40ad6faa0d1f9f5e5678bcaf6925f2f9c4011efd2c50deb8e9"
+      },
+      "log": "runs/openrouter-paired-v2/iid_17/deterministic.log",
+      "status": "ok",
+      "returncode": 0,
+      "controller_seconds": 30.973969571001362,
+      "runtime_code_sha256": "99d4c0b96295fe16e018fba0f83ba27c91b0400854a028d384660208d8bbe244",
+      "mode": "deterministic",
+      "budget_seconds": 90.0,
+      "elapsed_seconds": 30.67665702701197,
+      "first_checkpoint_latency": 1.125858874002006,
+      "validation": {
+        "id": "e0398becaa955c3f",
+        "kind": "random",
+        "reason": "IID regression; no evidence for grouped/forward validation",
+        "seed": 17,
+        "train_rows": 480,
+        "valid_rows": 120
+      },
+      "metric": "rmse",
+      "dummy_utility": -2.577369806418841,
+      "experiments": 17,
+      "successful_experiments": 17,
+      "accepted_experiments": 7,
+      "champion_metric": 0.537236545194817,
+      "champion_recipe": {
+        "model_family": "xgboost",
+        "params": {
+          "iterations": 150,
+          "max_depth": 6
+        },
+        "feature_ops": [
+          {
+            "op": "product",
+            "columns": [
+              "x0",
+              "x1"
+            ]
+          }
+        ],
+        "target_transform": "none",
+        "max_runtime_sec": 13.5,
+        "validation_plan_id": "e0398becaa955c3f",
+        "id": "local_5",
+        "statement": "Bounded numeric interaction may capture nonlinear rates",
+        "parent_experiment": "exp_0010"
+      },
+      "confirmation_metric": 0.3485380474108453,
+      "ensemble": {
+        "weights": [
+          0.75,
+          0.25
+        ],
+        "metric_value": 0.5921497227388296,
+        "confirmation_metric": 0.33660113621137994,
+        "robust_utility": -0.4643754294751048
+      },
+      "multipliers": null,
+      "qwen_calls": 0,
+      "qwen_proposals": 0,
+      "qwen_tokens": 0,
+      "qwen_events": [],
+      "max_live_worker_threads": 13,
+      "peak_worker_memory_mb": 138.2578125,
+      "cancelled": false,
+      "output": "/Users/mac/Documents/projects/alfaautoresearch/runs/openrouter-paired-v2/iid_17/data/submission.csv",
+      "output_sha256": "3c2849c5d8ceaa90758021b998d8a3ee9fd6bda0288d795fc0aedc0ed4f3c4b6",
+      "full_refit_published": true,
+      "researcher_provider": "organizer-qwen",
+      "researcher_model": null,
+      "researcher_calls": 0,
+      "researcher_proposals": 0,
+      "researcher_tokens": 0,
+      "researcher_events": [],
+      "metric_direction": -1,
+      "selected_metric": 0.5921497227388296,
+      "live_fits": 0,
+      "live_accepted": 0,
+      "reported_live_cost_usd": 0,
+      "output_valid": true
+    },
+    {
+      "task": "iid",
+      "seed": 17,
+      "variant": "openrouter",
+      "input_sha256": {
+        "test.csv": "18c319f87a7cb75289f3cefa77b329da4ef2a5b82959f998792a6c11b6a006dc",
+        "task.md": "5b443640f648226abc8d3db73b0c702a53a540b76c6cf1a8d341a841bc682dae",
+        "train.csv": "1399bdeab20dccc860b5fd1815f38db096d7b2bd12c76925db1eca94d7c3d05b",
+        "data_dictionary.csv": "ddddf03c0125bd281674a8e23189ddf05f630b57972d384a3f6284e2bac4b47f",
+        "sample_submission.csv": "0d6671f149421b40ad6faa0d1f9f5e5678bcaf6925f2f9c4011efd2c50deb8e9"
+      },
+      "log": "runs/openrouter-paired-v2/iid_17/openrouter.log",
+      "status": "ok",
+      "returncode": 0,
+      "controller_seconds": 42.54790577798849,
+      "runtime_code_sha256": "99d4c0b96295fe16e018fba0f83ba27c91b0400854a028d384660208d8bbe244",
+      "mode": "live-agent",
+      "budget_seconds": 90.0,
+      "elapsed_seconds": 42.286737742993864,
+      "first_checkpoint_latency": 1.0469977949978784,
+      "validation": {
+        "id": "e0398becaa955c3f",
+        "kind": "random",
+        "reason": "IID regression; no evidence for grouped/forward validation",
+        "seed": 17,
+        "train_rows": 480,
+        "valid_rows": 120
+      },
+      "metric": "rmse",
+      "dummy_utility": -2.577369806418841,
+      "experiments": 17,
+      "successful_experiments": 17,
+      "accepted_experiments": 6,
+      "champion_metric": 0.5285079207795503,
+      "champion_recipe": {
+        "model_family": "xgboost",
+        "params": {
+          "iterations": 300,
+          "max_depth": 4,
+          "learning_rate": 0.05,
+          "min_child_weight": 5,
+          "reg_lambda": 1.0,
+          "colsample_bytree": 1.0,
+          "subsample": 1.0
+        },
+        "feature_ops": [
+          {
+            "op": "product",
+            "columns": [
+              "x0",
+              "x1"
+            ]
+          }
+        ],
+        "target_transform": "none",
+        "max_runtime_sec": 13.5,
+        "validation_plan_id": "e0398becaa955c3f",
+        "id": "local_5",
+        "statement": "Bounded numeric interaction may capture nonlinear rates",
+        "parent_experiment": "exp_0007"
+      },
+      "confirmation_metric": 0.27485002817931464,
+      "ensemble": {
+        "weights": [
+          0.5,
+          0.5
+        ],
+        "metric_value": 0.5201174174171611,
+        "confirmation_metric": 0.249735195984882,
+        "robust_utility": -0.38492630670102157
+      },
+      "multipliers": null,
+      "qwen_calls": 0,
+      "qwen_proposals": 0,
+      "qwen_tokens": 0,
+      "qwen_events": [],
+      "max_live_worker_threads": 13,
+      "peak_worker_memory_mb": 137.1953125,
+      "cancelled": false,
+      "output": "/Users/mac/Documents/projects/alfaautoresearch/runs/openrouter-paired-v2/iid_17/data/submission.csv",
+      "output_sha256": "2cea74601360dde1e31f55bc7c243e4b1179cce57bdb98531186bee22722b3f4",
+      "full_refit_published": true,
+      "researcher_provider": "openrouter-free",
+      "researcher_model": "minimax/minimax-m3.1-flash:free",
+      "researcher_calls": 2,
+      "researcher_proposals": 2,
+      "researcher_tokens": 12344,
+      "researcher_events": [
+        {
+          "status": "researcher_backend",
+          "provider": "openrouter-free",
+          "model": "minimax/minimax-m3.1-flash:free",
+          "paid_fallback": false
+        },
+        {
+          "status": "api_usage",
+          "provider": "openrouter-free",
+          "model": "minimax/minimax-m3.1-flash:free",
+          "cost_usd": 0
+        },
+        {
+          "status": "response",
+          "call": 1,
+          "tokens": 6294
+        },
+        {
+          "status": "recipe_rejected",
+          "reason": "Unknown recipe fields"
+        },
+        {
+          "status": "api_usage",
+          "provider": "openrouter-free",
+          "model": "minimax/minimax-m3.1-flash:free",
+          "cost_usd": 0
+        },
+        {
+          "status": "response",
+          "call": 2,
+          "tokens": 12344
+        }
+      ],
+      "metric_direction": -1,
+      "selected_metric": 0.5201174174171611,
+      "live_fits": 1,
+      "live_accepted": 1,
+      "reported_live_cost_usd": 0,
+      "output_valid": true
+    },
+    {
+      "task": "skew",
+      "seed": 17,
+      "variant": "openrouter",
+      "input_sha256": {
+        "test.csv": "18c319f87a7cb75289f3cefa77b329da4ef2a5b82959f998792a6c11b6a006dc",
+        "task.md": "5b443640f648226abc8d3db73b0c702a53a540b76c6cf1a8d341a841bc682dae",
+        "train.csv": "e4badb1273afd2f28140e6315e35d7ac051f9a292e080396aefca40da75fe45f",
+        "data_dictionary.csv": "ddddf03c0125bd281674a8e23189ddf05f630b57972d384a3f6284e2bac4b47f",
+        "sample_submission.csv": "0d6671f149421b40ad6faa0d1f9f5e5678bcaf6925f2f9c4011efd2c50deb8e9"
+      },
+      "log": "runs/openrouter-paired-v2/skew_17/openrouter.log",
+      "status": "ok",
+      "returncode": 0,
+      "controller_seconds": 45.33536276500672,
+      "runtime_code_sha256": "99d4c0b96295fe16e018fba0f83ba27c91b0400854a028d384660208d8bbe244",
+      "mode": "live-agent",
+      "budget_seconds": 90.0,
+      "elapsed_seconds": 45.04231474699918,
+      "first_checkpoint_latency": 1.2419492430053651,
+      "validation": {
+        "id": "e0398becaa955c3f",
+        "kind": "random",
+        "reason": "IID regression; no evidence for grouped/forward validation",
+        "seed": 17,
+        "train_rows": 480,
+        "valid_rows": 120
+      },
+      "metric": "rmse",
+      "dummy_utility": -42.2324691012357,
+      "experiments": 16,
+      "successful_experiments": 16,
+      "accepted_experiments": 6,
+      "champion_metric": 9.158631461945019,
+      "champion_recipe": {
+        "model_family": "xgboost",
+        "params": {
+          "iterations": 150,
+          "max_depth": 5
+        },
+        "feature_ops": [
+          {
+            "op": "product",
+            "columns": [
+              "x0",
+              "x1"
+            ]
+          }
+        ],
+        "target_transform": "none",
+        "max_runtime_sec": 13.5,
+        "validation_plan_id": "e0398becaa955c3f",
+        "id": "local_5",
+        "statement": "Bounded numeric interaction may capture nonlinear rates",
+        "parent_experiment": "exp_0008"
+      },
+      "confirmation_metric": 15.09885121298449,
+      "ensemble": null,
+      "multipliers": null,
+      "qwen_calls": 0,
+      "qwen_proposals": 0,
+      "qwen_tokens": 0,
+      "qwen_events": [],
+      "max_live_worker_threads": 13,
+      "peak_worker_memory_mb": 137.45703125,
+      "cancelled": false,
+      "output": "/Users/mac/Documents/projects/alfaautoresearch/runs/openrouter-paired-v2/skew_17/data/submission.csv",
+      "output_sha256": "0bad721c7a01f09857bf01be61a81e6c7f0bc9331a9d84df74f38a613a6ba7e2",
+      "full_refit_published": true,
+      "researcher_provider": "openrouter-free",
+      "researcher_model": "minimax/minimax-m3.1-flash:free",
+      "researcher_calls": 2,
+      "researcher_proposals": 2,
+      "researcher_tokens": 12095,
+      "researcher_events": [
+        {
+          "status": "researcher_backend",
+          "provider": "openrouter-free",
+          "model": "minimax/minimax-m3.1-flash:free",
+          "paid_fallback": false
+        },
+        {
+          "status": "api_usage",
+          "provider": "openrouter-free",
+          "model": "minimax/minimax-m3.1-flash:free",
+          "cost_usd": 0
+        },
+        {
+          "status": "response",
+          "call": 1,
+          "tokens": 6162
+        },
+        {
+          "status": "api_usage",
+          "provider": "openrouter-free",
+          "model": "minimax/minimax-m3.1-flash:free",
+          "cost_usd": 0
+        },
+        {
+          "status": "response",
+          "call": 2,
+          "tokens": 12095
+        }
+      ],
+      "metric_direction": -1,
+      "selected_metric": 9.158631461945019,
+      "live_fits": 2,
+      "live_accepted": 1,
+      "reported_live_cost_usd": 0,
+      "output_valid": true
+    },
+    {
+      "task": "skew",
+      "seed": 17,
+      "variant": "deterministic",
+      "input_sha256": {
+        "test.csv": "18c319f87a7cb75289f3cefa77b329da4ef2a5b82959f998792a6c11b6a006dc",
+        "task.md": "5b443640f648226abc8d3db73b0c702a53a540b76c6cf1a8d341a841bc682dae",
+        "train.csv": "e4badb1273afd2f28140e6315e35d7ac051f9a292e080396aefca40da75fe45f",
+        "data_dictionary.csv": "ddddf03c0125bd281674a8e23189ddf05f630b57972d384a3f6284e2bac4b47f",
+        "sample_submission.csv": "0d6671f149421b40ad6faa0d1f9f5e5678bcaf6925f2f9c4011efd2c50deb8e9"
+      },
+      "log": "runs/openrouter-paired-v2/skew_17/deterministic.log",
+      "status": "ok",
+      "returncode": 0,
+      "controller_seconds": 24.849532823005575,
+      "runtime_code_sha256": "99d4c0b96295fe16e018fba0f83ba27c91b0400854a028d384660208d8bbe244",
+      "mode": "deterministic",
+      "budget_seconds": 90.0,
+      "elapsed_seconds": 24.58929912999156,
+      "first_checkpoint_latency": 1.445682345001842,
+      "validation": {
+        "id": "e0398becaa955c3f",
+        "kind": "random",
+        "reason": "IID regression; no evidence for grouped/forward validation",
+        "seed": 17,
+        "train_rows": 480,
+        "valid_rows": 120
+      },
+      "metric": "rmse",
+      "dummy_utility": -42.2324691012357,
+      "experiments": 16,
+      "successful_experiments": 16,
+      "accepted_experiments": 4,
+      "champion_metric": 10.3534932919225,
+      "champion_recipe": {
+        "model_family": "xgboost",
+        "params": {
+          "iterations": 150,
+          "max_depth": 6
+        },
+        "feature_ops": [
+          {
+            "op": "clip",
+            "columns": [
+              "x0",
+              "x1",
+              "x2",
+              "x3",
+              "x4"
+            ]
+          }
+        ],
+        "target_transform": "none",
+        "max_runtime_sec": 13.5,
+        "validation_plan_id": "e0398becaa955c3f",
+        "id": "local_6",
+        "statement": "Fold-fitted clipped copies may reduce outlier sensitivity while retaining originals",
+        "parent_experiment": "exp_0006"
+      },
+      "confirmation_metric": 17.28978488311876,
+      "ensemble": null,
+      "multipliers": null,
+      "qwen_calls": 0,
+      "qwen_proposals": 0,
+      "qwen_tokens": 0,
+      "qwen_events": [],
+      "max_live_worker_threads": 13,
+      "peak_worker_memory_mb": 136.765625,
+      "cancelled": false,
+      "output": "/Users/mac/Documents/projects/alfaautoresearch/runs/openrouter-paired-v2/skew_17/data/submission.csv",
+      "output_sha256": "313523a6386cc169433f2d275567bbf39d53653d3f7e6edbfe496a1577612434",
+      "full_refit_published": true,
+      "researcher_provider": "organizer-qwen",
+      "researcher_model": null,
+      "researcher_calls": 0,
+      "researcher_proposals": 0,
+      "researcher_tokens": 0,
+      "researcher_events": [],
+      "metric_direction": -1,
+      "selected_metric": 10.3534932919225,
+      "live_fits": 0,
+      "live_accepted": 0,
+      "reported_live_cost_usd": 0,
+      "output_valid": true
+    },
+    {
+      "task": "integer_labels",
+      "seed": 17,
+      "variant": "deterministic",
+      "input_sha256": {
+        "test.csv": "18c319f87a7cb75289f3cefa77b329da4ef2a5b82959f998792a6c11b6a006dc",
+        "task.md": "20909a07f97fa931cc066078b4caab8c17646a7b0605c6c74800058059fcd328",
+        "train.csv": "be70ca61e985df81a9dfae5c2e509bbc33ea1a3978dc7be10dd02bda2cbe103f",
+        "data_dictionary.csv": "ddddf03c0125bd281674a8e23189ddf05f630b57972d384a3f6284e2bac4b47f",
+        "sample_submission.csv": "02a36ab1bbda4fa5e8b4cc9ed4c8780670f9c3474bea4158df8eb84a98276bd6"
+      },
+      "log": "runs/openrouter-paired-v2/integer_labels_17/deterministic.log",
+      "status": "ok",
+      "returncode": 0,
+      "controller_seconds": 29.39456419199996,
+      "runtime_code_sha256": "99d4c0b96295fe16e018fba0f83ba27c91b0400854a028d384660208d8bbe244",
+      "mode": "deterministic",
+      "budget_seconds": 90.0,
+      "elapsed_seconds": 29.191145489996416,
+      "first_checkpoint_latency": 1.0152914999925997,
+      "validation": {
+        "id": "fabc69d449d0edea",
+        "kind": "stratified",
+        "reason": "IID classification",
+        "seed": 17,
+        "train_rows": 480,
+        "valid_rows": 120
+      },
+      "metric": "f1_macro",
+      "dummy_utility": 0.1818181818181818,
+      "experiments": 17,
+      "successful_experiments": 17,
+      "accepted_experiments": 5,
+      "champion_metric": 0.8576946789637253,
+      "champion_recipe": {
+        "model_family": "lightgbm",
+        "params": {
+          "iterations": 150,
+          "num_leaves": 31,
+          "min_child_samples": 30
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 13.5,
+        "validation_plan_id": "fabc69d449d0edea",
+        "id": "candidate",
+        "statement": "Fast leaf-wise booster with categorical handling",
+        "parent_experiment": null
+      },
+      "confirmation_metric": 0.8890645586297761,
+      "ensemble": {
+        "weights": [
+          0.5,
+          0.5
+        ],
+        "metric_value": 0.9001642036124794,
+        "confirmation_metric": 0.861173501753212,
+        "robust_utility": 0.8806688526828457
+      },
+      "multipliers": null,
+      "qwen_calls": 0,
+      "qwen_proposals": 0,
+      "qwen_tokens": 0,
+      "qwen_events": [],
+      "max_live_worker_threads": 13,
+      "peak_worker_memory_mb": 157.69921875,
+      "cancelled": false,
+      "output": "/Users/mac/Documents/projects/alfaautoresearch/runs/openrouter-paired-v2/integer_labels_17/data/submission.csv",
+      "output_sha256": "ccd520b141492f5f24236da746d1f8325c22b5474e5408e607d08e79443fd63b",
+      "full_refit_published": true,
+      "researcher_provider": "organizer-qwen",
+      "researcher_model": null,
+      "researcher_calls": 0,
+      "researcher_proposals": 0,
+      "researcher_tokens": 0,
+      "researcher_events": [],
+      "metric_direction": 1,
+      "selected_metric": 0.9001642036124794,
+      "live_fits": 0,
+      "live_accepted": 0,
+      "reported_live_cost_usd": 0,
+      "output_valid": true
+    },
+    {
+      "task": "integer_labels",
+      "seed": 17,
+      "variant": "openrouter",
+      "input_sha256": {
+        "test.csv": "18c319f87a7cb75289f3cefa77b329da4ef2a5b82959f998792a6c11b6a006dc",
+        "task.md": "20909a07f97fa931cc066078b4caab8c17646a7b0605c6c74800058059fcd328",
+        "train.csv": "be70ca61e985df81a9dfae5c2e509bbc33ea1a3978dc7be10dd02bda2cbe103f",
+        "data_dictionary.csv": "ddddf03c0125bd281674a8e23189ddf05f630b57972d384a3f6284e2bac4b47f",
+        "sample_submission.csv": "02a36ab1bbda4fa5e8b4cc9ed4c8780670f9c3474bea4158df8eb84a98276bd6"
+      },
+      "log": "runs/openrouter-paired-v2/integer_labels_17/openrouter.log",
+      "status": "ok",
+      "returncode": 0,
+      "controller_seconds": 45.547532719006995,
+      "runtime_code_sha256": "99d4c0b96295fe16e018fba0f83ba27c91b0400854a028d384660208d8bbe244",
+      "mode": "live-agent",
+      "budget_seconds": 90.0,
+      "elapsed_seconds": 45.27293116999499,
+      "first_checkpoint_latency": 1.3101366060000146,
+      "validation": {
+        "id": "fabc69d449d0edea",
+        "kind": "stratified",
+        "reason": "IID classification",
+        "seed": 17,
+        "train_rows": 480,
+        "valid_rows": 120
+      },
+      "metric": "f1_macro",
+      "dummy_utility": 0.1818181818181818,
+      "experiments": 17,
+      "successful_experiments": 17,
+      "accepted_experiments": 4,
+      "champion_metric": 0.8641853676336435,
+      "champion_recipe": {
+        "model_family": "hist",
+        "params": {
+          "iterations": 150
+        },
+        "feature_ops": [
+          {
+            "op": "ratio",
+            "columns": [
+              "x0",
+              "x1"
+            ]
+          }
+        ],
+        "target_transform": "none",
+        "max_runtime_sec": 13.5,
+        "validation_plan_id": "fabc69d449d0edea",
+        "id": "local_4",
+        "statement": "Bounded numeric interaction may capture nonlinear rates",
+        "parent_experiment": "exp_0004"
+      },
+      "confirmation_metric": 0.8822548678161161,
+      "ensemble": {
+        "weights": [
+          0.5,
+          0.5
+        ],
+        "metric_value": 0.8821747856230614,
+        "confirmation_metric": 0.8836685312288138,
+        "robust_utility": 0.8829216584259376
+      },
+      "multipliers": null,
+      "qwen_calls": 0,
+      "qwen_proposals": 0,
+      "qwen_tokens": 0,
+      "qwen_events": [],
+      "max_live_worker_threads": 13,
+      "peak_worker_memory_mb": 162.59765625,
+      "cancelled": false,
+      "output": "/Users/mac/Documents/projects/alfaautoresearch/runs/openrouter-paired-v2/integer_labels_17/data/submission.csv",
+      "output_sha256": "6cb3f19f7e73bac7db1273634fc55a52b71cf529e123fbd7b6edb784c97d2da2",
+      "full_refit_published": true,
+      "researcher_provider": "openrouter-free",
+      "researcher_model": "minimax/minimax-m3.1-flash:free",
+      "researcher_calls": 2,
+      "researcher_proposals": 2,
+      "researcher_tokens": 10427,
+      "researcher_events": [
+        {
+          "status": "researcher_backend",
+          "provider": "openrouter-free",
+          "model": "minimax/minimax-m3.1-flash:free",
+          "paid_fallback": false
+        },
+        {
+          "status": "api_usage",
+          "provider": "openrouter-free",
+          "model": "minimax/minimax-m3.1-flash:free",
+          "cost_usd": 0
+        },
+        {
+          "status": "response",
+          "call": 1,
+          "tokens": 5054
+        },
+        {
+          "status": "api_usage",
+          "provider": "openrouter-free",
+          "model": "minimax/minimax-m3.1-flash:free",
+          "cost_usd": 0
+        },
+        {
+          "status": "response",
+          "call": 2,
+          "tokens": 10427
+        }
+      ],
+      "metric_direction": 1,
+      "selected_metric": 0.8821747856230614,
+      "live_fits": 2,
+      "live_accepted": 0,
+      "reported_live_cost_usd": 0,
+      "output_valid": true
+    },
+    {
+      "task": "multiclass_imbalance",
+      "seed": 17,
+      "variant": "openrouter",
+      "input_sha256": {
+        "test.csv": "18c319f87a7cb75289f3cefa77b329da4ef2a5b82959f998792a6c11b6a006dc",
+        "task.md": "20909a07f97fa931cc066078b4caab8c17646a7b0605c6c74800058059fcd328",
+        "train.csv": "2187ad1722dcbb924c0261a8fa90e385164c30778891a8c74f790862955cb39b",
+        "data_dictionary.csv": "c8eba9f11d08e4ca679e1ca32a50830f4eb5ad3ac1cd21668a866a8b794f0f2a",
+        "sample_submission.csv": "4e03b6aa8f594ccfe7d6e209df2ec53c1146ef66cd0644c2fced7f41ceaecf6a"
+      },
+      "log": "runs/openrouter-paired-v2/multiclass_imbalance_17/openrouter.log",
+      "status": "ok",
+      "returncode": 0,
+      "controller_seconds": 37.97720198200841,
+      "runtime_code_sha256": "99d4c0b96295fe16e018fba0f83ba27c91b0400854a028d384660208d8bbe244",
+      "mode": "live-agent",
+      "budget_seconds": 90.0,
+      "elapsed_seconds": 37.71769650799979,
+      "first_checkpoint_latency": 1.139100756001426,
+      "validation": {
+        "id": "c7855d9ed94f022c",
+        "kind": "stratified",
+        "reason": "IID classification",
+        "seed": 17,
+        "train_rows": 480,
+        "valid_rows": 120
+      },
+      "metric": "f1_macro",
+      "dummy_utility": 0.2838915470494418,
+      "experiments": 16,
+      "successful_experiments": 16,
+      "accepted_experiments": 4,
+      "champion_metric": 0.8278666354938823,
+      "champion_recipe": {
+        "model_family": "lightgbm",
+        "params": {
+          "iterations": 150,
+          "num_leaves": 31,
+          "min_child_samples": 30,
+          "weight": "sqrt",
+          "stopping_metric": "primary"
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 13.5,
+        "validation_plan_id": "c7855d9ed94f022c",
+        "id": "candidate",
+        "statement": "Measured minority-weighted booster with early stopping on the actual primary metric",
+        "parent_experiment": null
+      },
+      "confirmation_metric": 0.8053571428571429,
+      "ensemble": null,
+      "multipliers": null,
+      "qwen_calls": 0,
+      "qwen_proposals": 0,
+      "qwen_tokens": 0,
+      "qwen_events": [],
+      "max_live_worker_threads": 13,
+      "peak_worker_memory_mb": 164.1953125,
+      "cancelled": false,
+      "output": "/Users/mac/Documents/projects/alfaautoresearch/runs/openrouter-paired-v2/multiclass_imbalance_17/data/submission.csv",
+      "output_sha256": "40f40c70cc5d7ebd0716e07cd2c14abf29973b5f9c4a70189d2f5ff3e48af7e0",
+      "full_refit_published": true,
+      "researcher_provider": "openrouter-free",
+      "researcher_model": "minimax/minimax-m3.1-flash:free",
+      "researcher_calls": 2,
+      "researcher_proposals": 2,
+      "researcher_tokens": 10820,
+      "researcher_events": [
+        {
+          "status": "researcher_backend",
+          "provider": "openrouter-free",
+          "model": "minimax/minimax-m3.1-flash:free",
+          "paid_fallback": false
+        },
+        {
+          "status": "api_usage",
+          "provider": "openrouter-free",
+          "model": "minimax/minimax-m3.1-flash:free",
+          "cost_usd": 0
+        },
+        {
+          "status": "response",
+          "call": 1,
+          "tokens": 5331
+        },
+        {
+          "status": "api_usage",
+          "provider": "openrouter-free",
+          "model": "minimax/minimax-m3.1-flash:free",
+          "cost_usd": 0
+        },
+        {
+          "status": "response",
+          "call": 2,
+          "tokens": 10820
+        }
+      ],
+      "metric_direction": 1,
+      "selected_metric": 0.8278666354938823,
+      "live_fits": 2,
+      "live_accepted": 0,
+      "reported_live_cost_usd": 0,
+      "output_valid": true
+    },
+    {
+      "task": "multiclass_imbalance",
+      "seed": 17,
+      "variant": "deterministic",
+      "input_sha256": {
+        "test.csv": "18c319f87a7cb75289f3cefa77b329da4ef2a5b82959f998792a6c11b6a006dc",
+        "task.md": "20909a07f97fa931cc066078b4caab8c17646a7b0605c6c74800058059fcd328",
+        "train.csv": "2187ad1722dcbb924c0261a8fa90e385164c30778891a8c74f790862955cb39b",
+        "data_dictionary.csv": "c8eba9f11d08e4ca679e1ca32a50830f4eb5ad3ac1cd21668a866a8b794f0f2a",
+        "sample_submission.csv": "4e03b6aa8f594ccfe7d6e209df2ec53c1146ef66cd0644c2fced7f41ceaecf6a"
+      },
+      "log": "runs/openrouter-paired-v2/multiclass_imbalance_17/deterministic.log",
+      "status": "ok",
+      "returncode": 0,
+      "controller_seconds": 26.524735243001487,
+      "runtime_code_sha256": "99d4c0b96295fe16e018fba0f83ba27c91b0400854a028d384660208d8bbe244",
+      "mode": "deterministic",
+      "budget_seconds": 90.0,
+      "elapsed_seconds": 26.321789990994148,
+      "first_checkpoint_latency": 1.0484753109922167,
+      "validation": {
+        "id": "c7855d9ed94f022c",
+        "kind": "stratified",
+        "reason": "IID classification",
+        "seed": 17,
+        "train_rows": 480,
+        "valid_rows": 120
+      },
+      "metric": "f1_macro",
+      "dummy_utility": 0.2838915470494418,
+      "experiments": 16,
+      "successful_experiments": 16,
+      "accepted_experiments": 4,
+      "champion_metric": 0.8278666354938823,
+      "champion_recipe": {
+        "model_family": "lightgbm",
+        "params": {
+          "iterations": 150,
+          "num_leaves": 31,
+          "min_child_samples": 30,
+          "weight": "sqrt",
+          "stopping_metric": "primary"
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 13.5,
+        "validation_plan_id": "c7855d9ed94f022c",
+        "id": "candidate",
+        "statement": "Measured minority-weighted booster with early stopping on the actual primary metric",
+        "parent_experiment": null
+      },
+      "confirmation_metric": 0.8053571428571429,
+      "ensemble": null,
+      "multipliers": null,
+      "qwen_calls": 0,
+      "qwen_proposals": 0,
+      "qwen_tokens": 0,
+      "qwen_events": [],
+      "max_live_worker_threads": 13,
+      "peak_worker_memory_mb": 143.81640625,
+      "cancelled": false,
+      "output": "/Users/mac/Documents/projects/alfaautoresearch/runs/openrouter-paired-v2/multiclass_imbalance_17/data/submission.csv",
+      "output_sha256": "40f40c70cc5d7ebd0716e07cd2c14abf29973b5f9c4a70189d2f5ff3e48af7e0",
+      "full_refit_published": true,
+      "researcher_provider": "organizer-qwen",
+      "researcher_model": null,
+      "researcher_calls": 0,
+      "researcher_proposals": 0,
+      "researcher_tokens": 0,
+      "researcher_events": [],
+      "metric_direction": 1,
+      "selected_metric": 0.8278666354938823,
+      "live_fits": 0,
+      "live_accepted": 0,
+      "reported_live_cost_usd": 0,
+      "output_valid": true
+    },
+    {
+      "task": "iid",
+      "seed": 43,
+      "variant": "openrouter",
+      "input_sha256": {
+        "test.csv": "8faf644ea855affa92164d0e488fa0417d4e35b38099b5c89bde489d4765960a",
+        "task.md": "5b443640f648226abc8d3db73b0c702a53a540b76c6cf1a8d341a841bc682dae",
+        "train.csv": "acdfa765e7de042b24cf4e1c5ac0b3a77cfc06801f83dec7cfbcdde6bb21df00",
+        "data_dictionary.csv": "ddddf03c0125bd281674a8e23189ddf05f630b57972d384a3f6284e2bac4b47f",
+        "sample_submission.csv": "0d6671f149421b40ad6faa0d1f9f5e5678bcaf6925f2f9c4011efd2c50deb8e9"
+      },
+      "log": "runs/openrouter-paired-v2/iid_43/openrouter.log",
+      "status": "ok",
+      "returncode": 0,
+      "controller_seconds": 43.83701880299486,
+      "runtime_code_sha256": "99d4c0b96295fe16e018fba0f83ba27c91b0400854a028d384660208d8bbe244",
+      "mode": "live-agent",
+      "budget_seconds": 90.0,
+      "elapsed_seconds": 43.60677700099768,
+      "first_checkpoint_latency": 1.0685158190026414,
+      "validation": {
+        "id": "0530233375e66a90",
+        "kind": "random",
+        "reason": "IID regression; no evidence for grouped/forward validation",
+        "seed": 43,
+        "train_rows": 480,
+        "valid_rows": 120
+      },
+      "metric": "rmse",
+      "dummy_utility": -2.3249184869126767,
+      "experiments": 17,
+      "successful_experiments": 17,
+      "accepted_experiments": 5,
+      "champion_metric": 0.35027005266187466,
+      "champion_recipe": {
+        "model_family": "xgboost",
+        "params": {
+          "iterations": 150,
+          "max_depth": 6
+        },
+        "feature_ops": [
+          {
+            "op": "product",
+            "columns": [
+              "x0",
+              "x1"
+            ]
+          }
+        ],
+        "target_transform": "none",
+        "max_runtime_sec": 13.5,
+        "validation_plan_id": "0530233375e66a90",
+        "id": "local_5",
+        "statement": "Bounded numeric interaction may capture nonlinear rates",
+        "parent_experiment": "exp_0006"
+      },
+      "confirmation_metric": 0.41242872090665944,
+      "ensemble": {
+        "weights": [
+          0.5,
+          0.5
+        ],
+        "metric_value": 0.3426540624829526,
+        "confirmation_metric": 0.4075823277659066,
+        "robust_utility": -0.37511819512442957
+      },
+      "multipliers": null,
+      "qwen_calls": 0,
+      "qwen_proposals": 0,
+      "qwen_tokens": 0,
+      "qwen_events": [],
+      "max_live_worker_threads": 13,
+      "peak_worker_memory_mb": 136.97265625,
+      "cancelled": false,
+      "output": "/Users/mac/Documents/projects/alfaautoresearch/runs/openrouter-paired-v2/iid_43/data/submission.csv",
+      "output_sha256": "eca18e74f230be611a22baeabefaa40916f74c896c7e95660fcd33ec415f9b3b",
+      "full_refit_published": true,
+      "researcher_provider": "openrouter-free",
+      "researcher_model": "minimax/minimax-m3.1-flash:free",
+      "researcher_calls": 2,
+      "researcher_proposals": 2,
+      "researcher_tokens": 12471,
+      "researcher_events": [
+        {
+          "status": "researcher_backend",
+          "provider": "openrouter-free",
+          "model": "minimax/minimax-m3.1-flash:free",
+          "paid_fallback": false
+        },
+        {
+          "status": "api_usage",
+          "provider": "openrouter-free",
+          "model": "minimax/minimax-m3.1-flash:free",
+          "cost_usd": 0
+        },
+        {
+          "status": "response",
+          "call": 1,
+          "tokens": 6029
+        },
+        {
+          "status": "api_usage",
+          "provider": "openrouter-free",
+          "model": "minimax/minimax-m3.1-flash:free",
+          "cost_usd": 0
+        },
+        {
+          "status": "response",
+          "call": 2,
+          "tokens": 12471
+        }
+      ],
+      "metric_direction": -1,
+      "selected_metric": 0.3426540624829526,
+      "live_fits": 2,
+      "live_accepted": 0,
+      "reported_live_cost_usd": 0,
+      "output_valid": true
+    },
+    {
+      "task": "iid",
+      "seed": 43,
+      "variant": "deterministic",
+      "input_sha256": {
+        "test.csv": "8faf644ea855affa92164d0e488fa0417d4e35b38099b5c89bde489d4765960a",
+        "task.md": "5b443640f648226abc8d3db73b0c702a53a540b76c6cf1a8d341a841bc682dae",
+        "train.csv": "acdfa765e7de042b24cf4e1c5ac0b3a77cfc06801f83dec7cfbcdde6bb21df00",
+        "data_dictionary.csv": "ddddf03c0125bd281674a8e23189ddf05f630b57972d384a3f6284e2bac4b47f",
+        "sample_submission.csv": "0d6671f149421b40ad6faa0d1f9f5e5678bcaf6925f2f9c4011efd2c50deb8e9"
+      },
+      "log": "runs/openrouter-paired-v2/iid_43/deterministic.log",
+      "status": "ok",
+      "returncode": 0,
+      "controller_seconds": 27.02378777100239,
+      "runtime_code_sha256": "99d4c0b96295fe16e018fba0f83ba27c91b0400854a028d384660208d8bbe244",
+      "mode": "deterministic",
+      "budget_seconds": 90.0,
+      "elapsed_seconds": 26.779141886989237,
+      "first_checkpoint_latency": 1.2551424479897832,
+      "validation": {
+        "id": "0530233375e66a90",
+        "kind": "random",
+        "reason": "IID regression; no evidence for grouped/forward validation",
+        "seed": 43,
+        "train_rows": 480,
+        "valid_rows": 120
+      },
+      "metric": "rmse",
+      "dummy_utility": -2.3249184869126767,
+      "experiments": 17,
+      "successful_experiments": 17,
+      "accepted_experiments": 5,
+      "champion_metric": 0.35027005266187466,
+      "champion_recipe": {
+        "model_family": "xgboost",
+        "params": {
+          "iterations": 150,
+          "max_depth": 6
+        },
+        "feature_ops": [
+          {
+            "op": "product",
+            "columns": [
+              "x0",
+              "x1"
+            ]
+          }
+        ],
+        "target_transform": "none",
+        "max_runtime_sec": 13.5,
+        "validation_plan_id": "0530233375e66a90",
+        "id": "local_5",
+        "statement": "Bounded numeric interaction may capture nonlinear rates",
+        "parent_experiment": "exp_0006"
+      },
+      "confirmation_metric": 0.41242872090665944,
+      "ensemble": {
+        "weights": [
+          0.5,
+          0.5
+        ],
+        "metric_value": 0.3426540624829526,
+        "confirmation_metric": 0.4075823277659066,
+        "robust_utility": -0.37511819512442957
+      },
+      "multipliers": null,
+      "qwen_calls": 0,
+      "qwen_proposals": 0,
+      "qwen_tokens": 0,
+      "qwen_events": [],
+      "max_live_worker_threads": 13,
+      "peak_worker_memory_mb": 136.8046875,
+      "cancelled": false,
+      "output": "/Users/mac/Documents/projects/alfaautoresearch/runs/openrouter-paired-v2/iid_43/data/submission.csv",
+      "output_sha256": "eca18e74f230be611a22baeabefaa40916f74c896c7e95660fcd33ec415f9b3b",
+      "full_refit_published": true,
+      "researcher_provider": "organizer-qwen",
+      "researcher_model": null,
+      "researcher_calls": 0,
+      "researcher_proposals": 0,
+      "researcher_tokens": 0,
+      "researcher_events": [],
+      "metric_direction": -1,
+      "selected_metric": 0.3426540624829526,
+      "live_fits": 0,
+      "live_accepted": 0,
+      "reported_live_cost_usd": 0,
+      "output_valid": true
+    },
+    {
+      "task": "skew",
+      "seed": 43,
+      "variant": "deterministic",
+      "input_sha256": {
+        "test.csv": "8faf644ea855affa92164d0e488fa0417d4e35b38099b5c89bde489d4765960a",
+        "task.md": "5b443640f648226abc8d3db73b0c702a53a540b76c6cf1a8d341a841bc682dae",
+        "train.csv": "641ed6cffc61ea3366c41fa030094d6945443c82ee439e674630b0607a5d1a0e",
+        "data_dictionary.csv": "ddddf03c0125bd281674a8e23189ddf05f630b57972d384a3f6284e2bac4b47f",
+        "sample_submission.csv": "0d6671f149421b40ad6faa0d1f9f5e5678bcaf6925f2f9c4011efd2c50deb8e9"
+      },
+      "log": "runs/openrouter-paired-v2/skew_43/deterministic.log",
+      "status": "ok",
+      "returncode": 0,
+      "controller_seconds": 27.957213335990673,
+      "runtime_code_sha256": "99d4c0b96295fe16e018fba0f83ba27c91b0400854a028d384660208d8bbe244",
+      "mode": "deterministic",
+      "budget_seconds": 90.0,
+      "elapsed_seconds": 27.737291883007856,
+      "first_checkpoint_latency": 1.2690942879999056,
+      "validation": {
+        "id": "0530233375e66a90",
+        "kind": "random",
+        "reason": "IID regression; no evidence for grouped/forward validation",
+        "seed": 43,
+        "train_rows": 480,
+        "valid_rows": 120
+      },
+      "metric": "rmse",
+      "dummy_utility": -35.222909945081014,
+      "experiments": 16,
+      "successful_experiments": 16,
+      "accepted_experiments": 7,
+      "champion_metric": 10.868807678933187,
+      "champion_recipe": {
+        "model_family": "xgboost",
+        "params": {
+          "iterations": 150,
+          "max_depth": 6
+        },
+        "feature_ops": [
+          {
+            "op": "product",
+            "columns": [
+              "x0",
+              "x1"
+            ]
+          }
+        ],
+        "target_transform": "log1p",
+        "max_runtime_sec": 13.5,
+        "validation_plan_id": "0530233375e66a90",
+        "id": "local_5",
+        "statement": "Bounded numeric interaction may capture nonlinear rates",
+        "parent_experiment": "exp_0008"
+      },
+      "confirmation_metric": 14.288654705482067,
+      "ensemble": null,
+      "multipliers": null,
+      "qwen_calls": 0,
+      "qwen_proposals": 0,
+      "qwen_tokens": 0,
+      "qwen_events": [],
+      "max_live_worker_threads": 13,
+      "peak_worker_memory_mb": 137.44921875,
+      "cancelled": false,
+      "output": "/Users/mac/Documents/projects/alfaautoresearch/runs/openrouter-paired-v2/skew_43/data/submission.csv",
+      "output_sha256": "8cfe7edb1d26a232c8a574376b9f58a1207e02f7ca056fdbf819b2ea01980dd1",
+      "full_refit_published": true,
+      "researcher_provider": "organizer-qwen",
+      "researcher_model": null,
+      "researcher_calls": 0,
+      "researcher_proposals": 0,
+      "researcher_tokens": 0,
+      "researcher_events": [],
+      "metric_direction": -1,
+      "selected_metric": 10.868807678933187,
+      "live_fits": 0,
+      "live_accepted": 0,
+      "reported_live_cost_usd": 0,
+      "output_valid": true
+    },
+    {
+      "task": "skew",
+      "seed": 43,
+      "variant": "openrouter",
+      "input_sha256": {
+        "test.csv": "8faf644ea855affa92164d0e488fa0417d4e35b38099b5c89bde489d4765960a",
+        "task.md": "5b443640f648226abc8d3db73b0c702a53a540b76c6cf1a8d341a841bc682dae",
+        "train.csv": "641ed6cffc61ea3366c41fa030094d6945443c82ee439e674630b0607a5d1a0e",
+        "data_dictionary.csv": "ddddf03c0125bd281674a8e23189ddf05f630b57972d384a3f6284e2bac4b47f",
+        "sample_submission.csv": "0d6671f149421b40ad6faa0d1f9f5e5678bcaf6925f2f9c4011efd2c50deb8e9"
+      },
+      "log": "runs/openrouter-paired-v2/skew_43/openrouter.log",
+      "status": "ok",
+      "returncode": 0,
+      "controller_seconds": 49.74281803998747,
+      "runtime_code_sha256": "99d4c0b96295fe16e018fba0f83ba27c91b0400854a028d384660208d8bbe244",
+      "mode": "live-agent",
+      "budget_seconds": 90.0,
+      "elapsed_seconds": 49.508494862006046,
+      "first_checkpoint_latency": 0.9607365890115034,
+      "validation": {
+        "id": "0530233375e66a90",
+        "kind": "random",
+        "reason": "IID regression; no evidence for grouped/forward validation",
+        "seed": 43,
+        "train_rows": 480,
+        "valid_rows": 120
+      },
+      "metric": "rmse",
+      "dummy_utility": -35.222909945081014,
+      "experiments": 17,
+      "successful_experiments": 17,
+      "accepted_experiments": 6,
+      "champion_metric": 13.435736733000619,
+      "champion_recipe": {
+        "model_family": "xgboost",
+        "params": {
+          "iterations": 150,
+          "max_depth": 6
+        },
+        "feature_ops": [
+          {
+            "op": "ratio",
+            "columns": [
+              "x0",
+              "x1"
+            ]
+          }
+        ],
+        "target_transform": "none",
+        "max_runtime_sec": 13.5,
+        "validation_plan_id": "0530233375e66a90",
+        "id": "local_4",
+        "statement": "Bounded numeric interaction may capture nonlinear rates",
+        "parent_experiment": "exp_0006"
+      },
+      "confirmation_metric": 14.157284814631472,
+      "ensemble": {
+        "weights": [
+          0.5,
+          0.5
+        ],
+        "metric_value": 12.845389900411439,
+        "confirmation_metric": 13.366040097790306,
+        "robust_utility": -13.105714999100872
+      },
+      "multipliers": null,
+      "qwen_calls": 0,
+      "qwen_proposals": 0,
+      "qwen_tokens": 0,
+      "qwen_events": [],
+      "max_live_worker_threads": 13,
+      "peak_worker_memory_mb": 135.6171875,
+      "cancelled": false,
+      "output": "/Users/mac/Documents/projects/alfaautoresearch/runs/openrouter-paired-v2/skew_43/data/submission.csv",
+      "output_sha256": "d9d161ac80617142f68d190e4978636b4b5df3d678700f6e1badeccdf1aa20ef",
+      "full_refit_published": true,
+      "researcher_provider": "openrouter-free",
+      "researcher_model": "minimax/minimax-m3.1-flash:free",
+      "researcher_calls": 2,
+      "researcher_proposals": 2,
+      "researcher_tokens": 12671,
+      "researcher_events": [
+        {
+          "status": "researcher_backend",
+          "provider": "openrouter-free",
+          "model": "minimax/minimax-m3.1-flash:free",
+          "paid_fallback": false
+        },
+        {
+          "status": "api_usage",
+          "provider": "openrouter-free",
+          "model": "minimax/minimax-m3.1-flash:free",
+          "cost_usd": 0
+        },
+        {
+          "status": "response",
+          "call": 1,
+          "tokens": 6092
+        },
+        {
+          "status": "api_usage",
+          "provider": "openrouter-free",
+          "model": "minimax/minimax-m3.1-flash:free",
+          "cost_usd": 0
+        },
+        {
+          "status": "response",
+          "call": 2,
+          "tokens": 12671
+        }
+      ],
+      "metric_direction": -1,
+      "selected_metric": 12.845389900411439,
+      "live_fits": 2,
+      "live_accepted": 0,
+      "reported_live_cost_usd": 0,
+      "output_valid": true
+    },
+    {
+      "task": "integer_labels",
+      "seed": 43,
+      "variant": "openrouter",
+      "input_sha256": {
+        "test.csv": "8faf644ea855affa92164d0e488fa0417d4e35b38099b5c89bde489d4765960a",
+        "task.md": "20909a07f97fa931cc066078b4caab8c17646a7b0605c6c74800058059fcd328",
+        "train.csv": "603e0771399167fecf7602c503099066cbba0dd0a7589967095a60f9a6bf65aa",
+        "data_dictionary.csv": "ddddf03c0125bd281674a8e23189ddf05f630b57972d384a3f6284e2bac4b47f",
+        "sample_submission.csv": "02a36ab1bbda4fa5e8b4cc9ed4c8780670f9c3474bea4158df8eb84a98276bd6"
+      },
+      "log": "runs/openrouter-paired-v2/integer_labels_43/openrouter.log",
+      "status": "ok",
+      "returncode": 0,
+      "controller_seconds": 36.77798781701131,
+      "runtime_code_sha256": "99d4c0b96295fe16e018fba0f83ba27c91b0400854a028d384660208d8bbe244",
+      "mode": "live-agent",
+      "budget_seconds": 90.0,
+      "elapsed_seconds": 36.53982508199988,
+      "first_checkpoint_latency": 1.0983391129993834,
+      "validation": {
+        "id": "789eb78b7bb9431b",
+        "kind": "stratified",
+        "reason": "IID classification",
+        "seed": 43,
+        "train_rows": 480,
+        "valid_rows": 120
+      },
+      "metric": "f1_macro",
+      "dummy_utility": 0.18473895582329317,
+      "experiments": 16,
+      "successful_experiments": 16,
+      "accepted_experiments": 4,
+      "champion_metric": 0.83056884635832,
+      "champion_recipe": {
+        "model_family": "xgboost",
+        "params": {
+          "iterations": 150,
+          "max_depth": 6,
+          "learning_rate": 0.05,
+          "min_child_weight": 1,
+          "reg_lambda": 1,
+          "colsample_bytree": 1.0,
+          "subsample": 1.0,
+          "weight": "balanced"
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 13.5,
+        "validation_plan_id": "789eb78b7bb9431b",
+        "id": "exp_0007",
+        "statement": "Applying balanced class weights to the champion XGBoost model will improve macro F1 above 0.8303 by increasing recall on the minority class 7, with sufficient gains on classes 3 and 42 to offset increased false positives.",
+        "parent_experiment": "exp_0006"
+      },
+      "confirmation_metric": 0.8228235054786545,
+      "ensemble": null,
+      "multipliers": null,
+      "qwen_calls": 0,
+      "qwen_proposals": 0,
+      "qwen_tokens": 0,
+      "qwen_events": [],
+      "max_live_worker_threads": 13,
+      "peak_worker_memory_mb": 141.55859375,
+      "cancelled": false,
+      "output": "/Users/mac/Documents/projects/alfaautoresearch/runs/openrouter-paired-v2/integer_labels_43/data/submission.csv",
+      "output_sha256": "3d0d31bf0018879963972178b3c78c39f2d0180724ea6ec27e73bf41d5058943",
+      "full_refit_published": true,
+      "researcher_provider": "openrouter-free",
+      "researcher_model": "minimax/minimax-m3.1-flash:free",
+      "researcher_calls": 2,
+      "researcher_proposals": 2,
+      "researcher_tokens": 10483,
+      "researcher_events": [
+        {
+          "status": "researcher_backend",
+          "provider": "openrouter-free",
+          "model": "minimax/minimax-m3.1-flash:free",
+          "paid_fallback": false
+        },
+        {
+          "status": "api_usage",
+          "provider": "openrouter-free",
+          "model": "minimax/minimax-m3.1-flash:free",
+          "cost_usd": 0
+        },
+        {
+          "status": "response",
+          "call": 1,
+          "tokens": 5149
+        },
+        {
+          "status": "api_usage",
+          "provider": "openrouter-free",
+          "model": "minimax/minimax-m3.1-flash:free",
+          "cost_usd": 0
+        },
+        {
+          "status": "response",
+          "call": 2,
+          "tokens": 10483
+        }
+      ],
+      "metric_direction": 1,
+      "selected_metric": 0.83056884635832,
+      "live_fits": 2,
+      "live_accepted": 0,
+      "reported_live_cost_usd": 0,
+      "output_valid": true
+    },
+    {
+      "task": "integer_labels",
+      "seed": 43,
+      "variant": "deterministic",
+      "input_sha256": {
+        "test.csv": "8faf644ea855affa92164d0e488fa0417d4e35b38099b5c89bde489d4765960a",
+        "task.md": "20909a07f97fa931cc066078b4caab8c17646a7b0605c6c74800058059fcd328",
+        "train.csv": "603e0771399167fecf7602c503099066cbba0dd0a7589967095a60f9a6bf65aa",
+        "data_dictionary.csv": "ddddf03c0125bd281674a8e23189ddf05f630b57972d384a3f6284e2bac4b47f",
+        "sample_submission.csv": "02a36ab1bbda4fa5e8b4cc9ed4c8780670f9c3474bea4158df8eb84a98276bd6"
+      },
+      "log": "runs/openrouter-paired-v2/integer_labels_43/deterministic.log",
+      "status": "ok",
+      "returncode": 0,
+      "controller_seconds": 26.765067881991854,
+      "runtime_code_sha256": "99d4c0b96295fe16e018fba0f83ba27c91b0400854a028d384660208d8bbe244",
+      "mode": "deterministic",
+      "budget_seconds": 90.0,
+      "elapsed_seconds": 26.54569099500077,
+      "first_checkpoint_latency": 1.1744906709936913,
+      "validation": {
+        "id": "789eb78b7bb9431b",
+        "kind": "stratified",
+        "reason": "IID classification",
+        "seed": 43,
+        "train_rows": 480,
+        "valid_rows": 120
+      },
+      "metric": "f1_macro",
+      "dummy_utility": 0.18473895582329317,
+      "experiments": 16,
+      "successful_experiments": 16,
+      "accepted_experiments": 4,
+      "champion_metric": 0.8274513114938647,
+      "champion_recipe": {
+        "model_family": "xgboost",
+        "params": {
+          "iterations": 150,
+          "max_depth": 6
+        },
+        "feature_ops": [
+          {
+            "op": "frequency",
+            "columns": [
+              "category"
+            ]
+          }
+        ],
+        "target_transform": "none",
+        "max_runtime_sec": 13.5,
+        "validation_plan_id": "789eb78b7bb9431b",
+        "id": "local_2",
+        "statement": "Fold-fitted category frequency may expose rarity without target leakage",
+        "parent_experiment": "exp_0006"
+      },
+      "confirmation_metric": 0.8162393162393163,
+      "ensemble": null,
+      "multipliers": null,
+      "qwen_calls": 0,
+      "qwen_proposals": 0,
+      "qwen_tokens": 0,
+      "qwen_events": [],
+      "max_live_worker_threads": 13,
+      "peak_worker_memory_mb": 141.078125,
+      "cancelled": false,
+      "output": "/Users/mac/Documents/projects/alfaautoresearch/runs/openrouter-paired-v2/integer_labels_43/data/submission.csv",
+      "output_sha256": "3d0d31bf0018879963972178b3c78c39f2d0180724ea6ec27e73bf41d5058943",
+      "full_refit_published": true,
+      "researcher_provider": "organizer-qwen",
+      "researcher_model": null,
+      "researcher_calls": 0,
+      "researcher_proposals": 0,
+      "researcher_tokens": 0,
+      "researcher_events": [],
+      "metric_direction": 1,
+      "selected_metric": 0.8274513114938647,
+      "live_fits": 0,
+      "live_accepted": 0,
+      "reported_live_cost_usd": 0,
+      "output_valid": true
+    },
+    {
+      "task": "multiclass_imbalance",
+      "seed": 43,
+      "variant": "deterministic",
+      "input_sha256": {
+        "test.csv": "8faf644ea855affa92164d0e488fa0417d4e35b38099b5c89bde489d4765960a",
+        "task.md": "20909a07f97fa931cc066078b4caab8c17646a7b0605c6c74800058059fcd328",
+        "train.csv": "fb5d2a8d1d33b12716c39643f090a5383a36cd4b1fb46a93fe6146f9a68c39d8",
+        "data_dictionary.csv": "c8eba9f11d08e4ca679e1ca32a50830f4eb5ad3ac1cd21668a866a8b794f0f2a",
+        "sample_submission.csv": "4e03b6aa8f594ccfe7d6e209df2ec53c1146ef66cd0644c2fced7f41ceaecf6a"
+      },
+      "log": "runs/openrouter-paired-v2/multiclass_imbalance_43/deterministic.log",
+      "status": "ok",
+      "returncode": 0,
+      "controller_seconds": 25.537399716995424,
+      "runtime_code_sha256": "99d4c0b96295fe16e018fba0f83ba27c91b0400854a028d384660208d8bbe244",
+      "mode": "deterministic",
+      "budget_seconds": 90.0,
+      "elapsed_seconds": 25.330217745999107,
+      "first_checkpoint_latency": 0.9501566490071127,
+      "validation": {
+        "id": "c9b8e4acfbf21a37",
+        "kind": "stratified",
+        "reason": "IID classification",
+        "seed": 43,
+        "train_rows": 480,
+        "valid_rows": 120
+      },
+      "metric": "f1_macro",
+      "dummy_utility": 0.28751974723538704,
+      "experiments": 16,
+      "successful_experiments": 16,
+      "accepted_experiments": 3,
+      "champion_metric": 0.9364988558352403,
+      "champion_recipe": {
+        "model_family": "linear",
+        "params": {
+          "C": 10.0,
+          "weight": "balanced"
+        },
+        "feature_ops": [
+          {
+            "op": "frequency",
+            "columns": [
+              "category"
+            ]
+          }
+        ],
+        "target_transform": "none",
+        "max_runtime_sec": 13.5,
+        "validation_plan_id": "c9b8e4acfbf21a37",
+        "id": "local_3",
+        "statement": "Fold-fitted category frequency may expose rarity without target leakage",
+        "parent_experiment": "exp_0009"
+      },
+      "confirmation_metric": 0.8244593088071349,
+      "ensemble": null,
+      "multipliers": null,
+      "qwen_calls": 0,
+      "qwen_proposals": 0,
+      "qwen_tokens": 0,
+      "qwen_events": [],
+      "max_live_worker_threads": 13,
+      "peak_worker_memory_mb": 161.2890625,
+      "cancelled": false,
+      "output": "/Users/mac/Documents/projects/alfaautoresearch/runs/openrouter-paired-v2/multiclass_imbalance_43/data/submission.csv",
+      "output_sha256": "053385393829b5a8deee57d2caef60fe05b945825809fb0e33e29fb944f0f3f8",
+      "full_refit_published": true,
+      "researcher_provider": "organizer-qwen",
+      "researcher_model": null,
+      "researcher_calls": 0,
+      "researcher_proposals": 0,
+      "researcher_tokens": 0,
+      "researcher_events": [],
+      "metric_direction": 1,
+      "selected_metric": 0.9364988558352403,
+      "live_fits": 0,
+      "live_accepted": 0,
+      "reported_live_cost_usd": 0,
+      "output_valid": true
+    },
+    {
+      "task": "multiclass_imbalance",
+      "seed": 43,
+      "variant": "openrouter",
+      "input_sha256": {
+        "test.csv": "8faf644ea855affa92164d0e488fa0417d4e35b38099b5c89bde489d4765960a",
+        "task.md": "20909a07f97fa931cc066078b4caab8c17646a7b0605c6c74800058059fcd328",
+        "train.csv": "fb5d2a8d1d33b12716c39643f090a5383a36cd4b1fb46a93fe6146f9a68c39d8",
+        "data_dictionary.csv": "c8eba9f11d08e4ca679e1ca32a50830f4eb5ad3ac1cd21668a866a8b794f0f2a",
+        "sample_submission.csv": "4e03b6aa8f594ccfe7d6e209df2ec53c1146ef66cd0644c2fced7f41ceaecf6a"
+      },
+      "log": "runs/openrouter-paired-v2/multiclass_imbalance_43/openrouter.log",
+      "status": "ok",
+      "returncode": 0,
+      "controller_seconds": 41.47259806000511,
+      "runtime_code_sha256": "99d4c0b96295fe16e018fba0f83ba27c91b0400854a028d384660208d8bbe244",
+      "mode": "live-agent",
+      "budget_seconds": 90.0,
+      "elapsed_seconds": 41.23773880099179,
+      "first_checkpoint_latency": 0.9880874630034668,
+      "validation": {
+        "id": "c9b8e4acfbf21a37",
+        "kind": "stratified",
+        "reason": "IID classification",
+        "seed": 43,
+        "train_rows": 480,
+        "valid_rows": 120
+      },
+      "metric": "f1_macro",
+      "dummy_utility": 0.28751974723538704,
+      "experiments": 16,
+      "successful_experiments": 16,
+      "accepted_experiments": 3,
+      "champion_metric": 0.9244126659856997,
+      "champion_recipe": {
+        "model_family": "linear",
+        "params": {
+          "C": 1,
+          "weight": "balanced"
+        },
+        "feature_ops": [
+          {
+            "op": "product",
+            "columns": [
+              "x0",
+              "x1"
+            ]
+          }
+        ],
+        "target_transform": "none",
+        "max_runtime_sec": 13.5,
+        "validation_plan_id": "c9b8e4acfbf21a37",
+        "id": "local_5",
+        "statement": "Bounded numeric interaction may capture nonlinear rates",
+        "parent_experiment": "exp_0010"
+      },
+      "confirmation_metric": 0.8556166056166057,
+      "ensemble": null,
+      "multipliers": null,
+      "qwen_calls": 0,
+      "qwen_proposals": 0,
+      "qwen_tokens": 0,
+      "qwen_events": [],
+      "max_live_worker_threads": 13,
+      "peak_worker_memory_mb": 140.6328125,
+      "cancelled": false,
+      "output": "/Users/mac/Documents/projects/alfaautoresearch/runs/openrouter-paired-v2/multiclass_imbalance_43/data/submission.csv",
+      "output_sha256": "94bb5b84ca5d57f27d6da60e0b332a6ff4299acce545b075d7a3100717421f42",
+      "full_refit_published": true,
+      "researcher_provider": "openrouter-free",
+      "researcher_model": "minimax/minimax-m3.1-flash:free",
+      "researcher_calls": 2,
+      "researcher_proposals": 2,
+      "researcher_tokens": 10499,
+      "researcher_events": [
+        {
+          "status": "researcher_backend",
+          "provider": "openrouter-free",
+          "model": "minimax/minimax-m3.1-flash:free",
+          "paid_fallback": false
+        },
+        {
+          "status": "api_usage",
+          "provider": "openrouter-free",
+          "model": "minimax/minimax-m3.1-flash:free",
+          "cost_usd": 0
+        },
+        {
+          "status": "response",
+          "call": 1,
+          "tokens": 5296
+        },
+        {
+          "status": "api_usage",
+          "provider": "openrouter-free",
+          "model": "minimax/minimax-m3.1-flash:free",
+          "cost_usd": 0
+        },
+        {
+          "status": "response",
+          "call": 2,
+          "tokens": 10499
+        },
+        {
+          "status": "recipe_rejected",
+          "reason": "Invalid feature arity"
+        }
+      ],
+      "metric_direction": 1,
+      "selected_metric": 0.9244126659856997,
+      "live_fits": 1,
+      "live_accepted": 1,
+      "reported_live_cost_usd": 0,
+      "output_valid": true
+    }
+  ],
+  "pairs": [
+    {
+      "task": "iid",
+      "seed": 17,
+      "status": "compared",
+      "metric": "rmse",
+      "deterministic": 0.5921497227388296,
+      "openrouter": 0.5201174174171611,
+      "utility_difference": 0.07203230532166849,
+      "relative_improvement": 0.12164542607316,
+      "deterministic_seconds": 30.67665702701197,
+      "openrouter_seconds": 42.286737742993864,
+      "live_calls": 2,
+      "live_fits": 1,
+      "live_accepted": 1
+    },
+    {
+      "task": "skew",
+      "seed": 17,
+      "status": "compared",
+      "metric": "rmse",
+      "deterministic": 10.3534932919225,
+      "openrouter": 9.158631461945019,
+      "utility_difference": 1.1948618299774818,
+      "relative_improvement": 0.11540663583659042,
+      "deterministic_seconds": 24.58929912999156,
+      "openrouter_seconds": 45.04231474699918,
+      "live_calls": 2,
+      "live_fits": 2,
+      "live_accepted": 1
+    },
+    {
+      "task": "integer_labels",
+      "seed": 17,
+      "status": "compared",
+      "metric": "f1_macro",
+      "deterministic": 0.9001642036124794,
+      "openrouter": 0.8821747856230614,
+      "utility_difference": -0.017989417989418,
+      "relative_improvement": -0.01998459605172485,
+      "deterministic_seconds": 29.191145489996416,
+      "openrouter_seconds": 45.27293116999499,
+      "live_calls": 2,
+      "live_fits": 2,
+      "live_accepted": 0
+    },
+    {
+      "task": "multiclass_imbalance",
+      "seed": 17,
+      "status": "compared",
+      "metric": "f1_macro",
+      "deterministic": 0.8278666354938823,
+      "openrouter": 0.8278666354938823,
+      "utility_difference": 0.0,
+      "relative_improvement": 0.0,
+      "deterministic_seconds": 26.321789990994148,
+      "openrouter_seconds": 37.71769650799979,
+      "live_calls": 2,
+      "live_fits": 2,
+      "live_accepted": 0
+    },
+    {
+      "task": "iid",
+      "seed": 43,
+      "status": "compared",
+      "metric": "rmse",
+      "deterministic": 0.3426540624829526,
+      "openrouter": 0.3426540624829526,
+      "utility_difference": -0.0,
+      "relative_improvement": -0.0,
+      "deterministic_seconds": 26.779141886989237,
+      "openrouter_seconds": 43.60677700099768,
+      "live_calls": 2,
+      "live_fits": 2,
+      "live_accepted": 0
+    },
+    {
+      "task": "skew",
+      "seed": 43,
+      "status": "compared",
+      "metric": "rmse",
+      "deterministic": 10.868807678933187,
+      "openrouter": 12.845389900411439,
+      "utility_difference": -1.9765822214782514,
+      "relative_improvement": -0.18185823872009665,
+      "deterministic_seconds": 27.737291883007856,
+      "openrouter_seconds": 49.508494862006046,
+      "live_calls": 2,
+      "live_fits": 2,
+      "live_accepted": 0
+    },
+    {
+      "task": "integer_labels",
+      "seed": 43,
+      "status": "compared",
+      "metric": "f1_macro",
+      "deterministic": 0.8274513114938647,
+      "openrouter": 0.83056884635832,
+      "utility_difference": 0.003117534864455207,
+      "relative_improvement": 0.003767635413891446,
+      "deterministic_seconds": 26.54569099500077,
+      "openrouter_seconds": 36.53982508199988,
+      "live_calls": 2,
+      "live_fits": 2,
+      "live_accepted": 0
+    },
+    {
+      "task": "multiclass_imbalance",
+      "seed": 43,
+      "status": "compared",
+      "metric": "f1_macro",
+      "deterministic": 0.9364988558352403,
+      "openrouter": 0.9244126659856997,
+      "utility_difference": -0.012086189849540574,
+      "relative_improvement": -0.012905717689063484,
+      "deterministic_seconds": 25.330217745999107,
+      "openrouter_seconds": 41.23773880099179,
+      "live_calls": 2,
+      "live_fits": 1,
+      "live_accepted": 1
+    }
+  ],
+  "quota_after": {
+    "free_model_daily_requests": {
+      "used": 17,
+      "limit": 50,
+      "remaining": 33
+    },
+    "reported_usage_usd": 0
+  },
+  "finished_at_unix": 1792512055.0102022
+}
