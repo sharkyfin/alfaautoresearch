@@ -84,3 +84,14 @@ Both versions are preserved under artifacts/official; neither is silently replac
 The ZIP uses the folder version verbatim as root requirements.txt. A Linux/Python3.12
 resolution of that complete file succeeded via uv pip compile (reports/official-requirements-resolution.log);
 this is dependency-resolution evidence, not an installation of the full organizer image.
+
+## Verified local release gates
+
+Current-source tests: 160 passed; source remained unchanged throughout. The flat
+ZIP passed fresh root-only copy tests and then Linux 6.8 / Python 3.12.15 container
+execution at 8CPU / 6GiB with networking disabled. All six model families fitted
+on regression and classification. RLIMIT_AS, parent RSS, wall-clock kill and
+SIGTERM preservation passed. The 8GiB VM had no host mounts and was stopped after
+verification. This uses the approved pinned runtime subset; the actual organizer
+image, platform network route and physical 32GiB environment remain unverified.
+See reports/final-release-audit.json, linux-verification.json and release-manifest.json.

@@ -1,5 +1,5 @@
 {
-  "status": "PROVISIONAL",
+  "status": "LOCAL_RELEASE_VERIFIED",
   "runtime_code_sha256": "b1fa509ddea5537172c227f44f74a6a8eb1f3b902532f535c52d02a117436e6e",
   "archive_sha256": "b9b4cb7a0c9309a6eab72f893b78d56b4f2ecee85ca0158a23b4b4f70e98df2b",
   "archive_bytes": 40247,
@@ -43,9 +43,7 @@
       "runtime_code_sha256": "b1fa509ddea5537172c227f44f74a6a8eb1f3b902532f535c52d02a117436e6e"
     }
   ],
-  "blocked": [
-    "Linux container execution of the current flat archive not yet verified"
-  ],
+  "blocked": [],
   "limitations": [
     "Local holdouts cannot establish private leaderboard quality",
     "Scaled deadline simulation is not a real three-hour soak",

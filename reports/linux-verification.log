@@ -1,0 +1,401 @@
+Isolated Linux verification; no host directory mounts or API credentials.
+
+COMMAND ["start", "--name=qa", "--tty=false", "--mount-none", "/Users/mac/Documents/projects/alfaautoresearch/.bootstrap/atlas-linux.yaml"]
+time="2026-10-20T20:40:15+03:00" level=info msg="Terminal is not available, proceeding without opening an editor"
+time="2026-10-20T20:40:15+03:00" level=warning msg="vmType vz: On Intel Mac, macOS 15.5 or later is required to run Linux 6.12 or later. Update macOS, or change vmType to `qemu` if the VM does not start up. (https://github.com/lima-vm/lima/issues/3334)"
+time="2026-10-20T20:40:16+03:00" level=info msg="Starting the instance `qa` with internal VM driver `vz`"
+time="2026-10-20T20:40:16+03:00" level=warning msg="vmType vz: On Intel Mac, macOS 15.5 or later is required to run Linux 6.12 or later. Update macOS, or change vmType to `qemu` if the VM does not start up. (https://github.com/lima-vm/lima/issues/3334)"
+time="2026-10-20T20:40:16+03:00" level=warning msg="vmType vz: On Intel Mac, macOS 15.5 or later is required to run Linux 6.12 or later. Update macOS, or change vmType to `qemu` if the VM does not start up. (https://github.com/lima-vm/lima/issues/3334)"
+time="2026-10-20T20:40:16+03:00" level=info msg="Attempting to download the image" arch=x86_64 digest="sha256:6a81c37564db9b1ee84e141922625e1d7c5b389b99bb3c572e0243607d5bb4d2" location="https://cloud-images.ubuntu.com/releases/noble/release-20260926/ubuntu-24.04-server-cloudimg-amd64.img"
+Downloading the image (ubuntu-24.04-server-cloudimg-amd64.img)
+time="2026-10-20T20:43:40+03:00" level=info msg="Converting qcow2 image to raw sparse format in cache: \"/Users/mac/Library/Caches/lima/download/by-url-sha256/a140be75f83e5c363cb65551d667a34248b1a92bd9551c50fb8b6cc3c78d9a9e/imgconv/raw\""
+time="2026-10-20T20:43:40+03:00" level=info msg="Converting `/Users/mac/Library/Caches/lima/download/by-url-sha256/a140be75f83e5c363cb65551d667a34248b1a92bd9551c50fb8b6cc3c78d9a9e/data` (qcow2) to a raw disk `/Users/mac/Library/Caches/lima/download/by-url-sha256/a140be75f83e5c363cb65551d667a34248b1a92bd9551c50fb8b6cc3c78d9a9e/imgconv/raw.tmp`"
+time="2026-10-20T20:43:55+03:00" level=info msg="Downloaded the image from `https://cloud-images.ubuntu.com/releases/noble/release-20260926/ubuntu-24.04-server-cloudimg-amd64.img`"
+time="2026-10-20T20:43:55+03:00" level=info msg="Resize instance qa's disk from 3.5GiB to 30GiB"
+time="2026-10-20T20:43:55+03:00" level=warning msg="[hostagent] vmType vz: On Intel Mac, macOS 15.5 or later is required to run Linux 6.12 or later. Update macOS, or change vmType to `qemu` if the VM does not start up. (https://github.com/lima-vm/lima/issues/3334)"
+time="2026-10-20T20:43:56+03:00" level=info msg="[hostagent] hostagent socket created at /Users/mac/Documents/projects/alfaautoresearch/.bootstrap/lima-state/qa/ha.sock"
+time="2026-10-20T20:43:56+03:00" level=info msg="[hostagent] Starting VZ (hint: to watch the boot progress, see `/Users/mac/Documents/projects/alfaautoresearch/.bootstrap/lima-state/qa/serial*.log`)"
+time="2026-10-20T20:43:56+03:00" level=info msg="[hostagent] [VZ] - vm state change: running"
+time="2026-10-20T20:44:08+03:00" level=info msg="[hostagent] SSH server does not seem to be running on vsock port, using usernet forwarder"
+time="2026-10-20T20:44:08+03:00" level=info msg="SSH Local Port: 61770"
+time="2026-10-20T20:44:08+03:00" level=info msg="[hostagent] Waiting for the essential requirement 1 of 3: `ssh`"
+time="2026-10-20T20:44:09+03:00" level=info msg="[hostagent] The essential requirement 1 of 3 is satisfied"
+time="2026-10-20T20:44:09+03:00" level=info msg="[hostagent] Waiting for the essential requirement 2 of 3: `user session is ready for ssh`"
+time="2026-10-20T20:44:10+03:00" level=info msg="[hostagent] The essential requirement 2 of 3 is satisfied"
+time="2026-10-20T20:44:10+03:00" level=info msg="[hostagent] Waiting for the essential requirement 3 of 3: `Explicitly start ssh ControlMaster`"
+time="2026-10-20T20:44:10+03:00" level=info msg="[hostagent] The essential requirement 3 of 3 is satisfied"
+time="2026-10-20T20:44:10+03:00" level=info msg="[hostagent] Waiting for the optional requirement 1 of 1: `user probe 1/1`"
+time="2026-10-20T20:44:10+03:00" level=info msg="[hostagent] Forwarding `/var/run/docker.sock` (guest) to `/Users/mac/Documents/projects/alfaautoresearch/.bootstrap/lima-state/qa/sock/docker.sock` (host)"
+time="2026-10-20T20:44:10+03:00" level=info msg="[hostagent] Guest agent is running"
+time="2026-10-20T20:44:10+03:00" level=info msg="[hostagent] Time sync: guest agent is alive, starting time synchronization"
+time="2026-10-20T20:44:10+03:00" level=info msg="[hostagent] Not forwarding TCP 127.0.0.54:53"
+time="2026-10-20T20:44:10+03:00" level=info msg="[hostagent] Not forwarding TCP 127.0.0.53:53"
+time="2026-10-20T20:44:10+03:00" level=info msg="[hostagent] Not forwarding TCP 0.0.0.0:22"
+time="2026-10-20T20:44:10+03:00" level=info msg="[hostagent] Not forwarding TCP [::]:22"
+time="2026-10-20T20:44:10+03:00" level=info msg="[hostagent] Not forwarding UDP 127.0.0.54:53"
+time="2026-10-20T20:44:10+03:00" level=info msg="[hostagent] Not forwarding UDP 127.0.0.53:53"
+time="2026-10-20T20:44:10+03:00" level=info msg="[hostagent] Not forwarding UDP 192.168.5.15:68"
+time="2026-10-20T20:44:10+03:00" level=info msg="[hostagent] Forwarding UDP from 0.0.0.0:5353 to 127.0.0.1:5353"
+time="2026-10-20T20:44:10+03:00" level=info msg="[hostagent] Forwarding UDP from [::]:5353 to 127.0.0.1:5353"
+time="2026-10-20T20:44:10+03:00" level=info msg="[hostagent] Not forwarding UDP 127.0.0.1:5353"
+time="2026-10-20T20:44:10+03:00" level=info msg="[hostagent] Not forwarding UDP 127.0.0.1:5353"
+time="2026-10-20T20:44:15+03:00" level=info msg="[hostagent] Time sync: guest clock adjusted (was 394ms off)"
+time="2026-10-20T20:44:40+03:00" level=info msg="[hostagent] Forwarding UDP from 0.0.0.0:41199 to 127.0.0.1:41199"
+time="2026-10-20T20:44:55+03:00" level=info msg="[hostagent] Time sync: guest clock adjusted (was 173ms off)"
+time="2026-10-20T20:44:55+03:00" level=info msg="[hostagent] Forwarding UDP from 0.0.0.0:39186 to 127.0.0.1:39186"
+time="2026-10-20T20:45:25+03:00" level=info msg="[hostagent] The optional requirement 1 of 1 is satisfied"
+time="2026-10-20T20:45:25+03:00" level=info msg="[hostagent] Waiting for the guest agent to be running"
+time="2026-10-20T20:45:25+03:00" level=info msg="[hostagent] Waiting for the final requirement 1 of 1: `boot scripts must have finished`"
+time="2026-10-20T20:45:28+03:00" level=info msg="[hostagent] Forwarding UDP from 0.0.0.0:37377 to 127.0.0.1:37377"
+time="2026-10-20T20:45:28+03:00" level=info msg="READY. Run `limactl shell qa` to open the shell."
+time="2026-10-20T20:45:28+03:00" level=info msg="Message from the instance `qa`:"
+To run `docker` on the host (assumes docker-cli is installed), run the following commands:
+------
+docker context create lima-qa --docker "host=unix:///Users/mac/Documents/projects/alfaautoresearch/.bootstrap/lima-state/qa/sock/docker.sock"
+docker context use lima-qa
+docker run hello-world
+------
+
+COMMAND ["copy", "--backend=scp", "-r", "/Users/mac/Documents/projects/alfaautoresearch/.bootstrap/linux-context", "qa:/tmp/atlas-verify"]
+
+COMMAND ["shell", "qa", "--", "sh", "-c", "cd /tmp/atlas-verify && docker build -f Dockerfile.verify -t atlas-verify ."]
+#0 building with "default" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile.verify
+#1 transferring dockerfile: 641B done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/python:3.12-slim
+#2 DONE 2.4s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 182B done
+#3 DONE 0.0s
+
+#4 [internal] load build context
+#4 transferring context: 105.24kB done
+#4 DONE 0.0s
+
+#5 [1/6] FROM docker.io/library/python:3.12-slim@sha256:a6e34c598f2467ed0e9a8d349809fcd8b5c603269512df273a0bb1784edc11b1
+#5 resolve docker.io/library/python:3.12-slim@sha256:a6e34c598f2467ed0e9a8d349809fcd8b5c603269512df273a0bb1784edc11b1 0.0s done
+#5 DONE 0.1s
+
+#5 [1/6] FROM docker.io/library/python:3.12-slim@sha256:a6e34c598f2467ed0e9a8d349809fcd8b5c603269512df273a0bb1784edc11b1
+#5 sha256:bbc5a12237474ec0b23b5051260d56d6436a24d70d9cad961adebe7a037ed813 0B / 249B 0.2s
+#5 sha256:bbc5a12237474ec0b23b5051260d56d6436a24d70d9cad961adebe7a037ed813 249B / 249B 0.2s done
+#5 sha256:6912e23eb44595b44dc6d9882b34f305ad6f6e9667cec70b13e5dbc4f8cd97f4 0B / 12.12MB 0.3s
+#5 sha256:75b6a36c64a1cf3520fc4b4aae4739d5caa8a6a05c27835a920a61784c9c32f8 0B / 1.29MB 0.2s
+#5 sha256:ecc510c1e359bdc007b39802570bb7e4dec7d6ebccf357c3201a74299113e05e 0B / 29.84MB 0.2s
+#5 sha256:6912e23eb44595b44dc6d9882b34f305ad6f6e9667cec70b13e5dbc4f8cd97f4 1.05MB / 12.12MB 0.8s
+#5 sha256:6912e23eb44595b44dc6d9882b34f305ad6f6e9667cec70b13e5dbc4f8cd97f4 2.10MB / 12.12MB 1.8s
+#5 sha256:6912e23eb44595b44dc6d9882b34f305ad6f6e9667cec70b13e5dbc4f8cd97f4 3.15MB / 12.12MB 2.0s
+#5 sha256:6912e23eb44595b44dc6d9882b34f305ad6f6e9667cec70b13e5dbc4f8cd97f4 4.19MB / 12.12MB 2.3s
+#5 sha256:6912e23eb44595b44dc6d9882b34f305ad6f6e9667cec70b13e5dbc4f8cd97f4 5.24MB / 12.12MB 2.6s
+#5 sha256:6912e23eb44595b44dc6d9882b34f305ad6f6e9667cec70b13e5dbc4f8cd97f4 6.29MB / 12.12MB 2.9s
+#5 sha256:6912e23eb44595b44dc6d9882b34f305ad6f6e9667cec70b13e5dbc4f8cd97f4 7.34MB / 12.12MB 3.2s
+#5 sha256:6912e23eb44595b44dc6d9882b34f305ad6f6e9667cec70b13e5dbc4f8cd97f4 8.39MB / 12.12MB 3.5s
+#5 sha256:6912e23eb44595b44dc6d9882b34f305ad6f6e9667cec70b13e5dbc4f8cd97f4 9.44MB / 12.12MB 5.1s
+#5 sha256:75b6a36c64a1cf3520fc4b4aae4739d5caa8a6a05c27835a920a61784c9c32f8 0B / 1.29MB 5.2s
+#5 sha256:ecc510c1e359bdc007b39802570bb7e4dec7d6ebccf357c3201a74299113e05e 0B / 29.84MB 5.2s
+#5 sha256:6912e23eb44595b44dc6d9882b34f305ad6f6e9667cec70b13e5dbc4f8cd97f4 10.49MB / 12.12MB 5.7s
+#5 sha256:6912e23eb44595b44dc6d9882b34f305ad6f6e9667cec70b13e5dbc4f8cd97f4 11.53MB / 12.12MB 6.3s
+#5 sha256:6912e23eb44595b44dc6d9882b34f305ad6f6e9667cec70b13e5dbc4f8cd97f4 12.12MB / 12.12MB 7.4s done
+#5 sha256:75b6a36c64a1cf3520fc4b4aae4739d5caa8a6a05c27835a920a61784c9c32f8 1.05MB / 1.29MB 7.5s
+#5 sha256:75b6a36c64a1cf3520fc4b4aae4739d5caa8a6a05c27835a920a61784c9c32f8 1.29MB / 1.29MB 7.7s done
+#5 sha256:ecc510c1e359bdc007b39802570bb7e4dec7d6ebccf357c3201a74299113e05e 2.10MB / 29.84MB 8.4s
+#5 sha256:ecc510c1e359bdc007b39802570bb7e4dec7d6ebccf357c3201a74299113e05e 4.19MB / 29.84MB 9.4s
+#5 sha256:ecc510c1e359bdc007b39802570bb7e4dec7d6ebccf357c3201a74299113e05e 6.29MB / 29.84MB 10.2s
+#5 sha256:ecc510c1e359bdc007b39802570bb7e4dec7d6ebccf357c3201a74299113e05e 8.39MB / 29.84MB 10.9s
+#5 sha256:ecc510c1e359bdc007b39802570bb7e4dec7d6ebccf357c3201a74299113e05e 10.49MB / 29.84MB 11.5s
+#5 sha256:ecc510c1e359bdc007b39802570bb7e4dec7d6ebccf357c3201a74299113e05e 12.58MB / 29.84MB 12.0s
+#5 sha256:ecc510c1e359bdc007b39802570bb7e4dec7d6ebccf357c3201a74299113e05e 14.68MB / 29.84MB 12.7s
+#5 sha256:ecc510c1e359bdc007b39802570bb7e4dec7d6ebccf357c3201a74299113e05e 16.78MB / 29.84MB 13.3s
+#5 sha256:ecc510c1e359bdc007b39802570bb7e4dec7d6ebccf357c3201a74299113e05e 18.87MB / 29.84MB 13.9s
+#5 sha256:ecc510c1e359bdc007b39802570bb7e4dec7d6ebccf357c3201a74299113e05e 20.97MB / 29.84MB 14.5s
+#5 sha256:ecc510c1e359bdc007b39802570bb7e4dec7d6ebccf357c3201a74299113e05e 23.07MB / 29.84MB 15.0s
+#5 sha256:ecc510c1e359bdc007b39802570bb7e4dec7d6ebccf357c3201a74299113e05e 25.17MB / 29.84MB 15.4s
+#5 sha256:ecc510c1e359bdc007b39802570bb7e4dec7d6ebccf357c3201a74299113e05e 27.26MB / 29.84MB 15.9s
+#5 sha256:ecc510c1e359bdc007b39802570bb7e4dec7d6ebccf357c3201a74299113e05e 29.36MB / 29.84MB 16.3s
+#5 sha256:ecc510c1e359bdc007b39802570bb7e4dec7d6ebccf357c3201a74299113e05e 29.84MB / 29.84MB 16.4s done
+#5 extracting sha256:ecc510c1e359bdc007b39802570bb7e4dec7d6ebccf357c3201a74299113e05e
+#5 extracting sha256:ecc510c1e359bdc007b39802570bb7e4dec7d6ebccf357c3201a74299113e05e 0.9s done
+#5 extracting sha256:75b6a36c64a1cf3520fc4b4aae4739d5caa8a6a05c27835a920a61784c9c32f8
+#5 extracting sha256:75b6a36c64a1cf3520fc4b4aae4739d5caa8a6a05c27835a920a61784c9c32f8 0.1s done
+#5 extracting sha256:6912e23eb44595b44dc6d9882b34f305ad6f6e9667cec70b13e5dbc4f8cd97f4
+#5 extracting sha256:6912e23eb44595b44dc6d9882b34f305ad6f6e9667cec70b13e5dbc4f8cd97f4 0.5s done
+#5 DONE 17.9s
+
+#5 [1/6] FROM docker.io/library/python:3.12-slim@sha256:a6e34c598f2467ed0e9a8d349809fcd8b5c603269512df273a0bb1784edc11b1
+#5 extracting sha256:bbc5a12237474ec0b23b5051260d56d6436a24d70d9cad961adebe7a037ed813 0.0s done
+#5 DONE 17.9s
+
+#6 [2/6] RUN apt-get update && apt-get install -y --no-install-recommends libgomp1     && rm -rf /var/lib/apt/lists/*
+#6 0.474 Hit:1 http://deb.debian.org/debian trixie InRelease
+#6 0.504 Get:2 http://deb.debian.org/debian trixie-updates InRelease [47.3 kB]
+#6 0.617 Get:3 http://deb.debian.org/debian-security trixie-security InRelease [43.4 kB]
+#6 0.685 Get:4 http://deb.debian.org/debian trixie/main amd64 Packages [9678 kB]
+#6 3.089 Get:5 http://deb.debian.org/debian trixie-updates/main amd64 Packages [4412 B]
+#6 3.143 Get:6 http://deb.debian.org/debian-security trixie-security/main amd64 Packages [269 kB]
+#6 3.847 Fetched 10.0 MB in 4s (2761 kB/s)
+#6 3.847 Reading package lists...
+#6 4.514 Reading package lists...
+#6 5.218 Building dependency tree...
+#6 5.362 Reading state information...
+#6 5.628 The following NEW packages will be installed:
+#6 5.630   libgomp1
+#6 5.778 0 upgraded, 1 newly installed, 0 to remove and 1 not upgraded.
+#6 5.778 Need to get 137 kB of archives.
+#6 5.778 After this operation, 377 kB of additional disk space will be used.
+#6 5.778 Get:1 http://deb.debian.org/debian trixie/main amd64 libgomp1 amd64 14.2.0-19 [137 kB]
+#6 6.078 debconf: unable to initialize frontend: Dialog
+#6 6.078 debconf: (TERM is not set, so the dialog frontend is not usable.)
+#6 6.078 debconf: falling back to frontend: Readline
+#6 6.078 debconf: unable to initialize frontend: Readline
+#6 6.078 debconf: (Can't locate Term/ReadLine.pm in @INC (you may need to install the Term::ReadLine module) (@INC entries checked: /etc/perl /usr/local/lib/x86_64-linux-gnu/perl/5.40.1 /usr/local/share/perl/5.40.1 /usr/lib/x86_64-linux-gnu/perl5/5.40 /usr/share/perl5 /usr/lib/x86_64-linux-gnu/perl-base /usr/lib/x86_64-linux-gnu/perl/5.40 /usr/share/perl/5.40 /usr/local/lib/site_perl) at /usr/share/perl5/Debconf/FrontEnd/Readline.pm line 8, <STDIN> line 1.)
+#6 6.078 debconf: falling back to frontend: Teletype
+#6 6.085 debconf: unable to initialize frontend: Teletype
+#6 6.085 debconf: (This frontend requires a controlling tty.)
+#6 6.085 debconf: falling back to frontend: Noninteractive
+#6 6.632 Fetched 137 kB in 0s (546 kB/s)
+#6 6.655 Selecting previously unselected package libgomp1:amd64.
+#6 6.655 (Reading database ...
+(Reading database ... 5%
+(Reading database ... 10%
+(Reading database ... 15%
+(Reading database ... 20%
+(Reading database ... 25%
+(Reading database ... 30%
+(Reading database ... 35%
+(Reading database ... 40%
+(Reading database ... 45%
+(Reading database ... 50%
+(Reading database ... 55%
+(Reading database ... 60%
+(Reading database ... 65%
+(Reading database ... 70%
+(Reading database ... 75%
+(Reading database ... 80%
+(Reading database ... 85%
+(Reading database ... 90%
+(Reading database ... 95%
+(Reading database ... 100%
+(Reading database ... 5660 files and directories currently installed.)
+#6 6.661 Preparing to unpack .../libgomp1_14.2.0-19_amd64.deb ...
+#6 6.666 Unpacking libgomp1:amd64 (14.2.0-19) ...
+#6 6.695 Setting up libgomp1:amd64 (14.2.0-19) ...
+#6 6.702 Processing triggers for libc-bin (2.41-12+deb13u4) ...
+#6 DONE 6.9s
+
+#7 [3/6] COPY requirements-runtime.txt /tmp/requirements-runtime.txt
+#7 DONE 0.0s
+
+#8 [4/6] RUN python -m pip install --no-cache-dir -r /tmp/requirements-runtime.txt
+#8 2.135 Collecting numpy==1.26.4 (from -r /tmp/requirements-runtime.txt (line 2))
+#8 2.454   Downloading numpy-1.26.4-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (61 kB)
+#8 2.848 Collecting scipy==1.12.0 (from -r /tmp/requirements-runtime.txt (line 3))
+#8 2.928   Downloading scipy-1.12.0-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (60 kB)
+#8 3.324 Collecting pandas==2.2.3 (from -r /tmp/requirements-runtime.txt (line 4))
+#8 3.426   Downloading pandas-2.2.3-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (89 kB)
+#8 3.629 Collecting joblib==1.4.2 (from -r /tmp/requirements-runtime.txt (line 5))
+#8 3.693   Downloading joblib-1.4.2-py3-none-any.whl.metadata (5.4 kB)
+#8 3.770 Collecting threadpoolctl==3.6.0 (from -r /tmp/requirements-runtime.txt (line 6))
+#8 3.839   Downloading threadpoolctl-3.6.0-py3-none-any.whl.metadata (13 kB)
+#8 4.067 Collecting scikit-learn==1.5.2 (from -r /tmp/requirements-runtime.txt (line 7))
+#8 4.132   Downloading scikit_learn-1.5.2-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (13 kB)
+#8 4.353 Collecting catboost==1.2.8 (from -r /tmp/requirements-runtime.txt (line 8))
+#8 4.474   Downloading catboost-1.2.8-cp312-cp312-manylinux2014_x86_64.whl.metadata (1.2 kB)
+#8 4.925 Collecting lightgbm==4.6.0 (from -r /tmp/requirements-runtime.txt (line 9))
+#8 4.987   Downloading lightgbm-4.6.0-py3-none-manylinux_2_28_x86_64.whl.metadata (17 kB)
+#8 5.118 Collecting xgboost==2.1.4 (from -r /tmp/requirements-runtime.txt (line 10))
+#8 5.181   Downloading xgboost-2.1.4-py3-none-manylinux_2_28_x86_64.whl.metadata (2.1 kB)
+#8 5.404 Collecting psutil==6.1.1 (from -r /tmp/requirements-runtime.txt (line 11))
+#8 5.521   Downloading psutil-6.1.1-cp36-abi3-manylinux_2_12_x86_64.manylinux2010_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (22 kB)
+#8 5.899 Collecting matplotlib==3.9.4 (from -r /tmp/requirements-runtime.txt (line 12))
+#8 5.964   Downloading matplotlib-3.9.4-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (11 kB)
+#8 6.070 Collecting httpx==0.28.1 (from -r /tmp/requirements-runtime.txt (line 13))
+#8 6.135   Downloading httpx-0.28.1-py3-none-any.whl.metadata (7.1 kB)
+#8 6.237 Collecting python-dateutil>=2.8.2 (from pandas==2.2.3->-r /tmp/requirements-runtime.txt (line 4))
+#8 6.300   Downloading python_dateutil-2.9.0.post0-py2.py3-none-any.whl.metadata (8.4 kB)
+#8 6.455 Collecting pytz>=2020.1 (from pandas==2.2.3->-r /tmp/requirements-runtime.txt (line 4))
+#8 6.569   Downloading pytz-2026.5-py2.py3-none-any.whl.metadata (22 kB)
+#8 6.680 Collecting tzdata>=2022.7 (from pandas==2.2.3->-r /tmp/requirements-runtime.txt (line 4))
+#8 6.742   Downloading tzdata-2026.5-py2.py3-none-any.whl.metadata (1.4 kB)
+#8 6.861 Collecting graphviz (from catboost==1.2.8->-r /tmp/requirements-runtime.txt (line 8))
+#8 6.929   Downloading graphviz-0.21-py3-none-any.whl.metadata (12 kB)
+#8 7.089 Collecting plotly (from catboost==1.2.8->-r /tmp/requirements-runtime.txt (line 8))
+#8 7.152   Downloading plotly-7.1.0-py3-none-any.whl.metadata (8.8 kB)
+#8 7.249 Collecting six (from catboost==1.2.8->-r /tmp/requirements-runtime.txt (line 8))
+#8 7.321   Downloading six-1.17.0-py2.py3-none-any.whl.metadata (1.7 kB)
+#8 7.416 Collecting nvidia-nccl-cu12 (from xgboost==2.1.4->-r /tmp/requirements-runtime.txt (line 10))
+#8 7.562   Downloading nvidia_nccl_cu12-2.32.3-py3-none-manylinux_2_27_x86_64.whl.metadata (2.1 kB)
+#8 7.782 Collecting contourpy>=1.0.1 (from matplotlib==3.9.4->-r /tmp/requirements-runtime.txt (line 12))
+#8 7.847   Downloading contourpy-1.4.0-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (3.8 kB)
+#8 7.921 Collecting cycler>=0.10 (from matplotlib==3.9.4->-r /tmp/requirements-runtime.txt (line 12))
+#8 7.983   Downloading cycler-0.12.1-py3-none-any.whl.metadata (3.8 kB)
+#8 8.455 Collecting fonttools>=4.22.0 (from matplotlib==3.9.4->-r /tmp/requirements-runtime.txt (line 12))
+#8 8.517   Downloading fonttools-4.67.0-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (137 kB)
+#8 9.131 Collecting kiwisolver>=1.3.1 (from matplotlib==3.9.4->-r /tmp/requirements-runtime.txt (line 12))
+#8 9.193   Downloading kiwisolver-1.5.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (5.2 kB)
+#8 9.305 Collecting packaging>=20.0 (from matplotlib==3.9.4->-r /tmp/requirements-runtime.txt (line 12))
+#8 9.373   Downloading packaging-26.3-py3-none-any.whl.metadata (3.5 kB)
+#8 10.18 Collecting pillow>=8 (from matplotlib==3.9.4->-r /tmp/requirements-runtime.txt (line 12))
+#8 10.24   Downloading pillow-13.0.0-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (9.1 kB)
+#8 10.37 Collecting pyparsing>=2.3.1 (from matplotlib==3.9.4->-r /tmp/requirements-runtime.txt (line 12))
+#8 10.44   Downloading pyparsing-3.3.3-py3-none-any.whl.metadata (5.9 kB)
+#8 10.55 Collecting anyio (from httpx==0.28.1->-r /tmp/requirements-runtime.txt (line 13))
+#8 10.61   Downloading anyio-4.15.1-py3-none-any.whl.metadata (4.7 kB)
+#8 10.80 Collecting certifi (from httpx==0.28.1->-r /tmp/requirements-runtime.txt (line 13))
+#8 10.86   Downloading certifi-2026.10.19-py3-none-any.whl.metadata (2.5 kB)
+#8 10.96 Collecting httpcore==1.* (from httpx==0.28.1->-r /tmp/requirements-runtime.txt (line 13))
+#8 11.02   Downloading httpcore-1.0.9-py3-none-any.whl.metadata (21 kB)
+#8 11.12 Collecting idna (from httpx==0.28.1->-r /tmp/requirements-runtime.txt (line 13))
+#8 11.19   Downloading idna-3.20-py3-none-any.whl.metadata (7.2 kB)
+#8 11.27 Collecting h11>=0.16 (from httpcore==1.*->httpx==0.28.1->-r /tmp/requirements-runtime.txt (line 13))
+#8 11.33   Downloading h11-0.16.0-py3-none-any.whl.metadata (8.3 kB)
+#8 11.36 INFO: pip is looking at multiple versions of contourpy to determine which version is compatible with other requirements. This could take a while.
+#8 11.36 Collecting contourpy>=1.0.1 (from matplotlib==3.9.4->-r /tmp/requirements-runtime.txt (line 12))
+#8 11.43   Downloading contourpy-1.3.3-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (5.5 kB)
+#8 11.57 Collecting typing_extensions>=4.16.0 (from anyio->httpx==0.28.1->-r /tmp/requirements-runtime.txt (line 13))
+#8 11.63   Downloading typing_extensions-4.16.0-py3-none-any.whl.metadata (3.3 kB)
+#8 12.00 Collecting narwhals>=1.15.1 (from plotly->catboost==1.2.8->-r /tmp/requirements-runtime.txt (line 8))
+#8 12.07   Downloading narwhals-2.27.1-py3-none-any.whl.metadata (15 kB)
+#8 12.16 Downloading numpy-1.26.4-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (18.0 MB)
+#8 39.18    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 18.0/18.0 MB 662.6 kB/s eta 0:00:00
+#8 39.09 Downloading scipy-1.12.0-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (37.8 MB)
+#8 47.55    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 37.8/37.8 MB 4.5 MB/s eta 0:00:00
+#8 47.63 Downloading pandas-2.2.3-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (12.7 MB)
+#8 49.67    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 12.7/12.7 MB 6.2 MB/s eta 0:00:00
+#8 49.73 Downloading joblib-1.4.2-py3-none-any.whl (301 kB)
+#8 49.83 Downloading threadpoolctl-3.6.0-py3-none-any.whl (18 kB)
+#8 49.90 Downloading scikit_learn-1.5.2-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (12.9 MB)
+#8 51.82    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 12.9/12.9 MB 6.7 MB/s eta 0:00:00
+#8 51.89 Downloading catboost-1.2.8-cp312-cp312-manylinux2014_x86_64.whl (99.2 MB)
+#8 65.24    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 99.2/99.2 MB 7.4 MB/s eta 0:00:00
+#8 65.30 Downloading lightgbm-4.6.0-py3-none-manylinux_2_28_x86_64.whl (3.6 MB)
+#8 65.85    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 3.6/3.6 MB 6.3 MB/s eta 0:00:00
+#8 65.92 Downloading xgboost-2.1.4-py3-none-manylinux_2_28_x86_64.whl (223.6 MB)
+#8 133.7    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 223.6/223.6 MB 1.2 MB/s eta 0:00:00
+#8 133.7 Downloading psutil-6.1.1-cp36-abi3-manylinux_2_12_x86_64.manylinux2010_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl (287 kB)
+#8 133.9 Downloading matplotlib-3.9.4-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (8.3 MB)
+#8 135.4    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 8.3/8.3 MB 5.3 MB/s eta 0:00:00
+#8 135.5 Downloading httpx-0.28.1-py3-none-any.whl (73 kB)
+#8 135.6 Downloading httpcore-1.0.9-py3-none-any.whl (78 kB)
+#8 135.7 Downloading contourpy-1.3.3-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (362 kB)
+#8 135.8 Downloading cycler-0.12.1-py3-none-any.whl (8.3 kB)
+#8 135.9 Downloading fonttools-4.67.0-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (5.4 MB)
+#8 137.1    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 5.4/5.4 MB 4.4 MB/s eta 0:00:00
+#8 137.2 Downloading kiwisolver-1.5.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (1.5 MB)
+#8 137.5    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.5/1.5 MB 4.9 MB/s eta 0:00:00
+#8 137.5 Downloading packaging-26.3-py3-none-any.whl (129 kB)
+#8 137.6 Downloading pillow-13.0.0-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (7.1 MB)
+#8 139.0    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 7.1/7.1 MB 5.1 MB/s eta 0:00:00
+#8 139.1 Downloading pyparsing-3.3.3-py3-none-any.whl (126 kB)
+#8 139.2 Downloading python_dateutil-2.9.0.post0-py2.py3-none-any.whl (229 kB)
+#8 139.3 Downloading pytz-2026.5-py2.py3-none-any.whl (506 kB)
+#8 139.4 Downloading six-1.17.0-py2.py3-none-any.whl (11 kB)
+#8 139.5 Downloading tzdata-2026.5-py2.py3-none-any.whl (347 kB)
+#8 139.6 Downloading anyio-4.15.1-py3-none-any.whl (132 kB)
+#8 139.7 Downloading idna-3.20-py3-none-any.whl (69 kB)
+#8 139.8 Downloading certifi-2026.10.19-py3-none-any.whl (136 kB)
+#8 139.8 Downloading graphviz-0.21-py3-none-any.whl (47 kB)
+#8 139.9 Downloading nvidia_nccl_cu12-2.32.3-py3-none-manylinux_2_27_x86_64.whl (351.5 MB)
+#8 228.2    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 351.5/351.5 MB 1.9 MB/s eta 0:00:00
+#8 228.3 Downloading plotly-7.1.0-py3-none-any.whl (9.7 MB)
+#8 229.7    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 9.7/9.7 MB 6.5 MB/s eta 0:00:00
+#8 229.7 Downloading h11-0.16.0-py3-none-any.whl (37 kB)
+#8 229.8 Downloading narwhals-2.27.1-py3-none-any.whl (483 kB)
+#8 229.9 Downloading typing_extensions-4.16.0-py3-none-any.whl (45 kB)
+#8 231.7 Installing collected packages: pytz, tzdata, typing_extensions, threadpoolctl, six, pyparsing, psutil, pillow, packaging, nvidia-nccl-cu12, numpy, narwhals, kiwisolver, joblib, idna, h11, graphviz, fonttools, cycler, certifi, scipy, python-dateutil, plotly, httpcore, contourpy, anyio, xgboost, scikit-learn, pandas, matplotlib, lightgbm, httpx, catboost
+#8 265.3 Successfully installed anyio-4.15.1 catboost-1.2.8 certifi-2026.10.19 contourpy-1.3.3 cycler-0.12.1 fonttools-4.67.0 graphviz-0.21 h11-0.16.0 httpcore-1.0.9 httpx-0.28.1 idna-3.20 joblib-1.4.2 kiwisolver-1.5.1 lightgbm-4.6.0 matplotlib-3.9.4 narwhals-2.27.1 numpy-1.26.4 nvidia-nccl-cu12-2.32.3 packaging-26.3 pandas-2.2.3 pillow-13.0.0 plotly-7.1.0 psutil-6.1.1 pyparsing-3.3.3 python-dateutil-2.9.0.post0 pytz-2026.5 scikit-learn-1.5.2 scipy-1.12.0 six-1.17.0 threadpoolctl-3.6.0 typing_extensions-4.16.0 tzdata-2026.5 xgboost-2.1.4
+#8 265.3 WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.
+#8 265.6
+#8 265.6 [notice] A new release of pip is available: 25.0.1 -> 26.2.2
+#8 265.6 [notice] To update, run: pip install --upgrade pip
+#8 DONE 267.1s
+
+#9 [5/6] COPY artifacts/release/ /opt/upload/
+#9 DONE 0.2s
+
+#10 [6/6] WORKDIR /task
+#10 DONE 0.0s
+
+#11 exporting to image
+#11 exporting layers
+#11 exporting layers 62.7s done
+#11 exporting manifest sha256:d1a423cd69cc3af16f99f4281a9f7e241186b1b3bdf55643df1a8ecc8b164248 done
+#11 exporting config sha256:a23496fd5b6c6ba0da3b56555418abfd313ba625fcdbefe742d7d796e45168a4 done
+#11 exporting attestation manifest sha256:103ef60618239c12fdcac236227130601a30a09f71a6f0f77c425640841ca96e 0.0s done
+#11 exporting manifest list sha256:b92c5ac6b266108b977997bc9ccc5dc83bd29c78faf470edcaad118b003b78f2 done
+#11 naming to docker.io/library/atlas-verify:latest done
+#11 unpacking to docker.io/library/atlas-verify:latest
+#11 unpacking to docker.io/library/atlas-verify:latest 18.7s done
+#11 DONE 81.5s
+
+COMMAND ["shell", "qa", "--", "docker", "run", "--rm", "--cpus=8", "--memory=6g", "--network=none", "--entrypoint=python", "-v", "/tmp/atlas-verify:/verify:rw", "atlas-verify", "/verify/linux_smoke.py"]
+{
+  "status": "passed",
+  "archive_sha256": "b9b4cb7a0c9309a6eab72f893b78d56b4f2ecee85ca0158a23b4b4f70e98df2b",
+  "runtime_code_sha256": "b1fa509ddea5537172c227f44f74a6a8eb1f3b902532f535c52d02a117436e6e",
+  "platform": "Linux-6.8.0-142-generic-x86_64-with-glibc2.41",
+  "python": "3.12.15 (main, Oct  6 2026, 02:02:22) [GCC 14.2.0]",
+  "tests": [
+    {
+      "scenario": "iid",
+      "status": "passed",
+      "rows": 60,
+      "returncode": 0,
+      "seconds": 10.547851503000004,
+      "successful_experiments": 6,
+      "model_families": [
+        "catboost",
+        "extra_trees",
+        "hist",
+        "lightgbm",
+        "linear",
+        "xgboost"
+      ],
+      "peak_worker_memory_mb": 187.4296875
+    },
+    {
+      "scenario": "integer_labels",
+      "status": "passed",
+      "rows": 60,
+      "returncode": 0,
+      "seconds": 11.969407346000025,
+      "successful_experiments": 6,
+      "model_families": [
+        "catboost",
+        "extra_trees",
+        "hist",
+        "lightgbm",
+        "linear",
+        "xgboost"
+      ],
+      "peak_worker_memory_mb": 235.69140625
+    }
+  ],
+  "linux_rlimit_as": "allocation above 64MiB rejected",
+  "process_guards": {
+    "rss": "memory_limit",
+    "wall_clock": "timeout"
+  },
+  "cpu_max": "800000 100000",
+  "memory_max": "6442450944",
+  "network": "Docker --network=none",
+  "runtime_packages": "approved pinned subset; full organizer image not available",
+  "physical_vm_memory": "8GiB; container limit 6GiB, stricter than organizer 32GiB"
+}
+
+COMMAND ["copy", "--backend=scp", "qa:/tmp/atlas-verify/linux-verification.json", "/Users/mac/Documents/projects/alfaautoresearch/reports/linux-verification.json"]
+
+COMMAND ["stop", "--tty=false", "qa"]
+time="2026-10-20T20:52:10+03:00" level=info msg="Sending SIGINT to hostagent process 53341"
+time="2026-10-20T20:52:10+03:00" level=info msg="Waiting for the host agent and the driver processes to shut down"
+time="2026-10-20T20:52:10+03:00" level=info msg="[hostagent] Received SIGINT, shutting down the host agent"
+time="2026-10-20T20:52:10+03:00" level=info msg="[hostagent] Shutting down the host agent"
+time="2026-10-20T20:52:10+03:00" level=info msg="[hostagent] Stopping forwarding `/var/run/docker.sock` (guest) to `/Users/mac/Documents/projects/alfaautoresearch/.bootstrap/lima-state/qa/sock/docker.sock` (host)"
+time="2026-10-20T20:52:10+03:00" level=info msg="[hostagent] Shutting down VZ"
+time="2026-10-20T20:52:11+03:00" level=info msg="[hostagent] [VZ] - vm state change: stopped"
+time="2026-10-20T20:52:11+03:00" level=error msg="[hostagent] accept tcp 127.0.0.1:61770: use of closed network connection"
+time="2026-10-20T20:52:12+03:00" level=info msg="Waiting for the instance to shut down"
+time="2026-10-20T20:52:12+03:00" level=info msg="The instance qa has shut down"

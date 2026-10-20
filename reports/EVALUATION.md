@@ -192,6 +192,12 @@ On one synthetic regression task (seed 42, 500 train rows), both real hypotheses
 Final selected ensemble RMSE 0.273152; output CSV validated, all full refits succeeded, elapsed 46.69s. This is a working live backend test, not evidence of research quality gain or an equal-budget ablation.
 The first protocol probe rejected reasoning.enabled=false with HTTP400; low reasoning effort and 4096 output-token allowance resolved it. The model is pinned to :free and provider input/output maximum prices are zero. No payment method or credits were added. Key values and the development client are excluded from the competition ZIP.
 
+## Actual Linux container verification
+
+Verified archive `b9b4cb7a0c9309a6eab72f893b78d56b4f2ecee85ca0158a23b4b4f70e98df2b` on Linux-6.8.0-142-generic-x86_64-with-glibc2.41. CPU quota: `800000 100000`; memory limit: `6442450944` bytes (6GiB); Docker network disabled.
+Both regression and classification fitted all six supported model families using the root-only platform file layout. SIGTERM preserved valid CSVs. Linux virtual-address-space, parent RSS and subprocess time limits were exercised.
+The image installs the approved pinned subset actually used by ATLAS; it is not the unreleased organizer image. The VM has 8GiB physical memory, so this is a stricter memory smoke test, not a reproduction of physical 32GiB.
+
 ## Leakage and failure tests
 
 - group: random_unsafe, RMSE 2.99163.

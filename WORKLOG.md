@@ -152,3 +152,7 @@ A deterministic subprocess regression test injects SIGTERM exactly after that
 atomic publication; both signal tests pass. The failure log is preserved as
 reports/tests-f6cefadcf2.log. A new full suite and current-source live pair precede
 packaging and Linux execution; no failed suite is treated as a release pass.
+
+Final corrected-source release gates passed: 160 tests, 13 upstream warnings, 62.97s, unchanged runtime b1fa509ddea5537172c227f44f74a6a8eb1f3b902532f535c52d02a117436e6e.
+Final live source pair (v4, two-variable environment): RMSE 0.592150 -> 0.520911, two genuine Qwen fits. Earlier two-task v3 also improved classification, but is kept as its own source snapshot. No pooled significance claim.
+Actual flat ZIP b9b4cb7a0c9309a6eab72f893b78d56b4f2ecee85ca0158a23b4b4f70e98df2b passed Linux 6.8 / Python 3.12.15, 8CPU / 6GiB, network disabled: all six families fitted on each of two task types, valid 60-row CSVs, SIGTERM recovery, RLIMIT_AS/RSS/wall-clock guards. VM stopped, zero host mounts. Image build and verification took about 714s. Physical 32GiB and the unreleased platform image/route are not reproduced. Archive size 40247 bytes, 21 root files. No platform submission made.

@@ -66,6 +66,11 @@ p=reports/'openrouter-live.json'
 if p.exists():
  r=json.loads(p.read_text());s=r['summary'];hypotheses=r['live_hypotheses']
  lines+=['','## User-authorized OpenRouter development run','',f"Pinned model: `{r['model']}`; {s['researcher_calls']} live calls, {s['researcher_tokens']} total tokens, ${r['loop_cost_usd']:g} reported loop cost. Runtime source: `{r['runtime_code_sha256']}`. The separate JSON protocol smoke also reported zero cost.",f"On one synthetic regression task (seed 42, 500 train rows), both real hypotheses compiled and fitted successfully; {sum(x['accepted'] for x in hypotheses)} improved the initial champion. Initial champion RMSE {s['champion_metric']:.6g}; hypothesis RMSE values: "+', '.join(f"{x['metric_value']:.6g}" for x in hypotheses)+'.',f"Final selected ensemble RMSE {s['ensemble']['metric_value']:.6g}; output CSV validated, all full refits succeeded, elapsed {s['elapsed_seconds']:.2f}s. This is a working live backend test, not evidence of research quality gain or an equal-budget ablation.",'The first protocol probe rejected reasoning.enabled=false with HTTP400; low reasoning effort and 4096 output-token allowance resolved it. The model is pinned to :free and provider input/output maximum prices are zero. No payment method or credits were added. Key values and the development client are excluded from the competition ZIP.']
+p=reports/'linux-verification.json'
+if p.exists():
+ r=json.loads(p.read_text())
+ if r.get('status')=='passed':
+  lines+=['','## Actual Linux container verification','',f"Verified archive `{r['archive_sha256']}` on {r['platform']}. CPU quota: `{r['cpu_max']}`; memory limit: `{r['memory_max']}` bytes (6GiB); Docker network disabled.",'Both regression and classification fitted all six supported model families using the root-only platform file layout. SIGTERM preserved valid CSVs. Linux virtual-address-space, parent RSS and subprocess time limits were exercised.','The image installs the approved pinned subset actually used by ATLAS; it is not the unreleased organizer image. The VM has 8GiB physical memory, so this is a stricter memory smoke test, not a reproduction of physical 32GiB.']
 lines+=['','## Leakage and failure tests','']
 p=reports/'leakage-ablation.json'
 if p.exists():

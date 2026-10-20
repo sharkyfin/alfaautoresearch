@@ -1,0 +1,59 @@
+{
+  "status": "passed",
+  "archive_sha256": "b9b4cb7a0c9309a6eab72f893b78d56b4f2ecee85ca0158a23b4b4f70e98df2b",
+  "runtime_code_sha256": "b1fa509ddea5537172c227f44f74a6a8eb1f3b902532f535c52d02a117436e6e",
+  "platform": "Linux-6.8.0-142-generic-x86_64-with-glibc2.41",
+  "python": "3.12.15 (main, Oct  6 2026, 02:02:22) [GCC 14.2.0]",
+  "tests": [
+    {
+      "scenario": "iid",
+      "status": "passed",
+      "rows": 60,
+      "returncode": 0,
+      "seconds": 10.547851503000004,
+      "successful_experiments": 6,
+      "model_families": [
+        "catboost",
+        "extra_trees",
+        "hist",
+        "lightgbm",
+        "linear",
+        "xgboost"
+      ],
+      "peak_worker_memory_mb": 187.4296875
+    },
+    {
+      "scenario": "integer_labels",
+      "status": "passed",
+      "rows": 60,
+      "returncode": 0,
+      "seconds": 11.969407346000025,
+      "successful_experiments": 6,
+      "model_families": [
+        "catboost",
+        "extra_trees",
+        "hist",
+        "lightgbm",
+        "linear",
+        "xgboost"
+      ],
+      "peak_worker_memory_mb": 235.69140625
+    }
+  ],
+  "linux_rlimit_as": "allocation above 64MiB rejected",
+  "process_guards": {
+    "rss": "memory_limit",
+    "wall_clock": "timeout"
+  },
+  "cpu_max": "800000 100000",
+  "memory_max": "6442450944",
+  "network": "Docker --network=none",
+  "runtime_packages": "approved pinned subset; full organizer image not available",
+  "physical_vm_memory": "8GiB; container limit 6GiB, stricter than organizer 32GiB",
+  "controller_seconds": 714.2889012819942,
+  "vm_state_after_verification": "Stopped",
+  "host_mounts": 0,
+  "vm_configuration_sha256": "025e54fb4bc15a430f4159289ea8992ecadbb7e998353f2a4d1807d6a197bb64",
+  "raw_log_sha256": "1077b3c537fd0592f8e5760a650f3ac0de03d53da27a1126b52999c4d5f2de26",
+  "log_normalization": "CR terminal progress converted to LF; trailing whitespace removed; original retained in .bootstrap/linux-verification.raw.log"
+}

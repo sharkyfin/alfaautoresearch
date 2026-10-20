@@ -103,8 +103,10 @@ F1; ROC AUC, logloss, binary average precision. Неизвестная метр�
 Это ограниченная DSL, а не sandbox для произвольного Python. Linux worker имеет
 RLIMIT_AS, parent проверяет RSS всего дерева и wall-clock; сетевые действия из
 рецептуры невозможны. Контейнер/cgroup ограничения дополнительно задаёт платформа.
-Хост разработки — macOS: 12 логических CPU, 16 GiB RAM. Отдельная Linux-проверка
-готовится через локальную Lima VM, без монтирования домашней папки и файлов ключей. В macOS LightGBM/XGBoost требуют libomp; в этом dev-окружении применена
+Хост разработки — macOS: 12 логических CPU, 16 GiB RAM. Linux-проверка выполнена
+в Lima VM без монтирования домашней папки и файлов ключей: 8 CPU, контейнер 6 GiB,
+без сети; все шесть семейств обучились на регрессии и классификации. Проверены
+RLIMIT_AS, RSS и timeout, валидные CSV после SIGTERM. Подробности: `reports/linux-verification.json`. В macOS LightGBM/XGBoost требуют libomp; в этом dev-окружении применена
 ссылка на уже установленную libomp из sklearn. В ZIP никаких dylib нет.
 
 ## Артефакты
