@@ -151,3 +151,27 @@ def test_binary_probability_and_f1_metric_identity(positive):
     assert Metric('f1',2,positive).score(y,p)==pytest.approx(sk.f1_score(y,p.argmax(1),pos_label=positive))
     assert Metric('roc_auc',2,positive).score(y,p)==pytest.approx(sk.roc_auc_score(y==positive,p[:,positive]))
     assert Metric('average_precision',2,positive).score(y,p)==pytest.approx(sk.average_precision_score(y==positive,p[:,positive]))
+
+@pytest.mark.parametrize('family',['linear','hist','extra_trees','catboost','lightgbm','xgboost'])
+@pytest.mark.parametrize('scenario',['iid','integer_labels','binary_imbalance'])
+def test_full_refit_all_model_apis(tmp_path,family,scenario):
+    data=load(read_inputs(create(tmp_path,scenario)))
+    recipe={'model_family':family,'params':{'iterations':25} if family!='linear' else {}}
+    p,t,info=fit_predict(data,recipe,np.arange(len(data.y)),np.empty(0,dtype=int),seed=42,threads=1,refit=True,iterations_override=25)
+    assert len(p)==0 and len(t)==len(data.test) and np.isfinite(t).all()
+    if family=='catboost':assert info['iterations']==25
+    checkpoint(data,t)
+
+@pytest.mark.parametrize('scenario',['integer_labels','binary_imbalance','weighted_f1'])
+def test_primary_metric_stopping_real_lgbm_api(tmp_path,scenario):
+    data=load(read_inputs(create(tmp_path,scenario)));s=design(data);data.spec.validation_plan=s.json()
+    r=validate({'model_family':'lightgbm','params':{'iterations':100,'weight':'sqrt','stopping_metric':'primary'},'max_runtime_sec':10},data.spec)
+    p,t,info=fit_predict(data,r,s.train,s.valid,threads=1)
+    assert np.isfinite(data.spec.metric.score(data.y[s.valid],p)) and 1<=info['iterations']<=100
+    checkpoint(data,t)
+
+
+def test_primary_stopping_rejects_unsupported_types(tmp_path):
+    data=load(read_inputs(create(tmp_path)));data.spec.validation_plan=design(data).json()
+    for value in ['primary','exec',[],False]:
+        with pytest.raises(RecipeError):validate({'model_family':'lightgbm','params':{'stopping_metric':value}},data.spec)

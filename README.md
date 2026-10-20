@@ -99,3 +99,18 @@ RLIMIT_AS, parent проверяет RSS всего дерева и wall-clock; 
 метрик находится в [reports/EVALUATION.md](reports/EVALUATION.md).
 Исследовательские прогоны с изменявшимся кодом помечены exploratory;
 итоговые сравнения используют копию исходников с фиксированным SHA256.
+
+## Проверка Linux-контейнера при наличии Docker
+
+Подготовлен `Dockerfile.verify` с утверждённым подмножеством пакетов. Он ещё не
+запускался на текущем хосте. Установка пакетов выполняется только при сборке
+dev-образа; evaluation runtime ничего не устанавливает.
+
+```sh
+docker build -f Dockerfile.verify -t atlas-verify .
+docker run --rm --cpus=8 --memory=32g --network=none -v /absolute/task-directory:/task atlas-verify task.md
+```
+
+Это проверяет детерминированный offline-путь. Для live Qwen организаторы должны
+подтвердить исключение сетевого доступа и выдать три официальные переменные.
+Настройки не следует сохранять в Dockerfile, git или ZIP.

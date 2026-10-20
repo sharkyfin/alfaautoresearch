@@ -14,15 +14,16 @@ def fit_predict(data,recipe,train_idx,valid_idx,seed=42,threads=8,refit=False,it
     f=FeatureBuilder(spec,ops,feature_function).fit(a)
     za=f.transform(a);zb=f.transform(b);zt=f.transform(data.test)
     matrix=MatrixBuilder('linear' if family=='linear' else family,f.cat,f.num,spec.text_candidates).fit(za)
-    xa=matrix.transform(za);xv=matrix.transform(zb);xt=matrix.transform(zt)
+    xa=matrix.transform(za);xv=matrix.transform(zb) if len(valid_idx) else None;xt=matrix.transform(zt)
     if family!='linear':
         safe_names=[f'f{i:05d}' for i in range(xa.shape[1])]
-        for frame in (xa,xv,xt): frame.columns=safe_names
+        for frame in (xa,xv,xt):
+            if frame is not None:frame.columns=safe_names
     y=data.y[train_idx];yv=data.y[valid_idx]
     if transform=='log1p':
         if cl or (y<0).any():raise ValueError('Invalid log target transform')
         y=np.log1p(y);yv=np.log1p(yv)
-    weight=params.pop('weight','none')
+    weight=params.pop('weight','none');stopping_metric=params.pop('stopping_metric','loss')
     sample_weight=None
     if cl and weight!='none':
         sample_weight=compute_sample_weight('balanced',y)
@@ -42,7 +43,18 @@ def fit_predict(data,recipe,train_idx,valid_idx,seed=42,threads=8,refit=False,it
         import lightgbm as lgb
         objective=('multiclass' if len(spec.labels)>2 else 'binary') if cl else 'regression_l1' if spec.metric.name=='mae' else 'regression'
         model=(lgb.LGBMClassifier if cl else lgb.LGBMRegressor)(n_estimators=rounds,learning_rate=params.pop('learning_rate',.045),num_leaves=params.pop('num_leaves',31),verbosity=-1,n_jobs=threads,objective=objective,deterministic=True,force_col_wise=True,**common,**params)
-        if len(valid_idx) and not refit:fit_args.update(eval_set=[(xv,yv)],callbacks=[lgb.early_stopping(60,verbose=False),lgb.log_evaluation(0)])
+        if len(valid_idx) and not refit:
+            if stopping_metric=='primary' and cl:
+                classes=np.unique(y)
+                def primary_metric(y_true,probabilities):
+                    if probabilities.ndim==1:probabilities=np.column_stack([1-probabilities,probabilities])
+                    aligned=np.zeros((len(probabilities),len(spec.labels)))
+                    aligned[:,classes]=probabilities
+                    actual_y=classes[np.asarray(y_true,dtype=int)]
+                    return 'primary_'+spec.metric.name,spec.metric.score(actual_y,aligned),spec.metric.direction>0
+                model.set_params(metric='None')
+                fit_args['eval_metric']=primary_metric
+            fit_args.update(eval_set=[(xv,yv)],callbacks=[lgb.early_stopping(100 if stopping_metric=='primary' else 60,first_metric_only=True,verbose=False),lgb.log_evaluation(0)])
     elif family=='xgboost':
         from xgboost import XGBClassifier,XGBRegressor
         objective='multi:softprob' if cl and len(spec.labels)>2 else 'binary:logistic' if cl else 'reg:absoluteerror' if spec.metric.name=='mae' else 'reg:squarederror'
@@ -79,6 +91,10 @@ def fit_predict(data,recipe,train_idx,valid_idx,seed=42,threads=8,refit=False,it
     pv=predict(xv) if len(valid_idx) else np.empty((0,len(spec.labels))) if cl else np.empty(0)
     pt=predict(xt)
     best=getattr(model,'best_iteration_',None) or getattr(model,'tree_count_',None) or rounds
+    if family=='catboost':best=model.tree_count_
+    elif family=='linear':
+        count=getattr(model,'n_iter_',None)
+        if count is not None:best=int(np.max(count))
     if hasattr(model,'best_iteration'):
         try:best=model.best_iteration+1
         except AttributeError:pass

@@ -45,3 +45,10 @@ def test_probability_headers_preserve_sample_class_order(tmp_path):
     out=pd.read_csv(data.inputs.output)
     assert list(out.columns)==['id','rare','common']
     assert np.allclose(out.rare,.8) and np.allclose(out.common,.2)
+
+def test_finalist_retention_keeps_close_different_family():
+    from atlas.search import retain_finalists
+    pool=[{'experiment_id':str(i),'recipe':{'model_family':family},'standardized_utility':score} for i,(family,score) in enumerate([('lightgbm',-43.),('lightgbm',-43.1),('lightgbm',-43.2),('xgboost',-43.3),('linear',-90.)])]
+    selected=retain_finalists(pool)
+    assert len(selected)==3 and selected[0]['standardized_utility']==-43.
+    assert selected[2]['recipe']['model_family']=='xgboost'

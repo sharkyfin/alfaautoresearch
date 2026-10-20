@@ -1,0 +1,6 @@
+**
+!Dockerfile.verify
+!requirements-runtime.txt
+!solution.py
+!atlas/
+!atlas/*.py

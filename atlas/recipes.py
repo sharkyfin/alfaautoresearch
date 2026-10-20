@@ -8,7 +8,7 @@ PARAMS={
 'hist':{'iterations':(20,3000),'learning_rate':(.005,.3),'max_leaf_nodes':(4,127),'l2_regularization':(0,100),'min_samples_leaf':(2,200)},
 'extra_trees':{'iterations':(20,1000),'min_samples_leaf':(1,100),'max_features':(.1,1.),'max_depth':(2,40)},
 'catboost':{'iterations':(20,5000),'depth':(3,10),'learning_rate':(.005,.3),'l2_leaf_reg':(.01,100),'random_strength':(0,10),'bagging_temperature':(0,10)},
-'lightgbm':{'iterations':(20,5000),'num_leaves':(7,255),'learning_rate':(.005,.3),'min_child_samples':(5,250),'reg_lambda':(0,100),'colsample_bytree':(.3,1),'subsample':(.5,1)},
+'lightgbm':{'stopping_metric':('loss','primary'),'iterations':(20,5000),'num_leaves':(7,255),'learning_rate':(.005,.3),'min_child_samples':(5,250),'reg_lambda':(0,100),'colsample_bytree':(.3,1),'subsample':(.5,1)},
 'xgboost':{'iterations':(20,3000),'max_depth':(2,12),'learning_rate':(.005,.3),'min_child_weight':(1,100),'reg_lambda':(0,100),'colsample_bytree':(.3,1),'subsample':(.5,1)}}
 INTEGER={'iterations','depth','max_depth','num_leaves','min_child_samples','max_leaf_nodes','min_samples_leaf'}
 OP_ARITY={'log1p':1,'sqrt':1,'square':1,'ratio':2,'difference':2,'product':2,'group_mean':2,'frequency':-1,'text_stats':-1,'drop':-1,'ip':-1,'clip':-1,'combine':2}
@@ -31,6 +31,9 @@ def validate(raw,spec,remaining=10800,seen=None):
     p=raw.get('params',{})
     if not isinstance(p,dict) or set(p)-set(PARAMS[family])-{'weight'}:raise RecipeError('Unknown model params')
     for k,v in p.items():
+        if k=='stopping_metric':
+            if not isinstance(v,str) or v not in {'loss','primary'} or v=='primary' and not spec.classification:raise RecipeError('Invalid primary stopping metric')
+            continue
         if k=='weight':
             if not isinstance(v,str) or v not in {'none','balanced','sqrt'} or (v!='none' and not spec.classification):raise RecipeError('Invalid class weight')
             continue

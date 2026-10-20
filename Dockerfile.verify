@@ -1,0 +1,11 @@
+# Verification harness; not executed on this macOS host (Docker unavailable).
+FROM python:3.12-slim
+RUN apt-get update && apt-get install -y --no-install-recommends libgomp1 \
+    && rm -rf /var/lib/apt/lists/*
+COPY requirements-runtime.txt /tmp/requirements-runtime.txt
+RUN python -m pip install --no-cache-dir -r /tmp/requirements-runtime.txt
+WORKDIR /opt/atlas
+COPY solution.py ./solution.py
+COPY atlas/ ./atlas/
+WORKDIR /task
+ENTRYPOINT ["python", "/opt/atlas/solution.py"]

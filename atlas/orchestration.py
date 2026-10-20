@@ -11,7 +11,7 @@ from .validation import design,Split
 from .budget import Budget
 from .experiments import Executor,register
 from .recipes import validate,RecipeError,recipe_hash
-from .search import SearchController,mock_hypothesis
+from .search import SearchController,mock_hypothesis,retain_finalists,estimate_runtime
 from .agent import QwenClient,researcher_context
 from .judge import evaluate,meaningful_gain
 from .ensemble import choose_blend,tune_multipliers,adjust_probabilities
@@ -33,7 +33,7 @@ def run(task_path,started=None,budget_seconds=10500,mode='auto',seed=42,threads=
     stop={'requested':False}
     def handle_signal(signum,frame):stop['requested']=True
     old_handlers={s:signal.signal(s,handle_signal) for s in (signal.SIGTERM,signal.SIGINT)}
-    history=[];finalists=[];champion=None;confirmed={};blend=None;multipliers=None;refit_published=False
+    history=[];finalists=[];family_best={};champion=None;confirmed={};blend=None;multipliers=None;refit_published=False
     split=design(data,seed);data.spec.validation_plan=split.json()
     qwen=QwenClient('live' if mode in {'auto','live-agent'} else 'disabled')
     actual_mode='live-agent' if qwen.configured and mode in {'auto','live-agent'} else 'mock-agent' if mode=='mock-agent' else 'deterministic'
@@ -86,10 +86,12 @@ def run(task_path,started=None,budget_seconds=10500,mode='auto',seed=42,threads=
             scheduler.seen.add(recipe_hash(r))
             # Reserve enough for a measured full-data refit before trying longer fits.
             refit_cost=champion['runtime_sec']*1.5 if champion else 0
-            if not budget.can_run(min(timeout,5),refit_cost) and champion:break
+            estimate=estimate_runtime(r,history,timeout,budget.total)
+            final_work=sum(c['runtime_sec'] for c in finalists[:3])+1.5*sum(c['runtime_sec'] for c in finalists[:2])
+            if champion and not budget.can_run(estimate,finalization_estimate=final_work):break
             timeout=min(timeout,max(1,budget.remaining-max(budget.reserve,refit_cost)))
             result,predictions=executor.run(r,split,timeout,seed)
-            result['origin']=origin;result['accepted']=False
+            result['origin']=origin;result['accepted']=False;result['estimated_runtime_sec']=estimate
             if result['status']=='ok' and predictions is not None:
                 try:
                     result.update(evaluate(data,split,predictions,result))
@@ -98,7 +100,9 @@ def run(task_path,started=None,budget_seconds=10500,mode='auto',seed=42,threads=
                     accepted=reference is None or meaningful_gain(utility,reference)
                     result['accepted']=accepted;result['accepted_reason']='objective gain on fixed holdout' if accepted else 'no meaningful objective gain'
                     candidate={**result,'predictions':predictions,'split':split}
-                    finalists.append(candidate);finalists.sort(key=lambda c:-c['standardized_utility']);finalists=finalists[:3]
+                    family=r['model_family']
+                    if family not in family_best or utility>family_best[family]['standardized_utility']:family_best[family]=candidate
+                    finalists=retain_finalists(finalists+[candidate]+list(family_best.values()))
                     if accepted:champion=candidate;publish(champion);no_gain=0
                     else:no_gain+=1
                 except (ValueError,ArithmeticError) as error:
@@ -106,7 +110,7 @@ def run(task_path,started=None,budget_seconds=10500,mode='auto',seed=42,threads=
             else:
                 scheduler.failures[r['model_family']]=scheduler.failures.get(r['model_family'],0)+1
             record(result)
-            keep_ids={c['experiment_id'] for c in finalists}
+            keep_ids={c['experiment_id'] for c in finalists+list(family_best.values())}
             if champion: keep_ids.add(champion['experiment_id'])
             for artifact in executor.root.glob('exp_*/predictions.npz'):
                 if artifact.parent.name not in keep_ids:artifact.unlink()
@@ -114,7 +118,7 @@ def run(task_path,started=None,budget_seconds=10500,mode='auto',seed=42,threads=
         if champion and not stop['requested']:
             stage='CONFIRMATION';second=design(data,seed+1009,fraction=.25)
             if second.id!=split.id and len(second.valid):
-                for candidate in finalists[:2]:
+                for candidate in finalists[:3]:
                     estimate=max(2,candidate['runtime_sec'])
                     if not budget.can_run(estimate,champion['runtime_sec']*1.3):break
                     r=dict(candidate['recipe']);r['validation_plan_id']=second.id
@@ -162,7 +166,7 @@ def run(task_path,started=None,budget_seconds=10500,mode='auto',seed=42,threads=
         return 0 if inputs.output.exists() else 1
     finally:
         for sig,handler in old_handlers.items():signal.signal(sig,handler)
-        summary={'runtime_code_sha256':source_digest,'mode':actual_mode,'budget_seconds':budget.total,'elapsed_seconds':time.monotonic()-start,'first_checkpoint_latency':first_latency,'validation':split.json(),'metric':data.spec.metric.name,'dummy_utility':initial_utility,'experiments':len(history),'successful_experiments':sum(r['status']=='ok' for r in history),'accepted_experiments':sum(r.get('accepted',False) for r in history),'champion_metric':champion['metric_value'] if champion else None,'champion_recipe':champion['recipe'] if champion else None,'confirmation_metric':champion.get('confirmation_metric') if champion else None,'ensemble':{k:v for k,v in blend.items() if k not in {'components','predictions'}} if blend else None,'multipliers':{k:v for k,v in multipliers.items() if k!='predictions'} if multipliers else None,'qwen_calls':qwen.calls,'qwen_tokens':qwen.tokens,'qwen_events':qwen.events,'peak_worker_memory_mb':max((r['peak_memory_mb'] for r in history),default=0),'cancelled':stop['requested'],'output':str(inputs.output),'output_sha256':hashlib.sha256(inputs.output.read_bytes()).hexdigest() if inputs.output.exists() else None}
+        summary={'runtime_code_sha256':source_digest,'mode':actual_mode,'budget_seconds':budget.total,'elapsed_seconds':time.monotonic()-start,'first_checkpoint_latency':first_latency,'validation':split.json(),'metric':data.spec.metric.name,'dummy_utility':initial_utility,'experiments':len(history),'successful_experiments':sum(r['status']=='ok' for r in history),'accepted_experiments':sum(r.get('accepted',False) for r in history),'champion_metric':champion['metric_value'] if champion else None,'champion_recipe':champion['recipe'] if champion else None,'confirmation_metric':champion.get('confirmation_metric') if champion else None,'ensemble':{k:v for k,v in blend.items() if k not in {'components','predictions'}} if blend else None,'multipliers':{k:v for k,v in multipliers.items() if k!='predictions'} if multipliers else None,'qwen_calls':qwen.calls,'qwen_tokens':qwen.tokens,'qwen_events':qwen.events,'max_live_worker_threads':max((r.get('max_live_threads',0) for r in history),default=0),'peak_worker_memory_mb':max((r['peak_memory_mb'] for r in history),default=0),'cancelled':stop['requested'],'output':str(inputs.output),'output_sha256':hashlib.sha256(inputs.output.read_bytes()).hexdigest() if inputs.output.exists() else None}
         summary['full_refit_published']=refit_published
         final_recipe={'output_sha256':summary['output_sha256'],'full_refit':refit_published,'seed':seed,'labels':data.spec.labels,'components':[{'recipe':c['recipe'],'iterations':c.get('iterations'),'experiment_id':c['experiment_id']} for c in (blend['components'] if blend else [champion] if champion else [])],'blend_weights':blend['weights'] if blend else [1.],'probability_multipliers':multipliers['weights'] if multipliers else None}
         (directory/'final_recipe.json').write_text(json.dumps(final_recipe,ensure_ascii=False,indent=2,allow_nan=False))

@@ -176,3 +176,20 @@ def test_researcher_sees_champion_without_raw_predictions(tmp_path):
     assert context['champion']['recipe']['model_family']=='hist'
     assert 'predictions' not in context['champion']
     assert len(json.dumps(context).encode())<20000
+
+def test_linear_champion_full_refit_e2e(tmp_path):
+    from atlas.orchestration import run
+    task=create(tmp_path/'data','integer_labels',n=300)
+    assert run(task,budget_seconds=30,threads=1,max_experiments=1,mode='deterministic',run_dir=tmp_path/'run')==0
+    summary=json.loads((tmp_path/'run/summary.json').read_text())
+    assert summary['champion_recipe']['model_family']=='linear'
+    assert summary['full_refit_published']
+
+def test_measured_cost_and_finalization_admission():
+    from atlas.search import estimate_runtime
+    recipe={'model_family':'catboost','params':{'iterations':200,'depth':7}}
+    history=[{'status':'ok','runtime_sec':10.,'recipe':{'model_family':'catboost','params':{'iterations':100,'depth':7}}}]
+    assert estimate_runtime(recipe,history,100,900)==24.
+    assert estimate_runtime(recipe,[],100,900)==27.
+    b=Budget(30,time.monotonic()-10)
+    assert not b.can_run(5,finalization_estimate=15)

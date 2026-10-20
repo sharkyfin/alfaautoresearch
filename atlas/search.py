@@ -17,7 +17,24 @@ def initial_portfolio(spec,budget=10800):
     out.append(recipe('hist',{'iterations':min(350,rounds)},statement='Histogram boosting diversity'))
     out.append(recipe('extra_trees',{'iterations':min(250,rounds),'min_samples_leaf':2},statement='Randomized trees for complementary errors'))
     if 'xgboost' in spec.available_capabilities:out.append(recipe('xgboost',{'iterations':rounds,'max_depth':6},statement='Regularized histogram booster diversity'))
+    if spec.classification and spec.metric.name in {'f1','f1_macro','balanced_accuracy'} and 'lightgbm' in spec.available_capabilities:
+        counts=list(spec.profile.get('target',{}).get('counts',{}).values())
+        if counts and max(counts)/max(min(counts),1)>=3:
+            out.append(recipe('lightgbm',{'iterations':rounds,'num_leaves':31,'min_child_samples':30,'weight':'sqrt','stopping_metric':'primary'},statement='Measured minority-weighted booster with early stopping on the actual primary metric'))
     return out
+
+def retain_finalists(candidates,limit=3):
+    unique={c['experiment_id']:c for c in candidates}
+    ranked=sorted(unique.values(),key=lambda c:-c['standardized_utility'])
+    if len(ranked)<=limit:return ranked
+    chosen=ranked[:2];best=ranked[0]
+    if chosen[0]['recipe']['model_family']==chosen[1]['recipe']['model_family']:
+        distinct=next((c for c in ranked[2:] if c['recipe']['model_family']!=best['recipe']['model_family'] and best['standardized_utility']-c['standardized_utility']<=max(.02,abs(best['standardized_utility'])*.05)),None)
+        if distinct:chosen.append(distinct)
+    for c in ranked:
+        if len(chosen)>=limit:break
+        if c['experiment_id'] not in {x['experiment_id'] for x in chosen}:chosen.append(c)
+    return chosen
 
 class SearchController:
     def __init__(self,spec,budget,mode='deterministic',seed=42):
@@ -66,3 +83,14 @@ def mock_hypothesis(spec,champion,number):
     elif spec.categorical_features:
         base['feature_ops']=[{'op':'frequency','columns':spec.categorical_features[:4]}];base['statement']='Mock researcher: fold-fitted rarity hypothesis'
     return base
+
+
+def estimate_runtime(recipe,history,timeout,total_budget):
+    measured=[r for r in history if r.get('status')=='ok' and not r.get('refit') and r['recipe']['model_family']==recipe['model_family']]
+    if not measured:return min(timeout,max(3.,total_budget*.03))
+    previous=measured[-1];old=previous['recipe']['params'];new=recipe.get('params',{})
+    scale=max(.5,min(3.,new.get('iterations',500)/max(old.get('iterations',500),1)))
+    if recipe['model_family'] in {'catboost','xgboost'}:
+        key='depth' if recipe['model_family']=='catboost' else 'max_depth'
+        scale*=2**((new.get(key,7)-old.get(key,7))*.25)
+    return min(timeout,max(1.,previous['runtime_sec']*scale*1.2))
