@@ -1,7 +1,7 @@
 # ATLAS AutoResearch
 
 Автономный CPU-агент для табличной регрессии и классификации Alfa Hack AutoML.
-Статус: разработка, ZIP предварительный до закрытия release gates.
+Предварительный релиз: локальные проверки завершены; live Qwen и Linux Docker остаются непроверенными.
 
 ## Запуск
 
@@ -9,8 +9,8 @@ Python 3.12; библиотеки из официального `artifacts/offic
 Для разработки достаточно подмножества:
 
 ```sh
-uv venv --python 3.12
-uv pip install --python .venv/bin/python -r requirements-dev.txt
+"$HOME/.local/bin/uv" venv --python 3.12.14
+"$HOME/.local/bin/uv" pip install --python .venv/bin/python -r requirements-dev.txt
 .venv/bin/python solution.py /absolute/path/task.md
 ```
 
@@ -119,3 +119,11 @@ docker run --rm --cpus=8 --memory=32g --network=none -v /absolute/task-directory
 сам создаёт уникальный каталог `.atlas/<time>_<suffix>`. Итоговые тесты привязаны
 к SHA256 runtime-исходников в `reports/test-state.json`; отсутствие изменений
 между началом и концом тестов проверяется автоматически.
+
+Предварительный релиз: 148 тестов прошли; 35 stress-сценариев на двух seeds
+завершились без неожиданных ошибок. Архив повторно распакован в пустой каталог:
+regression и multiclass прошли официальный CLI с реальным обучением и SIGTERM.
+Размер, SHA256 и полный список 19 файлов — в
+[reports/release-manifest.json](reports/release-manifest.json); проверка релиза —
+в [reports/RELEASE_AUDIT.md](reports/RELEASE_AUDIT.md).
+Локальные метрики и замеры относятся к указанным в отчёте версиям исходников.

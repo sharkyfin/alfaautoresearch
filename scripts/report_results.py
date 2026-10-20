@@ -1,5 +1,5 @@
 """Summarize measured evidence without inventing platform scores or live Qwen results."""
-import hashlib,json,re,sys
+import hashlib,json,re,statistics,sys
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1];sys.path.insert(0,str(ROOT))
 from atlas.utils import code_digest
@@ -41,6 +41,14 @@ if p.exists():
   d,m=pair['deterministic'],pair['mock-agent'];direction=-1 if d['metric'] in {'rmse','mae','mse','rmsle','logloss'} else 1
   lines.append(f"| {task} | {seed} | {selected(d):.6g} | {selected(m):.6g} | {direction*(selected(m)-selected(d)):.6g} | {d['elapsed_seconds']:.2f} | {m['elapsed_seconds']:.2f} |")
  lines+=['','Each finalized pair uses the prototype runtime SHA256 recorded in paired-ablation.json. Later safety fixes and portfolio additions are tested separately. Each pair uses the same data, seed, budget and configured CPU threads. Source is frozen in runs/paired/source_snapshot. Earlier mixed-revision runs are separately labeled exploratory and excluded from this table. Sample size is insufficient for statistical significance claims.']
+ differences=[]
+ for pair in pairs.values():
+  if not {'deterministic','mock-agent'}<=set(pair):continue
+  d,m=pair['deterministic'],pair['mock-agent'];direction=-1 if d['metric'] in {'rmse','mae','mse','rmsle','logloss'} else 1
+  differences.append(direction*(selected(m)-selected(d))/max(abs(selected(d)),1e-12))
+ if differences:
+  quartile=statistics.quantiles(differences,n=4,method='inclusive')[0] if len(differences)>1 else differences[0]
+  lines += ['',f"Across {len(differences)} prototype pairs: {sum(x>0 for x in differences)} wins, {sum(x<0 for x in differences)} losses, {sum(x==0 for x in differences)} ties; win rate {sum(x>0 for x in differences)/len(differences):.1%}. Median normalized improvement {statistics.median(differences):.3%}, lower quartile {quartile:.3%}. Normalization is signed objective difference divided by the absolute deterministic objective on each task; this is not the competition scoring formula."]
 lines+=['','## Leakage and failure tests','']
 p=reports/'leakage-ablation.json'
 if p.exists():

@@ -1,0 +1,49 @@
+{
+  "status": "PROVISIONAL",
+  "runtime_code_sha256": "8b90ee3fe1646082082c3ec0b1a46e72503d9876d9726d6bfead1a24a317d7f8",
+  "archive_sha256": "f94af9a064b1e8a6c25db227ffbce46c8b17064c42c077cfef9915c054d943da",
+  "archive_bytes": 37427,
+  "tests_passed": 148,
+  "warnings": 13,
+  "public_outputs": [
+    {
+      "task": "regression",
+      "rows": 22449,
+      "columns": [
+        "id",
+        "site_eui"
+      ],
+      "status": "valid",
+      "sha256": "3552008ef07e9f40fa05136aa25cbf692497f382627e0e4314c92e6e3c5c13fe"
+    },
+    {
+      "task": "classification",
+      "rows": 41166,
+      "columns": [
+        "id",
+        "attack_cat"
+      ],
+      "status": "valid",
+      "sha256": "5118c5624c485a1efe224cd407f676f9771696e043610361a9d2ae3bba0fa425"
+    }
+  ],
+  "clean_extraction_tests": [
+    {
+      "scenario": "iid",
+      "status": "passed",
+      "accepted_checkpoint": true,
+      "returncode": 0
+    },
+    {
+      "scenario": "integer_labels",
+      "status": "passed",
+      "accepted_checkpoint": true,
+      "returncode": 0
+    }
+  ],
+  "blocked": [
+    "Organizer Qwen settings not yet available; live hypothesis loop and live equal-budget ablation unverified",
+    "Docker unavailable; exact Linux 8CPU/32GiB verification unperformed"
+  ],
+  "platform_submitted": false
+}

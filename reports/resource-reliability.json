@@ -1,0 +1,125 @@
+[
+  {
+    "campaign": "public-campaign",
+    "task": "regression",
+    "seed": 42,
+    "runtime_code_sha256": "211a6e8db77cfa73ab4b257a01062d48c1b05f00186c3ce56ced4dd058c8155f",
+    "experiments": 22,
+    "statuses": {
+      "ok": 22
+    },
+    "observed_memory_limit_exits": 0,
+    "worker_timeout_rate": 0.0,
+    "worker_cpu_seconds": 1414.861947872,
+    "peak_worker_memory_mb": 859.41796875,
+    "max_live_library_threads": null,
+    "configured_cpu_threads": 8,
+    "first_checkpoint_latency": 5.485673931994825,
+    "accepted": 4,
+    "full_refit_published": true,
+    "qwen_calls": 0
+  },
+  {
+    "campaign": "public-campaign",
+    "task": "classification",
+    "seed": 42,
+    "runtime_code_sha256": "211a6e8db77cfa73ab4b257a01062d48c1b05f00186c3ce56ced4dd058c8155f",
+    "experiments": 13,
+    "statuses": {
+      "ok": 12,
+      "timeout": 1
+    },
+    "observed_memory_limit_exits": 0,
+    "worker_timeout_rate": 0.07692307692307693,
+    "worker_cpu_seconds": 3931.624615062,
+    "peak_worker_memory_mb": 1038.90625,
+    "max_live_library_threads": null,
+    "configured_cpu_threads": 8,
+    "first_checkpoint_latency": 4.508990347996587,
+    "accepted": 5,
+    "full_refit_published": true,
+    "qwen_calls": 0
+  },
+  {
+    "campaign": "public-campaign",
+    "task": "regression",
+    "seed": 53,
+    "runtime_code_sha256": "211a6e8db77cfa73ab4b257a01062d48c1b05f00186c3ce56ced4dd058c8155f",
+    "experiments": 21,
+    "statuses": {
+      "ok": 21
+    },
+    "observed_memory_limit_exits": 0,
+    "worker_timeout_rate": 0.0,
+    "worker_cpu_seconds": 3085.733134552,
+    "peak_worker_memory_mb": 859.96484375,
+    "max_live_library_threads": null,
+    "configured_cpu_threads": 8,
+    "first_checkpoint_latency": 11.142030689006788,
+    "accepted": 5,
+    "full_refit_published": true,
+    "qwen_calls": 0
+  },
+  {
+    "campaign": "public-campaign",
+    "task": "classification",
+    "seed": 53,
+    "runtime_code_sha256": "211a6e8db77cfa73ab4b257a01062d48c1b05f00186c3ce56ced4dd058c8155f",
+    "experiments": 13,
+    "statuses": {
+      "ok": 12,
+      "timeout": 1
+    },
+    "observed_memory_limit_exits": 0,
+    "worker_timeout_rate": 0.07692307692307693,
+    "worker_cpu_seconds": 4756.351217896,
+    "peak_worker_memory_mb": 841.5703125,
+    "max_live_library_threads": null,
+    "configured_cpu_threads": 8,
+    "first_checkpoint_latency": 14.407207444004598,
+    "accepted": 4,
+    "full_refit_published": true,
+    "qwen_calls": 0
+  },
+  {
+    "campaign": "public-final",
+    "task": "regression",
+    "seed": 42,
+    "runtime_code_sha256": "0cb87bffe7f686f5f93b14a2067f062a50edcf82d9e70ef57dcdb00ae9faf5ac",
+    "experiments": 22,
+    "statuses": {
+      "ok": 22
+    },
+    "observed_memory_limit_exits": 0,
+    "worker_timeout_rate": 0.0,
+    "worker_cpu_seconds": 3564.514340288,
+    "peak_worker_memory_mb": 677.7734375,
+    "max_live_library_threads": 28,
+    "configured_cpu_threads": 8,
+    "first_checkpoint_latency": 15.830383823995362,
+    "accepted": 4,
+    "full_refit_published": true,
+    "qwen_calls": 0
+  },
+  {
+    "campaign": "public-final",
+    "task": "classification",
+    "seed": 42,
+    "runtime_code_sha256": "0cb87bffe7f686f5f93b14a2067f062a50edcf82d9e70ef57dcdb00ae9faf5ac",
+    "experiments": 14,
+    "statuses": {
+      "ok": 13,
+      "timeout": 1
+    },
+    "observed_memory_limit_exits": 0,
+    "worker_timeout_rate": 0.07142857142857142,
+    "worker_cpu_seconds": 4265.852192712,
+    "peak_worker_memory_mb": 788.625,
+    "max_live_library_threads": 17,
+    "configured_cpu_threads": 8,
+    "first_checkpoint_latency": 10.012416830999427,
+    "accepted": 4,
+    "full_refit_published": true,
+    "qwen_calls": 0
+  }
+]

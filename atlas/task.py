@@ -39,6 +39,7 @@ class TaskSpec:
     group_candidates: list[str]
     available_capabilities: dict
     warnings: list[str]=field(default_factory=list)
+    suspicious_leakage_features: list[str]=field(default_factory=list)
     validation_plan: dict=field(default_factory=dict)
     profile: dict=field(default_factory=dict)
 
@@ -80,7 +81,8 @@ def load(inputs: Inputs, strict=False) -> Dataset:
     if train[target].isna().any():
         warnings.append('Dropped rows with missing training target'); train=train.loc[train[target].notna()].reset_index(drop=True)
     if not len(train): raise UnsupportedTask('No known training targets')
-    ids=[c for c in sample if c in test and c!=target and (c in ids_hint or test[c].is_unique)]
+    shared=[c for c in sample if c in test and c!=target]
+    ids=[c for c in shared if c in ids_hint] if ids_hint else [c for c in shared if test[c].is_unique]
     for c in ids:
         # Re-read IDs as strings, preserving leading zeros and uint64 identifiers.
         for frame,path in ((train,inputs.train),(test,inputs.test),(sample,inputs.sample)):
@@ -114,7 +116,8 @@ def load(inputs: Inputs, strict=False) -> Dataset:
     metric=Metric(metric_name,len(labels),positive,metric_kwargs)
     kind='label' if classification else 'value';proba_cols={}
     out=[c for c in sample if c not in ids]
-    if classification and metric.needs_proba:
+    class_probability_schema=classification and len(labels)>1 and len(out)==len(labels) and set(out)=={str(label) for label in labels}
+    if classification and (metric.needs_proba or class_probability_schema):
         kind='probability'
         if len(out)==1 and len(labels)==2: proba_cols[out[0]]=positive
         elif len(out)==len(labels):
@@ -164,3 +167,11 @@ def profile(train,test,spec):
     y=train[spec.target]
     target={'counts':{str(k):int(v) for k,v in y.value_counts().items()}} if spec.classification else {'quantiles':{str(k):float(v) for k,v in y.quantile([0,.01,.25,.5,.75,.99,1]).items()}}
     return {'train_shape':list(train.shape),'test_shape':list(test.shape),'columns':cols,'target':target,'memory_mb':float(train.memory_usage(deep=True).sum()/2**20)}
+
+
+def leakage_signals(data,train_indices):
+    """Signal direct target duplicates using only the fixed training fold."""
+    if len(train_indices)<10:return []
+    sample=data.train.iloc[np.asarray(train_indices)[:5000]]
+    target=sample[data.spec.target].to_numpy(dtype=object)
+    return [c for c in data.spec.features[:300] if sample[c].notna().all() and np.array_equal(sample[c].to_numpy(dtype=object),target)]

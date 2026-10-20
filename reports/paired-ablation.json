@@ -1,0 +1,952 @@
+[
+  {
+    "runtime_code_sha256": "d4887ac09ee3176d3ec98f9682ecd3617db50abe688dc07213a65dec4302064f",
+    "mode": "deterministic",
+    "budget_seconds": 45.0,
+    "elapsed_seconds": 32.71545076499751,
+    "first_checkpoint_latency": 2.1920558080018964,
+    "validation": {
+      "id": "e0398becaa955c3f",
+      "kind": "random",
+      "reason": "IID regression; no evidence for grouped/forward validation",
+      "seed": 17,
+      "train_rows": 480,
+      "valid_rows": 120
+    },
+    "metric": "rmse",
+    "dummy_utility": -2.577369806418841,
+    "experiments": 15,
+    "successful_experiments": 15,
+    "accepted_experiments": 7,
+    "champion_metric": 0.537236545194817,
+    "champion_recipe": {
+      "model_family": "xgboost",
+      "params": {
+        "iterations": 150,
+        "max_depth": 6
+      },
+      "feature_ops": [
+        {
+          "op": "product",
+          "columns": [
+            "x0",
+            "x1"
+          ]
+        }
+      ],
+      "target_transform": "none",
+      "max_runtime_sec": 6.75,
+      "validation_plan_id": "e0398becaa955c3f",
+      "id": "local_5",
+      "statement": "Bounded numeric interaction may capture nonlinear rates",
+      "parent_experiment": "exp_0010"
+    },
+    "confirmation_metric": 0.3485380474108453,
+    "ensemble": null,
+    "multipliers": null,
+    "qwen_calls": 0,
+    "qwen_tokens": 0,
+    "qwen_events": [],
+    "peak_worker_memory_mb": 138.51953125,
+    "cancelled": false,
+    "output": "/Users/mac/Documents/projects/alfaautoresearch/runs/paired/iid_17/data/submission.csv",
+    "output_sha256": "e0c6ff9912a2da41a467c921581eff7ec81c3e356ca41e09f98f6ccdad8f53c8",
+    "full_refit_published": true,
+    "task": "iid",
+    "seed": 17,
+    "returncode": 0
+  },
+  {
+    "runtime_code_sha256": "d4887ac09ee3176d3ec98f9682ecd3617db50abe688dc07213a65dec4302064f",
+    "mode": "mock-agent",
+    "budget_seconds": 45.0,
+    "elapsed_seconds": 31.091827159994864,
+    "first_checkpoint_latency": 1.4070682539895643,
+    "validation": {
+      "id": "e0398becaa955c3f",
+      "kind": "random",
+      "reason": "IID regression; no evidence for grouped/forward validation",
+      "seed": 17,
+      "train_rows": 480,
+      "valid_rows": 120
+    },
+    "metric": "rmse",
+    "dummy_utility": -2.577369806418841,
+    "experiments": 15,
+    "successful_experiments": 15,
+    "accepted_experiments": 7,
+    "champion_metric": 0.5360838820858885,
+    "champion_recipe": {
+      "model_family": "xgboost",
+      "params": {
+        "iterations": 150,
+        "max_depth": 5,
+        "min_child_weight": 5
+      },
+      "feature_ops": [
+        {
+          "op": "product",
+          "columns": [
+            "x0",
+            "x1"
+          ]
+        }
+      ],
+      "target_transform": "none",
+      "max_runtime_sec": 6.75,
+      "validation_plan_id": "e0398becaa955c3f",
+      "id": "local_9",
+      "statement": "Focused local hyperparameter search around measured champion",
+      "parent_experiment": "exp_0008"
+    },
+    "confirmation_metric": 0.3136955348720355,
+    "ensemble": null,
+    "multipliers": null,
+    "qwen_calls": 0,
+    "qwen_tokens": 0,
+    "qwen_events": [],
+    "peak_worker_memory_mb": 137.08984375,
+    "cancelled": false,
+    "output": "/Users/mac/Documents/projects/alfaautoresearch/runs/paired/iid_17/data/submission.csv",
+    "output_sha256": "e7390d54488d9c47eadef47d6f560e08a2fbe6ee5ef5713eedd69f25f4b0a7e9",
+    "full_refit_published": true,
+    "task": "iid",
+    "seed": 17,
+    "returncode": 0
+  },
+  {
+    "runtime_code_sha256": "d4887ac09ee3176d3ec98f9682ecd3617db50abe688dc07213a65dec4302064f",
+    "mode": "deterministic",
+    "budget_seconds": 45.0,
+    "elapsed_seconds": 29.630918511000345,
+    "first_checkpoint_latency": 1.3857003470038762,
+    "validation": {
+      "id": "e0398becaa955c3f",
+      "kind": "random",
+      "reason": "IID regression; no evidence for grouped/forward validation",
+      "seed": 17,
+      "train_rows": 480,
+      "valid_rows": 120
+    },
+    "metric": "rmse",
+    "dummy_utility": -42.2324691012357,
+    "experiments": 15,
+    "successful_experiments": 15,
+    "accepted_experiments": 4,
+    "champion_metric": 10.3534932919225,
+    "champion_recipe": {
+      "model_family": "xgboost",
+      "params": {
+        "iterations": 150,
+        "max_depth": 6
+      },
+      "feature_ops": [
+        {
+          "op": "clip",
+          "columns": [
+            "x0",
+            "x1",
+            "x2",
+            "x3",
+            "x4"
+          ]
+        }
+      ],
+      "target_transform": "none",
+      "max_runtime_sec": 6.75,
+      "validation_plan_id": "e0398becaa955c3f",
+      "id": "local_6",
+      "statement": "Fold-fitted clipped copies may reduce outlier sensitivity while retaining originals",
+      "parent_experiment": "exp_0006"
+    },
+    "confirmation_metric": 17.28978488311876,
+    "ensemble": null,
+    "multipliers": null,
+    "qwen_calls": 0,
+    "qwen_tokens": 0,
+    "qwen_events": [],
+    "peak_worker_memory_mb": 136.83984375,
+    "cancelled": false,
+    "output": "/Users/mac/Documents/projects/alfaautoresearch/runs/paired/skew_17/data/submission.csv",
+    "output_sha256": "313523a6386cc169433f2d275567bbf39d53653d3f7e6edbfe496a1577612434",
+    "full_refit_published": true,
+    "task": "skew",
+    "seed": 17,
+    "returncode": 0
+  },
+  {
+    "runtime_code_sha256": "d4887ac09ee3176d3ec98f9682ecd3617db50abe688dc07213a65dec4302064f",
+    "mode": "mock-agent",
+    "budget_seconds": 45.0,
+    "elapsed_seconds": 31.325050119994557,
+    "first_checkpoint_latency": 1.3948710819968255,
+    "validation": {
+      "id": "e0398becaa955c3f",
+      "kind": "random",
+      "reason": "IID regression; no evidence for grouped/forward validation",
+      "seed": 17,
+      "train_rows": 480,
+      "valid_rows": 120
+    },
+    "metric": "rmse",
+    "dummy_utility": -42.2324691012357,
+    "experiments": 15,
+    "successful_experiments": 15,
+    "accepted_experiments": 5,
+    "champion_metric": 9.506600140060655,
+    "champion_recipe": {
+      "model_family": "xgboost",
+      "params": {
+        "iterations": 150,
+        "max_depth": 3,
+        "min_child_weight": 1
+      },
+      "feature_ops": [],
+      "target_transform": "none",
+      "max_runtime_sec": 6.75,
+      "validation_plan_id": "e0398becaa955c3f",
+      "id": "local_9",
+      "statement": "Focused local hyperparameter search around measured champion",
+      "parent_experiment": "exp_0006"
+    },
+    "confirmation_metric": 13.818080519879556,
+    "ensemble": null,
+    "multipliers": null,
+    "qwen_calls": 0,
+    "qwen_tokens": 0,
+    "qwen_events": [],
+    "peak_worker_memory_mb": 137.015625,
+    "cancelled": false,
+    "output": "/Users/mac/Documents/projects/alfaautoresearch/runs/paired/skew_17/data/submission.csv",
+    "output_sha256": "ce534a20dd4d6c8116310234982f9301e7f7ac6ff8bda68a738ccb2a5510fa0d",
+    "full_refit_published": true,
+    "task": "skew",
+    "seed": 17,
+    "returncode": 0
+  },
+  {
+    "runtime_code_sha256": "d4887ac09ee3176d3ec98f9682ecd3617db50abe688dc07213a65dec4302064f",
+    "mode": "deterministic",
+    "budget_seconds": 45.0,
+    "elapsed_seconds": 40.690917549000005,
+    "first_checkpoint_latency": 1.6119377520080889,
+    "validation": {
+      "id": "fabc69d449d0edea",
+      "kind": "stratified",
+      "reason": "IID classification",
+      "seed": 17,
+      "train_rows": 480,
+      "valid_rows": 120
+    },
+    "metric": "f1_macro",
+    "dummy_utility": 0.1818181818181818,
+    "experiments": 16,
+    "successful_experiments": 16,
+    "accepted_experiments": 5,
+    "champion_metric": 0.8821873091536013,
+    "champion_recipe": {
+      "model_family": "hist",
+      "params": {
+        "iterations": 150,
+        "weight": "sqrt"
+      },
+      "feature_ops": [
+        {
+          "op": "product",
+          "columns": [
+            "x0",
+            "x1"
+          ]
+        }
+      ],
+      "target_transform": "none",
+      "max_runtime_sec": 6.75,
+      "validation_plan_id": "fabc69d449d0edea",
+      "id": "local_5",
+      "statement": "Bounded numeric interaction may capture nonlinear rates",
+      "parent_experiment": "exp_0007"
+    },
+    "confirmation_metric": 0.8609759023874396,
+    "ensemble": {
+      "weights": [
+        0.5,
+        0.5
+      ],
+      "metric_value": 0.9001642036124794,
+      "confirmation_metric": 0.861173501753212,
+      "robust_utility": 0.8806688526828457
+    },
+    "multipliers": null,
+    "qwen_calls": 0,
+    "qwen_tokens": 0,
+    "qwen_events": [],
+    "peak_worker_memory_mb": 167.11328125,
+    "cancelled": false,
+    "output": "/Users/mac/Documents/projects/alfaautoresearch/runs/paired/integer_labels_17/data/submission.csv",
+    "output_sha256": "ccd520b141492f5f24236da746d1f8325c22b5474e5408e607d08e79443fd63b",
+    "full_refit_published": true,
+    "task": "integer_labels",
+    "seed": 17,
+    "returncode": 0
+  },
+  {
+    "runtime_code_sha256": "d4887ac09ee3176d3ec98f9682ecd3617db50abe688dc07213a65dec4302064f",
+    "mode": "mock-agent",
+    "budget_seconds": 45.0,
+    "elapsed_seconds": 37.85452449800505,
+    "first_checkpoint_latency": 1.3709949829935795,
+    "validation": {
+      "id": "fabc69d449d0edea",
+      "kind": "stratified",
+      "reason": "IID classification",
+      "seed": 17,
+      "train_rows": 480,
+      "valid_rows": 120
+    },
+    "metric": "f1_macro",
+    "dummy_utility": 0.1818181818181818,
+    "experiments": 16,
+    "successful_experiments": 16,
+    "accepted_experiments": 5,
+    "champion_metric": 0.8821873091536013,
+    "champion_recipe": {
+      "model_family": "hist",
+      "params": {
+        "iterations": 150,
+        "weight": "sqrt"
+      },
+      "feature_ops": [
+        {
+          "op": "product",
+          "columns": [
+            "x0",
+            "x1"
+          ]
+        }
+      ],
+      "target_transform": "none",
+      "max_runtime_sec": 6.75,
+      "validation_plan_id": "fabc69d449d0edea",
+      "id": "local_5",
+      "statement": "Bounded numeric interaction may capture nonlinear rates",
+      "parent_experiment": "exp_0007"
+    },
+    "confirmation_metric": 0.8609759023874396,
+    "ensemble": {
+      "weights": [
+        0.5,
+        0.5
+      ],
+      "metric_value": 0.9001642036124794,
+      "confirmation_metric": 0.861173501753212,
+      "robust_utility": 0.8806688526828457
+    },
+    "multipliers": null,
+    "qwen_calls": 0,
+    "qwen_tokens": 0,
+    "qwen_events": [],
+    "peak_worker_memory_mb": 156.23046875,
+    "cancelled": false,
+    "output": "/Users/mac/Documents/projects/alfaautoresearch/runs/paired/integer_labels_17/data/submission.csv",
+    "output_sha256": "ccd520b141492f5f24236da746d1f8325c22b5474e5408e607d08e79443fd63b",
+    "full_refit_published": true,
+    "task": "integer_labels",
+    "seed": 17,
+    "returncode": 0
+  },
+  {
+    "runtime_code_sha256": "d4887ac09ee3176d3ec98f9682ecd3617db50abe688dc07213a65dec4302064f",
+    "mode": "deterministic",
+    "budget_seconds": 45.0,
+    "elapsed_seconds": 31.57473510800628,
+    "first_checkpoint_latency": 1.3874295610003173,
+    "validation": {
+      "id": "c7855d9ed94f022c",
+      "kind": "stratified",
+      "reason": "IID classification",
+      "seed": 17,
+      "train_rows": 480,
+      "valid_rows": 120
+    },
+    "metric": "f1_macro",
+    "dummy_utility": 0.2838915470494418,
+    "experiments": 15,
+    "successful_experiments": 15,
+    "accepted_experiments": 4,
+    "champion_metric": 0.843269042170644,
+    "champion_recipe": {
+      "model_family": "xgboost",
+      "params": {
+        "iterations": 150,
+        "max_depth": 6,
+        "weight": "balanced"
+      },
+      "feature_ops": [
+        {
+          "op": "clip",
+          "columns": [
+            "x0",
+            "x1",
+            "x2",
+            "x3",
+            "x4"
+          ]
+        }
+      ],
+      "target_transform": "none",
+      "max_runtime_sec": 6.75,
+      "validation_plan_id": "c7855d9ed94f022c",
+      "id": "local_6",
+      "statement": "Fold-fitted clipped copies may reduce outlier sensitivity while retaining originals",
+      "parent_experiment": "exp_0009"
+    },
+    "confirmation_metric": 0.7839150479650033,
+    "ensemble": null,
+    "multipliers": null,
+    "qwen_calls": 0,
+    "qwen_tokens": 0,
+    "qwen_events": [],
+    "peak_worker_memory_mb": 160.61328125,
+    "cancelled": false,
+    "output": "/Users/mac/Documents/projects/alfaautoresearch/runs/paired/multiclass_imbalance_17/data/submission.csv",
+    "output_sha256": "ec5a6b959f0eb710acafe7005613a2b1ffac14d66075238276ae43f4849b6206",
+    "full_refit_published": true,
+    "task": "multiclass_imbalance",
+    "seed": 17,
+    "returncode": 0
+  },
+  {
+    "runtime_code_sha256": "d4887ac09ee3176d3ec98f9682ecd3617db50abe688dc07213a65dec4302064f",
+    "mode": "mock-agent",
+    "budget_seconds": 45.0,
+    "elapsed_seconds": 31.172798646002775,
+    "first_checkpoint_latency": 1.3742364069912583,
+    "validation": {
+      "id": "c7855d9ed94f022c",
+      "kind": "stratified",
+      "reason": "IID classification",
+      "seed": 17,
+      "train_rows": 480,
+      "valid_rows": 120
+    },
+    "metric": "f1_macro",
+    "dummy_utility": 0.2838915470494418,
+    "experiments": 15,
+    "successful_experiments": 15,
+    "accepted_experiments": 3,
+    "champion_metric": 0.8353705492782235,
+    "champion_recipe": {
+      "model_family": "xgboost",
+      "params": {
+        "iterations": 150,
+        "max_depth": 6
+      },
+      "feature_ops": [],
+      "target_transform": "none",
+      "max_runtime_sec": 6.75,
+      "validation_plan_id": "c7855d9ed94f022c",
+      "id": "candidate",
+      "statement": "Regularized histogram booster diversity",
+      "parent_experiment": null
+    },
+    "confirmation_metric": 0.7317097606146219,
+    "ensemble": null,
+    "multipliers": null,
+    "qwen_calls": 0,
+    "qwen_tokens": 0,
+    "qwen_events": [],
+    "peak_worker_memory_mb": 163.0625,
+    "cancelled": false,
+    "output": "/Users/mac/Documents/projects/alfaautoresearch/runs/paired/multiclass_imbalance_17/data/submission.csv",
+    "output_sha256": "6287d0934f62d8959959cc60d10b51d1e7a2e32629243475d3aa9cac3b2b687b",
+    "full_refit_published": true,
+    "task": "multiclass_imbalance",
+    "seed": 17,
+    "returncode": 0
+  },
+  {
+    "runtime_code_sha256": "d4887ac09ee3176d3ec98f9682ecd3617db50abe688dc07213a65dec4302064f",
+    "mode": "deterministic",
+    "budget_seconds": 45.0,
+    "elapsed_seconds": 31.119746226002462,
+    "first_checkpoint_latency": 1.375691844994435,
+    "validation": {
+      "id": "0530233375e66a90",
+      "kind": "random",
+      "reason": "IID regression; no evidence for grouped/forward validation",
+      "seed": 43,
+      "train_rows": 480,
+      "valid_rows": 120
+    },
+    "metric": "rmse",
+    "dummy_utility": -2.3249184869126767,
+    "experiments": 16,
+    "successful_experiments": 16,
+    "accepted_experiments": 5,
+    "champion_metric": 0.35027005266187466,
+    "champion_recipe": {
+      "model_family": "xgboost",
+      "params": {
+        "iterations": 150,
+        "max_depth": 6
+      },
+      "feature_ops": [
+        {
+          "op": "product",
+          "columns": [
+            "x0",
+            "x1"
+          ]
+        }
+      ],
+      "target_transform": "none",
+      "max_runtime_sec": 6.75,
+      "validation_plan_id": "0530233375e66a90",
+      "id": "local_5",
+      "statement": "Bounded numeric interaction may capture nonlinear rates",
+      "parent_experiment": "exp_0006"
+    },
+    "confirmation_metric": 0.41242872090665944,
+    "ensemble": {
+      "weights": [
+        0.5,
+        0.5
+      ],
+      "metric_value": 0.3426540624829526,
+      "confirmation_metric": 0.4075823277659066,
+      "robust_utility": -0.37511819512442957
+    },
+    "multipliers": null,
+    "qwen_calls": 0,
+    "qwen_tokens": 0,
+    "qwen_events": [],
+    "peak_worker_memory_mb": 136.76953125,
+    "cancelled": false,
+    "output": "/Users/mac/Documents/projects/alfaautoresearch/runs/paired/iid_43/data/submission.csv",
+    "output_sha256": "eca18e74f230be611a22baeabefaa40916f74c896c7e95660fcd33ec415f9b3b",
+    "full_refit_published": true,
+    "task": "iid",
+    "seed": 43,
+    "returncode": 0
+  },
+  {
+    "runtime_code_sha256": "d4887ac09ee3176d3ec98f9682ecd3617db50abe688dc07213a65dec4302064f",
+    "mode": "mock-agent",
+    "budget_seconds": 45.0,
+    "elapsed_seconds": 32.88233253201179,
+    "first_checkpoint_latency": 1.3593228710087715,
+    "validation": {
+      "id": "0530233375e66a90",
+      "kind": "random",
+      "reason": "IID regression; no evidence for grouped/forward validation",
+      "seed": 43,
+      "train_rows": 480,
+      "valid_rows": 120
+    },
+    "metric": "rmse",
+    "dummy_utility": -2.3249184869126767,
+    "experiments": 16,
+    "successful_experiments": 16,
+    "accepted_experiments": 5,
+    "champion_metric": 0.35091617632684363,
+    "champion_recipe": {
+      "model_family": "xgboost",
+      "params": {
+        "iterations": 150,
+        "max_depth": 5,
+        "min_child_weight": 1
+      },
+      "feature_ops": [
+        {
+          "op": "product",
+          "columns": [
+            "x0",
+            "x1"
+          ]
+        }
+      ],
+      "target_transform": "none",
+      "max_runtime_sec": 6.75,
+      "validation_plan_id": "0530233375e66a90",
+      "id": "local_7",
+      "statement": "Focused local hyperparameter search around measured champion",
+      "parent_experiment": "exp_0008"
+    },
+    "confirmation_metric": 0.4045089765679363,
+    "ensemble": {
+      "weights": [
+        0.5,
+        0.5
+      ],
+      "metric_value": 0.3460051322972073,
+      "confirmation_metric": 0.4042046961861933,
+      "robust_utility": -0.37510491424170034
+    },
+    "multipliers": null,
+    "qwen_calls": 0,
+    "qwen_tokens": 0,
+    "qwen_events": [],
+    "peak_worker_memory_mb": 136.66796875,
+    "cancelled": false,
+    "output": "/Users/mac/Documents/projects/alfaautoresearch/runs/paired/iid_43/data/submission.csv",
+    "output_sha256": "3a41944ec7f3471d18378963803206ab9aaf92b1f3ed229ae4f0816bc8163947",
+    "full_refit_published": true,
+    "task": "iid",
+    "seed": 43,
+    "returncode": 0
+  },
+  {
+    "runtime_code_sha256": "d4887ac09ee3176d3ec98f9682ecd3617db50abe688dc07213a65dec4302064f",
+    "mode": "deterministic",
+    "budget_seconds": 45.0,
+    "elapsed_seconds": 31.099212982997415,
+    "first_checkpoint_latency": 1.4416058210044866,
+    "validation": {
+      "id": "0530233375e66a90",
+      "kind": "random",
+      "reason": "IID regression; no evidence for grouped/forward validation",
+      "seed": 43,
+      "train_rows": 480,
+      "valid_rows": 120
+    },
+    "metric": "rmse",
+    "dummy_utility": -35.222909945081014,
+    "experiments": 15,
+    "successful_experiments": 15,
+    "accepted_experiments": 7,
+    "champion_metric": 10.868807678933187,
+    "champion_recipe": {
+      "model_family": "xgboost",
+      "params": {
+        "iterations": 150,
+        "max_depth": 6
+      },
+      "feature_ops": [
+        {
+          "op": "product",
+          "columns": [
+            "x0",
+            "x1"
+          ]
+        }
+      ],
+      "target_transform": "log1p",
+      "max_runtime_sec": 6.75,
+      "validation_plan_id": "0530233375e66a90",
+      "id": "local_5",
+      "statement": "Bounded numeric interaction may capture nonlinear rates",
+      "parent_experiment": "exp_0008"
+    },
+    "confirmation_metric": 14.288654705482067,
+    "ensemble": null,
+    "multipliers": null,
+    "qwen_calls": 0,
+    "qwen_tokens": 0,
+    "qwen_events": [],
+    "peak_worker_memory_mb": 137.11328125,
+    "cancelled": false,
+    "output": "/Users/mac/Documents/projects/alfaautoresearch/runs/paired/skew_43/data/submission.csv",
+    "output_sha256": "8cfe7edb1d26a232c8a574376b9f58a1207e02f7ca056fdbf819b2ea01980dd1",
+    "full_refit_published": true,
+    "task": "skew",
+    "seed": 43,
+    "returncode": 0
+  },
+  {
+    "runtime_code_sha256": "d4887ac09ee3176d3ec98f9682ecd3617db50abe688dc07213a65dec4302064f",
+    "mode": "mock-agent",
+    "budget_seconds": 45.0,
+    "elapsed_seconds": 38.144982206998975,
+    "first_checkpoint_latency": 1.4739169880049303,
+    "validation": {
+      "id": "0530233375e66a90",
+      "kind": "random",
+      "reason": "IID regression; no evidence for grouped/forward validation",
+      "seed": 43,
+      "train_rows": 480,
+      "valid_rows": 120
+    },
+    "metric": "rmse",
+    "dummy_utility": -35.222909945081014,
+    "experiments": 16,
+    "successful_experiments": 16,
+    "accepted_experiments": 7,
+    "champion_metric": 12.991187733491875,
+    "champion_recipe": {
+      "model_family": "xgboost",
+      "params": {
+        "iterations": 150,
+        "max_depth": 5,
+        "min_child_weight": 1
+      },
+      "feature_ops": [
+        {
+          "op": "product",
+          "columns": [
+            "x0",
+            "x1"
+          ]
+        }
+      ],
+      "target_transform": "none",
+      "max_runtime_sec": 6.75,
+      "validation_plan_id": "0530233375e66a90",
+      "id": "local_9",
+      "statement": "Focused local hyperparameter search around measured champion",
+      "parent_experiment": "exp_0010"
+    },
+    "confirmation_metric": 15.16343601858931,
+    "ensemble": {
+      "weights": [
+        0.5,
+        0.5
+      ],
+      "metric_value": 12.620329381366282,
+      "confirmation_metric": 15.083829111504771,
+      "robust_utility": -13.852079246435526
+    },
+    "multipliers": null,
+    "qwen_calls": 0,
+    "qwen_tokens": 0,
+    "qwen_events": [],
+    "peak_worker_memory_mb": 137.4609375,
+    "cancelled": false,
+    "output": "/Users/mac/Documents/projects/alfaautoresearch/runs/paired/skew_43/data/submission.csv",
+    "output_sha256": "7d3c1af35152af9fac66aab6f58081898f9aa14e7a73789e83b522302f4bd564",
+    "full_refit_published": true,
+    "task": "skew",
+    "seed": 43,
+    "returncode": 0
+  },
+  {
+    "runtime_code_sha256": "d4887ac09ee3176d3ec98f9682ecd3617db50abe688dc07213a65dec4302064f",
+    "mode": "deterministic",
+    "budget_seconds": 45.0,
+    "elapsed_seconds": 33.40839878701081,
+    "first_checkpoint_latency": 1.4956503090070328,
+    "validation": {
+      "id": "789eb78b7bb9431b",
+      "kind": "stratified",
+      "reason": "IID classification",
+      "seed": 43,
+      "train_rows": 480,
+      "valid_rows": 120
+    },
+    "metric": "f1_macro",
+    "dummy_utility": 0.18473895582329317,
+    "experiments": 15,
+    "successful_experiments": 15,
+    "accepted_experiments": 4,
+    "champion_metric": 0.8274513114938647,
+    "champion_recipe": {
+      "model_family": "xgboost",
+      "params": {
+        "iterations": 150,
+        "max_depth": 6
+      },
+      "feature_ops": [
+        {
+          "op": "frequency",
+          "columns": [
+            "category"
+          ]
+        }
+      ],
+      "target_transform": "none",
+      "max_runtime_sec": 6.75,
+      "validation_plan_id": "789eb78b7bb9431b",
+      "id": "local_2",
+      "statement": "Fold-fitted category frequency may expose rarity without target leakage",
+      "parent_experiment": "exp_0006"
+    },
+    "confirmation_metric": 0.8162393162393163,
+    "ensemble": null,
+    "multipliers": null,
+    "qwen_calls": 0,
+    "qwen_tokens": 0,
+    "qwen_events": [],
+    "peak_worker_memory_mb": 160.2890625,
+    "cancelled": false,
+    "output": "/Users/mac/Documents/projects/alfaautoresearch/runs/paired/integer_labels_43/data/submission.csv",
+    "output_sha256": "3d0d31bf0018879963972178b3c78c39f2d0180724ea6ec27e73bf41d5058943",
+    "full_refit_published": true,
+    "task": "integer_labels",
+    "seed": 43,
+    "returncode": 0
+  },
+  {
+    "runtime_code_sha256": "d4887ac09ee3176d3ec98f9682ecd3617db50abe688dc07213a65dec4302064f",
+    "mode": "mock-agent",
+    "budget_seconds": 45.0,
+    "elapsed_seconds": 34.02153955200629,
+    "first_checkpoint_latency": 1.4168435790052172,
+    "validation": {
+      "id": "789eb78b7bb9431b",
+      "kind": "stratified",
+      "reason": "IID classification",
+      "seed": 43,
+      "train_rows": 480,
+      "valid_rows": 120
+    },
+    "metric": "f1_macro",
+    "dummy_utility": 0.18473895582329317,
+    "experiments": 15,
+    "successful_experiments": 15,
+    "accepted_experiments": 4,
+    "champion_metric": 0.83056884635832,
+    "champion_recipe": {
+      "model_family": "xgboost",
+      "params": {
+        "iterations": 150,
+        "max_depth": 6,
+        "weight": "balanced"
+      },
+      "feature_ops": [],
+      "target_transform": "none",
+      "max_runtime_sec": 6.75,
+      "validation_plan_id": "789eb78b7bb9431b",
+      "id": "mock_hyp_2",
+      "statement": "Mock researcher: class imbalance evidence suggests increasing minority influence",
+      "parent_experiment": "exp_0006"
+    },
+    "confirmation_metric": 0.8228235054786545,
+    "ensemble": null,
+    "multipliers": null,
+    "qwen_calls": 0,
+    "qwen_tokens": 0,
+    "qwen_events": [],
+    "peak_worker_memory_mb": 158.10546875,
+    "cancelled": false,
+    "output": "/Users/mac/Documents/projects/alfaautoresearch/runs/paired/integer_labels_43/data/submission.csv",
+    "output_sha256": "3d0d31bf0018879963972178b3c78c39f2d0180724ea6ec27e73bf41d5058943",
+    "full_refit_published": true,
+    "task": "integer_labels",
+    "seed": 43,
+    "returncode": 0
+  },
+  {
+    "runtime_code_sha256": "d4887ac09ee3176d3ec98f9682ecd3617db50abe688dc07213a65dec4302064f",
+    "mode": "deterministic",
+    "budget_seconds": 45.0,
+    "elapsed_seconds": 31.144286716997158,
+    "first_checkpoint_latency": 1.4821445529960329,
+    "validation": {
+      "id": "c9b8e4acfbf21a37",
+      "kind": "stratified",
+      "reason": "IID classification",
+      "seed": 43,
+      "train_rows": 480,
+      "valid_rows": 120
+    },
+    "metric": "f1_macro",
+    "dummy_utility": 0.28751974723538704,
+    "experiments": 15,
+    "successful_experiments": 14,
+    "accepted_experiments": 3,
+    "champion_metric": 0.9364988558352403,
+    "champion_recipe": {
+      "model_family": "linear",
+      "params": {
+        "C": 10.0,
+        "weight": "balanced"
+      },
+      "feature_ops": [
+        {
+          "op": "product",
+          "columns": [
+            "x0",
+            "x1"
+          ]
+        }
+      ],
+      "target_transform": "none",
+      "max_runtime_sec": 6.75,
+      "validation_plan_id": "c9b8e4acfbf21a37",
+      "id": "local_5",
+      "statement": "Bounded numeric interaction may capture nonlinear rates",
+      "parent_experiment": "exp_0009"
+    },
+    "confirmation_metric": 0.8307695015931215,
+    "ensemble": null,
+    "multipliers": {
+      "weights": [
+        1.0,
+        1.4697778401749315,
+        1.7592576441567713
+      ],
+      "metric_value": 0.9390109890109889,
+      "confirmation_metric": 0.8621786492374728
+    },
+    "qwen_calls": 0,
+    "qwen_tokens": 0,
+    "qwen_events": [],
+    "peak_worker_memory_mb": 153.25,
+    "cancelled": false,
+    "output": "/Users/mac/Documents/projects/alfaautoresearch/runs/paired/multiclass_imbalance_43/data/submission.csv",
+    "output_sha256": "45235dc01d6205b65926be27fd8fac1d26bfa7e11661097b728a1a8516379ad6",
+    "full_refit_published": false,
+    "task": "multiclass_imbalance",
+    "seed": 43,
+    "returncode": 0
+  },
+  {
+    "runtime_code_sha256": "d4887ac09ee3176d3ec98f9682ecd3617db50abe688dc07213a65dec4302064f",
+    "mode": "mock-agent",
+    "budget_seconds": 45.0,
+    "elapsed_seconds": 30.15035162398999,
+    "first_checkpoint_latency": 1.381674876989564,
+    "validation": {
+      "id": "c9b8e4acfbf21a37",
+      "kind": "stratified",
+      "reason": "IID classification",
+      "seed": 43,
+      "train_rows": 480,
+      "valid_rows": 120
+    },
+    "metric": "f1_macro",
+    "dummy_utility": 0.28751974723538704,
+    "experiments": 15,
+    "successful_experiments": 14,
+    "accepted_experiments": 5,
+    "champion_metric": 0.9364988558352403,
+    "champion_recipe": {
+      "model_family": "linear",
+      "params": {
+        "C": 10.0,
+        "weight": "balanced"
+      },
+      "feature_ops": [
+        {
+          "op": "clip",
+          "columns": [
+            "x0",
+            "x1",
+            "x2",
+            "x3",
+            "x4"
+          ]
+        }
+      ],
+      "target_transform": "none",
+      "max_runtime_sec": 6.75,
+      "validation_plan_id": "c9b8e4acfbf21a37",
+      "id": "local_7",
+      "statement": "Focused local hyperparameter search around measured champion",
+      "parent_experiment": "exp_0011"
+    },
+    "confirmation_metric": 0.8244593088071349,
+    "ensemble": null,
+    "multipliers": null,
+    "qwen_calls": 0,
+    "qwen_tokens": 0,
+    "qwen_events": [],
+    "peak_worker_memory_mb": 158.77734375,
+    "cancelled": false,
+    "output": "/Users/mac/Documents/projects/alfaautoresearch/runs/paired/multiclass_imbalance_43/data/submission.csv",
+    "output_sha256": "cc63f533ea04062c632234e1ccce041f2b0f11ec804f530e19b510717d0809bc",
+    "full_refit_published": false,
+    "task": "multiclass_imbalance",
+    "seed": 43,
+    "returncode": 0
+  }
+]

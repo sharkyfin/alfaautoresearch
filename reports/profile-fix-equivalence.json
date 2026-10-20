@@ -1,0 +1,14 @@
+[
+  {
+    "task": "regression",
+    "model_task_spec_identical": true,
+    "excluded_new_diagnostic_field": "suspicious_leakage_features",
+    "task_spec_sha256": "23d480d49762db3b2078c951511dd101addc20ea4e7354a2fdd4536427827c7e"
+  },
+  {
+    "task": "classification",
+    "model_task_spec_identical": true,
+    "excluded_new_diagnostic_field": "suspicious_leakage_features",
+    "task_spec_sha256": "30f523a55821a2edcfe342b328fe807989e9548db98ffab9579228d9deb48ea8"
+  }
+]

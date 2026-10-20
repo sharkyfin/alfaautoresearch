@@ -1,0 +1,17 @@
+{
+  "checked_at_utc": "2026-10-20T06:41:36.844800+00:00",
+  "docker_in_path": null,
+  "docker_cli_paths": {
+    "/Applications/Docker.app/Contents/Resources/bin/docker": false,
+    "/usr/local/bin/docker": false,
+    "/opt/homebrew/bin/docker": false
+  },
+  "official_settings_present": {
+    "OPENAI_API_KEY": false,
+    "OPENAI_BASE_URL": false,
+    "OPENAI_MODEL": false
+  },
+  "env_file_exists": false,
+  "user_confirmed_settings_unavailable": true,
+  "platform_submitted": false
+}

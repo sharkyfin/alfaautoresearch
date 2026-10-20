@@ -5,7 +5,7 @@ from pathlib import Path
 import numpy as np
 from .utils import code_digest
 from .contract import read_inputs
-from .task import load
+from .task import load,leakage_signals
 from .submit import checkpoint,dummy_prediction
 from .validation import design,Split
 from .budget import Budget
@@ -40,6 +40,7 @@ def run(task_path,started=None,budget_seconds=10500,mode='auto',seed=42,threads=
     old_handlers={s:signal.signal(s,handle_signal) for s in (signal.SIGTERM,signal.SIGINT)}
     history=[];finalists=[];family_best={};champion=None;confirmed={};blend=None;multipliers=None;refit_published=False
     split=design(data,seed);data.spec.validation_plan=split.json()
+    data.spec.suspicious_leakage_features=leakage_signals(data,split.train)
     qwen=QwenClient('live' if mode in {'auto','live-agent'} else 'disabled')
     actual_mode='live-agent' if qwen.configured and mode in {'auto','live-agent'} else 'mock-agent' if mode=='mock-agent' else 'deterministic'
     scheduler=SearchController(data.spec,budget,actual_mode,seed)
@@ -171,7 +172,7 @@ def run(task_path,started=None,budget_seconds=10500,mode='auto',seed=42,threads=
         return 0 if inputs.output.exists() else 1
     finally:
         for sig,handler in old_handlers.items():signal.signal(sig,handler)
-        summary={'runtime_code_sha256':source_digest,'mode':actual_mode,'budget_seconds':budget.total,'elapsed_seconds':time.monotonic()-start,'first_checkpoint_latency':first_latency,'validation':split.json(),'metric':data.spec.metric.name,'dummy_utility':initial_utility,'experiments':len(history),'successful_experiments':sum(r['status']=='ok' for r in history),'accepted_experiments':sum(r.get('accepted',False) for r in history),'champion_metric':champion['metric_value'] if champion else None,'champion_recipe':champion['recipe'] if champion else None,'confirmation_metric':champion.get('confirmation_metric') if champion else None,'ensemble':{k:v for k,v in blend.items() if k not in {'components','predictions'}} if blend else None,'multipliers':{k:v for k,v in multipliers.items() if k!='predictions'} if multipliers else None,'qwen_calls':qwen.calls,'qwen_tokens':qwen.tokens,'qwen_events':qwen.events,'max_live_worker_threads':max((r.get('max_live_threads',0) for r in history),default=0),'peak_worker_memory_mb':max((r['peak_memory_mb'] for r in history),default=0),'cancelled':stop['requested'],'output':str(inputs.output),'output_sha256':hashlib.sha256(inputs.output.read_bytes()).hexdigest() if inputs.output.exists() else None}
+        summary={'runtime_code_sha256':source_digest,'mode':actual_mode,'budget_seconds':budget.total,'elapsed_seconds':time.monotonic()-start,'first_checkpoint_latency':first_latency,'validation':split.json(),'metric':data.spec.metric.name,'dummy_utility':initial_utility,'experiments':len(history),'successful_experiments':sum(r['status']=='ok' for r in history),'accepted_experiments':sum(r.get('accepted',False) for r in history),'champion_metric':champion['metric_value'] if champion else None,'champion_recipe':champion['recipe'] if champion else None,'confirmation_metric':champion.get('confirmation_metric') if champion else None,'ensemble':{k:v for k,v in blend.items() if k not in {'components','predictions'}} if blend else None,'multipliers':{k:v for k,v in multipliers.items() if k!='predictions'} if multipliers else None,'qwen_calls':qwen.requests,'qwen_proposals':qwen.calls,'qwen_tokens':qwen.tokens,'qwen_events':qwen.events,'max_live_worker_threads':max((r.get('max_live_threads',0) for r in history),default=0),'peak_worker_memory_mb':max((r['peak_memory_mb'] for r in history),default=0),'cancelled':stop['requested'],'output':str(inputs.output),'output_sha256':hashlib.sha256(inputs.output.read_bytes()).hexdigest() if inputs.output.exists() else None}
         summary['full_refit_published']=refit_published
         final_recipe={'output_sha256':summary['output_sha256'],'full_refit':refit_published,'seed':seed,'labels':data.spec.labels,'components':[{'recipe':c['recipe'],'iterations':c.get('iterations'),'experiment_id':c['experiment_id']} for c in (blend['components'] if blend else [champion] if champion else [])],'blend_weights':blend['weights'] if blend else [1.],'probability_multipliers':multipliers['weights'] if multipliers else None}
         (directory/'final_recipe.json').write_text(json.dumps(final_recipe,ensure_ascii=False,indent=2,allow_nan=False))

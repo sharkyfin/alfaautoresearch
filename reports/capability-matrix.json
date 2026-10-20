@@ -1,0 +1,167 @@
+{
+  "python": "3.12.14 (main, Sep  1 2026, 14:09:53) [Clang 22.1.3 ]",
+  "approved_pins": {
+    "numpy": "1.26.4",
+    "pandas": "2.2.3",
+    "scipy": "1.12.0",
+    "scikit-learn": "1.5.2",
+    "catboost": "1.2.8",
+    "lightgbm": "4.6.0",
+    "xgboost": "2.1.4"
+  },
+  "installed": {
+    "numpy": "1.26.4",
+    "pandas": "2.2.3",
+    "scipy": "1.12.0",
+    "scikit-learn": "1.5.2",
+    "catboost": "1.2.8",
+    "lightgbm": "4.6.0",
+    "xgboost": "2.1.4"
+  },
+  "actual_fits": [
+    {
+      "task": "iid",
+      "family": "linear",
+      "status": "fit_predict_ok",
+      "metric": "rmse",
+      "value": 1.6158757185618997,
+      "seconds": 0.044019677996402606
+    },
+    {
+      "task": "iid",
+      "family": "hist",
+      "status": "fit_predict_ok",
+      "metric": "rmse",
+      "value": 1.0030445173847817,
+      "seconds": 0.1405334940063767
+    },
+    {
+      "task": "iid",
+      "family": "extra_trees",
+      "status": "fit_predict_ok",
+      "metric": "rmse",
+      "value": 0.7513961731747606,
+      "seconds": 0.08468918400467373
+    },
+    {
+      "task": "iid",
+      "family": "catboost",
+      "status": "fit_predict_ok",
+      "metric": "rmse",
+      "value": 1.5194896931449111,
+      "seconds": 0.1894767089979723
+    },
+    {
+      "task": "iid",
+      "family": "lightgbm",
+      "status": "fit_predict_ok",
+      "metric": "rmse",
+      "value": 1.5146294080717717,
+      "seconds": 0.2204882919904776
+    },
+    {
+      "task": "iid",
+      "family": "xgboost",
+      "status": "fit_predict_ok",
+      "metric": "rmse",
+      "value": 1.159269144601906,
+      "seconds": 0.12011203799920622
+    },
+    {
+      "task": "integer_labels",
+      "family": "linear",
+      "status": "fit_predict_ok",
+      "metric": "f1_macro",
+      "value": 0.8121212121212121,
+      "seconds": 0.058188262992189266
+    },
+    {
+      "task": "integer_labels",
+      "family": "hist",
+      "status": "fit_predict_ok",
+      "metric": "f1_macro",
+      "value": 0.7272460430355167,
+      "seconds": 0.10372534500493202
+    },
+    {
+      "task": "integer_labels",
+      "family": "extra_trees",
+      "status": "fit_predict_ok",
+      "metric": "f1_macro",
+      "value": 0.8187134502923977,
+      "seconds": 0.07792429700202774
+    },
+    {
+      "task": "integer_labels",
+      "family": "catboost",
+      "status": "fit_predict_ok",
+      "metric": "f1_macro",
+      "value": 0.7328640858052623,
+      "seconds": 0.21674354100832716
+    },
+    {
+      "task": "integer_labels",
+      "family": "lightgbm",
+      "status": "fit_predict_ok",
+      "metric": "f1_macro",
+      "value": 0.7642825011246064,
+      "seconds": 0.056487288005882874
+    },
+    {
+      "task": "integer_labels",
+      "family": "xgboost",
+      "status": "fit_predict_ok",
+      "metric": "f1_macro",
+      "value": 0.7297270955165692,
+      "seconds": 0.13488416800100822
+    },
+    {
+      "task": "binary_imbalance",
+      "family": "linear",
+      "status": "fit_predict_ok",
+      "metric": "f1_macro",
+      "value": 0.941031941031941,
+      "seconds": 0.05544082399865147
+    },
+    {
+      "task": "binary_imbalance",
+      "family": "hist",
+      "status": "fit_predict_ok",
+      "metric": "f1_macro",
+      "value": 0.8888888888888888,
+      "seconds": 0.0850562169944169
+    },
+    {
+      "task": "binary_imbalance",
+      "family": "extra_trees",
+      "status": "fit_predict_ok",
+      "metric": "f1_macro",
+      "value": 0.941031941031941,
+      "seconds": 0.08711018301255535
+    },
+    {
+      "task": "binary_imbalance",
+      "family": "catboost",
+      "status": "fit_predict_ok",
+      "metric": "f1_macro",
+      "value": 0.9085714285714286,
+      "seconds": 0.15912624199700076
+    },
+    {
+      "task": "binary_imbalance",
+      "family": "lightgbm",
+      "status": "fit_predict_ok",
+      "metric": "f1_macro",
+      "value": 0.9085714285714286,
+      "seconds": 0.04270028199243825
+    },
+    {
+      "task": "binary_imbalance",
+      "family": "xgboost",
+      "status": "fit_predict_ok",
+      "metric": "f1_macro",
+      "value": 0.9142346634901727,
+      "seconds": 0.07802677300060168
+    }
+  ]
+}

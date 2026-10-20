@@ -1,0 +1,122 @@
+[
+  {
+    "runtime_code_sha256": "0cb87bffe7f686f5f93b14a2067f062a50edcf82d9e70ef57dcdb00ae9faf5ac",
+    "mode": "deterministic",
+    "budget_seconds": 900.0,
+    "elapsed_seconds": 767.9878228230082,
+    "first_checkpoint_latency": 15.830383823995362,
+    "validation": {
+      "id": "16d5a14c6b31df53",
+      "kind": "random",
+      "reason": "IID regression; no evidence for grouped/forward validation",
+      "seed": 42,
+      "train_rows": 42646,
+      "valid_rows": 10662
+    },
+    "metric": "rmse",
+    "dummy_utility": -59.71457298133668,
+    "experiments": 22,
+    "successful_experiments": 22,
+    "accepted_experiments": 4,
+    "champion_metric": 43.38468850252443,
+    "champion_recipe": {
+      "model_family": "lightgbm",
+      "params": {
+        "iterations": 1800,
+        "num_leaves": 31,
+        "min_child_samples": 30
+      },
+      "feature_ops": [],
+      "target_transform": "none",
+      "max_runtime_sec": 135.0,
+      "validation_plan_id": "16d5a14c6b31df53",
+      "id": "candidate",
+      "statement": "Fast leaf-wise booster with categorical handling",
+      "parent_experiment": null
+    },
+    "confirmation_metric": 40.6387206054908,
+    "ensemble": {
+      "weights": [
+        0.5,
+        0.5
+      ],
+      "metric_value": 42.72835914955715,
+      "confirmation_metric": 40.56535688236494,
+      "robust_utility": -41.646858015961044
+    },
+    "multipliers": null,
+    "qwen_calls": 0,
+    "qwen_tokens": 0,
+    "qwen_events": [],
+    "max_live_worker_threads": 28,
+    "peak_worker_memory_mb": 677.7734375,
+    "cancelled": false,
+    "output": "/Users/mac/Documents/projects/alfaautoresearch/artifacts/data/regression/submission.csv",
+    "output_sha256": "3552008ef07e9f40fa05136aa25cbf692497f382627e0e4314c92e6e3c5c13fe",
+    "full_refit_published": true,
+    "task": "regression",
+    "seed": 42,
+    "returncode": 0
+  },
+  {
+    "runtime_code_sha256": "0cb87bffe7f686f5f93b14a2067f062a50edcf82d9e70ef57dcdb00ae9faf5ac",
+    "mode": "deterministic",
+    "budget_seconds": 900.0,
+    "elapsed_seconds": 810.5532166199991,
+    "first_checkpoint_latency": 10.012416830999427,
+    "validation": {
+      "id": "cb555ab9ad9bf7f5",
+      "kind": "duplicate_group",
+      "reason": "Exact feature duplicates held together",
+      "seed": 42,
+      "train_rows": 70159,
+      "valid_rows": 17511
+    },
+    "metric": "f1_macro",
+    "dummy_utility": 0.04852731283248994,
+    "experiments": 14,
+    "successful_experiments": 13,
+    "accepted_experiments": 4,
+    "champion_metric": 0.6358366258256047,
+    "champion_recipe": {
+      "model_family": "lightgbm",
+      "params": {
+        "iterations": 1800,
+        "num_leaves": 31,
+        "min_child_samples": 30,
+        "weight": "sqrt",
+        "stopping_metric": "primary"
+      },
+      "feature_ops": [],
+      "target_transform": "none",
+      "max_runtime_sec": 135.0,
+      "validation_plan_id": "cb555ab9ad9bf7f5",
+      "id": "candidate",
+      "statement": "Measured minority-weighted booster with early stopping on the actual primary metric",
+      "parent_experiment": null
+    },
+    "confirmation_metric": 0.6518415820162287,
+    "ensemble": {
+      "weights": [
+        0.5,
+        0.5
+      ],
+      "metric_value": 0.6557301205021161,
+      "confirmation_metric": 0.6526096531819929,
+      "robust_utility": 0.6541698868420545
+    },
+    "multipliers": null,
+    "qwen_calls": 0,
+    "qwen_tokens": 0,
+    "qwen_events": [],
+    "max_live_worker_threads": 17,
+    "peak_worker_memory_mb": 788.625,
+    "cancelled": false,
+    "output": "/Users/mac/Documents/projects/alfaautoresearch/artifacts/data/classification/submission.csv",
+    "output_sha256": "5118c5624c485a1efe224cd407f676f9771696e043610361a9d2ae3bba0fa425",
+    "full_refit_published": true,
+    "task": "classification",
+    "seed": 42,
+    "returncode": 0
+  }
+]

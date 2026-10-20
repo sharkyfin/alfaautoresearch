@@ -1,0 +1,62 @@
+[
+  {
+    "scenario": "group",
+    "validation": "random_unsafe",
+    "metric": "rmse",
+    "score": 2.9916317669848,
+    "seconds": 0.45369180099805817,
+    "split": {
+      "id": "146c71ad7e7b502b",
+      "kind": "random_unsafe",
+      "reason": "Deliberate leakage demonstration",
+      "seed": 41,
+      "train_rows": 800,
+      "valid_rows": 200
+    }
+  },
+  {
+    "scenario": "group",
+    "validation": "group",
+    "metric": "rmse",
+    "score": 5.613100672127502,
+    "seconds": 0.22669504999066703,
+    "split": {
+      "id": "233e774c9049226b",
+      "kind": "group",
+      "reason": "Repeated entity_id; new test entity fraction 1.000",
+      "seed": 41,
+      "train_rows": 800,
+      "valid_rows": 200
+    }
+  },
+  {
+    "scenario": "time",
+    "validation": "random_unsafe",
+    "metric": "rmse",
+    "score": 0.01789707014332698,
+    "seconds": 0.4135295559972292,
+    "split": {
+      "id": "146c71ad7e7b502b",
+      "kind": "random_unsafe",
+      "reason": "Deliberate leakage demonstration",
+      "seed": 41,
+      "train_rows": 800,
+      "valid_rows": 200
+    }
+  },
+  {
+    "scenario": "time",
+    "validation": "time",
+    "metric": "rmse",
+    "score": 3.115737101294675,
+    "seconds": 0.3993743310129503,
+    "split": {
+      "id": "6d8883a88dcacdca",
+      "kind": "time",
+      "reason": "Explicit forecasting intent; forward boundary in event_date",
+      "seed": 41,
+      "train_rows": 800,
+      "valid_rows": 200
+    }
+  }
+]

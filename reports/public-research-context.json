@@ -1,0 +1,18 @@
+[
+  {
+    "task": "regression",
+    "original_bytes": 40310,
+    "sent_mock_bytes": 13971,
+    "mock_transport_calls": 1,
+    "network_calls": 0,
+    "status": "passed"
+  },
+  {
+    "task": "classification",
+    "original_bytes": 38413,
+    "sent_mock_bytes": 13930,
+    "mock_transport_calls": 1,
+    "network_calls": 0,
+    "status": "passed"
+  }
+]

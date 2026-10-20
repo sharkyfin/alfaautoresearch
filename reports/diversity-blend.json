@@ -1,0 +1,38 @@
+{
+  "primary_scores": [
+    43.44556574235303,
+    43.60811849240667
+  ],
+  "primary_blend": 43.0470218810921,
+  "control": [
+    {
+      "family": "lightgbm",
+      "score": 41.583206978954664,
+      "seconds": 10.740160700006527
+    },
+    {
+      "family": "xgboost",
+      "score": 42.482110509812784,
+      "seconds": 15.81419777899282
+    }
+  ],
+  "control_blend": 41.50646098028494,
+  "weight_fixed_before_control": 0.5,
+  "primary_split": {
+    "id": "16d5a14c6b31df53",
+    "kind": "random",
+    "reason": "IID regression; no evidence for grouped/forward validation",
+    "seed": 42,
+    "train_rows": 42646,
+    "valid_rows": 10662
+  },
+  "control_split": {
+    "id": "c925dc14f3fd2c05",
+    "kind": "random",
+    "reason": "IID regression; no evidence for grouped/forward validation",
+    "seed": 1051,
+    "train_rows": 39981,
+    "valid_rows": 13327
+  },
+  "confirmed": true
+}

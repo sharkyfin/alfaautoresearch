@@ -1,0 +1,254 @@
+[
+  {
+    "runtime_code_sha256": "211a6e8db77cfa73ab4b257a01062d48c1b05f00186c3ce56ced4dd058c8155f",
+    "mode": "deterministic",
+    "budget_seconds": 900.0,
+    "elapsed_seconds": 321.9853319799877,
+    "first_checkpoint_latency": 5.485673931994825,
+    "validation": {
+      "id": "16d5a14c6b31df53",
+      "kind": "random",
+      "reason": "IID regression; no evidence for grouped/forward validation",
+      "seed": 42,
+      "train_rows": 42646,
+      "valid_rows": 10662
+    },
+    "metric": "rmse",
+    "dummy_utility": -59.71457298133668,
+    "experiments": 22,
+    "successful_experiments": 22,
+    "accepted_experiments": 4,
+    "champion_metric": 42.97055021020177,
+    "champion_recipe": {
+      "model_family": "xgboost",
+      "params": {
+        "iterations": 1800,
+        "max_depth": 7,
+        "min_child_weight": 5
+      },
+      "feature_ops": [],
+      "target_transform": "none",
+      "max_runtime_sec": 135.0,
+      "validation_plan_id": "16d5a14c6b31df53",
+      "id": "local_10",
+      "statement": "Focused local hyperparameter search around measured champion",
+      "parent_experiment": "exp_0006"
+    },
+    "confirmation_metric": 41.850685893963714,
+    "ensemble": {
+      "weights": [
+        0.5,
+        0.5
+      ],
+      "metric_value": 42.81686330085627,
+      "confirmation_metric": 41.50762098784785,
+      "robust_utility": -42.162242144352064
+    },
+    "multipliers": null,
+    "qwen_calls": 0,
+    "qwen_tokens": 0,
+    "qwen_events": [],
+    "peak_worker_memory_mb": 859.41796875,
+    "cancelled": false,
+    "output": "/Users/mac/Documents/projects/alfaautoresearch/artifacts/data/regression/submission.csv",
+    "output_sha256": "7fc1c0da9311bd77dc144436c674e87f8476ca2cc3af33fda7d0a3884c6be48a",
+    "full_refit_published": true,
+    "task": "regression",
+    "seed": 42,
+    "returncode": 0
+  },
+  {
+    "runtime_code_sha256": "211a6e8db77cfa73ab4b257a01062d48c1b05f00186c3ce56ced4dd058c8155f",
+    "mode": "deterministic",
+    "budget_seconds": 900.0,
+    "elapsed_seconds": 728.2037510469963,
+    "first_checkpoint_latency": 4.508990347996587,
+    "validation": {
+      "id": "cb555ab9ad9bf7f5",
+      "kind": "duplicate_group",
+      "reason": "Exact feature duplicates held together",
+      "seed": 42,
+      "train_rows": 70159,
+      "valid_rows": 17511
+    },
+    "metric": "f1_macro",
+    "dummy_utility": 0.04852731283248994,
+    "experiments": 13,
+    "successful_experiments": 12,
+    "accepted_experiments": 5,
+    "champion_metric": 0.648050192138939,
+    "champion_recipe": {
+      "model_family": "extra_trees",
+      "params": {
+        "iterations": 250,
+        "min_samples_leaf": 2,
+        "weight": "sqrt"
+      },
+      "feature_ops": [
+        {
+          "op": "frequency",
+          "columns": [
+            "proto",
+            "service",
+            "state"
+          ]
+        }
+      ],
+      "target_transform": "none",
+      "max_runtime_sec": 135.0,
+      "validation_plan_id": "cb555ab9ad9bf7f5",
+      "id": "local_2",
+      "statement": "Fold-fitted category frequency may expose rarity without target leakage",
+      "parent_experiment": "exp_0007"
+    },
+    "confirmation_metric": 0.6364532039860096,
+    "ensemble": null,
+    "multipliers": null,
+    "qwen_calls": 0,
+    "qwen_tokens": 0,
+    "qwen_events": [],
+    "peak_worker_memory_mb": 1038.90625,
+    "cancelled": false,
+    "output": "/Users/mac/Documents/projects/alfaautoresearch/artifacts/data/classification/submission.csv",
+    "output_sha256": "38ea0a740f737ab7d6c36c6eac696e6161936457e9c3abba700455e0370ee85b",
+    "full_refit_published": true,
+    "task": "classification",
+    "seed": 42,
+    "returncode": 0
+  },
+  {
+    "runtime_code_sha256": "211a6e8db77cfa73ab4b257a01062d48c1b05f00186c3ce56ced4dd058c8155f",
+    "mode": "deterministic",
+    "budget_seconds": 900.0,
+    "elapsed_seconds": 703.5202698310022,
+    "first_checkpoint_latency": 11.142030689006788,
+    "validation": {
+      "id": "816493828d89aa58",
+      "kind": "random",
+      "reason": "IID regression; no evidence for grouped/forward validation",
+      "seed": 53,
+      "train_rows": 42646,
+      "valid_rows": 10662
+    },
+    "metric": "rmse",
+    "dummy_utility": -59.452363809688975,
+    "experiments": 21,
+    "successful_experiments": 21,
+    "accepted_experiments": 5,
+    "champion_metric": 41.3166643804931,
+    "champion_recipe": {
+      "model_family": "lightgbm",
+      "params": {
+        "iterations": 1800,
+        "num_leaves": 127,
+        "min_child_samples": 10,
+        "reg_lambda": 5.0
+      },
+      "feature_ops": [
+        {
+          "op": "combine",
+          "columns": [
+            "State_Factor",
+            "building_class"
+          ]
+        }
+      ],
+      "target_transform": "none",
+      "max_runtime_sec": 135.0,
+      "validation_plan_id": "816493828d89aa58",
+      "id": "local_9",
+      "statement": "Focused local hyperparameter search around measured champion",
+      "parent_experiment": "exp_0013"
+    },
+    "confirmation_metric": 40.81453975974359,
+    "ensemble": {
+      "weights": [
+        0.75,
+        0.25
+      ],
+      "metric_value": 41.17655309363456,
+      "confirmation_metric": 40.720251549717624,
+      "robust_utility": -40.94840232167609
+    },
+    "multipliers": null,
+    "qwen_calls": 0,
+    "qwen_tokens": 0,
+    "qwen_events": [],
+    "peak_worker_memory_mb": 859.96484375,
+    "cancelled": false,
+    "output": "/Users/mac/Documents/projects/alfaautoresearch/artifacts/data/regression/submission.csv",
+    "output_sha256": "6b9435141230dd7bb51366b8e745887c9ba3a3a531d87c579128a0ed3372b43a",
+    "full_refit_published": true,
+    "task": "regression",
+    "seed": 53,
+    "returncode": 0
+  },
+  {
+    "runtime_code_sha256": "211a6e8db77cfa73ab4b257a01062d48c1b05f00186c3ce56ced4dd058c8155f",
+    "mode": "deterministic",
+    "budget_seconds": 900.0,
+    "elapsed_seconds": 864.462146018006,
+    "first_checkpoint_latency": 14.407207444004598,
+    "validation": {
+      "id": "da20c9800010fc36",
+      "kind": "duplicate_group",
+      "reason": "Exact feature duplicates held together",
+      "seed": 53,
+      "train_rows": 69601,
+      "valid_rows": 18069
+    },
+    "metric": "f1_macro",
+    "dummy_utility": 0.04727411038796382,
+    "experiments": 13,
+    "successful_experiments": 12,
+    "accepted_experiments": 4,
+    "champion_metric": 0.6170001447079089,
+    "champion_recipe": {
+      "model_family": "lightgbm",
+      "params": {
+        "iterations": 1800,
+        "num_leaves": 31,
+        "min_child_samples": 30,
+        "weight": "sqrt"
+      },
+      "feature_ops": [
+        {
+          "op": "frequency",
+          "columns": [
+            "proto",
+            "service",
+            "state"
+          ]
+        }
+      ],
+      "target_transform": "none",
+      "max_runtime_sec": 135.0,
+      "validation_plan_id": "da20c9800010fc36",
+      "id": "local_2",
+      "statement": "Fold-fitted category frequency may expose rarity without target leakage",
+      "parent_experiment": "exp_0007"
+    },
+    "confirmation_metric": 0.6367084005742127,
+    "ensemble": {
+      "weights": [
+        0.5,
+        0.5
+      ],
+      "metric_value": 0.6185751283763176,
+      "confirmation_metric": 0.6382910185872022,
+      "robust_utility": 0.6284330734817598
+    },
+    "multipliers": null,
+    "qwen_calls": 0,
+    "qwen_tokens": 0,
+    "qwen_events": [],
+    "peak_worker_memory_mb": 841.5703125,
+    "cancelled": false,
+    "output": "/Users/mac/Documents/projects/alfaautoresearch/artifacts/data/classification/submission.csv",
+    "output_sha256": "f1280d56c5dd994869667ad379808b77d30f00e8a447c514ab521d4a583a3648",
+    "full_refit_published": true,
+    "task": "classification",
+    "seed": 53,
+    "returncode": 0
+  }
+]

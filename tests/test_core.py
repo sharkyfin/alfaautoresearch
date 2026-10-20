@@ -199,3 +199,44 @@ def test_all_missing_categorical_profile_is_finite(tmp_path):
     assert data.spec.profile['columns']['category']['median_length']==0
     s=design(data);p,t,info=fit_predict(data,{'model_family':'linear','params':{}},s.train,s.valid,threads=1)
     assert np.isfinite(p).all();checkpoint(data,t)
+
+def test_fold_only_leakage_signal_preserves_original_feature(tmp_path):
+    from atlas.task import leakage_signals
+    task=create(tmp_path);data=load(read_inputs(task));s=design(data)
+    data.train['copy']=data.train[data.spec.target];data.test['copy']=0.;data.spec.features.append('copy')
+    data.train.loc[s.valid,'copy']=-1000
+    assert leakage_signals(data,s.train)==['copy']
+    assert 'copy' in data.spec.features
+
+
+def test_regression_group_and_classification_calibration_diagnostics(tmp_path):
+    from atlas.judge import diagnostics
+    group=load(read_inputs(create(tmp_path/'group','group')));s=design(group)
+    report=diagnostics(group,s.valid,group.y[s.valid]+1)
+    assert report['worst_groups'] and report['worst_groups'][0]['rmse']==pytest.approx(1)
+    assert report['undershoot_fraction']==0 and report['overshoot_fraction']==1
+    assert set(report['worst_groups'][0])=={'column','support','rmse','mae','bias'}
+    data=load(read_inputs(create(tmp_path/'classification','integer_labels')));s=design(data);p=np.eye(3)[data.y[s.valid]]
+    report=diagnostics(data,s.valid,p)
+    assert report['brier_score']==pytest.approx(0) and report['expected_calibration_error']==pytest.approx(0)
+    assert sum(x['support'] for x in report['calibration_bins'])==len(s.valid)
+
+def test_probability_label_names_can_match_input_feature_names(tmp_path):
+    task=create(tmp_path,'logloss')
+    mapping={'x0':'common','x1':'rare'}
+    for name in ['train.csv','test.csv']:
+        frame=pd.read_csv(tmp_path/name,dtype={'id':'string'}).rename(columns=mapping);frame.to_csv(tmp_path/name,index=False)
+    dictionary=pd.read_csv(tmp_path/'data_dictionary.csv');dictionary['feature']=dictionary.feature.replace(mapping);dictionary.to_csv(tmp_path/'data_dictionary.csv',index=False)
+    data=load(read_inputs(task));assert data.spec.ids==['id']
+    checkpoint(data,np.tile([.2,.8],(len(data.test),1)))
+    output=pd.read_csv(data.inputs.output,dtype={'id':'string'})
+    assert np.allclose(output.common,.2) and np.allclose(output.rare,.8)
+
+def test_hard_label_metric_can_require_probability_submission(tmp_path):
+    task=create(tmp_path,'integer_labels')
+    ids=pd.read_csv(tmp_path/'test.csv',dtype={'id':'string'}).id
+    pd.DataFrame({'id':ids,'3':0.,'7':0.,'42':0.}).to_csv(tmp_path/'sample_submission.csv',index=False)
+    data=load(read_inputs(task));assert data.spec.metric.name=='f1_macro' and data.spec.prediction_kind=='probability'
+    checkpoint(data,np.tile([.1,.2,.7],(len(data.test),1)))
+    frame=pd.read_csv(data.inputs.output)
+    assert list(frame)==['id','3','7','42'] and np.allclose(frame['42'],.7)

@@ -35,6 +35,12 @@ Public metrics RMSE and macro F1; private metrics unknown.
 
 No API credentials or actual endpoint/model values provided. Live Qwen verification and true live-vs-deterministic ablation cannot run yet. Deterministic and mock-agent modes will be tested independently.
 
+Docker is not installed on the development host: neither PATH nor standard
+Docker Desktop/Homebrew CLI paths contain it (rechecked 2026-10-20 Moscow).
+The macOS tests cannot verify Linux RLIMIT_AS, cgroups, the actual 8CPU/32GiB
+image, or its route to Qwen. Dockerfile.verify is prepared for an independent
+container check; it has not been executed.
+
 ## Release policy
 
 Until all release gates pass, submission.zip is explicitly provisional. Public file download succeeded using the normal Drive download-confirmation form; access restrictions were not bypassed.

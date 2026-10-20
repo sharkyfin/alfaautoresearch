@@ -219,3 +219,52 @@ def test_researcher_capabilities_include_executor_weight_dsl(tmp_path):
     ctx=researcher_context(data,[],None,100)
     for family,params in ctx['capabilities']['models'].items():
         assert params['weight']==['none','sqrt','balanced']
+
+def test_large_research_context_is_compacted_and_sent(monkeypatch):
+    from atlas.agent import compact_context
+    seen=[]
+    def transport(body,timeout):
+        seen.append(body)
+        return {'choices':[{'message':{'content':'{"model_family":"hist"}'}}],'usage':{'total_tokens':200}}
+    detail={'per_class':{f'class{i}':{'f1-score':i/100,'precision':.5,'recall':.5,'support':10} for i in range(100)},'confusion_matrix':[[10]*100 for _ in range(100)]}
+    recipe={'model_family':'hist','params':{'iterations':100},'feature_ops':[],'statement':'hypothesis'}
+    ctx={'objective':{'metric':'f1_macro','split':{'id':'fixed'}},'champion':{'experiment_id':'champ','recipe':recipe,'diagnostics':detail},'capabilities':{'models':{'hist':{'iterations':[20,3000],'weight':['none','sqrt','balanced']}}},'history':[{'recipe':recipe,'diagnostics':detail,'status':'ok'} for _ in range(6)],'untrusted_data':{'description':'Задача классификации. '*200,'features':[f'column_{i}' for i in range(100)],'dictionary':[{'column':f'column_{i}','description':'Описание '*20} for i in range(60)],'profile':{'columns':{f'column_{i}':{'dtype':'float','missing':.1,'quantiles':{'0':1.,'1':2.}} for i in range(100)}}}}
+    compact=compact_context(ctx);assert len(json.dumps(compact,ensure_ascii=False).encode())<=14000
+    assert compact['objective']['split']['id']=='fixed' and compact['champion']['recipe']['model_family']=='hist'
+    assert compact['untrusted_data']['description'] and compact['capabilities']['models']['hist']['weight']
+    client=configured(monkeypatch,transport)
+    assert client.propose(ctx)=={'model_family':'hist'} and len(seen)==1
+    assert len(seen[0]['messages'][1]['content'].encode())<=14000
+
+def test_researcher_exposes_leakage_signals_and_tracks_wire_requests(tmp_path,monkeypatch):
+    from atlas.agent import researcher_context
+    data=load(read_inputs(create(tmp_path)));data.spec.suspicious_leakage_features=['x0']
+    context=researcher_context(data,[],None,100)
+    assert context['untrusted_data']['suspected_leakage_features']==['x0']
+    client=configured(monkeypatch,lambda body,timeout:{'choices':[{'message':{'content':'{}'}}]})
+    assert client.propose(context)=={} and client.requests==1
+    client.max_tokens=1
+    assert client.propose(context) is None and client.requests==1
+
+def test_client_to_generated_fit_and_feedback_loop(tmp_path,monkeypatch):
+    from atlas import orchestration
+    task=create(tmp_path/'data','iid',n=240);received=[];clients=[]
+    for key,value in {'OPENAI_BASE_URL':'https://organizer.invalid/v1','OPENAI_MODEL':'mock-only','OPENAI_API_KEY':'test-not-real'}.items():monkeypatch.setenv(key,value)
+    def transport(body,timeout):
+        context=json.loads(body['messages'][1]['content']);received.append(context)
+        n=len(received);operation='product' if n==1 else 'ratio'
+        action={'id':f'wire_{n}','statement':f'Test an explicit {operation} interaction','model_family':'hist','params':{'iterations':30},'feature_ops':[{'op':operation,'columns':['x0','x1']}],'validation_plan_id':context['objective']['split']['id'],'max_runtime_sec':10}
+        return {'choices':[{'message':{'content':json.dumps(action)}}],'usage':{'total_tokens':200}}
+    def factory(mode):
+        client=QwenClient(mode,max_calls=2,transport=transport);clients.append(client);return client
+    monkeypatch.setattr(orchestration,'QwenClient',factory)
+    assert orchestration.run(task,budget_seconds=120,threads=1,max_experiments=8,mode='live-agent',run_dir=tmp_path/'run')==0
+    history=[json.loads(line) for line in (tmp_path/'run/experiments.jsonl').read_text().splitlines()]
+    research=[r for r in history if r.get('origin')=='qwen']
+    assert len(research)==2 and all(r['status']=='ok' and 'metric_value' in r for r in research)
+    assert all('accepted_reason' in r for r in research)
+    assert clients[0].requests==2 and len(received)==2
+    assert any(r.get('experiment_id')==research[0]['experiment_id'] for r in received[1]['history'])
+    for r in research:
+        source=Path(r['artifact_path'],'recipe.py').read_text()
+        assert "numeric(x['x0'])" in source and "numeric(x['x1'])" in source

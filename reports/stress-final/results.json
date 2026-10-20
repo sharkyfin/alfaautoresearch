@@ -1,0 +1,1232 @@
+[
+  {
+    "scenario": "iid",
+    "seed": 17,
+    "metric": "rmse",
+    "baseline": 3.1089459832826627,
+    "score": 1.6482798504507241,
+    "gain_utility": 1.4606661328319386,
+    "split": {
+      "id": "c1fa678e681a7508",
+      "kind": "random",
+      "reason": "IID regression; no evidence for grouped/forward validation",
+      "seed": 17,
+      "train_rows": 192,
+      "valid_rows": 48
+    },
+    "family": "hist",
+    "status": "valid_output",
+    "seconds": 0.7230392399942502
+  },
+  {
+    "scenario": "skew",
+    "seed": 17,
+    "metric": "rmse",
+    "baseline": 57.47475455458448,
+    "score": 38.36233296379779,
+    "gain_utility": 19.11242159078669,
+    "split": {
+      "id": "c1fa678e681a7508",
+      "kind": "random",
+      "reason": "IID regression; no evidence for grouped/forward validation",
+      "seed": 17,
+      "train_rows": 192,
+      "valid_rows": 48
+    },
+    "family": "hist",
+    "status": "valid_output",
+    "seconds": 0.5057044710119953
+  },
+  {
+    "scenario": "constant",
+    "seed": 17,
+    "status": "valid_output",
+    "seconds": 0.18784091300040018
+  },
+  {
+    "scenario": "negative",
+    "seed": 17,
+    "metric": "rmse",
+    "baseline": 2.4107651529181697,
+    "score": 1.727714453427814,
+    "gain_utility": 0.6830506994903558,
+    "split": {
+      "id": "c1fa678e681a7508",
+      "kind": "random",
+      "reason": "IID regression; no evidence for grouped/forward validation",
+      "seed": 17,
+      "train_rows": 192,
+      "valid_rows": 48
+    },
+    "family": "hist",
+    "status": "valid_output",
+    "seconds": 0.501660776004428
+  },
+  {
+    "scenario": "small_high_p",
+    "seed": 17,
+    "metric": "rmse",
+    "baseline": 2.9236534552587714,
+    "score": 2.3336512964706344,
+    "gain_utility": 0.590002158788137,
+    "split": {
+      "id": "7deb6050335fcbcd",
+      "kind": "random",
+      "reason": "IID regression; no evidence for grouped/forward validation",
+      "seed": 17,
+      "train_rows": 16,
+      "valid_rows": 4
+    },
+    "family": "linear",
+    "status": "valid_output",
+    "seconds": 2.3678817479958525
+  },
+  {
+    "scenario": "missing",
+    "seed": 17,
+    "metric": "rmse",
+    "baseline": 2.366543797076406,
+    "score": 2.088394782093035,
+    "gain_utility": 0.27814901498337097,
+    "split": {
+      "id": "03c3564c5cebe1af",
+      "kind": "duplicate_group",
+      "reason": "Exact feature duplicates held together",
+      "seed": 17,
+      "train_rows": 196,
+      "valid_rows": 44
+    },
+    "family": "hist",
+    "status": "valid_output",
+    "seconds": 0.4935518510028487
+  },
+  {
+    "scenario": "unseen",
+    "seed": 17,
+    "metric": "rmse",
+    "baseline": 3.1089459832826627,
+    "score": 1.6482798504507241,
+    "gain_utility": 1.4606661328319386,
+    "split": {
+      "id": "c1fa678e681a7508",
+      "kind": "random",
+      "reason": "IID regression; no evidence for grouped/forward validation",
+      "seed": 17,
+      "train_rows": 192,
+      "valid_rows": 48
+    },
+    "family": "hist",
+    "status": "valid_output",
+    "seconds": 0.5127434270107187
+  },
+  {
+    "scenario": "high_cardinality",
+    "seed": 17,
+    "metric": "rmse",
+    "baseline": 3.1089459832826627,
+    "score": 2.160811916097357,
+    "gain_utility": 0.9481340671853058,
+    "split": {
+      "id": "c1fa678e681a7508",
+      "kind": "random",
+      "reason": "IID regression; no evidence for grouped/forward validation",
+      "seed": 17,
+      "train_rows": 192,
+      "valid_rows": 48
+    },
+    "family": "linear",
+    "status": "valid_output",
+    "seconds": 0.3788126009894768
+  },
+  {
+    "scenario": "locale",
+    "seed": 17,
+    "metric": "rmse",
+    "baseline": 3.1089459832826627,
+    "score": 1.6482798504507241,
+    "gain_utility": 1.4606661328319386,
+    "split": {
+      "id": "c1fa678e681a7508",
+      "kind": "random",
+      "reason": "IID regression; no evidence for grouped/forward validation",
+      "seed": 17,
+      "train_rows": 192,
+      "valid_rows": 48
+    },
+    "family": "hist",
+    "status": "valid_output",
+    "seconds": 0.5393945670075482
+  },
+  {
+    "scenario": "future",
+    "seed": 17,
+    "metric": "rmse",
+    "baseline": 2.852900854314465,
+    "score": 1.4856626423435237,
+    "gain_utility": 1.3672382119709412,
+    "split": {
+      "id": "48c91d23b7884ac5",
+      "kind": "time",
+      "reason": "Explicit forecasting intent; forward boundary in event_date",
+      "seed": 17,
+      "train_rows": 192,
+      "valid_rows": 48
+    },
+    "family": "hist",
+    "status": "valid_output",
+    "seconds": 0.8224106240086257
+  },
+  {
+    "scenario": "datetime_iid",
+    "seed": 17,
+    "metric": "rmse",
+    "baseline": 3.1089459832826627,
+    "score": 1.6591956992177093,
+    "gain_utility": 1.4497502840649534,
+    "split": {
+      "id": "c1fa678e681a7508",
+      "kind": "random",
+      "reason": "IID regression; no evidence for grouped/forward validation",
+      "seed": 17,
+      "train_rows": 192,
+      "valid_rows": 48
+    },
+    "family": "hist",
+    "status": "valid_output",
+    "seconds": 0.8526284850086085
+  },
+  {
+    "scenario": "group",
+    "seed": 17,
+    "metric": "rmse",
+    "baseline": 2.3983921485924946,
+    "score": 0.7646196842806381,
+    "gain_utility": 1.6337724643118565,
+    "split": {
+      "id": "36f4ae335d0e503b",
+      "kind": "group",
+      "reason": "Repeated entity_id; new test entity fraction 1.000",
+      "seed": 17,
+      "train_rows": 192,
+      "valid_rows": 48
+    },
+    "family": "hist",
+    "status": "valid_output",
+    "seconds": 0.5759512639924651
+  },
+  {
+    "scenario": "duplicates",
+    "seed": 17,
+    "metric": "rmse",
+    "baseline": 2.6515882586746424,
+    "score": 2.379686503559297,
+    "gain_utility": 0.27190175511534553,
+    "split": {
+      "id": "a4cc46157f8ca899",
+      "kind": "duplicate_group",
+      "reason": "Exact feature duplicates held together",
+      "seed": 17,
+      "train_rows": 194,
+      "valid_rows": 46
+    },
+    "family": "hist",
+    "status": "valid_output",
+    "seconds": 0.4764590950071579
+  },
+  {
+    "scenario": "binary_imbalance",
+    "seed": 17,
+    "metric": "f1_macro",
+    "baseline": 0.43529411764705883,
+    "score": 1.0,
+    "gain_utility": 0.5647058823529412,
+    "split": {
+      "id": "082c94e427e0b23a",
+      "kind": "stratified",
+      "reason": "IID classification",
+      "seed": 17,
+      "train_rows": 192,
+      "valid_rows": 48
+    },
+    "family": "hist",
+    "status": "valid_output",
+    "seconds": 0.4843166810023831
+  },
+  {
+    "scenario": "multiclass_imbalance",
+    "seed": 17,
+    "metric": "f1_macro",
+    "baseline": 0.2857142857142857,
+    "score": 0.5847953216374269,
+    "gain_utility": 0.29908103592314117,
+    "split": {
+      "id": "4706c555deed9096",
+      "kind": "stratified",
+      "reason": "IID classification",
+      "seed": 17,
+      "train_rows": 192,
+      "valid_rows": 48
+    },
+    "family": "hist",
+    "status": "valid_output",
+    "seconds": 0.7609579279960599
+  },
+  {
+    "scenario": "singleton",
+    "seed": 17,
+    "metric": "f1_macro",
+    "baseline": 0.32608695652173914,
+    "score": 0.32608695652173914,
+    "gain_utility": 0.0,
+    "split": {
+      "id": "1f7fbedd5d98159b",
+      "kind": "stratified",
+      "reason": "Singleton classes retained only in training",
+      "seed": 17,
+      "train_rows": 193,
+      "valid_rows": 47
+    },
+    "family": "hist",
+    "status": "valid_output",
+    "seconds": 0.7658340220077662
+  },
+  {
+    "scenario": "integer_labels",
+    "seed": 17,
+    "metric": "f1_macro",
+    "baseline": 0.1818181818181818,
+    "score": 0.7198879551820728,
+    "gain_utility": 0.5380697733638911,
+    "split": {
+      "id": "8febdbe3eb3c62d2",
+      "kind": "stratified",
+      "reason": "IID classification",
+      "seed": 17,
+      "train_rows": 192,
+      "valid_rows": 48
+    },
+    "family": "hist",
+    "status": "valid_output",
+    "seconds": 0.8017030199989676
+  },
+  {
+    "scenario": "unicode",
+    "seed": 17,
+    "metric": "f1_macro",
+    "baseline": 0.1818181818181818,
+    "score": 0.7742071524966262,
+    "gain_utility": 0.5923889706784444,
+    "split": {
+      "id": "a85e30961a2eb728",
+      "kind": "stratified",
+      "reason": "IID classification",
+      "seed": 17,
+      "train_rows": 192,
+      "valid_rows": 48
+    },
+    "family": "hist",
+    "status": "valid_output",
+    "seconds": 0.7340048600017326
+  },
+  {
+    "scenario": "one_class",
+    "seed": 17,
+    "status": "valid_output",
+    "seconds": 0.1835734149935888
+  },
+  {
+    "scenario": "shift",
+    "seed": 17,
+    "metric": "rmse",
+    "baseline": 3.1089459832826627,
+    "score": 1.6482798504507241,
+    "gain_utility": 1.4606661328319386,
+    "split": {
+      "id": "c1fa678e681a7508",
+      "kind": "random",
+      "reason": "IID regression; no evidence for grouped/forward validation",
+      "seed": 17,
+      "train_rows": 192,
+      "valid_rows": 48
+    },
+    "family": "hist",
+    "status": "valid_output",
+    "seconds": 0.49956487999588717
+  },
+  {
+    "scenario": "noise",
+    "seed": 17,
+    "metric": "rmse",
+    "baseline": 3.1089459832826627,
+    "score": 1.695035794510333,
+    "gain_utility": 1.4139101887723298,
+    "split": {
+      "id": "c1fa678e681a7508",
+      "kind": "random",
+      "reason": "IID regression; no evidence for grouped/forward validation",
+      "seed": 17,
+      "train_rows": 192,
+      "valid_rows": 48
+    },
+    "family": "hist",
+    "status": "valid_output",
+    "seconds": 3.6246038420067634
+  },
+  {
+    "scenario": "text",
+    "seed": 17,
+    "metric": "rmse",
+    "baseline": 3.1089459832826627,
+    "score": 2.1505346177158158,
+    "gain_utility": 0.9584113655668469,
+    "split": {
+      "id": "c1fa678e681a7508",
+      "kind": "random",
+      "reason": "IID regression; no evidence for grouped/forward validation",
+      "seed": 17,
+      "train_rows": 192,
+      "valid_rows": 48
+    },
+    "family": "linear",
+    "status": "valid_output",
+    "seconds": 0.6157944699953077
+  },
+  {
+    "scenario": "all_null",
+    "seed": 17,
+    "metric": "rmse",
+    "baseline": 3.1089459832826627,
+    "score": 1.6482798504507241,
+    "gain_utility": 1.4606661328319386,
+    "split": {
+      "id": "c1fa678e681a7508",
+      "kind": "random",
+      "reason": "IID regression; no evidence for grouped/forward validation",
+      "seed": 17,
+      "train_rows": 192,
+      "valid_rows": 48
+    },
+    "family": "hist",
+    "status": "valid_output",
+    "seconds": 0.8788415449962486
+  },
+  {
+    "scenario": "ip",
+    "seed": 17,
+    "metric": "rmse",
+    "baseline": 3.1089459832826627,
+    "score": 1.6520031751974293,
+    "gain_utility": 1.4569428080852334,
+    "split": {
+      "id": "c1fa678e681a7508",
+      "kind": "random",
+      "reason": "IID regression; no evidence for grouped/forward validation",
+      "seed": 17,
+      "train_rows": 192,
+      "valid_rows": 48
+    },
+    "family": "hist",
+    "status": "valid_output",
+    "seconds": 0.7707014930056175
+  },
+  {
+    "scenario": "conflict",
+    "seed": 17,
+    "status": "unsupported",
+    "reason": "Dictionary target conflicts with train/test schema: ['x0', 'response'], ['response']",
+    "seconds": 0.06415822698909324
+  },
+  {
+    "scenario": "multiple_targets",
+    "seed": 17,
+    "status": "unsupported",
+    "reason": "Sample and dictionary disagree on target",
+    "seconds": 0.06970332600758411
+  },
+  {
+    "scenario": "shuffled",
+    "seed": 17,
+    "metric": "rmse",
+    "baseline": 3.1089459832826627,
+    "score": 1.6482798504507241,
+    "gain_utility": 1.4606661328319386,
+    "split": {
+      "id": "c1fa678e681a7508",
+      "kind": "random",
+      "reason": "IID regression; no evidence for grouped/forward validation",
+      "seed": 17,
+      "train_rows": 192,
+      "valid_rows": 48
+    },
+    "family": "hist",
+    "status": "valid_output",
+    "seconds": 0.7113948890037136
+  },
+  {
+    "scenario": "inf",
+    "seed": 17,
+    "metric": "rmse",
+    "baseline": 3.1089459832826627,
+    "score": 1.9969241309462904,
+    "gain_utility": 1.1120218523363723,
+    "split": {
+      "id": "c1fa678e681a7508",
+      "kind": "random",
+      "reason": "IID regression; no evidence for grouped/forward validation",
+      "seed": 17,
+      "train_rows": 192,
+      "valid_rows": 48
+    },
+    "family": "hist",
+    "status": "valid_output",
+    "seconds": 0.717595837006229
+  },
+  {
+    "scenario": "injection",
+    "seed": 17,
+    "metric": "rmse",
+    "baseline": 3.1089459832826627,
+    "score": 1.6482798504507241,
+    "gain_utility": 1.4606661328319386,
+    "split": {
+      "id": "c1fa678e681a7508",
+      "kind": "random",
+      "reason": "IID regression; no evidence for grouped/forward validation",
+      "seed": 17,
+      "train_rows": 192,
+      "valid_rows": 48
+    },
+    "family": "hist",
+    "status": "valid_output",
+    "seconds": 0.7533851499902084
+  },
+  {
+    "scenario": "unknown_metric",
+    "seed": 17,
+    "metric": "rmse",
+    "baseline": 3.1089459832826627,
+    "score": 1.6482798504507241,
+    "gain_utility": 1.4606661328319386,
+    "split": {
+      "id": "c1fa678e681a7508",
+      "kind": "random",
+      "reason": "IID regression; no evidence for grouped/forward validation",
+      "seed": 17,
+      "train_rows": 192,
+      "valid_rows": 48
+    },
+    "family": "hist",
+    "status": "valid_output",
+    "seconds": 0.8458024999999907
+  },
+  {
+    "scenario": "auc",
+    "seed": 17,
+    "metric": "roc_auc",
+    "baseline": 0.5,
+    "score": 1.0,
+    "gain_utility": 0.5,
+    "split": {
+      "id": "082c94e427e0b23a",
+      "kind": "stratified",
+      "reason": "IID classification",
+      "seed": 17,
+      "train_rows": 192,
+      "valid_rows": 48
+    },
+    "family": "hist",
+    "status": "valid_output",
+    "seconds": 0.7548548029881204
+  },
+  {
+    "scenario": "logloss",
+    "seed": 17,
+    "metric": "logloss",
+    "baseline": 0.5382674532283412,
+    "score": 0.05149226182878024,
+    "gain_utility": 0.486775191399561,
+    "split": {
+      "id": "082c94e427e0b23a",
+      "kind": "stratified",
+      "reason": "IID classification",
+      "seed": 17,
+      "train_rows": 192,
+      "valid_rows": 48
+    },
+    "family": "hist",
+    "status": "valid_output",
+    "seconds": 0.5385580040019704
+  },
+  {
+    "scenario": "average_precision",
+    "seed": 17,
+    "metric": "average_precision",
+    "baseline": 0.22916666666666666,
+    "score": 1.0,
+    "gain_utility": 0.7708333333333334,
+    "split": {
+      "id": "082c94e427e0b23a",
+      "kind": "stratified",
+      "reason": "IID classification",
+      "seed": 17,
+      "train_rows": 192,
+      "valid_rows": 48
+    },
+    "family": "hist",
+    "status": "valid_output",
+    "seconds": 0.5416297290066723
+  },
+  {
+    "scenario": "mae",
+    "seed": 17,
+    "metric": "mae",
+    "baseline": 2.3272306266718052,
+    "score": 0.904841746166238,
+    "gain_utility": 1.4223888805055673,
+    "split": {
+      "id": "c1fa678e681a7508",
+      "kind": "random",
+      "reason": "IID regression; no evidence for grouped/forward validation",
+      "seed": 17,
+      "train_rows": 192,
+      "valid_rows": 48
+    },
+    "family": "hist",
+    "status": "valid_output",
+    "seconds": 0.6348080759926233
+  },
+  {
+    "scenario": "weighted_f1",
+    "seed": 17,
+    "metric": "f1_weighted",
+    "baseline": 0.2045454545454545,
+    "score": 0.789953399122807,
+    "gain_utility": 0.5854079445773526,
+    "split": {
+      "id": "a85e30961a2eb728",
+      "kind": "stratified",
+      "reason": "IID classification",
+      "seed": 17,
+      "train_rows": 192,
+      "valid_rows": 48
+    },
+    "family": "hist",
+    "status": "valid_output",
+    "seconds": 0.819224774997565
+  },
+  {
+    "scenario": "iid",
+    "seed": 43,
+    "metric": "rmse",
+    "baseline": 2.14077101053752,
+    "score": 0.8759619403010618,
+    "gain_utility": 1.2648090702364585,
+    "split": {
+      "id": "9ce6f97c090fc58f",
+      "kind": "random",
+      "reason": "IID regression; no evidence for grouped/forward validation",
+      "seed": 43,
+      "train_rows": 192,
+      "valid_rows": 48
+    },
+    "family": "hist",
+    "status": "valid_output",
+    "seconds": 0.5341674080118537
+  },
+  {
+    "scenario": "skew",
+    "seed": 43,
+    "metric": "rmse",
+    "baseline": 30.580008102513087,
+    "score": 21.973316858173114,
+    "gain_utility": 8.606691244339974,
+    "split": {
+      "id": "9ce6f97c090fc58f",
+      "kind": "random",
+      "reason": "IID regression; no evidence for grouped/forward validation",
+      "seed": 43,
+      "train_rows": 192,
+      "valid_rows": 48
+    },
+    "family": "hist",
+    "status": "valid_output",
+    "seconds": 0.5310288399923593
+  },
+  {
+    "scenario": "constant",
+    "seed": 43,
+    "status": "valid_output",
+    "seconds": 0.19700608200218994
+  },
+  {
+    "scenario": "negative",
+    "seed": 43,
+    "metric": "rmse",
+    "baseline": 1.3952134910022407,
+    "score": 0.7722486619260308,
+    "gain_utility": 0.6229648290762099,
+    "split": {
+      "id": "9ce6f97c090fc58f",
+      "kind": "random",
+      "reason": "IID regression; no evidence for grouped/forward validation",
+      "seed": 43,
+      "train_rows": 192,
+      "valid_rows": 48
+    },
+    "family": "hist",
+    "status": "valid_output",
+    "seconds": 0.5289089779980714
+  },
+  {
+    "scenario": "small_high_p",
+    "seed": 43,
+    "metric": "rmse",
+    "baseline": 2.6568220923685533,
+    "score": 2.686008828229197,
+    "gain_utility": -0.029186735860643687,
+    "split": {
+      "id": "6cff1d832d1377be",
+      "kind": "random",
+      "reason": "IID regression; no evidence for grouped/forward validation",
+      "seed": 43,
+      "train_rows": 16,
+      "valid_rows": 4
+    },
+    "family": "linear",
+    "status": "valid_output",
+    "seconds": 2.625388494998333
+  },
+  {
+    "scenario": "missing",
+    "seed": 43,
+    "metric": "rmse",
+    "baseline": 2.075292326856734,
+    "score": 1.8535589369197947,
+    "gain_utility": 0.22173338993693914,
+    "split": {
+      "id": "b3a742163965b9d5",
+      "kind": "duplicate_group",
+      "reason": "Exact feature duplicates held together",
+      "seed": 43,
+      "train_rows": 190,
+      "valid_rows": 50
+    },
+    "family": "hist",
+    "status": "valid_output",
+    "seconds": 0.5087749160011299
+  },
+  {
+    "scenario": "unseen",
+    "seed": 43,
+    "metric": "rmse",
+    "baseline": 2.14077101053752,
+    "score": 0.8759619403010618,
+    "gain_utility": 1.2648090702364585,
+    "split": {
+      "id": "9ce6f97c090fc58f",
+      "kind": "random",
+      "reason": "IID regression; no evidence for grouped/forward validation",
+      "seed": 43,
+      "train_rows": 192,
+      "valid_rows": 48
+    },
+    "family": "hist",
+    "status": "valid_output",
+    "seconds": 0.5273831119993702
+  },
+  {
+    "scenario": "high_cardinality",
+    "seed": 43,
+    "metric": "rmse",
+    "baseline": 2.14077101053752,
+    "score": 1.3974836532393198,
+    "gain_utility": 0.7432873572982004,
+    "split": {
+      "id": "9ce6f97c090fc58f",
+      "kind": "random",
+      "reason": "IID regression; no evidence for grouped/forward validation",
+      "seed": 43,
+      "train_rows": 192,
+      "valid_rows": 48
+    },
+    "family": "linear",
+    "status": "valid_output",
+    "seconds": 0.39204026300285477
+  },
+  {
+    "scenario": "locale",
+    "seed": 43,
+    "metric": "rmse",
+    "baseline": 2.14077101053752,
+    "score": 0.8759619403010618,
+    "gain_utility": 1.2648090702364585,
+    "split": {
+      "id": "9ce6f97c090fc58f",
+      "kind": "random",
+      "reason": "IID regression; no evidence for grouped/forward validation",
+      "seed": 43,
+      "train_rows": 192,
+      "valid_rows": 48
+    },
+    "family": "hist",
+    "status": "valid_output",
+    "seconds": 0.5589016400044784
+  },
+  {
+    "scenario": "future",
+    "seed": 43,
+    "metric": "rmse",
+    "baseline": 2.3655621178766797,
+    "score": 1.0913354685080123,
+    "gain_utility": 1.2742266493686674,
+    "split": {
+      "id": "48c91d23b7884ac5",
+      "kind": "time",
+      "reason": "Explicit forecasting intent; forward boundary in event_date",
+      "seed": 43,
+      "train_rows": 192,
+      "valid_rows": 48
+    },
+    "family": "hist",
+    "status": "valid_output",
+    "seconds": 0.8861737940023886
+  },
+  {
+    "scenario": "datetime_iid",
+    "seed": 43,
+    "metric": "rmse",
+    "baseline": 2.14077101053752,
+    "score": 0.9397921750401054,
+    "gain_utility": 1.200978835497415,
+    "split": {
+      "id": "9ce6f97c090fc58f",
+      "kind": "random",
+      "reason": "IID regression; no evidence for grouped/forward validation",
+      "seed": 43,
+      "train_rows": 192,
+      "valid_rows": 48
+    },
+    "family": "hist",
+    "status": "valid_output",
+    "seconds": 0.8904630259930855
+  },
+  {
+    "scenario": "group",
+    "seed": 43,
+    "metric": "rmse",
+    "baseline": 2.6993016354372568,
+    "score": 1.1163634103002245,
+    "gain_utility": 1.5829382251370323,
+    "split": {
+      "id": "c03ca9d6e6b215d9",
+      "kind": "group",
+      "reason": "Repeated entity_id; new test entity fraction 1.000",
+      "seed": 43,
+      "train_rows": 192,
+      "valid_rows": 48
+    },
+    "family": "hist",
+    "status": "valid_output",
+    "seconds": 0.575787626003148
+  },
+  {
+    "scenario": "duplicates",
+    "seed": 43,
+    "metric": "rmse",
+    "baseline": 2.19548450153794,
+    "score": 1.2668310489817196,
+    "gain_utility": 0.9286534525562204,
+    "split": {
+      "id": "311fa0a063606d61",
+      "kind": "duplicate_group",
+      "reason": "Exact feature duplicates held together",
+      "seed": 43,
+      "train_rows": 198,
+      "valid_rows": 42
+    },
+    "family": "hist",
+    "status": "valid_output",
+    "seconds": 0.5302201810118277
+  },
+  {
+    "scenario": "binary_imbalance",
+    "seed": 43,
+    "metric": "f1_macro",
+    "baseline": 0.4418604651162791,
+    "score": 0.8476190476190476,
+    "gain_utility": 0.40575858250276853,
+    "split": {
+      "id": "f13f906a34afb6de",
+      "kind": "stratified",
+      "reason": "IID classification",
+      "seed": 43,
+      "train_rows": 192,
+      "valid_rows": 48
+    },
+    "family": "hist",
+    "status": "valid_output",
+    "seconds": 0.5492478470114293
+  },
+  {
+    "scenario": "multiclass_imbalance",
+    "seed": 43,
+    "metric": "f1_macro",
+    "baseline": 0.2857142857142857,
+    "score": 0.7426657426657427,
+    "gain_utility": 0.456951456951457,
+    "split": {
+      "id": "35760b46277eb9bd",
+      "kind": "stratified",
+      "reason": "IID classification",
+      "seed": 43,
+      "train_rows": 192,
+      "valid_rows": 48
+    },
+    "family": "hist",
+    "status": "valid_output",
+    "seconds": 0.8056517130025895
+  },
+  {
+    "scenario": "singleton",
+    "seed": 43,
+    "metric": "f1_macro",
+    "baseline": 0.32608695652173914,
+    "score": 0.32608695652173914,
+    "gain_utility": 0.0,
+    "split": {
+      "id": "ddfcfb874e4fa5e6",
+      "kind": "stratified",
+      "reason": "Singleton classes retained only in training",
+      "seed": 43,
+      "train_rows": 193,
+      "valid_rows": 47
+    },
+    "family": "hist",
+    "status": "valid_output",
+    "seconds": 0.7974404620035784
+  },
+  {
+    "scenario": "integer_labels",
+    "seed": 43,
+    "metric": "f1_macro",
+    "baseline": 0.1890547263681592,
+    "score": 0.763444170771757,
+    "gain_utility": 0.5743894444035977,
+    "split": {
+      "id": "ecc116063d13b285",
+      "kind": "stratified",
+      "reason": "IID classification",
+      "seed": 43,
+      "train_rows": 192,
+      "valid_rows": 48
+    },
+    "family": "hist",
+    "status": "valid_output",
+    "seconds": 0.8250326360139297
+  },
+  {
+    "scenario": "unicode",
+    "seed": 43,
+    "metric": "f1_macro",
+    "baseline": 0.1890547263681592,
+    "score": 0.7654928192012592,
+    "gain_utility": 0.5764380928331,
+    "split": {
+      "id": "f49daabcdf05425d",
+      "kind": "stratified",
+      "reason": "IID classification",
+      "seed": 43,
+      "train_rows": 192,
+      "valid_rows": 48
+    },
+    "family": "hist",
+    "status": "valid_output",
+    "seconds": 0.7881502290110802
+  },
+  {
+    "scenario": "one_class",
+    "seed": 43,
+    "status": "valid_output",
+    "seconds": 0.20005856599891558
+  },
+  {
+    "scenario": "shift",
+    "seed": 43,
+    "metric": "rmse",
+    "baseline": 2.14077101053752,
+    "score": 0.8759619403010618,
+    "gain_utility": 1.2648090702364585,
+    "split": {
+      "id": "9ce6f97c090fc58f",
+      "kind": "random",
+      "reason": "IID regression; no evidence for grouped/forward validation",
+      "seed": 43,
+      "train_rows": 192,
+      "valid_rows": 48
+    },
+    "family": "hist",
+    "status": "valid_output",
+    "seconds": 0.5558539379999274
+  },
+  {
+    "scenario": "noise",
+    "seed": 43,
+    "metric": "rmse",
+    "baseline": 2.14077101053752,
+    "score": 1.0846933342822747,
+    "gain_utility": 1.0560776762552455,
+    "split": {
+      "id": "9ce6f97c090fc58f",
+      "kind": "random",
+      "reason": "IID regression; no evidence for grouped/forward validation",
+      "seed": 43,
+      "train_rows": 192,
+      "valid_rows": 48
+    },
+    "family": "hist",
+    "status": "valid_output",
+    "seconds": 3.7680908119946253
+  },
+  {
+    "scenario": "text",
+    "seed": 43,
+    "metric": "rmse",
+    "baseline": 2.14077101053752,
+    "score": 1.415702682286506,
+    "gain_utility": 0.7250683282510142,
+    "split": {
+      "id": "9ce6f97c090fc58f",
+      "kind": "random",
+      "reason": "IID regression; no evidence for grouped/forward validation",
+      "seed": 43,
+      "train_rows": 192,
+      "valid_rows": 48
+    },
+    "family": "linear",
+    "status": "valid_output",
+    "seconds": 0.6507379920076346
+  },
+  {
+    "scenario": "all_null",
+    "seed": 43,
+    "metric": "rmse",
+    "baseline": 2.14077101053752,
+    "score": 0.8759619403010618,
+    "gain_utility": 1.2648090702364585,
+    "split": {
+      "id": "9ce6f97c090fc58f",
+      "kind": "random",
+      "reason": "IID regression; no evidence for grouped/forward validation",
+      "seed": 43,
+      "train_rows": 192,
+      "valid_rows": 48
+    },
+    "family": "hist",
+    "status": "valid_output",
+    "seconds": 0.8603432189993327
+  },
+  {
+    "scenario": "ip",
+    "seed": 43,
+    "metric": "rmse",
+    "baseline": 2.14077101053752,
+    "score": 0.84577090341581,
+    "gain_utility": 1.29500010712171,
+    "split": {
+      "id": "9ce6f97c090fc58f",
+      "kind": "random",
+      "reason": "IID regression; no evidence for grouped/forward validation",
+      "seed": 43,
+      "train_rows": 192,
+      "valid_rows": 48
+    },
+    "family": "hist",
+    "status": "valid_output",
+    "seconds": 0.768636193999555
+  },
+  {
+    "scenario": "conflict",
+    "seed": 43,
+    "status": "unsupported",
+    "reason": "Dictionary target conflicts with train/test schema: ['x0', 'response'], ['response']",
+    "seconds": 0.06579995100037195
+  },
+  {
+    "scenario": "multiple_targets",
+    "seed": 43,
+    "status": "unsupported",
+    "reason": "Sample and dictionary disagree on target",
+    "seconds": 0.06688150600530207
+  },
+  {
+    "scenario": "shuffled",
+    "seed": 43,
+    "metric": "rmse",
+    "baseline": 2.14077101053752,
+    "score": 0.8759619403010618,
+    "gain_utility": 1.2648090702364585,
+    "split": {
+      "id": "9ce6f97c090fc58f",
+      "kind": "random",
+      "reason": "IID regression; no evidence for grouped/forward validation",
+      "seed": 43,
+      "train_rows": 192,
+      "valid_rows": 48
+    },
+    "family": "hist",
+    "status": "valid_output",
+    "seconds": 0.7417049900104757
+  },
+  {
+    "scenario": "inf",
+    "seed": 43,
+    "metric": "rmse",
+    "baseline": 2.14077101053752,
+    "score": 1.1522403768344265,
+    "gain_utility": 0.9885306337030937,
+    "split": {
+      "id": "9ce6f97c090fc58f",
+      "kind": "random",
+      "reason": "IID regression; no evidence for grouped/forward validation",
+      "seed": 43,
+      "train_rows": 192,
+      "valid_rows": 48
+    },
+    "family": "hist",
+    "status": "valid_output",
+    "seconds": 0.6836807010113262
+  },
+  {
+    "scenario": "injection",
+    "seed": 43,
+    "metric": "rmse",
+    "baseline": 2.14077101053752,
+    "score": 0.8759619403010618,
+    "gain_utility": 1.2648090702364585,
+    "split": {
+      "id": "9ce6f97c090fc58f",
+      "kind": "random",
+      "reason": "IID regression; no evidence for grouped/forward validation",
+      "seed": 43,
+      "train_rows": 192,
+      "valid_rows": 48
+    },
+    "family": "hist",
+    "status": "valid_output",
+    "seconds": 0.73184266500175
+  },
+  {
+    "scenario": "unknown_metric",
+    "seed": 43,
+    "metric": "rmse",
+    "baseline": 2.14077101053752,
+    "score": 0.8759619403010618,
+    "gain_utility": 1.2648090702364585,
+    "split": {
+      "id": "9ce6f97c090fc58f",
+      "kind": "random",
+      "reason": "IID regression; no evidence for grouped/forward validation",
+      "seed": 43,
+      "train_rows": 192,
+      "valid_rows": 48
+    },
+    "family": "hist",
+    "status": "valid_output",
+    "seconds": 0.6999071720056236
+  },
+  {
+    "scenario": "auc",
+    "seed": 43,
+    "metric": "roc_auc",
+    "baseline": 0.5,
+    "score": 0.9631578947368421,
+    "gain_utility": 0.4631578947368421,
+    "split": {
+      "id": "f13f906a34afb6de",
+      "kind": "stratified",
+      "reason": "IID classification",
+      "seed": 43,
+      "train_rows": 192,
+      "valid_rows": 48
+    },
+    "family": "hist",
+    "status": "valid_output",
+    "seconds": 0.7396149920095922
+  },
+  {
+    "scenario": "logloss",
+    "seed": 43,
+    "metric": "logloss",
+    "baseline": 0.5118233413150938,
+    "score": 0.1948809347928082,
+    "gain_utility": 0.31694240652228556,
+    "split": {
+      "id": "f13f906a34afb6de",
+      "kind": "stratified",
+      "reason": "IID classification",
+      "seed": 43,
+      "train_rows": 192,
+      "valid_rows": 48
+    },
+    "family": "hist",
+    "status": "valid_output",
+    "seconds": 0.7276454179955181
+  },
+  {
+    "scenario": "average_precision",
+    "seed": 43,
+    "metric": "average_precision",
+    "baseline": 0.20833333333333334,
+    "score": 0.8793894993894995,
+    "gain_utility": 0.6710561660561661,
+    "split": {
+      "id": "f13f906a34afb6de",
+      "kind": "stratified",
+      "reason": "IID classification",
+      "seed": 43,
+      "train_rows": 192,
+      "valid_rows": 48
+    },
+    "family": "hist",
+    "status": "valid_output",
+    "seconds": 0.8073925420030719
+  },
+  {
+    "scenario": "mae",
+    "seed": 43,
+    "metric": "mae",
+    "baseline": 1.666043486643065,
+    "score": 0.4907756843620104,
+    "gain_utility": 1.1752678022810545,
+    "split": {
+      "id": "9ce6f97c090fc58f",
+      "kind": "random",
+      "reason": "IID regression; no evidence for grouped/forward validation",
+      "seed": 43,
+      "train_rows": 192,
+      "valid_rows": 48
+    },
+    "family": "hist",
+    "status": "valid_output",
+    "seconds": 0.9102458590059541
+  },
+  {
+    "scenario": "weighted_f1",
+    "seed": 43,
+    "metric": "f1_weighted",
+    "baseline": 0.22450248756218905,
+    "score": 0.7883918617614271,
+    "gain_utility": 0.563889374199238,
+    "split": {
+      "id": "f49daabcdf05425d",
+      "kind": "stratified",
+      "reason": "IID classification",
+      "seed": 43,
+      "train_rows": 192,
+      "valid_rows": 48
+    },
+    "family": "hist",
+    "status": "valid_output",
+    "seconds": 0.8013774529972579
+  }
+]
