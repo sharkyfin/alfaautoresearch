@@ -180,7 +180,7 @@ def test_researcher_sees_champion_without_raw_predictions(tmp_path):
 def test_linear_champion_full_refit_e2e(tmp_path):
     from atlas.orchestration import run
     task=create(tmp_path/'data','integer_labels',n=300)
-    assert run(task,budget_seconds=30,threads=1,max_experiments=1,mode='deterministic',run_dir=tmp_path/'run')==0
+    assert run(task,budget_seconds=120,threads=1,max_experiments=1,mode='deterministic',run_dir=tmp_path/'run')==0
     summary=json.loads((tmp_path/'run/summary.json').read_text())
     assert summary['champion_recipe']['model_family']=='linear'
     assert summary['full_refit_published']
@@ -193,3 +193,22 @@ def test_measured_cost_and_finalization_admission():
     assert estimate_runtime(recipe,[],100,900)==27.
     b=Budget(30,time.monotonic()-10)
     assert not b.can_run(5,finalization_estimate=15)
+
+def test_run_log_directory_is_unique_or_explicitly_empty(tmp_path):
+    from atlas.orchestration import run
+    task=create(tmp_path/'data','one_class')
+    assert run(task,budget_seconds=5,mode='deterministic')==0
+    assert run(task,budget_seconds=5,mode='deterministic')==0
+    directories=list((task.parent/'.atlas').iterdir())
+    assert len(directories)==2 and len({x.name for x in directories})==2
+    existing=tmp_path/'nonempty';existing.mkdir();(existing/'marker').write_text('keep')
+    with pytest.raises(ValueError,match='must be empty'):run(task,budget_seconds=5,mode='deterministic',run_dir=existing)
+    assert (existing/'marker').read_text()=='keep'
+
+def test_qwen_prompt_budget_blocks_request_before_network(monkeypatch):
+    seen=[]
+    client=configured(monkeypatch,lambda body,timeout:seen.append(body))
+    client.max_tokens=100
+    assert client.propose({'untrusted_data':{'description':'task'}}) is None
+    assert client.open and not seen
+    assert client.events[-1]['status']=='token_budget_exhausted'

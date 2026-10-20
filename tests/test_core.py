@@ -175,3 +175,18 @@ def test_primary_stopping_rejects_unsupported_types(tmp_path):
     data=load(read_inputs(create(tmp_path)));data.spec.validation_plan=design(data).json()
     for value in ['primary','exec',[],False]:
         with pytest.raises(RecipeError):validate({'model_family':'lightgbm','params':{'stopping_metric':value}},data.spec)
+
+def test_rare_class_portfolio_prioritizes_measured_fast_candidates(tmp_path):
+    from atlas.search import initial_portfolio
+    data=load(read_inputs(create(tmp_path,'multiclass_imbalance',n=1000)))
+    portfolio=initial_portfolio(data.spec,900)
+    assert portfolio[2]['model_family']=='lightgbm'
+    assert portfolio[2]['params']['stopping_metric']=='primary'
+    weighted_forest=[r for r in portfolio if r['model_family']=='extra_trees' and r['params'].get('weight')=='sqrt']
+    assert len(weighted_forest)==1 and weighted_forest[0]['feature_ops'][0]['op']=='frequency'
+    for r in portfolio:validate(r,data.spec)
+
+def test_required_gap_is_never_silently_reduced(tmp_path):
+    task=create(tmp_path,'future');task.write_text(task.read_text()+'\ngap_rows: 1000\n')
+    data=load(read_inputs(task));s=design(data)
+    assert s.kind=='unsupported_gap' and len(s.valid)==0

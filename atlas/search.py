@@ -20,7 +20,10 @@ def initial_portfolio(spec,budget=10800):
     if spec.classification and spec.metric.name in {'f1','f1_macro','balanced_accuracy'} and 'lightgbm' in spec.available_capabilities:
         counts=list(spec.profile.get('target',{}).get('counts',{}).values())
         if counts and max(counts)/max(min(counts),1)>=3:
-            out.append(recipe('lightgbm',{'iterations':rounds,'num_leaves':31,'min_child_samples':30,'weight':'sqrt','stopping_metric':'primary'},statement='Measured minority-weighted booster with early stopping on the actual primary metric'))
+            out.insert(2,recipe('lightgbm',{'iterations':rounds,'num_leaves':31,'min_child_samples':30,'weight':'sqrt','stopping_metric':'primary'},statement='Measured minority-weighted booster with early stopping on the actual primary metric'))
+            position=next(i for i,r in enumerate(out) if r['model_family']=='extra_trees')+1
+            ops=[{'op':'frequency','columns':spec.categorical_features[:8]}] if spec.categorical_features else []
+            out.insert(position,recipe('extra_trees',{'iterations':min(250,rounds),'min_samples_leaf':2,'weight':'sqrt'},ops,statement='Weighted randomized trees with fold-fitted category rarity'))
     return out
 
 def retain_finalists(candidates,limit=3):

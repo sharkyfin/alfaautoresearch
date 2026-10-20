@@ -24,6 +24,9 @@ class QwenClient:
             compact=json.dumps(context,ensure_ascii=False,allow_nan=False)
         if len(compact.encode())>20000:
             self.events.append({'status':'context_too_large'});self.failures+=1;return None
+        estimated_tokens=(len((SYSTEM+compact).encode())+1)//2+1200
+        if self.tokens+estimated_tokens>self.max_tokens:
+            self.open=True;self.events.append({'status':'token_budget_exhausted'});return None
         body={'model':self.model,'messages':[{'role':'system','content':SYSTEM},{'role':'user','content':compact}],'max_tokens':1200,'temperature':.2,'response_format':{'type':'json_object'}}
         if not self.json_mode:body.pop('response_format',None)
         try:
@@ -34,7 +37,7 @@ class QwenClient:
                     raw=r.read(65537)
                     if len(raw)>65536:raise ValueError('Oversized API response')
                     response=json.loads(raw)
-            self.tokens+=int(response.get('usage',{}).get('total_tokens',1600))
+            self.tokens+=int(response.get('usage',{}).get('total_tokens',estimated_tokens))
             value=response['choices'][0]['message']['content']
             if len(value)>16000:raise ValueError('Oversized JSON action')
             value=re.sub(r'^```(?:json)?\s*|\s*```$','',value.strip())
@@ -63,6 +66,6 @@ def researcher_context(data,history,champion,remaining):
         public_history.append({k:r[k] for k in ['experiment_id','recipe','status','metric_value','accepted','diagnostics','runtime_sec','exception_class'] if k in r})
     dictionary=[]
     if {'feature','description_ru'}<=set(data.dictionary):
-        for row in data.dictionary.head(60).itertuples():dictionary.append({'column':str(row.feature)[:100],'description':str(row.description_ru)[:100]})
+        for row in data.dictionary.head(60).itertuples():dictionary.append({'column':str(row.feature)[:100],'description':str(row.description_ru)[:100],'unit':str(getattr(row,'unit',''))[:60],'role':str(getattr(row,'role',''))[:30]})
     champion_summary={k:champion[k] for k in ['experiment_id','recipe','metric_value','diagnostics'] if k in champion} if isinstance(champion,dict) else champion
-    return {'objective':{'metric':spec.metric.name,'direction':spec.metric.direction,'split':spec.validation_plan},'champion':champion_summary,'history':public_history,'remaining_seconds':round(remaining),'recipe_rejections':[], 'capabilities':{'models':{f:p for f,p in PARAMS.items() if f not in {'catboost','lightgbm','xgboost'} or f in spec.available_capabilities},'feature_operations':OP_ARITY},'untrusted_data':{'problem_type':spec.problem_type,'features':spec.features[:100],'numeric':spec.numeric_features[:80],'categorical':spec.categorical_features[:40],'profile':{'train_shape':spec.profile['train_shape'],'target':spec.profile['target'],'columns':dict(list(spec.profile['columns'].items())[:30])},'dictionary':dictionary}}
+    return {'objective':{'metric':spec.metric.name,'direction':spec.metric.direction,'split':spec.validation_plan},'champion':champion_summary,'history':public_history,'remaining_seconds':round(remaining),'recipe_rejections':[], 'capabilities':{'models':{f:p for f,p in PARAMS.items() if f not in {'catboost','lightgbm','xgboost'} or f in spec.available_capabilities},'feature_operations':OP_ARITY},'untrusted_data':{'description':data.inputs.description[:4000],'target_column':spec.target,'problem_type':spec.problem_type,'features':spec.features[:100],'numeric':spec.numeric_features[:80],'categorical':spec.categorical_features[:40],'profile':{'train_shape':spec.profile['train_shape'],'target':spec.profile['target'],'columns':dict(list(spec.profile['columns'].items())[:30])},'dictionary':dictionary}}

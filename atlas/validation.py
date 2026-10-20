@@ -35,7 +35,8 @@ def design(data: Dataset,seed=42,fraction=.2) -> Split:
             a=idx[(dates<cutoff).to_numpy()];b=idx[(dates>=cutoff).to_numpy()]
             gap_match=re.search(r'gap_rows\s*[:=]\s*(\d+)',desc)
             if gap_match:
-                gap=min(int(gap_match.group(1)),len(a)//3)
+                gap=int(gap_match.group(1))
+                if gap>=len(a)-1:return Split(idx,idx[:0],'unsupported_gap','Required temporal gap leaves too few training rows',seed)
                 if gap:a=a[np.argsort(dates.iloc[a].to_numpy())][:-gap]
             if len(a)>1 and len(b):return Split(a,b,'time',f'Explicit forecasting intent; forward boundary in {col}',seed)
     for col in spec.group_candidates:

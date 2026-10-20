@@ -1,6 +1,6 @@
 """One guarded anytime research loop, with independent evaluation and checkpoints."""
 from __future__ import annotations
-import hashlib,json,os,signal,time,traceback
+import hashlib,json,os,signal,time,traceback,tempfile
 from pathlib import Path
 import numpy as np
 from .utils import code_digest
@@ -27,8 +27,13 @@ def run(task_path,started=None,budget_seconds=10500,mode='auto',seed=42,threads=
     checkpoint(data,dummy_prediction(data.y,data.spec,len(data.test)))
     first_latency=time.monotonic()-start
     emit('SAFE_BASELINE',output=str(inputs.output),elapsed=first_latency,warnings=data.spec.warnings)
-    directory=Path(run_dir).resolve() if run_dir else inputs.task_path.parent/'.atlas'/time.strftime('%Y%m%d_%H%M%S')
-    directory.mkdir(parents=True,exist_ok=True)
+    if run_dir:
+        directory=Path(run_dir).resolve()
+        if directory.exists() and any(directory.iterdir()):raise ValueError('run_dir must be empty; choose a new directory for each run')
+        directory.mkdir(parents=True,exist_ok=True)
+    else:
+        parent=inputs.task_path.parent/'.atlas';parent.mkdir(exist_ok=True)
+        directory=Path(tempfile.mkdtemp(prefix=time.strftime('%Y%m%d_%H%M%S')+'_',dir=parent))
     (directory/'task_spec.json').write_text(json.dumps(data.spec.json(),ensure_ascii=False,indent=2,allow_nan=False))
     stop={'requested':False}
     def handle_signal(signum,frame):stop['requested']=True

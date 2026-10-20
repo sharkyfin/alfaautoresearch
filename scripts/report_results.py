@@ -5,6 +5,7 @@ ROOT=Path(__file__).resolve().parents[1];sys.path.insert(0,str(ROOT))
 from atlas.utils import code_digest
 reports=ROOT/'reports'
 text=(reports/'all-tests.log').read_text();match=re.search(r'(\d+) passed(?:, (\d+) warnings)? in ([\d.]+)s',text)
+if 'FAILED ' in text:match=None
 lines=['# Evaluation evidence','',f'Current runtime source SHA256: `{code_digest()}`.','',f'Automated suite: **{match.group(1)} passed**, {match.group(2) or 0} warnings in {match.group(3)}s.' if match else 'Automated suite has no verified final passing summary.','Command: `.venv/bin/python -m pytest tests -q --tb=short`.','Warnings in the current suite are upstream Matplotlib/pyparsing deprecations. Historical failure logs are retained; all-tests.log is the current result.','', '## Public task measurements','', 'These are internal train-label holdouts, not organizer baseline scores or leaderboard estimates. Hidden test labels are never read.','', '| Task / run | Seed | Split | Linear reference | Selected objective | Confirmation objective | Seconds | Peak worker MiB | Accepted |','|---|---:|---|---:|---:|---:|---:|---:|---:|']
 def selected(r):return (r.get('ensemble') or r.get('multipliers') or {}).get('metric_value',r['champion_metric'])
 def control(r):return (r.get('ensemble') or r.get('multipliers') or {}).get('confirmation_metric',r.get('confirmation_metric'))
@@ -12,16 +13,18 @@ public=[]
 for kind,name in [('regression','public-reg-360'),('classification','public-cls-360')]:
  p=ROOT/'runs'/name/'summary.json'
  if p.exists():r=json.loads(p.read_text());r.update(task=kind,seed=42,run=name);public.append(r)
-p=reports/'public-campaign.json'
-if p.exists():
- for r in json.loads(p.read_text()):r['run']=f"public-campaign/{r['task']}_{r['seed']}";public.append(r)
+for campaign in ['public-campaign','public-final']:
+ p=reports/f'{campaign}.json'
+ if p.exists():
+  for r in json.loads(p.read_text()):r['run']=f"{campaign}/{r['task']}_{r['seed']}";public.append(r)
 for r in public:
  history=[json.loads(s) for s in (ROOT/'runs'/r['run']/'experiments.jsonl').read_text().splitlines()]
  reference=next((x['metric_value'] for x in history if x['recipe']['model_family']=='linear' and 'metric_value' in x),None)
  def num(x):return 'n/a' if x is None else f'{x:.6g}'
  lines.append(f"| {r['task']} / {r['run']} | {r['seed']} | {r['validation']['kind']} | {num(reference)} | {num(selected(r))} | {num(control(r))} | {r['elapsed_seconds']:.1f} | {r['peak_worker_memory_mb']:.1f} | {r['accepted_experiments']} |")
 lines+=['','The second split is independent for selection confirmation; its absolute score is not directly compared to the first split. The two 360s exploratory runs predate the frozen source campaign. Each run preserves generated code, actual predictions, recipe hashes, source hashes, fixed splits, diagnostics and final recipe.','', '## Synthetic private-like coverage','']
-p=reports/'stress/results.json'
+p=reports/'stress-final/results.json'
+if not p.exists():p=reports/'stress/results.json'
 if p.exists():
  r=json.loads(p.read_text());valid=[x for x in r if x['status']=='valid_output'];unsupported=[x for x in r if x['status']=='unsupported'];failed=[x for x in r if x['status'] not in {'unsupported','valid_output'}];scored=[x for x in valid if 'gain_utility' in x]
  lines += [f"35 scenarios × 2 seeds: {len(valid)} valid outputs, {len(unsupported)} explicitly expected unsupported tasks, {len(failed)} unexpected failures.",f"Among {len(scored)} scored nondegenerate tasks: {sum(x['gain_utility']>0 for x in scored)} gains, {sum(x['gain_utility']<0 for x in scored)} losses, {sum(x['gain_utility']==0 for x in scored)} ties versus a training-fold dummy. No raw RMSE/F1 averaging is used.",'','| Scenario | Seed | Validation | Metric | Dummy | Model | Utility gain | Seconds |','|---|---:|---|---|---:|---:|---:|---:|']
