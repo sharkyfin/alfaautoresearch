@@ -1,8 +1,8 @@
 # Evaluation evidence
 
-Current runtime source SHA256: `8b90ee3fe1646082082c3ec0b1a46e72503d9876d9726d6bfead1a24a317d7f8`.
+Current runtime source SHA256: `99d4c0b96295fe16e018fba0f83ba27c91b0400854a028d384660208d8bbe244`.
 
-Automated suite: **148 passed**, 13 warnings in 36.88s.
+Automated suite: **154 passed**, 13 warnings in 71.89s.
 Command: `.venv/bin/python -m pytest tests -q --tb=short`.
 Warnings in the current suite are upstream Matplotlib/pyparsing deprecations. Historical failure logs are retained; all-tests.log is the current result.
 
@@ -97,7 +97,7 @@ Ambiguous dictionary targets and unsupported multi-target samples are classified
 
 ## Equal-budget ablation
 
-**Live Qwen ablation is BLOCKED:** user confirmed organizer credentials/endpoint/model settings are not available. Zero live calls were made. The following is a mock-infrastructure comparison and cannot establish Qwen research value.
+**Live organizer-Qwen ablation is BLOCKED:** user confirmed organizer credentials/endpoint/model settings are not available. Zero organizer-Qwen calls were made. The following is a mock-infrastructure comparison and cannot establish Qwen research value. A separately authorized OpenRouter development run is reported below and is not a Qwen ablation.
 
 | Task | Seed | Deterministic | Mock agent | Utility difference | Deterministic seconds | Mock seconds |
 |---|---:|---:|---:|---:|---:|---:|
@@ -113,6 +113,13 @@ Ambiguous dictionary targets and unsupported multi-target samples are classified
 Each finalized pair uses the prototype runtime SHA256 recorded in paired-ablation.json. Later safety fixes and portfolio additions are tested separately. Each pair uses the same data, seed, budget and configured CPU threads. Source is frozen in runs/paired/source_snapshot. Earlier mixed-revision runs are separately labeled exploratory and excluded from this table. Sample size is insufficient for statistical significance claims.
 
 Across 8 prototype pairs: 3 wins, 4 losses, 1 ties; win rate 37.5%. Median normalized improvement -0.134%, lower quartile -0.947%. Normalization is signed objective difference divided by the absolute deterministic objective on each task; this is not the competition scoring formula.
+
+## User-authorized OpenRouter development run
+
+Pinned model: `minimax/minimax-m3.1-flash:free`; 2 live calls, 12137 total tokens, $0 reported loop cost. Runtime source: `99d4c0b96295fe16e018fba0f83ba27c91b0400854a028d384660208d8bbe244`. The separate JSON protocol smoke also reported zero cost.
+On one synthetic regression task (seed 42, 500 train rows), both real hypotheses compiled and fitted successfully; 0 improved the initial champion. Initial champion RMSE 0.277602; hypothesis RMSE values: 0.311513, 0.289871.
+Final selected ensemble RMSE 0.273152; output CSV validated, all full refits succeeded, elapsed 46.69s. This is a working live backend test, not evidence of research quality gain or an equal-budget ablation.
+The first protocol probe rejected reasoning.enabled=false with HTTP400; low reasoning effort and 4096 output-token allowance resolved it. The model is pinned to :free and provider input/output maximum prices are zero. No payment method or credits were added. Key values and the development client are excluded from the competition ZIP.
 
 ## Leakage and failure tests
 

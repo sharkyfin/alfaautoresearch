@@ -33,7 +33,7 @@ Public metrics RMSE and macro F1; private metrics unknown.
 
 ## BLOCKED
 
-No API credentials or actual endpoint/model values provided. Live Qwen verification and true live-vs-deterministic ablation cannot run yet. Deterministic and mock-agent modes will be tested independently.
+No organizer API credentials or actual organizer endpoint/model values provided. Live Qwen verification and true organizer-live-vs-deterministic ablation cannot run yet. Deterministic and mock-agent modes are tested independently.
 
 Docker is not installed on the development host: neither PATH nor standard
 Docker Desktop/Homebrew CLI paths contain it (rechecked 2026-10-20 Moscow).
@@ -57,7 +57,16 @@ Public classification primary Macro F1 is distinguished from auxiliary accuracy 
 ## API blocker confirmed by user
 
 The user confirmed that organizer Qwen settings are not yet available. No live
-API calls have been attempted; no alternative keys/services will be used.
+organizer-Qwen calls have been attempted.
+
+On 2026-10-20 the user separately authorized a free OpenRouter backend for
+development and browser access to their account to obtain a key. OpenRouter's
+initial workspace setup automatically issued a default key, saved locally in
+ignored `.env.openrouter.local` with mode 0600. No payment details were added.
+The pinned development model is minimax/minimax-m3.1-flash:free; request price
+limits are zero and there is no paid-model fallback. scripts/run_openrouter.py
+injects this client explicitly; solution.py does not import it or read its key.
+OpenRouter is not evidence that the organizer Qwen route works or is approved.
 
 ## Requirements variants
 

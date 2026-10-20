@@ -2,14 +2,14 @@
   "nominal_platform_budget_seconds": 10800,
   "time_scale": 0.005555555555555556,
   "actual_budget_seconds": 60.0,
-  "actual_elapsed_seconds": 23.551705154997762,
+  "actual_elapsed_seconds": 26.270776663994184,
   "real_3h_soak": false,
   "summary": {
-    "runtime_code_sha256": "8b90ee3fe1646082082c3ec0b1a46e72503d9876d9726d6bfead1a24a317d7f8",
+    "runtime_code_sha256": "99d4c0b96295fe16e018fba0f83ba27c91b0400854a028d384660208d8bbe244",
     "mode": "mock-agent",
     "budget_seconds": 60.0,
-    "elapsed_seconds": 23.356752188003156,
-    "first_checkpoint_latency": 0.9732434400066268,
+    "elapsed_seconds": 26.028855711992946,
+    "first_checkpoint_latency": 1.1623938959965017,
     "validation": {
       "id": "3c94e6c27ea73f54",
       "kind": "stratified",
@@ -53,10 +53,16 @@
     "qwen_tokens": 0,
     "qwen_events": [],
     "max_live_worker_threads": 17,
-    "peak_worker_memory_mb": 168.68359375,
+    "peak_worker_memory_mb": 161.54296875,
     "cancelled": false,
     "output": "/Users/mac/Documents/projects/alfaautoresearch/runs/deadline/data/submission.csv",
     "output_sha256": "a14d24556110dc30514092a9709d5a6f6d95d52d783a3adb1b7117dfc5a23534",
-    "full_refit_published": true
+    "full_refit_published": true,
+    "researcher_provider": "organizer-qwen",
+    "researcher_model": null,
+    "researcher_calls": 0,
+    "researcher_proposals": 0,
+    "researcher_tokens": 0,
+    "researcher_events": []
   }
 }

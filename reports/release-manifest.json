@@ -1,8 +1,8 @@
 {
   "status": "PROVISIONAL: live Qwen and Linux Docker gates remain unverified",
   "archive": "submission.zip",
-  "bytes": 37427,
-  "sha256": "f94af9a064b1e8a6c25db227ffbce46c8b17064c42c077cfef9915c054d943da",
+  "bytes": 37597,
+  "sha256": "a4b2692c5bb6c5549f9535d6072d48e38e6b30d208fb1c8af698996d22d9d0d1",
   "files": [
     {
       "path": "solution.py",
@@ -16,8 +16,8 @@
     },
     {
       "path": "atlas/agent.py",
-      "bytes": 10753,
-      "sha256": "338d5a81dfd22a5af44c5ec3c841abe8f1bd73cf171481c3856f693bf7b9317c"
+      "bytes": 10841,
+      "sha256": "acc7a831fc17e4d922e042ff5c5f8e6378a6454c41c94f993875d4698b8ca923"
     },
     {
       "path": "atlas/budget.py",
@@ -61,8 +61,8 @@
     },
     {
       "path": "atlas/orchestration.py",
-      "bytes": 14892,
-      "sha256": "8b96a4cb7e3d6f35da67d417836aeb8930ecf093f8013e676bd7279e21899f26"
+      "bytes": 15470,
+      "sha256": "9b501e54541555fc13fa4c1cc012e49187a163880fa9199772f5b2be6bcfb051"
     },
     {
       "path": "atlas/recipes.py",

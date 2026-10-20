@@ -1,9 +1,9 @@
 {
   "status": "PROVISIONAL",
-  "runtime_code_sha256": "8b90ee3fe1646082082c3ec0b1a46e72503d9876d9726d6bfead1a24a317d7f8",
-  "archive_sha256": "f94af9a064b1e8a6c25db227ffbce46c8b17064c42c077cfef9915c054d943da",
-  "archive_bytes": 37427,
-  "tests_passed": 148,
+  "runtime_code_sha256": "99d4c0b96295fe16e018fba0f83ba27c91b0400854a028d384660208d8bbe244",
+  "archive_sha256": "a4b2692c5bb6c5549f9535d6072d48e38e6b30d208fb1c8af698996d22d9d0d1",
+  "archive_bytes": 37597,
+  "tests_passed": 154,
   "warnings": 13,
   "public_outputs": [
     {

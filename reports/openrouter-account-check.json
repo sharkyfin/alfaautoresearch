@@ -1,0 +1,12 @@
+{
+  "status": "passed",
+  "reported_usage_usd": 0,
+  "reported_usage_daily_usd": 0,
+  "free_model_daily_requests": {
+    "used": 3,
+    "limit": 50,
+    "remaining": 47
+  },
+  "key_limit_usd": 100,
+  "payment_added_by_agent": false
+}

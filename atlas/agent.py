@@ -66,8 +66,9 @@ def compact_context(context,limit=14000):
 
 
 class QwenClient:
-    def __init__(self,mode='disabled',max_calls=8,max_tokens=16000,transport=None):
+    def __init__(self,mode='disabled',max_calls=8,max_tokens=16000,transport=None,output_tokens=1200):
         self.mode=mode;self.max_calls=max_calls;self.max_tokens=max_tokens;self.calls=0;self.requests=0;self.tokens=0;self.failures=0;self.open=False;self.transport=transport;self.events=[]
+        self.output_tokens=output_tokens
         self.endpoint=os.environ.get('OPENAI_BASE_URL','');self.model=os.environ.get('OPENAI_MODEL','');self.key=os.environ.get('OPENAI_API_KEY','')
         self.configured=bool(self.endpoint and self.model and self.key);self.json_mode=True
         if mode=='live' and not self.configured:self.open=True;self.events.append({'status':'unconfigured_organizer_api'})
@@ -82,10 +83,10 @@ class QwenClient:
             if self.failures>=3:self.open=True
             return None
         compact=json.dumps(context,ensure_ascii=False,allow_nan=False)
-        estimated_tokens=(len((SYSTEM+compact).encode())+1)//2+1200
+        estimated_tokens=(len((SYSTEM+compact).encode())+1)//2+self.output_tokens
         if self.tokens+estimated_tokens>self.max_tokens:
             self.open=True;self.events.append({'status':'token_budget_exhausted'});return None
-        body={'model':self.model,'messages':[{'role':'system','content':SYSTEM},{'role':'user','content':compact}],'max_tokens':1200,'temperature':.2,'response_format':{'type':'json_object'}}
+        body={'model':self.model,'messages':[{'role':'system','content':SYSTEM},{'role':'user','content':compact}],'max_tokens':self.output_tokens,'temperature':.2,'response_format':{'type':'json_object'}}
         if not self.json_mode:body.pop('response_format',None)
         try:
             self.requests+=1

@@ -30,7 +30,7 @@ if p.exists():
  lines += [f"35 scenarios × 2 seeds: {len(valid)} valid outputs, {len(unsupported)} explicitly expected unsupported tasks, {len(failed)} unexpected failures.",f"Among {len(scored)} scored nondegenerate tasks: {sum(x['gain_utility']>0 for x in scored)} gains, {sum(x['gain_utility']<0 for x in scored)} losses, {sum(x['gain_utility']==0 for x in scored)} ties versus a training-fold dummy. No raw RMSE/F1 averaging is used.",'','| Scenario | Seed | Validation | Metric | Dummy | Model | Utility gain | Seconds |','|---|---:|---|---|---:|---:|---:|---:|']
  for x in scored:lines.append(f"| {x['scenario']} | {x['seed']} | {x['split']['kind']} | {x['metric']} | {x['baseline']:.6g} | {x['score']:.6g} | {x['gain_utility']:.6g} | {x['seconds']:.3f} |")
  lines+=['','Ambiguous dictionary targets and unsupported multi-target samples are classified as unsupported; these cases are not counted as successful model runs. Constant-target and one-class tasks receive a valid constant prediction.']
-lines+=['','## Equal-budget ablation','', '**Live Qwen ablation is BLOCKED:** user confirmed organizer credentials/endpoint/model settings are not available. Zero live calls were made. The following is a mock-infrastructure comparison and cannot establish Qwen research value.','']
+lines+=['','## Equal-budget ablation','', '**Live organizer-Qwen ablation is BLOCKED:** user confirmed organizer credentials/endpoint/model settings are not available. Zero organizer-Qwen calls were made. The following is a mock-infrastructure comparison and cannot establish Qwen research value. A separately authorized OpenRouter development run is reported below and is not a Qwen ablation.','']
 p=reports/'paired-ablation.json'
 if p.exists():
  r=json.loads(p.read_text());pairs={}
@@ -49,6 +49,10 @@ if p.exists():
  if differences:
   quartile=statistics.quantiles(differences,n=4,method='inclusive')[0] if len(differences)>1 else differences[0]
   lines += ['',f"Across {len(differences)} prototype pairs: {sum(x>0 for x in differences)} wins, {sum(x<0 for x in differences)} losses, {sum(x==0 for x in differences)} ties; win rate {sum(x>0 for x in differences)/len(differences):.1%}. Median normalized improvement {statistics.median(differences):.3%}, lower quartile {quartile:.3%}. Normalization is signed objective difference divided by the absolute deterministic objective on each task; this is not the competition scoring formula."]
+p=reports/'openrouter-live.json'
+if p.exists():
+ r=json.loads(p.read_text());s=r['summary'];hypotheses=r['live_hypotheses']
+ lines+=['','## User-authorized OpenRouter development run','',f"Pinned model: `{r['model']}`; {s['researcher_calls']} live calls, {s['researcher_tokens']} total tokens, ${r['loop_cost_usd']:g} reported loop cost. Runtime source: `{r['runtime_code_sha256']}`. The separate JSON protocol smoke also reported zero cost.",f"On one synthetic regression task (seed 42, 500 train rows), both real hypotheses compiled and fitted successfully; {sum(x['accepted'] for x in hypotheses)} improved the initial champion. Initial champion RMSE {s['champion_metric']:.6g}; hypothesis RMSE values: "+', '.join(f"{x['metric_value']:.6g}" for x in hypotheses)+'.',f"Final selected ensemble RMSE {s['ensemble']['metric_value']:.6g}; output CSV validated, all full refits succeeded, elapsed {s['elapsed_seconds']:.2f}s. This is a working live backend test, not evidence of research quality gain or an equal-budget ablation.",'The first protocol probe rejected reasoning.enabled=false with HTTP400; low reasoning effort and 4096 output-token allowance resolved it. The model is pinned to :free and provider input/output maximum prices are zero. No payment method or credits were added. Key values and the development client are excluded from the competition ZIP.']
 lines+=['','## Leakage and failure tests','']
 p=reports/'leakage-ablation.json'
 if p.exists():

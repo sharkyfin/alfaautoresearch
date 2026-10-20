@@ -8,8 +8,8 @@ cost-aware search, typed research recipes, generated feature code, isolated fit
 workers, independent evaluation, confirmation, ensemble and full refit.
 
 The final runtime source SHA256 is
-`8b90ee3fe1646082082c3ec0b1a46e72503d9876d9726d6bfead1a24a317d7f8`.
-148 tests passed with 13 upstream deprecation warnings in 36.88s; the digest did
+`99d4c0b96295fe16e018fba0f83ba27c91b0400854a028d384660208d8bbe244`.
+154 tests passed with 13 upstream deprecation warnings in 71.89s; the digest did
 not change during the authoritative run (reports/test-state.json). No source
 mutations are permitted during release verification without re-running tests.
 
@@ -36,7 +36,7 @@ from short-budget fault-injection, memory, timeout and kill tests.
 
 Both actual public summaries now compact to less than 14 KB and reach the fake
 client transport. The full fake-response → validated DSL → generated Python →
-actual fit → independent score → feedback loop passes. Network calls remain zero.
+actual fit → independent score → feedback loop passes. Those mock checks make zero network calls.
 
 PHASE 6 delivers a source-only **PROVISIONAL** submission.zip. Final authoritative
 archive size/SHA/file list and extracted-CLI outcomes live in
@@ -59,3 +59,29 @@ mark the full goal complete while the required external gates remain open.
 Next experiment: provision the official Qwen route, check protocol, then repeat
 paired equal-budget runs on the frozen suite and verify the actual Linux image.
 No platform submission has been made.
+
+
+## User-authorized OpenRouter development backend
+
+On 2026-10-20 the user requested the best free OpenRouter option and authorized
+browser access to obtain a key. Chrome connected to an authenticated account;
+OpenRouter onboarding automatically issued a default key. It is stored in the
+ignored .env.openrouter.local file (mode 0600) and named ATLAS AutoResearch Free.
+No payment details were added or credits purchased. Never print the key value.
+
+Pinned model: minimax/minimax-m3.1-flash:free. The client enforces zero prompt and
+completion price ceilings, mandatory low-effort reasoning and 4096 output tokens.
+Initial reasoning.enabled=false probe failed with HTTP400; corrected JSON smoke
+succeeded. Two subsequent actual research calls cost $0, consumed 12137 tokens,
+and generated distinct CatBoost feature/HPO experiments. Both fitted and lost
+to the initial champion, so both were rejected. Final ensemble RMSE 0.273152 on
+one synthetic holdout, 46.69s elapsed, all full refits passed. This is functional
+proof, not an equal-budget quality ablation. Organizer Qwen remains unavailable.
+
+Entry point: scripts/run_openrouter.py. Its explicit research-client injection
+never activates automatically in solution.py. scripts/openrouter_client.py and
+the key file are excluded from the ZIP. Report: reports/openrouter-live.json.
+All 154 tests passed against unchanged runtime digest
+99d4c0b96295fe16e018fba0f83ba27c91b0400854a028d384660208d8bbe244.
+The official archive was rebuilt and verified with scripts/finalize_release.py;
+source and archive digests match the 154-test result.

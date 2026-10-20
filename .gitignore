@@ -8,6 +8,9 @@ artifacts/official/*.html
 artifacts/official/*.download
 runs/
 .env
+.env.local
+.env.*.local
+.secrets/
 submission.zip
 reports/stress/data/
 artifacts/official/render/

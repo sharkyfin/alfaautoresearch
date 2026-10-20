@@ -1,0 +1,218 @@
+{
+  "status": "passed",
+  "scope": "User-authorized development backend; not organizer Qwen",
+  "model": "minimax/minimax-m3.1-flash:free",
+  "runtime_code_sha256": "99d4c0b96295fe16e018fba0f83ba27c91b0400854a028d384660208d8bbe244",
+  "source": "https://openrouter.ai/minimax/minimax-m3.1-flash:free",
+  "selection": "Pinned best candidate for bounded JSON research based on confirmed endpoint availability, JSON support and published benchmarks among checked alternatives; no exhaustive local ranking",
+  "protocol_smoke": {
+    "status": "response",
+    "elapsed_seconds": 1.131,
+    "model": "minimax/minimax-m3.1-flash:free",
+    "finish_reason": "stop",
+    "message": "{\"ok\":true}",
+    "usage": {
+      "prompt_tokens": 216,
+      "completion_tokens": 19,
+      "total_tokens": 235,
+      "cost": 0,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 195,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0,
+        "upstream_inference_prompt_cost": 0,
+        "upstream_inference_completions_cost": 0
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 14,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "protocol_adjustment": "Initial reasoning.enabled=false request received HTTP400; low effort with mandatory reasoning succeeded",
+  "summary": {
+    "runtime_code_sha256": "99d4c0b96295fe16e018fba0f83ba27c91b0400854a028d384660208d8bbe244",
+    "mode": "live-agent",
+    "budget_seconds": 120.0,
+    "elapsed_seconds": 46.689932815002976,
+    "first_checkpoint_latency": 2.0102389639941975,
+    "validation": {
+      "id": "f69dabb389e241d8",
+      "kind": "random",
+      "reason": "IID regression; no evidence for grouped/forward validation",
+      "seed": 42,
+      "train_rows": 400,
+      "valid_rows": 100
+    },
+    "metric": "rmse",
+    "dummy_utility": -2.580260908278835,
+    "experiments": 14,
+    "successful_experiments": 14,
+    "accepted_experiments": 3,
+    "champion_metric": 0.277601941580463,
+    "champion_recipe": {
+      "model_family": "catboost",
+      "params": {
+        "iterations": 500,
+        "depth": 7
+      },
+      "feature_ops": [],
+      "target_transform": "none",
+      "max_runtime_sec": 18.0,
+      "validation_plan_id": "f69dabb389e241d8",
+      "id": "candidate",
+      "statement": "Native categorical symmetric booster",
+      "parent_experiment": null
+    },
+    "confirmation_metric": 0.5623264232544135,
+    "ensemble": {
+      "weights": [
+        0.75,
+        0.25
+      ],
+      "metric_value": 0.27315179968495573,
+      "confirmation_metric": 0.558073533692197,
+      "robust_utility": -0.4156126666885764
+    },
+    "multipliers": null,
+    "qwen_calls": 0,
+    "qwen_proposals": 0,
+    "qwen_tokens": 0,
+    "qwen_events": [],
+    "max_live_worker_threads": 24,
+    "peak_worker_memory_mb": 148.296875,
+    "cancelled": false,
+    "output": "/Users/mac/Documents/projects/alfaautoresearch/runs/openrouter-live/data/submission.csv",
+    "output_sha256": "c73f2c50fd33258554c849a32dccb00eb9f9b6ab6be0d2f4b69c404575200806",
+    "full_refit_published": true,
+    "researcher_provider": "openrouter-free",
+    "researcher_model": "minimax/minimax-m3.1-flash:free",
+    "researcher_calls": 2,
+    "researcher_proposals": 2,
+    "researcher_tokens": 12137,
+    "researcher_events": [
+      {
+        "status": "researcher_backend",
+        "provider": "openrouter-free",
+        "model": "minimax/minimax-m3.1-flash:free",
+        "paid_fallback": false
+      },
+      {
+        "status": "api_usage",
+        "provider": "openrouter-free",
+        "model": "minimax/minimax-m3.1-flash:free",
+        "cost_usd": 0
+      },
+      {
+        "status": "response",
+        "call": 1,
+        "tokens": 6060
+      },
+      {
+        "status": "api_usage",
+        "provider": "openrouter-free",
+        "model": "minimax/minimax-m3.1-flash:free",
+        "cost_usd": 0
+      },
+      {
+        "status": "response",
+        "call": 2,
+        "tokens": 12137
+      }
+    ]
+  },
+  "live_hypotheses": [
+    {
+      "experiment_id": "exp_0007",
+      "origin": "openrouter",
+      "status": "ok",
+      "metric_value": 0.311513111384758,
+      "accepted": false,
+      "accepted_reason": "no meaningful objective gain",
+      "recipe": {
+        "model_family": "catboost",
+        "params": {
+          "iterations": 500,
+          "depth": 7
+        },
+        "feature_ops": [
+          {
+            "op": "product",
+            "columns": [
+              "x0",
+              "x1"
+            ]
+          }
+        ],
+        "target_transform": "none",
+        "max_runtime_sec": 18.0,
+        "validation_plan_id": "f69dabb389e241d8",
+        "id": "candidate",
+        "statement": "Adding an explicit x0×x1 interaction feature to CatBoost will improve validation RMSE over the champion because x0 and x1 dominate feature importance and the target appears to depend on their joint nonlinear relationship, which a symmetric tree ensemble may approximate inefficiently.",
+        "parent_experiment": "exp_0003"
+      },
+      "runtime_sec": 2.690883767994819
+    },
+    {
+      "experiment_id": "exp_0008",
+      "origin": "openrouter",
+      "status": "ok",
+      "metric_value": 0.289870763616984,
+      "accepted": false,
+      "accepted_reason": "no meaningful objective gain",
+      "recipe": {
+        "model_family": "catboost",
+        "params": {
+          "iterations": 700,
+          "depth": 5,
+          "learning_rate": 0.03,
+          "l2_leaf_reg": 10,
+          "random_strength": 1
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 18.0,
+        "validation_plan_id": "f69dabb389e241d8",
+        "id": "exp_0008",
+        "statement": "Reducing CatBoost depth from 7 to 5 while lowering learning rate and adding modest L2 regularization will improve validation RMSE from 0.27760 by reducing overfitting and shrinking extreme-target errors, especially in the highest target quantile.",
+        "parent_experiment": "exp_0003"
+      },
+      "runtime_sec": 2.9386222890025238
+    }
+  ],
+  "output_valid": true,
+  "output_rows": 60,
+  "loop_cost_usd": 0,
+  "live_comparison": "No paired equal-budget ablation performed; both hypotheses lost to the initial champion on this one synthetic case",
+  "key_storage": {
+    "path": ".env.openrouter.local",
+    "mode": "0600",
+    "git_ignored": true,
+    "included_in_zip": false,
+    "browser_key_name": "ATLAS AutoResearch Free"
+  },
+  "paid_fallback": false,
+  "worker_key_forwarding": false,
+  "development_source_sha256": {
+    "scripts/openrouter_client.py": "8d75c8868744bd0e56b9ae8a8052f5ca836688c8f469b5bd0fe3b2276bf9ddd1",
+    "scripts/run_openrouter.py": "4443485f58b20e747833876a853cf05ba00ca4aefa0ee78479839b905c9ee4c1"
+  },
+  "account_after_run": {
+    "status": "passed",
+    "reported_usage_usd": 0,
+    "reported_usage_daily_usd": 0,
+    "free_model_daily_requests": {
+      "used": 3,
+      "limit": 50,
+      "remaining": 47
+    },
+    "key_limit_usd": 100,
+    "payment_added_by_agent": false
+  }
+}

@@ -1,0 +1,19 @@
+{"event": "SAFE_BASELINE", "output": "/Users/mac/Documents/projects/alfaautoresearch/runs/openrouter-live/data/submission.csv", "elapsed": 2.0102389639941975, "warnings": []}
+{"event": "VALIDATION", "plan": {"id": "f69dabb389e241d8", "kind": "random", "reason": "IID regression; no evidence for grouped/forward validation", "seed": 42, "train_rows": 400, "valid_rows": 100}, "metric": "rmse", "mode": "live-agent"}
+{"event": "experiment", "id": "exp_0001", "family": "linear", "status": "ok", "score": 1.3481825674859476, "accepted": true, "seconds": 1.585}
+{"event": "experiment", "id": "exp_0002", "family": "lightgbm", "status": "ok", "score": 0.7028427340935229, "accepted": true, "seconds": 1.672}
+{"event": "experiment", "id": "exp_0003", "family": "catboost", "status": "ok", "score": 0.277601941580463, "accepted": true, "seconds": 2.21}
+{"event": "experiment", "id": "exp_0004", "family": "hist", "status": "ok", "score": 0.6470261148994596, "accepted": false, "seconds": 2.113}
+{"event": "experiment", "id": "exp_0005", "family": "extra_trees", "status": "ok", "score": 0.4806556688399478, "accepted": false, "seconds": 1.83}
+{"event": "experiment", "id": "exp_0006", "family": "xgboost", "status": "ok", "score": 0.401949227648656, "accepted": false, "seconds": 1.611}
+{"event": "experiment", "id": "exp_0007", "family": "catboost", "status": "ok", "score": 0.311513111384758, "accepted": false, "seconds": 2.691}
+{"event": "experiment", "id": "exp_0008", "family": "catboost", "status": "ok", "score": 0.289870763616984, "accepted": false, "seconds": 2.939}
+{"event": "experiment", "id": "exp_0009", "family": "catboost", "status": "ok", "score": 0.29318726552954, "accepted": false, "seconds": 2.273}
+{"event": "experiment", "id": "exp_0010", "family": "catboost", "status": "ok", "score": 0.5623264232544135, "accepted": false, "seconds": 1.947}
+{"event": "experiment", "id": "exp_0011", "family": "catboost", "status": "ok", "score": 0.5587070426038799, "accepted": false, "seconds": 1.652}
+{"event": "experiment", "id": "exp_0012", "family": "catboost", "status": "ok", "score": 0.6077072453595962, "accepted": false, "seconds": 1.861}
+{"event": "ensemble_accepted", "weights": [0.75, 0.25], "score": 0.27315179968495573, "confirmation": 0.558073533692197}
+{"event": "experiment", "id": "exp_0013", "family": "catboost", "status": "ok", "score": null, "accepted": false, "seconds": 1.844}
+{"event": "experiment", "id": "exp_0014", "family": "catboost", "status": "ok", "score": null, "accepted": false, "seconds": 1.671}
+{"event": "full_refit_published", "components": 2}
+{"event": "DONE", "summary": "/Users/mac/Documents/projects/alfaautoresearch/runs/openrouter-live/run/summary.json", "elapsed": 46.69, "champion_metric": 0.277601941580463}

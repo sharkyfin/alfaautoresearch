@@ -19,7 +19,7 @@ from .ensemble import choose_blend,tune_multipliers,adjust_probabilities
 
 def emit(event,**values):print(json.dumps({'event':event,**values},ensure_ascii=False,allow_nan=False),flush=True)
 
-def run(task_path,started=None,budget_seconds=10500,mode='auto',seed=42,threads=8,max_experiments=30,memory_mb=24576,run_dir=None,strict=True):
+def run(task_path,started=None,budget_seconds=10500,mode='auto',seed=42,threads=8,max_experiments=30,memory_mb=24576,run_dir=None,strict=True,research_client=None):
     source_digest=code_digest()
     start=started or time.monotonic();budget=Budget(float(budget_seconds),start)
     inputs=read_inputs(task_path);data=load(inputs,strict=strict)
@@ -41,7 +41,8 @@ def run(task_path,started=None,budget_seconds=10500,mode='auto',seed=42,threads=
     history=[];finalists=[];family_best={};champion=None;confirmed={};blend=None;multipliers=None;refit_published=False
     split=design(data,seed);data.spec.validation_plan=split.json()
     data.spec.suspicious_leakage_features=leakage_signals(data,split.train)
-    qwen=QwenClient('live' if mode in {'auto','live-agent'} else 'disabled')
+    qwen=research_client if research_client is not None else QwenClient('live' if mode in {'auto','live-agent'} else 'disabled')
+    research_origin=getattr(qwen,'origin','qwen');research_provider=getattr(qwen,'provider','organizer-qwen')
     actual_mode='live-agent' if qwen.configured and mode in {'auto','live-agent'} else 'mock-agent' if mode=='mock-agent' else 'deterministic'
     scheduler=SearchController(data.spec,budget,actual_mode,seed)
     executor=Executor(data,directory/'experiments',threads,memory_mb,lambda:stop['requested'],strict)
@@ -75,7 +76,7 @@ def run(task_path,started=None,budget_seconds=10500,mode='auto',seed=42,threads=
                     context=researcher_context(data,history,champion,remaining)
                     context['recipe_rejections']=[e for e in qwen.events if e['status']=='recipe_rejected'][-3:]
                     proposed=qwen.propose(context,timeout=max(1,min(20,remaining*.1)))
-                    if proposed is not None:raw=proposed;origin='qwen'
+                    if proposed is not None:raw=proposed;origin=research_origin
                 elif actual_mode=='mock-agent' and scheduler.research_index<=3:
                     raw=mock_hypothesis(data.spec,champion,scheduler.research_index);origin='mock'
             # Already-failed libraries do not consume the rest of the budget.
@@ -85,7 +86,7 @@ def run(task_path,started=None,budget_seconds=10500,mode='auto',seed=42,threads=
             try:r=validate(raw,data.spec,remaining=budget.search_remaining,seen=scheduler.seen)
             except RecipeError as error:
                 register(directory/'rejections.jsonl',{'reason':str(error),'origin':origin})
-                if origin=='qwen':
+                if origin==research_origin:
                     qwen.events.append({'status':'recipe_rejected','reason':str(error)})
                     if sum(e['status']=='recipe_rejected' for e in qwen.events)>=3:qwen.open=True
                 continue
@@ -174,6 +175,9 @@ def run(task_path,started=None,budget_seconds=10500,mode='auto',seed=42,threads=
         for sig,handler in old_handlers.items():signal.signal(sig,handler)
         summary={'runtime_code_sha256':source_digest,'mode':actual_mode,'budget_seconds':budget.total,'elapsed_seconds':time.monotonic()-start,'first_checkpoint_latency':first_latency,'validation':split.json(),'metric':data.spec.metric.name,'dummy_utility':initial_utility,'experiments':len(history),'successful_experiments':sum(r['status']=='ok' for r in history),'accepted_experiments':sum(r.get('accepted',False) for r in history),'champion_metric':champion['metric_value'] if champion else None,'champion_recipe':champion['recipe'] if champion else None,'confirmation_metric':champion.get('confirmation_metric') if champion else None,'ensemble':{k:v for k,v in blend.items() if k not in {'components','predictions'}} if blend else None,'multipliers':{k:v for k,v in multipliers.items() if k!='predictions'} if multipliers else None,'qwen_calls':qwen.requests,'qwen_proposals':qwen.calls,'qwen_tokens':qwen.tokens,'qwen_events':qwen.events,'max_live_worker_threads':max((r.get('max_live_threads',0) for r in history),default=0),'peak_worker_memory_mb':max((r['peak_memory_mb'] for r in history),default=0),'cancelled':stop['requested'],'output':str(inputs.output),'output_sha256':hashlib.sha256(inputs.output.read_bytes()).hexdigest() if inputs.output.exists() else None}
         summary['full_refit_published']=refit_published
+        summary.update(researcher_provider=research_provider,researcher_model=qwen.model if qwen.configured else None,researcher_calls=qwen.requests,researcher_proposals=qwen.calls,researcher_tokens=qwen.tokens,researcher_events=qwen.events)
+        if research_provider!='organizer-qwen':
+            summary.update(qwen_calls=0,qwen_proposals=0,qwen_tokens=0,qwen_events=[])
         final_recipe={'output_sha256':summary['output_sha256'],'full_refit':refit_published,'seed':seed,'labels':data.spec.labels,'components':[{'recipe':c['recipe'],'iterations':c.get('iterations'),'experiment_id':c['experiment_id']} for c in (blend['components'] if blend else [champion] if champion else [])],'blend_weights':blend['weights'] if blend else [1.],'probability_multipliers':multipliers['weights'] if multipliers else None}
         (directory/'final_recipe.json').write_text(json.dumps(final_recipe,ensure_ascii=False,indent=2,allow_nan=False))
         (directory/'summary.json').write_text(json.dumps(summary,ensure_ascii=False,indent=2,allow_nan=False))

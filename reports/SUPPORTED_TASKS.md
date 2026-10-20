@@ -18,7 +18,7 @@
 | Ensembles | Common holdout probabilities/predictions; fixed small convex weight grid; second-split confirmation | No in-sample stacking; no claim of exhaustive nested-CV optimization |
 | Failures | Model errors/timeouts/RSS limit, Qwen faults, worker kill and SIGTERM preserve earlier CSV | Unavailable/corrupt inputs or unwritable filesystem cannot be guaranteed |
 | Unknown metric | Explicit diagnostic plus RMSE/Macro F1 fallback | No claim that the unknown formula is optimized |
-| LLM | Official env contract and bounded compatible client, mock/failure tests | Live Qwen unavailable; API cost/protocol/provider behavior not validated |
+| LLM | Official env contract and bounded compatible client, mock/failure tests; separate live MiniMax/OpenRouter development client | Organizer Qwen unavailable; OpenRouter is not organizer access and is excluded from the competition ZIP |
 | Environment | Python 3.12.14 on macOS; approved library pins; thread/RSS/wall-time controls | Exact Linux Docker 8CPU/32GiB gate is unverified |
 
 Synthetic coverage includes 35 scenarios × 2 seeds. This demonstrates tested
