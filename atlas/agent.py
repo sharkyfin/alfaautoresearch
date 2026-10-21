@@ -55,7 +55,10 @@ def compact_context(context,limit=10000):
     for _ in range(80):
         if size()<=limit:return value
         history=value.get('history',[]);dictionary=untrusted.get('dictionary',[])
-        if len(history)>2:value['history']=history[1:];continue
+        if len(history)>2:
+            protected=next((i for i in range(len(history)-1,-1,-1) if history[i].get('origin') in {'qwen','openrouter','mock'}),-1)
+            discard=next(i for i in range(len(history)-1) if i!=protected)
+            value['history']=history[:discard]+history[discard+1:];continue
         if len(dictionary)>8:untrusted['dictionary']=dictionary[:max(8,len(dictionary)-8)];continue
         if len(profile.get('columns',{}))>6:profile['columns']=dict(list(profile['columns'].items())[:-2]);continue
         if len(untrusted.get('description',''))>600:untrusted['description']=untrusted['description'][:-250];continue
@@ -64,7 +67,14 @@ def compact_context(context,limit=10000):
                 untrusted[key]=untrusted[key][:-5];break
         else:
             if dictionary:untrusted['dictionary']=dictionary[:-1];continue
-            if history:value['history']=history[1:];continue
+            if history:
+                protected=next((i for i in range(len(history)-1,-1,-1) if history[i].get('origin') in {'qwen','openrouter','mock'}),-1)
+                if len(history)>1:
+                    discard=0 if protected!=0 else 1
+                    value['history']=history[:discard]+history[discard+1:];continue
+                if protected<0:value['history']=[];continue
+                minimal={k:history[0][k] for k in ['experiment_id','origin','status','metric_value','accepted','exception_class'] if k in history[0]}
+                if history[0]!=minimal:value['history']=[minimal];continue
             if profile.get('columns'):
                 profile['columns']={};continue
             for key in ['features','numeric','categorical']:
@@ -157,8 +167,11 @@ def researcher_context(data,history,champion,remaining):
     from .expressions import FUNCTIONS
     spec=data.spec
     public_history=[]
-    for r in history[-6:]:
-        public_history.append({k:r[k] for k in ['experiment_id','recipe','status','metric_value','accepted','diagnostics','runtime_sec','exception_class'] if k in r})
+    recent=history[-6:]
+    latest_research=next((r for r in reversed(history) if r.get('origin') in {'qwen','openrouter','mock'}),None)
+    if latest_research and latest_research['experiment_id'] not in {r.get('experiment_id') for r in recent}:recent=[latest_research,*recent[-5:]]
+    for r in recent:
+        public_history.append({k:r[k] for k in ['experiment_id','origin','recipe','status','metric_value','accepted','diagnostics','runtime_sec','exception_class'] if k in r})
     dictionary=[]
     if {'feature','description_ru'}<=set(data.dictionary):
         for row in data.dictionary.head(60).itertuples():dictionary.append({'column':str(row.feature)[:100],'description':str(row.description_ru)[:100],'unit':str(getattr(row,'unit',''))[:60],'role':str(getattr(row,'role',''))[:30]})

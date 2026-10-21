@@ -42,9 +42,11 @@ class SearchController:
     def __init__(self,spec,budget,mode='deterministic',seed=42):
         self.spec=spec;self.budget=budget;self.mode=mode;self.rng=np.random.default_rng(seed);self.stage='INITIALIZE';self.seen=set();self.failures={};self.research_index=0
         self.queue=initial_portfolio(spec,budget.total)
+        self.initial_attempts=0
     def next(self,champion):
-        if self.queue:
-            self.stage='MODEL_DIVERSITY';return self.queue.pop(0)
+        early_research=self.mode=='live-agent' and champion is not None and self.initial_attempts>=2 and self.research_index==0
+        if self.queue and not early_research:
+            self.stage='MODEL_DIVERSITY';self.initial_attempts+=1;return self.queue.pop(0)
         self.stage='RESEARCH';self.research_index+=1
         if not champion or self.research_index>24:return None
         spec=self.spec;base=copy.deepcopy(champion['recipe']);base.pop('validation_plan_id',None);base['parent_experiment']=champion['experiment_id'];base['id']=f'local_{self.research_index}'

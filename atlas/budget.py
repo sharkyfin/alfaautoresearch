@@ -34,6 +34,7 @@ def stop_process(proc):
 def run_process(command,cwd: Path,timeout: float,memory_mb=24576,threads=8,should_stop=lambda:False):
     # Deliberately do not forward API keys, home directories, proxy variables or PYTHONPATH.
     env={'PATH':os.defpath,'PYTHONIOENCODING':'utf-8','PYTHONHASHSEED':'0','PYTHONUNBUFFERED':'1'}
+    env['MPLCONFIGDIR']=str(cwd/'mpl-cache')
     for key in ['OMP_NUM_THREADS','MKL_NUM_THREADS','OPENBLAS_NUM_THREADS','NUMEXPR_NUM_THREADS','VECLIB_MAXIMUM_THREADS']:env[key]=str(threads)
     log_path=cwd/'worker.log';start=time.monotonic();peak=0.;cpu=0.;max_threads=0;reason=None
     with log_path.open('w') as log:

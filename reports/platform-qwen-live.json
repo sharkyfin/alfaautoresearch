@@ -1,0 +1,41 @@
+{
+  "status": "passed",
+  "runtime_code_sha256": "68117d082cc1a4d1c79ee053497c3a39e1063211ef6378cbc54b29f07b7cd05a",
+  "mode": "organizer-qwen",
+  "metric": "rmse",
+  "baseline_metric": 3.1593049134148417,
+  "feature_metric": 6.603774120787718e-05,
+  "improved": true,
+  "feature_expressions": [
+    {
+      "name": "x0_x1_product",
+      "expression": "col(\"x0\") * col(\"x1\")",
+      "reason": "Direct multiplicative interaction between x0 and x1."
+    },
+    {
+      "name": "x0_x1_safe_ratio",
+      "expression": "col(\"x0\") / maximum(abs(col(\"x1\")), 1.0)",
+      "reason": "Stable ratio capturing relative magnitude of x0 versus x1."
+    }
+  ],
+  "qwen_calls": 1,
+  "qwen_events": [
+    {
+      "status": "api_usage",
+      "call": 1,
+      "response_model": "qwen/qwen3.8-27b",
+      "prompt_tokens": 4298,
+      "completion_tokens": 1018,
+      "reported_cost": 0.366694213392
+    },
+    {
+      "status": "response",
+      "call": 1,
+      "tokens": 5316
+    }
+  ],
+  "worker_status": "ok",
+  "output_valid": true,
+  "run_dir": "/Users/nosovdanil/PycharmProjects/1/alfaautoresearch/runs/feature-smoke-npkv86pz",
+  "limitation": "Synthetic plumbing check with an explicitly suggested interaction; not a public leaderboard benchmark"
+}

@@ -33,6 +33,8 @@ read in Chrome and downloaded verbatim as artifacts/official/qwen-access-guide.m
 - All uploaded files must be at ZIP root: solution.py, own .py modules, official requirements.txt.
 - Only root .py and requirements.txt are copied into the task directory. Nested atlas/ is discarded.
 - Exact invocation: python3 solution.py task.md, cwd is the task directory.
+- Runtime always writes submission.csv beside task.md; historical output filenames in task prose cannot redirect it.
+- CSV input references accept inline code, Markdown links and plain relative paths. Existing files at the task root are the fallback.
 - Runtime may create directories in the task folder and /tmp. Our flat bootstrap reconstructs only our own unchanged sources there; no packages or binaries are bundled.
 - ZIP limit 100MB; 8CPU, 32GB RAM, 10800 seconds.
 - Environment supplies OPENAI_BASE_URL and OPENAI_API_KEY. OPENAI_MODEL is optional. The guide promises model rewriting; a real development call with a generic name returned HTTP403 key_model_access_denied. Runtime therefore defaults to the guide's qwen/qwen3.8-27b name, still allowing an environment override.

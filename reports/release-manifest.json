@@ -1,16 +1,16 @@
 {
   "status": "built; execution gates recorded separately",
   "layout": "root Python files and official requirements.txt only",
-  "runtime_code_sha256": "7971fad57c6b2bf9e81df22d62fa4903ec6900868e82eedbc136382af55fb7bf",
+  "runtime_code_sha256": "68117d082cc1a4d1c79ee053497c3a39e1063211ef6378cbc54b29f07b7cd05a",
   "archive": "submission.zip",
-  "bytes": 45245,
-  "sha256": "5179e3243c55937a1ec37151f8322d90d80d5bf2aca10e7ee9c2f1f3e16b68ad",
+  "bytes": 45810,
+  "sha256": "f4eedfe8fd7d66ccf3e4a351cddba3409472c68979cf003e56d803cbdb435618",
   "files": [
     {
       "path": "solution.py",
       "source": "generated bootstrap",
       "bytes": 3086,
-      "sha256": "537ddca908e91cd823d0f54b364ddaa749a748ed402ba3fd67e39e879b97e4a8"
+      "sha256": "60978711170630b835f799640d63a19cf0ed99579cee409d50724e2441daee6c"
     },
     {
       "path": "_atlas_entry.py",
@@ -27,20 +27,20 @@
     {
       "path": "atlas_agent.py",
       "source": "atlas/agent.py",
-      "bytes": 14013,
-      "sha256": "dcf3f0b9f7b4ffc947b80dd23efcffb01e9498e6ac05ece9f4e3d18f78c6a406"
+      "bytes": 15101,
+      "sha256": "cd7b961d220c4c90e74e3bba267122840e4235262dccc165cbfbca95368a18bd"
     },
     {
       "path": "atlas_budget.py",
       "source": "atlas/budget.py",
-      "bytes": 3045,
-      "sha256": "061e5979e02f1afffc49855195aaa3f3c19a903180e6da649ebb8360357dc7a3"
+      "bytes": 3090,
+      "sha256": "7ad67e7883da7321a057cbf698a89ccf83ac04577207c00d6e0fa2c915298be4"
     },
     {
       "path": "atlas_contract.py",
       "source": "atlas/contract.py",
-      "bytes": 1914,
-      "sha256": "49467a2094bc895005b6256f1f8abaf11aa099854173a26afce1d72e736cca44"
+      "bytes": 2374,
+      "sha256": "0a1b4eb3cd6ee3577ab7f8d925a6068422f62ec097c3f8d64a3337cd57caa46f"
     },
     {
       "path": "atlas_ensemble.py",
@@ -99,8 +99,8 @@
     {
       "path": "atlas_search.py",
       "source": "atlas/search.py",
-      "bytes": 8080,
-      "sha256": "8232fcedca0f3de93514165ac62ff0fc6b1e9d745e820644db9e0f268c642032"
+      "bytes": 8288,
+      "sha256": "84050d969e9f1ee186ec345ebce5f22f3c2886d20d1cb76963c69f4634cb9c33"
     },
     {
       "path": "atlas_submit.py",
