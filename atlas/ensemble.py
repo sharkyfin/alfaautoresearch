@@ -57,18 +57,49 @@ def adjust_probabilities(p,weights):
     q=p*np.asarray(weights)[None,:];return q/np.maximum(q.sum(1,keepdims=True),1e-15)
 
 
+def binary_decision_weights(y,probabilities,metric):
+    """Select one bounded threshold on the primary split, without control labels."""
+    y=np.asarray(y);p=np.asarray(probabilities)[:,1]
+    counts=np.bincount(y.astype(int),minlength=2)
+    if counts.min()<5:return None
+    thresholds=np.unique(np.r_[np.linspace(.05,.95,37),.5,
+                                np.clip(np.quantile(p,[.05,.1,.2,.35,.5,.65,.8,.9,.95]),.05,.95)])
+    order=np.argsort(p,kind='stable');positive=(y[order]==1).astype(int)
+    cumulative=np.r_[0,np.cumsum(positive)]
+    cuts=np.searchsorted(p[order],thresholds,side='right')
+    fn=cumulative[cuts];tp=counts[1]-fn;tn=cuts-fn;fp=counts[0]-tn
+    positive_f1=2*tp/np.maximum(2*tp+fp+fn,1)
+    negative_f1=2*tn/np.maximum(2*tn+fp+fn,1)
+    if metric.name=='f1_macro':scores=(positive_f1+negative_f1)/2
+    elif metric.name=='balanced_accuracy':scores=(tp/counts[1]+tn/counts[0])/2
+    else:scores=positive_f1 if metric.positive_index==1 else negative_f1
+    maximum=scores.max()
+    tied=np.flatnonzero(np.isclose(scores,maximum,rtol=0,atol=1e-12))
+    index=tied[np.argmin(np.abs(thresholds[tied]-.5))]
+    threshold=float(thresholds[index])
+    return np.array([1.,(1-threshold)/threshold]),threshold
+
+
 def tune_multipliers(data,champion,confirmation=None):
     spec=data.spec
     if not spec.classification or spec.metric.needs_proba or spec.metric.name not in {'f1','f1_macro','balanced_accuracy'}:return None
     y=data.y[champion['split'].train];counts=np.bincount(y,minlength=len(spec.labels))
     if counts.min()<5:return None
     counts=counts/np.max(counts);base=champion['standardized_utility'];best=None
+    proposals=[]
     for power in [-.25,-.1,.1,.25]:
         w=np.clip(counts**power,.5,2.)
+        proposals.append((w,{'strategy':'frequency','power':power}))
+    if len(spec.labels)==2:
+        decision=binary_decision_weights(data.y[champion['split'].valid],champion['predictions'][0],spec.metric)
+        if decision is not None:
+            weights,threshold=decision
+            proposals.append((weights,{'strategy':'binary_threshold','threshold':threshold}))
+    for w,detail in proposals:
         p=adjust_probabilities(champion['predictions'][0],w);score=spec.metric.score(data.y[champion['split'].valid],p)
-        if meaningful_gain(spec.metric.utility(score),base):best=(score,w,p);base=spec.metric.utility(score)
+        if meaningful_gain(spec.metric.utility(score),base):best=(score,w,p,detail);base=spec.metric.utility(score)
     if best is None:return None
-    score,w,p=best
+    score,w,p,detail=best
     evidence=controls(confirmation)
     if not evidence:return None
     scores=[]
@@ -77,4 +108,4 @@ def tune_multipliers(data,champion,confirmation=None):
         cs=spec.metric.score(data.y[control['split'].valid],cp)
         if not meaningful_gain(spec.metric.utility(cs),control['standardized_utility']):return None
         scores.append({'split_id':control['split'].id,'metric_value':cs})
-    return {'weights':w.tolist(),'metric_value':score,'confirmation_metric':float(np.mean([s['metric_value'] for s in scores])),'confirmation_metrics':scores,'predictions':(p,adjust_probabilities(champion['predictions'][1],w))}
+    return {'weights':w.tolist(),'metric_value':score,'confirmation_metric':float(np.mean([s['metric_value'] for s in scores])),'confirmation_metrics':scores,**detail,'predictions':(p,adjust_probabilities(champion['predictions'][1],w))}

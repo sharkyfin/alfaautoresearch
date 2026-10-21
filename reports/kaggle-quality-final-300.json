@@ -1,0 +1,822 @@
+{
+  "status": "completed",
+  "runtime_code_sha256": "f2d104a73fac2a01c7c615fee1bcfb0fd18c0faa52a87579b6f1ecd2ca122eb7",
+  "archive_sha256": "c213bab63badfcf8fc92001c7e3de92c6a7bd333c60931a7e9814a5b1a4ce89c",
+  "budget_seconds_per_task": 300.0,
+  "threads": 8,
+  "memory_mb": 8192,
+  "phase": "development",
+  "run_root": "/Users/nosovdanil/PycharmProjects/1/alfaautoresearch/runs/kaggle-benchmark-qlkpsdde",
+  "packages": {
+    "numpy": "1.26.4",
+    "pandas": "2.2.3",
+    "scikit-learn": "1.5.2",
+    "scipy": "1.12.0",
+    "lightgbm": "4.6.0",
+    "xgboost": "2.1.4"
+  },
+  "runs": [
+    {
+      "case": "california_housing",
+      "mode": "live-agent",
+      "seed": 53,
+      "phase": "development",
+      "metric": "rmse",
+      "budget_seconds": 300.0,
+      "wall_seconds": 150.027,
+      "threads": 8,
+      "memory_mb": 8192,
+      "runtime_code_sha256": "f2d104a73fac2a01c7c615fee1bcfb0fd18c0faa52a87579b6f1ecd2ca122eb7",
+      "raw_sha256": "929d21111f99a691e8222aad1c5b14fcd198de057016ba7bff5e3c10b92f072f",
+      "split_sha256": "6f66fb8ce3b156da92292c50b58bd9de8a49c8769a12b00bb5c061e1c4525d7f",
+      "returncode": 0,
+      "log": "/Users/nosovdanil/PycharmProjects/1/alfaautoresearch/runs/kaggle-benchmark-qlkpsdde/california_housing_53/live-agent/live-agent.log",
+      "run_dir": "/Users/nosovdanil/PycharmProjects/1/alfaautoresearch/runs/kaggle-benchmark-qlkpsdde/california_housing_53/live-agent/run",
+      "qwen_calls": 2,
+      "qwen_tokens": 9505,
+      "internal_metric": 43535.714262131274,
+      "experiments": 34,
+      "full_refit": true,
+      "champion_family": "lightgbm",
+      "decision_adjustment": null,
+      "ensemble": {
+        "weights": [
+          0.5,
+          0.5
+        ],
+        "metric_value": 43106.812473230646,
+        "confirmation_metric": 44209.31756919034,
+        "confirmation_metrics": [
+          {
+            "split_id": "86bad562ecf67c4d",
+            "metric_value": 44209.31756919034,
+            "utility": -44209.31756919034
+          }
+        ],
+        "robust_utility": -43795.87815820546
+      },
+      "output_sha256": "e74426284c307e4e8b9f93da986b951ffd8a1a062ddfe752a3076b3126d539d5",
+      "feature_ablation_checks": 5,
+      "accepted_feature_ablations": 2,
+      "external_metric": 45394.65563230537,
+      "status": "ok",
+      "qwen_fits": 2,
+      "qwen_accepted": 2,
+      "research_experiments": [
+        {
+          "experiment_id": "exp_0003",
+          "status": "ok",
+          "metric_value": 46233.694659986206,
+          "accepted": true,
+          "recipe": {
+            "model_family": "lightgbm",
+            "params": {
+              "iterations": 500,
+              "num_leaves": 31,
+              "min_child_samples": 30
+            },
+            "feature_ops": [],
+            "target_transform": "none",
+            "max_runtime_sec": 45.0,
+            "validation_plan_id": "96a1295fb75696a7",
+            "feature_expressions": [
+              {
+                "name": "income_per_household",
+                "expression": "col(\"median_income\") / maximum(col(\"households\"), 1)",
+                "reason": "Normalizes income by household count to capture economic density, a key driver of housing value."
+              },
+              {
+                "name": "bedrooms_per_room",
+                "expression": "col(\"total_bedrooms\") / maximum(col(\"total_rooms\"), 1)",
+                "reason": "Measures bedroom scarcity relative to total rooms, indicating housing quality and type."
+              },
+              {
+                "name": "log_population",
+                "expression": "log1p(col(\"population\"))",
+                "reason": "Compresses the heavy-tailed population distribution to help the model handle sparse vs. dense blocks."
+              }
+            ],
+            "id": "candidate",
+            "statement": "Housing value is driven by income per household and bedroom scarcity; adding these ratios and a log-scaled population should reduce RMSE, especially in the high-value quantile where the current model undershoots.",
+            "parent_experiment": "exp_0002"
+          },
+          "feature_trial": {
+            "kind": "feature_group",
+            "parent_experiment": "exp_0002",
+            "parent_metric": 46401.23951508728,
+            "parent_utility": -46401.23951508728,
+            "held_constant": [
+              "model_family",
+              "params",
+              "target_transform",
+              "validation",
+              "seed"
+            ],
+            "changes": [
+              {
+                "kind": "formula",
+                "name": "income_per_household"
+              },
+              {
+                "kind": "formula",
+                "name": "bedrooms_per_room"
+              },
+              {
+                "kind": "formula",
+                "name": "log_population"
+              }
+            ],
+            "ignored_model_overrides": [],
+            "group_experiment": "exp_0003",
+            "utility_gain_vs_parent": 167.5448551010777
+          }
+        },
+        {
+          "experiment_id": "exp_0010",
+          "status": "ok",
+          "metric_value": 45237.40687727668,
+          "accepted": true,
+          "recipe": {
+            "model_family": "lightgbm",
+            "params": {
+              "iterations": 500,
+              "num_leaves": 31,
+              "min_child_samples": 30
+            },
+            "feature_ops": [],
+            "target_transform": "none",
+            "max_runtime_sec": 45.0,
+            "validation_plan_id": "96a1295fb75696a7",
+            "feature_expressions": [
+              {
+                "name": "bedrooms_per_room",
+                "expression": "col(\"total_bedrooms\") / maximum(col(\"total_rooms\"), 1)",
+                "reason": "Retained from champion."
+              },
+              {
+                "name": "households_per_room",
+                "expression": "col(\"households\") / maximum(col(\"total_rooms\"), 1)",
+                "reason": "Measures household density per room, indicating crowding or luxury."
+              },
+              {
+                "name": "population_per_household",
+                "expression": "col(\"population\") / maximum(col(\"households\"), 1)",
+                "reason": "Estimates average household size, a key demographic factor for housing demand."
+              }
+            ],
+            "id": "exp_0007",
+            "statement": "Add households_per_room and population_per_household to capture block density and household size, which are strong drivers of housing value not fully captured by raw counts.",
+            "parent_experiment": "exp_0006"
+          },
+          "feature_trial": {
+            "kind": "feature_group",
+            "parent_experiment": "exp_0006",
+            "parent_metric": 45846.485623809924,
+            "parent_utility": -45846.485623809924,
+            "held_constant": [
+              "model_family",
+              "params",
+              "target_transform",
+              "validation",
+              "seed"
+            ],
+            "changes": [
+              {
+                "kind": "formula",
+                "name": "households_per_room"
+              },
+              {
+                "kind": "formula",
+                "name": "population_per_household"
+              }
+            ],
+            "ignored_model_overrides": [],
+            "group_experiment": "exp_0010",
+            "utility_gain_vs_parent": 609.0787465332469
+          }
+        }
+      ],
+      "champion_recipe": {
+        "model_family": "lightgbm",
+        "params": {
+          "iterations": 2000,
+          "num_leaves": 15,
+          "min_child_samples": 10,
+          "reg_lambda": 5.0
+        },
+        "feature_ops": [
+          {
+            "op": "ratio",
+            "columns": [
+              "longitude",
+              "latitude"
+            ]
+          },
+          {
+            "op": "product",
+            "columns": [
+              "longitude",
+              "latitude"
+            ]
+          },
+          {
+            "op": "clip",
+            "columns": [
+              "longitude",
+              "latitude",
+              "housing_median_age",
+              "total_rooms",
+              "total_bedrooms",
+              "population",
+              "households",
+              "median_income"
+            ]
+          },
+          {
+            "op": "group_mean",
+            "columns": [
+              "ocean_proximity",
+              "longitude"
+            ]
+          }
+        ],
+        "target_transform": "none",
+        "max_runtime_sec": 45.0,
+        "validation_plan_id": "96a1295fb75696a7",
+        "feature_expressions": [
+          {
+            "name": "bedrooms_per_room",
+            "expression": "col(\"total_bedrooms\") / maximum(col(\"total_rooms\"), 1)",
+            "reason": "Retained from champion."
+          },
+          {
+            "name": "households_per_room",
+            "expression": "col(\"households\") / maximum(col(\"total_rooms\"), 1)",
+            "reason": "Measures household density per room, indicating crowding or luxury."
+          },
+          {
+            "name": "population_per_household",
+            "expression": "col(\"population\") / maximum(col(\"households\"), 1)",
+            "reason": "Estimates average household size, a key demographic factor for housing demand."
+          }
+        ],
+        "id": "local_12",
+        "statement": "Focused local hyperparameter search around measured champion",
+        "parent_experiment": "exp_0019"
+      },
+      "qwen_events": [
+        {
+          "status": "api_usage",
+          "call": 1,
+          "response_model": "qwen/qwen3.8-27b",
+          "prompt_tokens": 4706,
+          "completion_tokens": 384,
+          "reasoning_tokens": 0,
+          "finish_reason": "stop",
+          "reported_cost": 0.20486241812400002,
+          "elapsed_seconds": 10.757,
+          "timeout_seconds": 40.0
+        },
+        {
+          "status": "response",
+          "call": 1,
+          "tokens": 5090,
+          "elapsed_seconds": 10.758,
+          "timeout_seconds": 40.0
+        },
+        {
+          "status": "api_usage",
+          "call": 2,
+          "response_model": "qwen/qwen3.8-27b",
+          "prompt_tokens": 4049,
+          "completion_tokens": 366,
+          "reasoning_tokens": 0,
+          "finish_reason": "stop",
+          "reported_cost": 0.09435610406820001,
+          "elapsed_seconds": 23.434,
+          "timeout_seconds": 40.0
+        },
+        {
+          "status": "response",
+          "call": 2,
+          "tokens": 9505,
+          "elapsed_seconds": 23.434,
+          "timeout_seconds": 40.0
+        }
+      ]
+    },
+    {
+      "case": "adult_income",
+      "mode": "live-agent",
+      "seed": 53,
+      "phase": "development",
+      "metric": "f1_macro",
+      "budget_seconds": 300.0,
+      "wall_seconds": 44.256,
+      "threads": 8,
+      "memory_mb": 8192,
+      "runtime_code_sha256": "f2d104a73fac2a01c7c615fee1bcfb0fd18c0faa52a87579b6f1ecd2ca122eb7",
+      "raw_sha256": "118cb8cd7fea8d2640f5b1f416099be315a481e97ad868133200dbacaca70e7a",
+      "split_sha256": "d4c127e0405954550ebf9424afb97a97e6a19aa308023a43788aa892df92a70d",
+      "returncode": 0,
+      "log": "/Users/nosovdanil/PycharmProjects/1/alfaautoresearch/runs/kaggle-benchmark-qlkpsdde/adult_income_53/live-agent/live-agent.log",
+      "run_dir": "/Users/nosovdanil/PycharmProjects/1/alfaautoresearch/runs/kaggle-benchmark-qlkpsdde/adult_income_53/live-agent/run",
+      "qwen_calls": 2,
+      "qwen_tokens": 9271,
+      "internal_metric": 0.8174571499060406,
+      "experiments": 17,
+      "full_refit": true,
+      "champion_family": "lightgbm",
+      "decision_adjustment": null,
+      "ensemble": {
+        "weights": [
+          0.75,
+          0.25
+        ],
+        "metric_value": 0.8194075511830574,
+        "confirmation_metric": 0.8066668110187833,
+        "confirmation_metrics": [
+          {
+            "split_id": "f968664f0eb52ca9",
+            "metric_value": 0.8066668110187833,
+            "utility": 0.8066668110187833
+          }
+        ],
+        "robust_utility": 0.8114445885803862
+      },
+      "output_sha256": "68e8e98d7fcdbef074f458e6cbad9332d7f50eac82176070d6911c6316c28111",
+      "feature_ablation_checks": 0,
+      "accepted_feature_ablations": 0,
+      "external_metric": 0.8135809289407716,
+      "status": "ok",
+      "qwen_fits": 2,
+      "qwen_accepted": 0,
+      "research_experiments": [
+        {
+          "experiment_id": "exp_0003",
+          "status": "ok",
+          "metric_value": 0.8174571499060406,
+          "accepted": false,
+          "recipe": {
+            "model_family": "lightgbm",
+            "params": {
+              "iterations": 500,
+              "num_leaves": 31,
+              "min_child_samples": 30
+            },
+            "feature_ops": [],
+            "target_transform": "none",
+            "max_runtime_sec": 45.0,
+            "validation_plan_id": "c1f2e3bc1f08acb0",
+            "feature_expressions": [
+              {
+                "name": "log_cap_gain",
+                "expression": "log1p(col(\"capital.gain\"))",
+                "reason": "Compresses the heavy right tail of capital gain to improve feature scaling and split quality."
+              },
+              {
+                "name": "log_cap_loss",
+                "expression": "log1p(col(\"capital.loss\"))",
+                "reason": "Compresses the heavy right tail of capital loss to improve feature scaling and split quality."
+              },
+              {
+                "name": "hours_anomaly",
+                "expression": "where(col(\"hours.per.week\") > 60, 1, 0)",
+                "reason": "Flags high work hours which are a strong indicator of high income, helping to boost recall for the >50K class."
+              }
+            ],
+            "id": "candidate",
+            "statement": "Add log-transformed capital gain/loss and an hours-per-week anomaly flag to improve recall on the under-performing >50K class.",
+            "parent_experiment": "exp_0002"
+          },
+          "feature_trial": {
+            "kind": "feature_group",
+            "parent_experiment": "exp_0002",
+            "parent_metric": 0.8174571499060406,
+            "parent_utility": 0.8174571499060406,
+            "held_constant": [
+              "model_family",
+              "params",
+              "target_transform",
+              "validation",
+              "seed"
+            ],
+            "changes": [
+              {
+                "kind": "formula",
+                "name": "log_cap_gain"
+              },
+              {
+                "kind": "formula",
+                "name": "log_cap_loss"
+              },
+              {
+                "kind": "formula",
+                "name": "hours_anomaly"
+              }
+            ],
+            "ignored_model_overrides": [],
+            "group_experiment": "exp_0003",
+            "utility_gain_vs_parent": 0.0
+          }
+        },
+        {
+          "experiment_id": "exp_0009",
+          "status": "ok",
+          "metric_value": 0.8173139756393235,
+          "accepted": false,
+          "recipe": {
+            "model_family": "lightgbm",
+            "params": {
+              "iterations": 500,
+              "num_leaves": 31,
+              "min_child_samples": 30
+            },
+            "feature_ops": [],
+            "target_transform": "none",
+            "max_runtime_sec": 45.0,
+            "validation_plan_id": "c1f2e3bc1f08acb0",
+            "feature_expressions": [
+              {
+                "name": "edu_hours_product",
+                "expression": "col(\"education.num\") * col(\"hours.per.week\")",
+                "reason": "Captures the interaction between education level and work hours, which may better distinguish high-income individuals."
+              },
+              {
+                "name": "high_cap_gain",
+                "expression": "where(col(\"capital.gain\") > 10000, 1, 0)",
+                "reason": "Flags individuals with significant capital gains, a strong indicator of high income."
+              },
+              {
+                "name": "age_edu_ratio",
+                "expression": "col(\"age\") / maximum(col(\"education.num\"), 1)",
+                "reason": "Normalizes age by education level to capture the relative maturity of an individual's career."
+              }
+            ],
+            "id": "candidate",
+            "statement": "Add interaction features between education and work hours, and a capital gain threshold flag, to improve recall on the under-performing >50K class.",
+            "parent_experiment": "exp_0002"
+          },
+          "feature_trial": {
+            "kind": "feature_group",
+            "parent_experiment": "exp_0002",
+            "parent_metric": 0.8174571499060406,
+            "parent_utility": 0.8174571499060406,
+            "held_constant": [
+              "model_family",
+              "params",
+              "target_transform",
+              "validation",
+              "seed"
+            ],
+            "changes": [
+              {
+                "kind": "formula",
+                "name": "edu_hours_product"
+              },
+              {
+                "kind": "formula",
+                "name": "high_cap_gain"
+              },
+              {
+                "kind": "formula",
+                "name": "age_edu_ratio"
+              }
+            ],
+            "ignored_model_overrides": [],
+            "group_experiment": "exp_0009",
+            "utility_gain_vs_parent": -0.00014317426671706102
+          }
+        }
+      ],
+      "champion_recipe": {
+        "model_family": "lightgbm",
+        "params": {
+          "iterations": 500,
+          "num_leaves": 31,
+          "min_child_samples": 30
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 45.0,
+        "validation_plan_id": "c1f2e3bc1f08acb0",
+        "feature_expressions": [],
+        "id": "candidate",
+        "statement": "Fast leaf-wise booster with categorical handling",
+        "parent_experiment": null
+      },
+      "qwen_events": [
+        {
+          "status": "api_usage",
+          "call": 1,
+          "response_model": "qwen/qwen3.8-27b",
+          "prompt_tokens": 4189,
+          "completion_tokens": 373,
+          "reasoning_tokens": 0,
+          "finish_reason": "stop",
+          "reported_cost": 0.190757384181,
+          "elapsed_seconds": 3.6,
+          "timeout_seconds": 40.0
+        },
+        {
+          "status": "response",
+          "call": 1,
+          "tokens": 4562,
+          "elapsed_seconds": 3.601,
+          "timeout_seconds": 40.0
+        },
+        {
+          "status": "api_usage",
+          "call": 2,
+          "response_model": "qwen/qwen3.8-27b",
+          "prompt_tokens": 4335,
+          "completion_tokens": 374,
+          "reasoning_tokens": 0,
+          "finish_reason": "stop",
+          "reported_cost": 0.19417319454,
+          "elapsed_seconds": 2.764,
+          "timeout_seconds": 40.0
+        },
+        {
+          "status": "response",
+          "call": 2,
+          "tokens": 9271,
+          "elapsed_seconds": 2.764,
+          "timeout_seconds": 40.0
+        }
+      ]
+    },
+    {
+      "case": "dry_beans",
+      "mode": "live-agent",
+      "seed": 53,
+      "phase": "development",
+      "metric": "f1_macro",
+      "budget_seconds": 300.0,
+      "wall_seconds": 48.083,
+      "threads": 8,
+      "memory_mb": 8192,
+      "runtime_code_sha256": "f2d104a73fac2a01c7c615fee1bcfb0fd18c0faa52a87579b6f1ecd2ca122eb7",
+      "raw_sha256": "173f1c77c7636622053726b85d358b11b7a7fd9eaee6ba3bac80c75dfd94a874",
+      "split_sha256": "b89e0b8fd8ec5f6b983b6462e32f32fcfd79c206b08b985b9e4d7ea63832b678",
+      "returncode": 0,
+      "log": "/Users/nosovdanil/PycharmProjects/1/alfaautoresearch/runs/kaggle-benchmark-qlkpsdde/dry_beans_53/live-agent/live-agent.log",
+      "run_dir": "/Users/nosovdanil/PycharmProjects/1/alfaautoresearch/runs/kaggle-benchmark-qlkpsdde/dry_beans_53/live-agent/run",
+      "qwen_calls": 2,
+      "qwen_tokens": 9533,
+      "internal_metric": 0.9376583358022685,
+      "experiments": 15,
+      "full_refit": true,
+      "champion_family": "linear",
+      "decision_adjustment": null,
+      "ensemble": null,
+      "output_sha256": "64f211e32a229e301bf6a472505a714c5bad73fd96febbf82acf2b1b03172548",
+      "feature_ablation_checks": 0,
+      "accepted_feature_ablations": 0,
+      "external_metric": 0.9343693024864257,
+      "status": "ok",
+      "qwen_fits": 1,
+      "qwen_accepted": 0,
+      "research_experiments": [
+        {
+          "experiment_id": "exp_0009",
+          "status": "ok",
+          "metric_value": 0.9374374091630252,
+          "accepted": false,
+          "recipe": {
+            "model_family": "linear",
+            "params": {
+              "C": 1
+            },
+            "feature_ops": [],
+            "target_transform": "none",
+            "max_runtime_sec": 45.0,
+            "validation_plan_id": "6ec9bdd7e669c401",
+            "feature_expressions": [
+              {
+                "name": "compactness_ratio",
+                "expression": "col(\"Compactness\") / maximum(col(\"ShapeFactor3\"), 1e-6)",
+                "reason": "Ratio of compactness to shape factor 3 to capture shape regularity differences between bean varieties"
+              },
+              {
+                "name": "perimeter_to_area",
+                "expression": "col(\"Perimeter\") / maximum(col(\"ConvexArea\"), 1)",
+                "reason": "Size-normalized perimeter to capture shape complexity independent of bean size"
+              },
+              {
+                "name": "axis_ratio",
+                "expression": "col(\"MajorAxisLength\") / maximum(col(\"MinorAxisLength\"), 1)",
+                "reason": "Aspect ratio to distinguish elongated vs round bean varieties"
+              },
+              {
+                "name": "eccentricity_compact",
+                "expression": "col(\"Eccentricity\") * col(\"Compactness\")",
+                "reason": "Interaction of eccentricity and compactness to capture shape deviation from circularity"
+              }
+            ],
+            "id": "cand_0002",
+            "statement": "Adding shape-regularity ratios (Compactness, ShapeFactor3) and a size-normalized perimeter feature improves macro-F1 by helping the linear model separate the weakest classes (SIRA, BARBUNYA, DERMASON) that differ in shape regularity and size.",
+            "parent_experiment": "exp_0001"
+          },
+          "feature_trial": {
+            "kind": "feature_group",
+            "parent_experiment": "exp_0001",
+            "parent_metric": 0.9376583358022685,
+            "parent_utility": 0.9376583358022685,
+            "held_constant": [
+              "model_family",
+              "params",
+              "target_transform",
+              "validation",
+              "seed"
+            ],
+            "changes": [
+              {
+                "kind": "formula",
+                "name": "compactness_ratio"
+              },
+              {
+                "kind": "formula",
+                "name": "perimeter_to_area"
+              },
+              {
+                "kind": "formula",
+                "name": "axis_ratio"
+              },
+              {
+                "kind": "formula",
+                "name": "eccentricity_compact"
+              }
+            ],
+            "ignored_model_overrides": [],
+            "group_experiment": "exp_0009",
+            "utility_gain_vs_parent": -0.0002209266392433351
+          }
+        }
+      ],
+      "champion_recipe": {
+        "model_family": "linear",
+        "params": {
+          "C": 1
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 45.0,
+        "validation_plan_id": "6ec9bdd7e669c401",
+        "feature_expressions": [],
+        "id": "candidate",
+        "statement": "Fast regularized linear baseline",
+        "parent_experiment": null
+      },
+      "qwen_events": [
+        {
+          "status": "api_usage",
+          "call": 1,
+          "response_model": "qwen/qwen3.8-27b",
+          "prompt_tokens": 4950,
+          "completion_tokens": 295,
+          "reasoning_tokens": 0,
+          "finish_reason": "stop",
+          "reported_cost": 0.100804119585,
+          "elapsed_seconds": 4.41,
+          "timeout_seconds": 40.0
+        },
+        {
+          "status": "response",
+          "call": 1,
+          "tokens": 5245,
+          "elapsed_seconds": 4.41,
+          "timeout_seconds": 40.0
+        },
+        {
+          "status": "recipe_rejected",
+          "reason": "Unknown recipe fields: ."
+        },
+        {
+          "status": "api_usage",
+          "call": 2,
+          "response_model": "qwen/qwen3.8-27b",
+          "prompt_tokens": 3978,
+          "completion_tokens": 310,
+          "reasoning_tokens": 0,
+          "finish_reason": "stop",
+          "reported_cost": 0.0906342715824,
+          "elapsed_seconds": 5.679,
+          "timeout_seconds": 40.0
+        },
+        {
+          "status": "response",
+          "call": 2,
+          "tokens": 9533,
+          "elapsed_seconds": 5.68,
+          "timeout_seconds": 40.0
+        }
+      ]
+    }
+  ],
+  "cases": [
+    {
+      "case": "california_housing",
+      "dataset": "camnugent/california-housing-prices",
+      "source": "https://www.kaggle.com/datasets/camnugent/california-housing-prices",
+      "raw_sha256": "929d21111f99a691e8222aad1c5b14fcd198de057016ba7bff5e3c10b92f072f",
+      "member": "housing.csv",
+      "target": "median_house_value",
+      "id_column": "benchmark_id",
+      "metric": "rmse",
+      "seed": 53,
+      "phase": "development",
+      "rows": 20640,
+      "training_rows": 12384,
+      "evaluation_rows": 4128,
+      "reserved_final_rows": 4128,
+      "features": 9,
+      "split_sha256": "6f66fb8ce3b156da92292c50b58bd9de8a49c8769a12b00bb5c061e1c4525d7f",
+      "input_sha256": {
+        "train.csv": "beb3ca7d51ed1315337afca5cf0a65e151e1f5d36b4896cd4eb2b86d315b9fec",
+        "test.csv": "5ca976e5ea72ce2783b91055dd3c45c5ebb1d6af2f55d12bc8939cd23aace633",
+        "data_dictionary.csv": "6fdd078902c0580d53fe6bd398d8627ce583029b0d2155cf3bcc956536a4f495",
+        "sample_submission.csv": "e63b2990b9b7efd2f7c1d3441ff9e542be5f6e074e9c6358bcb36a7659131806",
+        "task.md": "b3cc43f6811f8d46b4882f9317e508926ef0d95de2251442fe34d4c170f489d6"
+      },
+      "labels": [],
+      "labels_outside_task_directory": true,
+      "feature_duplicate_groups_kept_together": true,
+      "sealed_labels": "/Users/nosovdanil/PycharmProjects/1/alfaautoresearch/runs/kaggle-benchmark-qlkpsdde/california_housing_53/sealed/evaluation.csv"
+    },
+    {
+      "case": "adult_income",
+      "dataset": "uciml/adult-census-income",
+      "source": "https://www.kaggle.com/datasets/uciml/adult-census-income",
+      "raw_sha256": "118cb8cd7fea8d2640f5b1f416099be315a481e97ad868133200dbacaca70e7a",
+      "member": "adult.csv",
+      "target": "income",
+      "id_column": "benchmark_id",
+      "metric": "f1_macro",
+      "seed": 53,
+      "phase": "development",
+      "rows": 32561,
+      "training_rows": 19536,
+      "evaluation_rows": 6510,
+      "reserved_final_rows": 6515,
+      "features": 14,
+      "split_sha256": "d4c127e0405954550ebf9424afb97a97e6a19aa308023a43788aa892df92a70d",
+      "input_sha256": {
+        "train.csv": "6b63b40af98367a90470cab6e71977fae50b6e01f0839ad5247b6fcb662d986b",
+        "test.csv": "95051e488db4130759e81ff5cb49a6fefa8272007cdd118409b7fd856fc7fd27",
+        "data_dictionary.csv": "f512ab1350ba436676da8df84792d0dfdcf16fd82e4002113b0872feff5b6861",
+        "sample_submission.csv": "44a431e24d562b6b5f3d42329e5bf5f86061cfab7d5a45da31f32a732096aba6",
+        "task.md": "1b652931e8b06d2ad2bd35463bcbe44514721799a113791d55d6e3129be2c1b4"
+      },
+      "labels": [
+        "<=50K",
+        ">50K"
+      ],
+      "labels_outside_task_directory": true,
+      "feature_duplicate_groups_kept_together": true,
+      "sealed_labels": "/Users/nosovdanil/PycharmProjects/1/alfaautoresearch/runs/kaggle-benchmark-qlkpsdde/adult_income_53/sealed/evaluation.csv"
+    },
+    {
+      "case": "dry_beans",
+      "dataset": "muratkokludataset/dry-bean-dataset",
+      "source": "https://www.kaggle.com/datasets/muratkokludataset/dry-bean-dataset",
+      "raw_sha256": "173f1c77c7636622053726b85d358b11b7a7fd9eaee6ba3bac80c75dfd94a874",
+      "member": "Dry_Bean_Dataset/Dry_Bean_Dataset.arff",
+      "target": "Class",
+      "id_column": "benchmark_id",
+      "metric": "f1_macro",
+      "seed": 53,
+      "phase": "development",
+      "rows": 13611,
+      "training_rows": 8165,
+      "evaluation_rows": 2725,
+      "reserved_final_rows": 2721,
+      "features": 16,
+      "split_sha256": "b89e0b8fd8ec5f6b983b6462e32f32fcfd79c206b08b985b9e4d7ea63832b678",
+      "input_sha256": {
+        "train.csv": "5494b57b555246dfd7a3e8b69abb1811f17b147bb662d8da33ed3180485c2cca",
+        "test.csv": "1f8ee3931a0b472fb3b729aae46d4092d06df97b5226dfb7ee1a27ab9d557b2f",
+        "data_dictionary.csv": "f70128bb0ef2444cc0a3c3c02d0f3f712cdf3c81045e75ca609751dab16ce5d8",
+        "sample_submission.csv": "bbcf1a54696f6efdbdb87ba8ecc8e6fd9a7d51366366ba61d01d009ada4d4d5c",
+        "task.md": "b7c182caf333b718071b6129e7fb43fd80ce0663b2a91e536ac59e7dbcdc8fdd"
+      },
+      "labels": [
+        "BARBUNYA",
+        "BOMBAY",
+        "CALI",
+        "DERMASON",
+        "HOROZ",
+        "SEKER",
+        "SIRA"
+      ],
+      "labels_outside_task_directory": true,
+      "feature_duplicate_groups_kept_together": true,
+      "sealed_labels": "/Users/nosovdanil/PycharmProjects/1/alfaautoresearch/runs/kaggle-benchmark-qlkpsdde/dry_beans_53/sealed/evaluation.csv"
+    }
+  ],
+  "platform_submissions": 0,
+  "kaggle_submissions": 0,
+  "final_lockbox_used": false,
+  "comparisons": [],
+  "research_comparisons": []
+}

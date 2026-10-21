@@ -2,8 +2,8 @@
   "status": "LOCAL_PLATFORM_CONTRACT_PASSED",
   "static": {
     "status": "passed",
-    "archive_sha256": "0c6f99d1abd2a77fdda3c7ea3ca72e5ad43eb2cbf78a0ad819de12be81090776",
-    "archive_bytes": 53498,
+    "archive_sha256": "c213bab63badfcf8fc92001c7e3de92c6a7bd333c60931a7e9814a5b1a4ce89c",
+    "archive_bytes": 55076,
     "root_file_count": 24,
     "official_requirements_unchanged": true,
     "third_party_imports": [
@@ -17,13 +17,13 @@
     ],
     "credential_literals_absent": true,
     "no_runtime_installer_or_alternative_llm": true,
-    "runtime_code_sha256": "6778485712c29058303916a56480400352e6c38de6e4e29785026a6bc3157362"
+    "runtime_code_sha256": "f2d104a73fac2a01c7c615fee1bcfb0fd18c0faa52a87579b6f1ecd2ca122eb7"
   },
   "complete_runs": [
     {
       "scenario": "iid",
       "status": "passed",
-      "seconds": 29.441,
+      "seconds": 29.308,
       "command": "python3 solution.py task.md",
       "nested_markdown_inputs": false,
       "only_platform_api_environment": true,
@@ -54,12 +54,12 @@
       ],
       "worker_thread_budget": 8,
       "worker_memory_limit_mb": 24576,
-      "runtime_code_sha256": "6778485712c29058303916a56480400352e6c38de6e4e29785026a6bc3157362"
+      "runtime_code_sha256": "f2d104a73fac2a01c7c615fee1bcfb0fd18c0faa52a87579b6f1ecd2ca122eb7"
     },
     {
       "scenario": "integer_labels",
       "status": "passed",
-      "seconds": 32.175,
+      "seconds": 38.871,
       "command": "python3 solution.py task.md",
       "nested_markdown_inputs": true,
       "only_platform_api_environment": true,
@@ -80,7 +80,7 @@
       ],
       "qwen_stub_requests": 4,
       "research_fits": 1,
-      "generated_code_files": 20,
+      "generated_code_files": 22,
       "successful_families": [
         "extra_trees",
         "hist",
@@ -90,12 +90,12 @@
       ],
       "worker_thread_budget": 8,
       "worker_memory_limit_mb": 24576,
-      "runtime_code_sha256": "6778485712c29058303916a56480400352e6c38de6e4e29785026a6bc3157362"
+      "runtime_code_sha256": "f2d104a73fac2a01c7c615fee1bcfb0fd18c0faa52a87579b6f1ecd2ca122eb7"
     },
     {
       "scenario": "future",
       "status": "passed",
-      "seconds": 29.342,
+      "seconds": 29.526,
       "command": "python3 solution.py task.md",
       "nested_markdown_inputs": false,
       "only_platform_api_environment": true,
@@ -126,7 +126,7 @@
       ],
       "worker_thread_budget": 8,
       "worker_memory_limit_mb": 24576,
-      "runtime_code_sha256": "6778485712c29058303916a56480400352e6c38de6e4e29785026a6bc3157362"
+      "runtime_code_sha256": "f2d104a73fac2a01c7c615fee1bcfb0fd18c0faa52a87579b6f1ecd2ca122eb7"
     }
   ],
   "api_check": "Local OpenAI-compatible HTTP stub, not a real LLM; no organizer key used",
@@ -136,26 +136,5 @@
     "No leaderboard submission or public quality benchmark in this audit"
   ],
   "platform_submitted": false,
-  "run_dir": "/Users/nosovdanil/PycharmProjects/1/alfaautoresearch/runs/platform-audit-ey_ekax6",
-  "unit_tests": {
-    "status": "passed",
-    "passed": 217,
-    "report": "reports/test-state.json",
-    "runtime_code_sha256": "6778485712c29058303916a56480400352e6c38de6e4e29785026a6bc3157362"
-  },
-  "signal_preservation": {
-    "status": "passed",
-    "report": "reports/zip-verification.json",
-    "archive_sha256": "0c6f99d1abd2a77fdda3c7ea3ca72e5ad43eb2cbf78a0ad819de12be81090776"
-  },
-  "organizer_qwen": {
-    "status": "passed",
-    "report": "reports/platform-qwen-live.json",
-    "calls": 1,
-    "model_controls_frozen": true,
-    "successful_ablation_checks": 1,
-    "runtime_code_sha256": "6778485712c29058303916a56480400352e6c38de6e4e29785026a6bc3157362"
-  },
-  "organizer_key_absent_from_archive": true,
-  "publication": "Local commit and ZIP only, as requested; no push or platform submission"
+  "run_dir": "/Users/nosovdanil/PycharmProjects/1/alfaautoresearch/runs/platform-audit-aj4fq7z2"
 }

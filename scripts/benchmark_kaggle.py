@@ -70,6 +70,9 @@ def run_one(snapshot, task, run_dir, mode, args, settings, metadata, source_dige
               'experiments': summary.get('experiments', 0),
               'full_refit': summary.get('full_refit_published', False),
               'champion_family': summary.get('champion_recipe', {}).get('model_family') if summary.get('champion_recipe') else None,
+              'decision_adjustment': summary.get('multipliers'),
+              'ensemble': summary.get('ensemble'),
+              'output_sha256': summary.get('output_sha256'),
               'feature_ablation_checks': summary.get('feature_ablation_checks', 0),
               'accepted_feature_ablations': summary.get('accepted_feature_ablations', 0)}
     try:

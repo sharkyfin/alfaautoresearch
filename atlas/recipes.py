@@ -19,7 +19,8 @@ class RecipeError(ValueError):pass
 def validate(raw,spec,remaining=10800,seen=None):
     if not isinstance(raw,dict):raise RecipeError('Recipe must be an object')
     allowed={'id','parent_experiment','statement','evidence','operation','model_family','params','feature_ops','feature_expressions','target_transform','validation_plan_id','max_runtime_sec','expected_rationale'}
-    if set(raw)-allowed:raise RecipeError('Unknown recipe fields')
+    unknown=set(raw)-allowed
+    if unknown:raise RecipeError('Unknown recipe fields: '+', '.join(sorted(str(key)[:60] for key in unknown)[:8]))
     family=raw.get('model_family')
     if not isinstance(family,str) or family not in FAMILIES:raise RecipeError('Unknown or forbidden model')
     pkg=MODEL_PACKAGE.get(family,'scikit-learn')

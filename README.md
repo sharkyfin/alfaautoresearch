@@ -1,6 +1,7 @@
 # ATLAS AutoResearch
 
 Автономный CPU-агент для табличной регрессии и классификации Alfa Hack AutoML.
+Текущий релиз и замер качества: [reports/quality-release.json](reports/quality-release.json).
 Текущая проверка интерфейса платформы: `reports/platform-compliance.json`.
 Подробное соответствие требованиям: [docs/PLATFORM_COMPLIANCE.md](docs/PLATFORM_COMPLIANCE.md).
 Предыдущий ускоренный релиз: `reports/fast-default-release.json`.
@@ -16,6 +17,12 @@ Qwen теперь предлагает именованные формулы: в
 проверяются при фиксированной модели; успешные группы проходят ограниченные
 абляции. Для временных задач используются до трёх непересекающихся окон.
 Подробности и проверки: [docs/AUTORESEARCH.md](docs/AUTORESEARCH.md).
+
+Клиент Qwen запрашивает короткий JSON без reasoning, различает сетевые тайм-ауты
+и записывает время ответа. Поиск может увеличить число итераций модели, достигшей
+лимита, если остаётся время на проверку и refit. Для бинарного Macro F1 добавлен
+подбор порога с независимым подтверждением. Замеры:
+[docs/QUALITY_UPDATE.md](docs/QUALITY_UPDATE.md).
 
 Реальное качество можно проверять локально на трёх Kaggle-датасетах, без отправок
 на платформу: `scripts/download_kaggle.py`, затем `scripts/benchmark_kaggle.py`.
@@ -195,14 +202,14 @@ docker run --rm --cpus=8 --memory=32g --network=none -v /absolute/task-directory
 к SHA256 runtime-исходников в `reports/test-state.json`; отсутствие изменений
 между началом и концом тестов проверяется автоматически.
 
-Предварительный релиз: 154 теста прошли; 35 stress-сценариев на двух seeds
-завершились без неожиданных ошибок. Архив повторно распакован в пустой каталог:
-regression и multiclass прошли официальный CLI с реальным обучением и SIGTERM.
-Размер, SHA256 и полный список 19 файлов — в
-[reports/release-manifest.json](reports/release-manifest.json); проверка релиза —
-в [reports/RELEASE_AUDIT.md](reports/RELEASE_AUDIT.md).
-Локальные метрики и замеры относятся к указанным в отчёте версиям исходников.
-Предыдущие числа тестов и Linux-проверки не являются повторной проверкой текущего
-изменения. Новые проверки и SHA256 готового ZIP находятся в
-`reports/feature-formulas-release.json`; проверка реального Qwen — в
-`reports/feature-formulas-live.json`.
+Текущая версия: 239 тестов прошли. Три свежие задачи завершили точную команду
+платформы с полным refit; два запуска распакованного ZIP сохранили корректный
+результат после SIGTERM. Размер, SHA256 и список 24 корневых файлов — в
+[reports/release-manifest.json](reports/release-manifest.json); итог проверок — в
+[reports/quality-release.json](reports/quality-release.json).
+
+Качество измерено на Kaggle-данных отдельно от протокольной проверки с локальной
+API-заглушкой: [docs/QUALITY_UPDATE.md](docs/QUALITY_UPDATE.md).
+Предыдущие аудиты и Linux-проверки остаются историей своих SHA256, включая
+[reports/RELEASE_AUDIT.md](reports/RELEASE_AUDIT.md). Текущий организаторский
+Docker-образ локально не запускался.

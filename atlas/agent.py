@@ -1,6 +1,6 @@
 """Organizer-only Qwen client. Compact untrusted data and bounded JSON actions."""
 from __future__ import annotations
-import copy,json,os,re,urllib.error
+import copy,json,os,re,time,urllib.error
 from .recipes import RecipeError
 from .context import ranked_columns,selected_profile
 
@@ -109,13 +109,14 @@ def compact_context(context,limit=10000):
 
 
 class QwenClient:
-    def __init__(self,mode='disabled',max_calls=8,max_tokens=16000,transport=None,output_tokens=1800):
+    def __init__(self,mode='disabled',max_calls=8,max_tokens=16000,transport=None,output_tokens=1200):
         self.mode=mode;self.max_calls=max_calls;self.max_tokens=max_tokens;self.calls=0;self.requests=0;self.tokens=0;self.failures=0;self.open=False;self.transport=transport;self.events=[]
         self.output_tokens=output_tokens
         # OPENAI_MODEL is optional. The supplied development proxy enforces this
         # documented model name even though the platform guide promises rewriting.
         self.endpoint=os.environ.get('OPENAI_BASE_URL','');self.model=os.environ.get('OPENAI_MODEL') or 'qwen/qwen3.8-27b';self.key=os.environ.get('OPENAI_API_KEY','')
-        self.configured=bool(self.endpoint and self.model and self.key);self.json_mode=True
+        self.configured=bool(self.endpoint and self.model and self.key);self.json_mode=True;self.reasoning_control=True
+        self.last_transport_error={}
         if mode=='live' and not self.configured:self.open=True;self.events.append({'status':'unconfigured_organizer_api'})
     @property
     def available(self):return self.mode=='live' and not self.open and self.calls<self.max_calls and self.tokens<self.max_tokens
@@ -124,16 +125,30 @@ class QwenClient:
         import httpx
         url=self.endpoint.rstrip('/')+'/chat/completions'
         try:
-            with httpx.stream('POST',url,json=body,headers={'Authorization':'Bearer '+self.key},timeout=timeout,trust_env=False) as response:
+            network_timeout=httpx.Timeout(float(timeout),connect=min(5.,float(timeout)),write=min(5.,float(timeout)),pool=min(5.,float(timeout)))
+            with httpx.stream('POST',url,json=body,headers={'Authorization':'Bearer '+self.key},timeout=network_timeout,trust_env=False) as response:
                 if response.status_code>=400:
-                    raise urllib.error.HTTPError(url,response.status_code,'Organizer proxy error',None,None)
+                    # Keep only a whitelisted compatibility hint, never response bodies.
+                    raw=bytearray()
+                    for chunk in response.iter_bytes():
+                        raw.extend(chunk)
+                        if len(raw)>8192:break
+                    text=raw.decode(errors='replace').lower()
+                    error=urllib.error.HTTPError(url,response.status_code,'Organizer proxy error',None,None)
+                    error.parameter='reasoning' if 'reasoning' in text or 'thinking' in text else 'response_format'
+                    raise error
                 raw=bytearray()
                 for chunk in response.iter_bytes():
                     raw.extend(chunk)
                     if len(raw)>65536:raise ValueError('Oversized API response')
                 return json.loads(raw)
-        except httpx.TimeoutException:raise TimeoutError('Organizer proxy timeout') from None
-        except httpx.HTTPError:raise OSError('Organizer proxy transport error') from None
+        except httpx.TimeoutException as error:
+            self.last_transport_error={'transport_exception':type(error).__name__,
+                'timeout_phase':next((phase for phase,kind in [('connect',httpx.ConnectTimeout),('read',httpx.ReadTimeout),('write',httpx.WriteTimeout),('pool',httpx.PoolTimeout)] if isinstance(error,kind)),'unknown')}
+            raise TimeoutError('Organizer proxy timeout') from None
+        except httpx.HTTPError as error:
+            self.last_transport_error={'transport_exception':type(error).__name__}
+            raise OSError('Organizer proxy transport error') from None
     def propose(self,context,timeout=20):
         if not self.available:return None
         self.calls+=1
@@ -147,7 +162,11 @@ class QwenClient:
         if self.tokens+estimated_tokens>self.max_tokens:
             self.open=True;self.events.append({'status':'token_budget_exhausted'});return None
         body={'model':self.model,'messages':[{'role':'system','content':SYSTEM},{'role':'user','content':compact}],'max_tokens':self.output_tokens,'temperature':.2,'response_format':{'type':'json_object'}}
+        if self.reasoning_control and getattr(self,'provider','organizer-qwen')=='organizer-qwen':
+            body['reasoning']={'effort':'none','exclude':True}
         if not self.json_mode:body.pop('response_format',None)
+        started=time.monotonic();self.last_transport_error={}
+        def timing():return {'elapsed_seconds':round(time.monotonic()-started,3),'timeout_seconds':float(timeout)}
         try:
             self.requests+=1
             if self.transport:response=self.transport(body,timeout)
@@ -156,23 +175,28 @@ class QwenClient:
             self.tokens+=int(response.get('usage',{}).get('total_tokens',estimated_tokens))
             usage=response.get('usage',{})
             if getattr(self,'provider','organizer-qwen')=='organizer-qwen':
-                self.events.append({'status':'api_usage','call':self.calls,'response_model':response.get('model'),'prompt_tokens':usage.get('prompt_tokens'),'completion_tokens':usage.get('completion_tokens'),'reported_cost':usage.get('cost')})
-            value=response['choices'][0]['message']['content']
+                self.events.append({'status':'api_usage','call':self.calls,'response_model':response.get('model'),'prompt_tokens':usage.get('prompt_tokens'),'completion_tokens':usage.get('completion_tokens'),'reasoning_tokens':usage.get('completion_tokens_details',{}).get('reasoning_tokens'),'finish_reason':response.get('choices',[{}])[0].get('finish_reason'),'reported_cost':usage.get('cost'),**timing()})
+            choice=response['choices'][0];value=choice['message']['content']
+            if not isinstance(value,str) or not value.strip():
+                self.events.append({'status':'empty_action','call':self.calls,'finish_reason':choice.get('finish_reason'),**timing()})
+                raise ValueError('No JSON action returned')
             if len(value)>16000:raise ValueError('Oversized JSON action')
             value=re.sub(r'^```(?:json)?\s*|\s*```$','',value.strip())
             recipe=json.loads(value)
             if not isinstance(recipe,dict):raise ValueError('Expected object')
-            self.failures=0;self.events.append({'status':'response','call':self.calls,'tokens':self.tokens})
+            self.failures=0;self.events.append({'status':'response','call':self.calls,'tokens':self.tokens,**timing()})
             return recipe
         except urllib.error.HTTPError as error:
             self.failures+=1
-            if error.code in {400,422} and self.json_mode:
-                self.json_mode=False;self.events.append({'status':'retry_without_response_format','call':self.calls})
-            else:self.events.append({'status':'api_failure','exception_class':'HTTPError','http_status':error.code,'call':self.calls})
+            if error.code in {400,422} and self.reasoning_control and getattr(error,'parameter',None)=='reasoning':
+                self.reasoning_control=False;self.events.append({'status':'retry_without_reasoning_control','call':self.calls,**timing()})
+            elif error.code in {400,422} and self.json_mode:
+                self.json_mode=False;self.events.append({'status':'retry_without_response_format','call':self.calls,**timing()})
+            else:self.events.append({'status':'api_failure','exception_class':'HTTPError','http_status':error.code,'call':self.calls,**timing()})
             if self.failures>=3:self.open=True;self.events.append({'status':'circuit_open'})
             return None
         except (ValueError,KeyError,IndexError,TypeError,OSError,TimeoutError,ImportError) as error:
-            self.failures+=1;self.events.append({'status':'api_failure','exception_class':type(error).__name__,'call':self.calls})
+            self.failures+=1;self.events.append({'status':'api_failure','exception_class':type(error).__name__,'call':self.calls,**self.last_transport_error,**timing()})
             if self.failures>=3:self.open=True;self.events.append({'status':'circuit_open'})
             return None
 

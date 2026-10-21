@@ -1,0 +1,88 @@
+{
+  "endpoint_host": "changellenge.up.railway.app",
+  "requested_model": "qwen/qwen3.8-27b",
+  "connect_timeout": 5,
+  "read_timeout": 40,
+  "events": [
+    {
+      "phase": "connection.connect_tcp.started",
+      "seconds": 0.028
+    },
+    {
+      "phase": "connection.connect_tcp.complete",
+      "seconds": 0.1488
+    },
+    {
+      "phase": "connection.start_tls.started",
+      "seconds": 0.1489
+    },
+    {
+      "phase": "connection.start_tls.complete",
+      "seconds": 0.9781
+    },
+    {
+      "phase": "http11.send_request_headers.started",
+      "seconds": 0.9783
+    },
+    {
+      "phase": "http11.send_request_headers.complete",
+      "seconds": 0.9785
+    },
+    {
+      "phase": "http11.send_request_body.started",
+      "seconds": 0.9785
+    },
+    {
+      "phase": "http11.send_request_body.complete",
+      "seconds": 0.9785
+    },
+    {
+      "phase": "http11.receive_response_headers.started",
+      "seconds": 0.9785
+    },
+    {
+      "phase": "http11.receive_response_headers.complete",
+      "seconds": 2.1002
+    },
+    {
+      "phase": "http11.receive_response_body.started",
+      "seconds": 2.1009
+    },
+    {
+      "phase": "http11.receive_response_body.complete",
+      "seconds": 2.1011
+    },
+    {
+      "phase": "http11.response_closed.started",
+      "seconds": 2.1011
+    },
+    {
+      "phase": "http11.response_closed.complete",
+      "seconds": 2.1011
+    }
+  ],
+  "http_status": 200,
+  "status": "ok",
+  "response_model": "qwen/qwen3.8-27b",
+  "usage": {
+    "completion_tokens": 8,
+    "prompt_tokens": 62,
+    "total_tokens": 70,
+    "completion_tokens_details": {
+      "audio_tokens": 0,
+      "reasoning_tokens": 2,
+      "image_tokens": 0
+    },
+    "prompt_tokens_details": {
+      "audio_tokens": 0,
+      "cached_tokens": 0,
+      "video_tokens": 0,
+      "cache_write_tokens": 0,
+      "cache_creation_tokens": 0
+    },
+    "cost": 0.003491238348
+  },
+  "finish_reason": "stop",
+  "response_characters": 11,
+  "elapsed_seconds": 2.1014
+}

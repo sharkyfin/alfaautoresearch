@@ -1,0 +1,91 @@
+{
+  "endpoint_host": "changellenge.up.railway.app",
+  "requested_model": "qwen/qwen3.8-27b",
+  "connect_timeout": 5,
+  "read_timeout": 40,
+  "events": [
+    {
+      "phase": "connection.connect_tcp.started",
+      "seconds": 1.0863
+    },
+    {
+      "phase": "connection.connect_tcp.complete",
+      "seconds": 1.2501
+    },
+    {
+      "phase": "connection.start_tls.started",
+      "seconds": 1.2502
+    },
+    {
+      "phase": "connection.start_tls.complete",
+      "seconds": 1.5607
+    },
+    {
+      "phase": "http11.send_request_headers.started",
+      "seconds": 1.5608
+    },
+    {
+      "phase": "http11.send_request_headers.complete",
+      "seconds": 1.561
+    },
+    {
+      "phase": "http11.send_request_body.started",
+      "seconds": 1.561
+    },
+    {
+      "phase": "http11.send_request_body.complete",
+      "seconds": 1.5612
+    },
+    {
+      "phase": "http11.receive_response_headers.started",
+      "seconds": 1.5612
+    },
+    {
+      "phase": "http11.receive_response_headers.complete",
+      "seconds": 20.001
+    },
+    {
+      "phase": "http11.receive_response_body.started",
+      "seconds": 20.0016
+    },
+    {
+      "phase": "http11.receive_response_body.complete",
+      "seconds": 20.0018
+    },
+    {
+      "phase": "http11.response_closed.started",
+      "seconds": 20.0018
+    },
+    {
+      "phase": "http11.response_closed.complete",
+      "seconds": 20.0018
+    }
+  ],
+  "context_runtime_code_sha256": "6778485712c29058303916a56480400352e6c38de6e4e29785026a6bc3157362",
+  "request_characters": 12118,
+  "max_output_tokens": 1200,
+  "http_status": 200,
+  "status": "ok",
+  "response_model": "qwen/qwen3.8-27b",
+  "usage": {
+    "completion_tokens": 1200,
+    "prompt_tokens": 4901,
+    "total_tokens": 6101,
+    "completion_tokens_details": {
+      "audio_tokens": 0,
+      "reasoning_tokens": 1310,
+      "image_tokens": 0
+    },
+    "prompt_tokens_details": {
+      "audio_tokens": 0,
+      "cached_tokens": 0,
+      "video_tokens": 0,
+      "cache_write_tokens": 0,
+      "cache_creation_tokens": 0
+    },
+    "cost": 0.3185259322908
+  },
+  "finish_reason": "length",
+  "response_characters": 0,
+  "elapsed_seconds": 20.0023
+}

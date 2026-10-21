@@ -95,30 +95,39 @@ def _run(task_path,started,budget_seconds,mode,seed,threads,max_experiments,memo
                 is_research=stage=='RESEARCH';origin='deterministic'
             if raw is None:break
             remaining=budget.search_remaining
+            fallback=raw
             if is_research and champion:
                 if actual_mode=='live-agent' and qwen.available:
                     context=researcher_context(data,history,champion,remaining)
                     context['recipe_rejections']=[e for e in qwen.events if e['status']=='recipe_rejected'][-3:]
-                    proposed=qwen.propose(context,timeout=max(1,min(20,remaining*.1)))
+                    proposed=qwen.propose(context,timeout=max(1,min(40,remaining*.25)))
                     if proposed is not None:raw=proposed;origin=research_origin
                 elif actual_mode=='mock-agent' and scheduler.research_index<=3:
                     raw=mock_hypothesis(data.spec,champion,scheduler.research_index);origin='mock'
-            # Already-failed libraries do not consume the rest of the budget.
-            if scheduler.failures.get(raw.get('model_family'),0)>=2:continue
-            timeout=min(float(raw.get('max_runtime_sec',300)),max(2,budget.total*.15),budget.search_remaining)
-            raw['max_runtime_sec']=timeout;raw['validation_plan_id']=split.id
-            try:
-                if is_research and champion:
-                    r,feature_trial=controlled_hypothesis(raw,champion,data.spec,budget.search_remaining)
-                    if feature_trial:feature_parent=champion
-                else:r=validate(raw,data.spec,remaining=budget.search_remaining)
-                r=validate(r,data.spec,remaining=budget.search_remaining,seen=scheduler.seen)
-            except RecipeError as error:
-                register(directory/'rejections.jsonl',{'reason':str(error),'origin':origin})
-                if origin==research_origin:
-                    qwen.events.append({'status':'recipe_rejected','reason':str(error)})
-                    if sum(e['status']=='recipe_rejected' for e in qwen.events)>=3:qwen.open=True
-                continue
+            attempts=[(raw,origin)]
+            if origin==research_origin:attempts.append((fallback,'deterministic'))
+            for raw,origin in attempts:
+                try:
+                    if not isinstance(raw,dict):raise RecipeError('Recipe must be an object')
+                    requested=raw.get('max_runtime_sec',300)
+                    if isinstance(requested,bool) or not isinstance(requested,(int,float)) or not 1<=requested<=1800:
+                        raise RecipeError('Invalid time budget')
+                    timeout=min(requested,max(2,budget.total*.15),budget.search_remaining)
+                    raw={**raw,'max_runtime_sec':timeout,'validation_plan_id':split.id}
+                    if is_research and champion:
+                        feature_trial=None;feature_parent=None
+                        r,feature_trial=controlled_hypothesis(raw,champion,data.spec,budget.search_remaining)
+                        if feature_trial:feature_parent=champion
+                    else:r=validate(raw,data.spec,remaining=budget.search_remaining)
+                    r=validate(r,data.spec,remaining=budget.search_remaining,seen=scheduler.seen)
+                    if scheduler.failures.get(r['model_family'],0)>=2:raise RecipeError('Model family repeatedly failed')
+                    break
+                except RecipeError as error:
+                    register(directory/'rejections.jsonl',{'reason':str(error),'origin':origin})
+                    if origin==research_origin:
+                        qwen.events.append({'status':'recipe_rejected','reason':str(error)})
+                        if sum(e['status']=='recipe_rejected' for e in qwen.events)>=3:qwen.open=True
+            else:continue
             scheduler.seen.add(recipe_hash(r))
             # Reserve enough for a measured full-data refit before trying longer fits.
             refit_cost=champion['runtime_sec']*1.5 if champion else 0

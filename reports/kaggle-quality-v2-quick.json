@@ -1,0 +1,356 @@
+{
+  "status": "completed",
+  "runtime_code_sha256": "e35e12d7a73989e9e727b27f5f2f73e5b233d37b7b08317084e131b19a6f804d",
+  "archive_sha256": "8535287c6da6d1a722714c2805379feffecf67e3ce43721aed90c83102f7c6f3",
+  "budget_seconds_per_task": 90.0,
+  "threads": 8,
+  "memory_mb": 8192,
+  "phase": "development",
+  "run_root": "/Users/nosovdanil/PycharmProjects/1/alfaautoresearch/runs/kaggle-benchmark-hhaf2d5i",
+  "packages": {
+    "numpy": "1.26.4",
+    "pandas": "2.2.3",
+    "scikit-learn": "1.5.2",
+    "scipy": "1.12.0",
+    "lightgbm": "4.6.0",
+    "xgboost": "2.1.4"
+  },
+  "runs": [
+    {
+      "case": "california_housing",
+      "mode": "deterministic",
+      "seed": 42,
+      "phase": "development",
+      "metric": "rmse",
+      "budget_seconds": 90.0,
+      "wall_seconds": 64.666,
+      "threads": 8,
+      "memory_mb": 8192,
+      "runtime_code_sha256": "e35e12d7a73989e9e727b27f5f2f73e5b233d37b7b08317084e131b19a6f804d",
+      "raw_sha256": "929d21111f99a691e8222aad1c5b14fcd198de057016ba7bff5e3c10b92f072f",
+      "split_sha256": "45e65ba3dede472c36a10acfaf3e9ff95805f54a27bd8dc028dc7b3d8a24e5f9",
+      "returncode": 0,
+      "log": "/Users/nosovdanil/PycharmProjects/1/alfaautoresearch/runs/kaggle-benchmark-hhaf2d5i/california_housing_42/deterministic/deterministic.log",
+      "run_dir": "/Users/nosovdanil/PycharmProjects/1/alfaautoresearch/runs/kaggle-benchmark-hhaf2d5i/california_housing_42/deterministic/run",
+      "qwen_calls": 0,
+      "qwen_tokens": 0,
+      "internal_metric": 46171.8301661587,
+      "experiments": 27,
+      "full_refit": true,
+      "champion_family": "hist",
+      "decision_adjustment": null,
+      "ensemble": {
+        "weights": [
+          0.5,
+          0.5
+        ],
+        "metric_value": 46002.56493332051,
+        "confirmation_metric": 48844.76256482582,
+        "confirmation_metrics": [
+          {
+            "split_id": "ca29f418dd619d4e",
+            "metric_value": 48844.76256482582,
+            "utility": -48844.76256482582
+          }
+        ],
+        "robust_utility": -47778.93845301133
+      },
+      "output_sha256": "77098a2a430883ce51e2b56c86f824c52ef7fee13f765c2faff88491e14d0cae",
+      "feature_ablation_checks": 0,
+      "accepted_feature_ablations": 0,
+      "external_metric": 44645.2603421034,
+      "status": "ok",
+      "qwen_fits": 0,
+      "qwen_accepted": 0,
+      "research_experiments": [],
+      "champion_recipe": {
+        "model_family": "hist",
+        "params": {
+          "iterations": 600,
+          "max_leaf_nodes": 31,
+          "l2_regularization": 1.0
+        },
+        "feature_ops": [
+          {
+            "op": "ratio",
+            "columns": [
+              "longitude",
+              "latitude"
+            ]
+          },
+          {
+            "op": "product",
+            "columns": [
+              "longitude",
+              "latitude"
+            ]
+          }
+        ],
+        "target_transform": "none",
+        "max_runtime_sec": 13.5,
+        "validation_plan_id": "b4f9ef385748df3a",
+        "feature_expressions": [],
+        "id": "local_10",
+        "statement": "Focused local hyperparameter search around measured champion",
+        "parent_experiment": "exp_0014"
+      },
+      "qwen_events": []
+    },
+    {
+      "case": "california_housing",
+      "mode": "live-agent",
+      "seed": 42,
+      "phase": "development",
+      "metric": "rmse",
+      "budget_seconds": 90.0,
+      "wall_seconds": 76.574,
+      "threads": 8,
+      "memory_mb": 8192,
+      "runtime_code_sha256": "e35e12d7a73989e9e727b27f5f2f73e5b233d37b7b08317084e131b19a6f804d",
+      "raw_sha256": "929d21111f99a691e8222aad1c5b14fcd198de057016ba7bff5e3c10b92f072f",
+      "split_sha256": "45e65ba3dede472c36a10acfaf3e9ff95805f54a27bd8dc028dc7b3d8a24e5f9",
+      "returncode": 0,
+      "log": "/Users/nosovdanil/PycharmProjects/1/alfaautoresearch/runs/kaggle-benchmark-hhaf2d5i/california_housing_42/live-agent/live-agent.log",
+      "run_dir": "/Users/nosovdanil/PycharmProjects/1/alfaautoresearch/runs/kaggle-benchmark-hhaf2d5i/california_housing_42/live-agent/run",
+      "qwen_calls": 2,
+      "qwen_tokens": 5008,
+      "internal_metric": 45084.33281312199,
+      "experiments": 24,
+      "full_refit": true,
+      "champion_family": "hist",
+      "decision_adjustment": null,
+      "ensemble": {
+        "weights": [
+          0.5,
+          0.5
+        ],
+        "metric_value": 44819.547253379926,
+        "confirmation_metric": 47705.81923364686,
+        "confirmation_metrics": [
+          {
+            "split_id": "ca29f418dd619d4e",
+            "metric_value": 47705.81923364686,
+            "utility": -47705.81923364686
+          }
+        ],
+        "robust_utility": -46623.46724104676
+      },
+      "output_sha256": "66053ec82c84cab377c49351cc829f269939cd5d9347866e821ff8571be7bf42",
+      "feature_ablation_checks": 3,
+      "accepted_feature_ablations": 2,
+      "external_metric": 43463.660302924414,
+      "status": "ok",
+      "qwen_fits": 1,
+      "qwen_accepted": 1,
+      "research_experiments": [
+        {
+          "experiment_id": "exp_0007",
+          "status": "ok",
+          "metric_value": 46430.35274175413,
+          "accepted": true,
+          "recipe": {
+            "model_family": "hist",
+            "params": {
+              "iterations": 150
+            },
+            "feature_ops": [],
+            "target_transform": "none",
+            "max_runtime_sec": 13.5,
+            "validation_plan_id": "b4f9ef385748df3a",
+            "feature_expressions": [
+              {
+                "name": "rooms_per_household",
+                "expression": "col(\"total_rooms\") / maximum(col(\"households\"), 1)",
+                "reason": "Captures housing density; high rooms per household often correlates with lower value or specific housing types."
+              },
+              {
+                "name": "bedrooms_per_household",
+                "expression": "col(\"total_bedrooms\") / maximum(col(\"households\"), 1)",
+                "reason": "Bedroom ratio is a strong indicator of housing quality and type (e.g., apartments vs. houses)."
+              },
+              {
+                "name": "log_median_income",
+                "expression": "log1p(col(\"median_income\"))",
+                "reason": "Income is right-skewed; log transform linearizes the relationship with house value and reduces the impact of outliers."
+              },
+              {
+                "name": "population_per_household",
+                "expression": "col(\"population\") / maximum(col(\"households\"), 1)",
+                "reason": "Average household size can indicate housing type and demographic pressure on local prices."
+              }
+            ],
+            "id": "candidate",
+            "statement": "Housing density and income-scaled bedroom features improve RMSE by capturing per-household room ratios and log-transformed income.",
+            "parent_experiment": "exp_0004"
+          },
+          "feature_trial": {
+            "kind": "feature_group",
+            "parent_experiment": "exp_0004",
+            "parent_metric": 48054.01291074202,
+            "parent_utility": -48054.01291074202,
+            "held_constant": [
+              "model_family",
+              "params",
+              "target_transform",
+              "validation",
+              "seed"
+            ],
+            "changes": [
+              {
+                "kind": "formula",
+                "name": "rooms_per_household"
+              },
+              {
+                "kind": "formula",
+                "name": "bedrooms_per_household"
+              },
+              {
+                "kind": "formula",
+                "name": "log_median_income"
+              },
+              {
+                "kind": "formula",
+                "name": "population_per_household"
+              }
+            ],
+            "ignored_model_overrides": [],
+            "group_experiment": "exp_0007",
+            "utility_gain_vs_parent": 1623.660168987888
+          }
+        }
+      ],
+      "champion_recipe": {
+        "model_family": "hist",
+        "params": {
+          "iterations": 600,
+          "max_leaf_nodes": 31,
+          "l2_regularization": 1.0
+        },
+        "feature_ops": [
+          {
+            "op": "ratio",
+            "columns": [
+              "longitude",
+              "latitude"
+            ]
+          },
+          {
+            "op": "product",
+            "columns": [
+              "longitude",
+              "latitude"
+            ]
+          },
+          {
+            "op": "clip",
+            "columns": [
+              "longitude",
+              "latitude",
+              "housing_median_age",
+              "total_rooms",
+              "total_bedrooms",
+              "population",
+              "households",
+              "median_income"
+            ]
+          }
+        ],
+        "target_transform": "none",
+        "max_runtime_sec": 13.5,
+        "validation_plan_id": "b4f9ef385748df3a",
+        "feature_expressions": [
+          {
+            "name": "rooms_per_household",
+            "expression": "col(\"total_rooms\") / maximum(col(\"households\"), 1)",
+            "reason": "Captures housing density; high rooms per household often correlates with lower value or specific housing types."
+          },
+          {
+            "name": "population_per_household",
+            "expression": "col(\"population\") / maximum(col(\"households\"), 1)",
+            "reason": "Average household size can indicate housing type and demographic pressure on local prices."
+          }
+        ],
+        "id": "local_10",
+        "statement": "Focused local hyperparameter search around measured champion",
+        "parent_experiment": "exp_0017"
+      },
+      "qwen_events": [
+        {
+          "status": "api_failure",
+          "exception_class": "TimeoutError",
+          "call": 1,
+          "transport_exception": "ReadTimeout",
+          "timeout_phase": "read",
+          "elapsed_seconds": 20.897,
+          "timeout_seconds": 20.360843302251304
+        },
+        {
+          "status": "api_usage",
+          "call": 2,
+          "response_model": "qwen/qwen3.8-27b",
+          "prompt_tokens": 4596,
+          "completion_tokens": 412,
+          "reasoning_tokens": 0,
+          "finish_reason": "stop",
+          "reported_cost": 0.10637932551479998,
+          "elapsed_seconds": 7.008,
+          "timeout_seconds": 13.845478166751855
+        },
+        {
+          "status": "response",
+          "call": 2,
+          "tokens": 5008,
+          "elapsed_seconds": 7.009,
+          "timeout_seconds": 13.845478166751855
+        }
+      ]
+    }
+  ],
+  "cases": [
+    {
+      "case": "california_housing",
+      "dataset": "camnugent/california-housing-prices",
+      "source": "https://www.kaggle.com/datasets/camnugent/california-housing-prices",
+      "raw_sha256": "929d21111f99a691e8222aad1c5b14fcd198de057016ba7bff5e3c10b92f072f",
+      "member": "housing.csv",
+      "target": "median_house_value",
+      "id_column": "benchmark_id",
+      "metric": "rmse",
+      "seed": 42,
+      "phase": "development",
+      "rows": 20640,
+      "training_rows": 12384,
+      "evaluation_rows": 4128,
+      "reserved_final_rows": 4128,
+      "features": 9,
+      "split_sha256": "45e65ba3dede472c36a10acfaf3e9ff95805f54a27bd8dc028dc7b3d8a24e5f9",
+      "input_sha256": {
+        "train.csv": "113b2f9fe70dab24b014e34a31d14817e5e74d8a1bc9ca099752240fa5b0ce02",
+        "test.csv": "8060bc1dfc13c3ec5b6035700bc6868a36ed945cbb54761fd430f8182988aa3f",
+        "data_dictionary.csv": "6fdd078902c0580d53fe6bd398d8627ce583029b0d2155cf3bcc956536a4f495",
+        "sample_submission.csv": "65f302da3b625a192253e007acc76664c6562f5f2b42a3a302e17146058b028f",
+        "task.md": "b3cc43f6811f8d46b4882f9317e508926ef0d95de2251442fe34d4c170f489d6"
+      },
+      "labels": [],
+      "labels_outside_task_directory": true,
+      "feature_duplicate_groups_kept_together": true,
+      "sealed_labels": "/Users/nosovdanil/PycharmProjects/1/alfaautoresearch/runs/kaggle-benchmark-hhaf2d5i/california_housing_42/sealed/evaluation.csv"
+    }
+  ],
+  "platform_submissions": 0,
+  "kaggle_submissions": 0,
+  "final_lockbox_used": false,
+  "comparisons": [],
+  "research_comparisons": [
+    {
+      "case": "california_housing",
+      "seed": 42,
+      "metric": "rmse",
+      "without_qwen": 44645.2603421034,
+      "with_qwen": 43463.660302924414,
+      "signed_gain": 1181.6000391789858,
+      "qwen_fits": 1,
+      "qwen_accepted": 1
+    }
+  ]
+}

@@ -1,0 +1,328 @@
+{
+  "status": "completed",
+  "runtime_code_sha256": "6778485712c29058303916a56480400352e6c38de6e4e29785026a6bc3157362",
+  "archive_sha256": "0c6f99d1abd2a77fdda3c7ea3ca72e5ad43eb2cbf78a0ad819de12be81090776",
+  "budget_seconds_per_task": 300.0,
+  "threads": 8,
+  "memory_mb": 8192,
+  "phase": "development",
+  "run_root": "/Users/nosovdanil/PycharmProjects/1/alfaautoresearch/runs/kaggle-benchmark-1miphpkg",
+  "packages": {
+    "numpy": "1.26.4",
+    "pandas": "2.2.3",
+    "scikit-learn": "1.5.2",
+    "scipy": "1.12.0",
+    "lightgbm": "4.6.0",
+    "xgboost": "2.1.4"
+  },
+  "runs": [
+    {
+      "case": "california_housing",
+      "mode": "deterministic",
+      "seed": 53,
+      "phase": "development",
+      "metric": "rmse",
+      "budget_seconds": 300.0,
+      "wall_seconds": 56.246,
+      "threads": 8,
+      "memory_mb": 8192,
+      "runtime_code_sha256": "6778485712c29058303916a56480400352e6c38de6e4e29785026a6bc3157362",
+      "raw_sha256": "929d21111f99a691e8222aad1c5b14fcd198de057016ba7bff5e3c10b92f072f",
+      "split_sha256": "6f66fb8ce3b156da92292c50b58bd9de8a49c8769a12b00bb5c061e1c4525d7f",
+      "returncode": 0,
+      "log": "/Users/nosovdanil/PycharmProjects/1/alfaautoresearch/runs/kaggle-benchmark-1miphpkg/california_housing_53/deterministic/deterministic.log",
+      "run_dir": "/Users/nosovdanil/PycharmProjects/1/alfaautoresearch/runs/kaggle-benchmark-1miphpkg/california_housing_53/deterministic/run",
+      "qwen_calls": 0,
+      "qwen_tokens": 0,
+      "internal_metric": 44684.88228070155,
+      "experiments": 22,
+      "full_refit": true,
+      "champion_family": "hist",
+      "decision_adjustment": null,
+      "ensemble": null,
+      "output_sha256": "f1009954401e90ee07c16a039fb7e5aa3a3f5dd7e1ab8551e3d9d55c3178f645",
+      "feature_ablation_checks": 0,
+      "accepted_feature_ablations": 0,
+      "external_metric": 47076.34554183022,
+      "status": "ok",
+      "qwen_fits": 0,
+      "qwen_accepted": 0,
+      "research_experiments": [],
+      "champion_recipe": {
+        "model_family": "hist",
+        "params": {
+          "iterations": 350
+        },
+        "feature_ops": [
+          {
+            "op": "ratio",
+            "columns": [
+              "longitude",
+              "latitude"
+            ]
+          },
+          {
+            "op": "product",
+            "columns": [
+              "longitude",
+              "latitude"
+            ]
+          },
+          {
+            "op": "group_mean",
+            "columns": [
+              "ocean_proximity",
+              "longitude"
+            ]
+          }
+        ],
+        "target_transform": "none",
+        "max_runtime_sec": 45.0,
+        "validation_plan_id": "96a1295fb75696a7",
+        "feature_expressions": [],
+        "id": "local_8",
+        "statement": "Training-fold feature aggregate may capture group scale without target encoding",
+        "parent_experiment": "exp_0009"
+      },
+      "qwen_events": []
+    },
+    {
+      "case": "adult_income",
+      "mode": "deterministic",
+      "seed": 53,
+      "phase": "development",
+      "metric": "f1_macro",
+      "budget_seconds": 300.0,
+      "wall_seconds": 41.062,
+      "threads": 8,
+      "memory_mb": 8192,
+      "runtime_code_sha256": "6778485712c29058303916a56480400352e6c38de6e4e29785026a6bc3157362",
+      "raw_sha256": "118cb8cd7fea8d2640f5b1f416099be315a481e97ad868133200dbacaca70e7a",
+      "split_sha256": "d4c127e0405954550ebf9424afb97a97e6a19aa308023a43788aa892df92a70d",
+      "returncode": 0,
+      "log": "/Users/nosovdanil/PycharmProjects/1/alfaautoresearch/runs/kaggle-benchmark-1miphpkg/adult_income_53/deterministic/deterministic.log",
+      "run_dir": "/Users/nosovdanil/PycharmProjects/1/alfaautoresearch/runs/kaggle-benchmark-1miphpkg/adult_income_53/deterministic/run",
+      "qwen_calls": 0,
+      "qwen_tokens": 0,
+      "internal_metric": 0.8171454328262691,
+      "experiments": 17,
+      "full_refit": true,
+      "champion_family": "lightgbm",
+      "decision_adjustment": null,
+      "ensemble": {
+        "weights": [
+          0.75,
+          0.25
+        ],
+        "metric_value": 0.8195531017743749,
+        "confirmation_metric": 0.8096457507565524,
+        "confirmation_metrics": [
+          {
+            "split_id": "f968664f0eb52ca9",
+            "metric_value": 0.8096457507565524,
+            "utility": 0.8096457507565524
+          }
+        ],
+        "robust_utility": 0.8133610073882358
+      },
+      "output_sha256": "5cf99ec67f9081213d762ab1c49957e48b3b1f66f6a9bc5db354308e25fa809f",
+      "feature_ablation_checks": 0,
+      "accepted_feature_ablations": 0,
+      "external_metric": 0.8133222331242134,
+      "status": "ok",
+      "qwen_fits": 0,
+      "qwen_accepted": 0,
+      "research_experiments": [],
+      "champion_recipe": {
+        "model_family": "lightgbm",
+        "params": {
+          "iterations": 500,
+          "num_leaves": 31,
+          "min_child_samples": 30
+        },
+        "feature_ops": [
+          {
+            "op": "clip",
+            "columns": [
+              "age",
+              "fnlwgt",
+              "education.num",
+              "capital.gain",
+              "capital.loss",
+              "hours.per.week"
+            ]
+          }
+        ],
+        "target_transform": "none",
+        "max_runtime_sec": 45.0,
+        "validation_plan_id": "c1f2e3bc1f08acb0",
+        "feature_expressions": [],
+        "id": "local_6",
+        "statement": "Fold-fitted clipped copies may reduce outlier sensitivity while retaining originals",
+        "parent_experiment": "exp_0002"
+      },
+      "qwen_events": []
+    },
+    {
+      "case": "dry_beans",
+      "mode": "deterministic",
+      "seed": 53,
+      "phase": "development",
+      "metric": "f1_macro",
+      "budget_seconds": 300.0,
+      "wall_seconds": 39.996,
+      "threads": 8,
+      "memory_mb": 8192,
+      "runtime_code_sha256": "6778485712c29058303916a56480400352e6c38de6e4e29785026a6bc3157362",
+      "raw_sha256": "173f1c77c7636622053726b85d358b11b7a7fd9eaee6ba3bac80c75dfd94a874",
+      "split_sha256": "b89e0b8fd8ec5f6b983b6462e32f32fcfd79c206b08b985b9e4d7ea63832b678",
+      "returncode": 0,
+      "log": "/Users/nosovdanil/PycharmProjects/1/alfaautoresearch/runs/kaggle-benchmark-1miphpkg/dry_beans_53/deterministic/deterministic.log",
+      "run_dir": "/Users/nosovdanil/PycharmProjects/1/alfaautoresearch/runs/kaggle-benchmark-1miphpkg/dry_beans_53/deterministic/run",
+      "qwen_calls": 0,
+      "qwen_tokens": 0,
+      "internal_metric": 0.9370166985178543,
+      "experiments": 15,
+      "full_refit": true,
+      "champion_family": "linear",
+      "decision_adjustment": null,
+      "ensemble": null,
+      "output_sha256": "0fa513f9cad4a6121aa91fffe3f814f542d67a09f5d1b6e52474405afb479e59",
+      "feature_ablation_checks": 0,
+      "accepted_feature_ablations": 0,
+      "external_metric": 0.9346497580546981,
+      "status": "ok",
+      "qwen_fits": 0,
+      "qwen_accepted": 0,
+      "research_experiments": [],
+      "champion_recipe": {
+        "model_family": "linear",
+        "params": {
+          "C": 1
+        },
+        "feature_ops": [
+          {
+            "op": "ratio",
+            "columns": [
+              "Area",
+              "Perimeter"
+            ]
+          }
+        ],
+        "target_transform": "none",
+        "max_runtime_sec": 45.0,
+        "validation_plan_id": "6ec9bdd7e669c401",
+        "feature_expressions": [],
+        "id": "local_4",
+        "statement": "Bounded numeric interaction may capture nonlinear rates",
+        "parent_experiment": "exp_0001"
+      },
+      "qwen_events": []
+    }
+  ],
+  "cases": [
+    {
+      "case": "california_housing",
+      "dataset": "camnugent/california-housing-prices",
+      "source": "https://www.kaggle.com/datasets/camnugent/california-housing-prices",
+      "raw_sha256": "929d21111f99a691e8222aad1c5b14fcd198de057016ba7bff5e3c10b92f072f",
+      "member": "housing.csv",
+      "target": "median_house_value",
+      "id_column": "benchmark_id",
+      "metric": "rmse",
+      "seed": 53,
+      "phase": "development",
+      "rows": 20640,
+      "training_rows": 12384,
+      "evaluation_rows": 4128,
+      "reserved_final_rows": 4128,
+      "features": 9,
+      "split_sha256": "6f66fb8ce3b156da92292c50b58bd9de8a49c8769a12b00bb5c061e1c4525d7f",
+      "input_sha256": {
+        "train.csv": "beb3ca7d51ed1315337afca5cf0a65e151e1f5d36b4896cd4eb2b86d315b9fec",
+        "test.csv": "5ca976e5ea72ce2783b91055dd3c45c5ebb1d6af2f55d12bc8939cd23aace633",
+        "data_dictionary.csv": "6fdd078902c0580d53fe6bd398d8627ce583029b0d2155cf3bcc956536a4f495",
+        "sample_submission.csv": "e63b2990b9b7efd2f7c1d3441ff9e542be5f6e074e9c6358bcb36a7659131806",
+        "task.md": "b3cc43f6811f8d46b4882f9317e508926ef0d95de2251442fe34d4c170f489d6"
+      },
+      "labels": [],
+      "labels_outside_task_directory": true,
+      "feature_duplicate_groups_kept_together": true,
+      "sealed_labels": "/Users/nosovdanil/PycharmProjects/1/alfaautoresearch/runs/kaggle-benchmark-1miphpkg/california_housing_53/sealed/evaluation.csv"
+    },
+    {
+      "case": "adult_income",
+      "dataset": "uciml/adult-census-income",
+      "source": "https://www.kaggle.com/datasets/uciml/adult-census-income",
+      "raw_sha256": "118cb8cd7fea8d2640f5b1f416099be315a481e97ad868133200dbacaca70e7a",
+      "member": "adult.csv",
+      "target": "income",
+      "id_column": "benchmark_id",
+      "metric": "f1_macro",
+      "seed": 53,
+      "phase": "development",
+      "rows": 32561,
+      "training_rows": 19536,
+      "evaluation_rows": 6510,
+      "reserved_final_rows": 6515,
+      "features": 14,
+      "split_sha256": "d4c127e0405954550ebf9424afb97a97e6a19aa308023a43788aa892df92a70d",
+      "input_sha256": {
+        "train.csv": "6b63b40af98367a90470cab6e71977fae50b6e01f0839ad5247b6fcb662d986b",
+        "test.csv": "95051e488db4130759e81ff5cb49a6fefa8272007cdd118409b7fd856fc7fd27",
+        "data_dictionary.csv": "f512ab1350ba436676da8df84792d0dfdcf16fd82e4002113b0872feff5b6861",
+        "sample_submission.csv": "44a431e24d562b6b5f3d42329e5bf5f86061cfab7d5a45da31f32a732096aba6",
+        "task.md": "1b652931e8b06d2ad2bd35463bcbe44514721799a113791d55d6e3129be2c1b4"
+      },
+      "labels": [
+        "<=50K",
+        ">50K"
+      ],
+      "labels_outside_task_directory": true,
+      "feature_duplicate_groups_kept_together": true,
+      "sealed_labels": "/Users/nosovdanil/PycharmProjects/1/alfaautoresearch/runs/kaggle-benchmark-1miphpkg/adult_income_53/sealed/evaluation.csv"
+    },
+    {
+      "case": "dry_beans",
+      "dataset": "muratkokludataset/dry-bean-dataset",
+      "source": "https://www.kaggle.com/datasets/muratkokludataset/dry-bean-dataset",
+      "raw_sha256": "173f1c77c7636622053726b85d358b11b7a7fd9eaee6ba3bac80c75dfd94a874",
+      "member": "Dry_Bean_Dataset/Dry_Bean_Dataset.arff",
+      "target": "Class",
+      "id_column": "benchmark_id",
+      "metric": "f1_macro",
+      "seed": 53,
+      "phase": "development",
+      "rows": 13611,
+      "training_rows": 8165,
+      "evaluation_rows": 2725,
+      "reserved_final_rows": 2721,
+      "features": 16,
+      "split_sha256": "b89e0b8fd8ec5f6b983b6462e32f32fcfd79c206b08b985b9e4d7ea63832b678",
+      "input_sha256": {
+        "train.csv": "5494b57b555246dfd7a3e8b69abb1811f17b147bb662d8da33ed3180485c2cca",
+        "test.csv": "1f8ee3931a0b472fb3b729aae46d4092d06df97b5226dfb7ee1a27ab9d557b2f",
+        "data_dictionary.csv": "f70128bb0ef2444cc0a3c3c02d0f3f712cdf3c81045e75ca609751dab16ce5d8",
+        "sample_submission.csv": "bbcf1a54696f6efdbdb87ba8ecc8e6fd9a7d51366366ba61d01d009ada4d4d5c",
+        "task.md": "b7c182caf333b718071b6129e7fb43fd80ce0663b2a91e536ac59e7dbcdc8fdd"
+      },
+      "labels": [
+        "BARBUNYA",
+        "BOMBAY",
+        "CALI",
+        "DERMASON",
+        "HOROZ",
+        "SEKER",
+        "SIRA"
+      ],
+      "labels_outside_task_directory": true,
+      "feature_duplicate_groups_kept_together": true,
+      "sealed_labels": "/Users/nosovdanil/PycharmProjects/1/alfaautoresearch/runs/kaggle-benchmark-1miphpkg/dry_beans_53/sealed/evaluation.csv"
+    }
+  ],
+  "platform_submissions": 0,
+  "kaggle_submissions": 0,
+  "final_lockbox_used": false,
+  "comparisons": [],
+  "research_comparisons": []
+}

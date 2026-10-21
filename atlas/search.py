@@ -2,7 +2,7 @@
 from __future__ import annotations
 import copy
 import numpy as np
-from .recipes import recipe_hash,merge_hypothesis_features
+from .recipes import PARAMS,recipe_hash,merge_hypothesis_features
 
 
 def recipe(family,params=None,ops=None,statement='',transform='none'):
@@ -51,8 +51,19 @@ class SearchController:
         if not champion or self.research_index>24:return None
         spec=self.spec;base=copy.deepcopy(champion['recipe']);base.pop('validation_plan_id',None);base['parent_experiment']=champion['experiment_id'];base['id']=f'local_{self.research_index}'
         family=base['model_family'];i=self.research_index
+        growth=None
+        if i in {3,9,15} and family in {'hist','lightgbm','xgboost'}:
+            rounds=base['params'].get('iterations',500)
+            maximum=PARAMS[family]['iterations'][1]
+            fit_cost=champion.get('runtime_sec',1.)
+            if champion.get('iterations',0)>=rounds*.95 and rounds<maximum and self.budget.can_run(fit_cost*2.4,refit_estimate=fit_cost*2.4):
+                proposal=copy.deepcopy(base)
+                proposal['params']['iterations']=min(maximum,rounds*2)
+                if recipe_hash(proposal) not in self.seen:growth=proposal
         # Test semantic/weighting changes before expensive hyperparameter variants.
-        if spec.classification and i==1 and family!='linear':
+        if growth is not None:
+            base=growth;base['statement']='Training reached its iteration cap; test more rounds within measured fit and refit costs'
+        elif spec.classification and i==1 and family!='linear':
             base['params']['weight']='sqrt';base['statement']='Minority recall may improve with sqrt-balanced sample weights'
         elif not spec.classification and i==1 and min(spec.profile['target']['quantiles'].values())>=0:
             base['target_transform']='log1p';base['statement']='Skewed nonnegative target may benefit from log training, scored on original scale'
