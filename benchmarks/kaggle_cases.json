@@ -40,6 +40,23 @@
       "income": "Income bracket to predict"
     }
   },
+  "concrete_strength": {
+    "dataset": "elikplim/concrete-compressive-strength-data-set",
+    "target": "concrete_compressive_strength",
+    "metric": "rmse",
+    "description": "Predict concrete compressive strength in MPa from its ingredients and curing age. Ingredient quantities are kg per cubic metre of concrete; age is in days. This is tabular regression. Optimize RMSE on unseen concrete samples.",
+    "columns": {
+      "cement": "Cement content, kg per cubic metre",
+      "blast_furnace_slag": "Blast furnace slag content, kg per cubic metre",
+      "fly_ash": "Fly ash content, kg per cubic metre",
+      "water": "Water content, kg per cubic metre",
+      "superplasticizer": "Superplasticizer content, kg per cubic metre",
+      "coarse_aggregate": "Coarse aggregate content, kg per cubic metre",
+      "fine_aggregate": "Fine aggregate content, kg per cubic metre",
+      "age": "Curing age, days",
+      "concrete_compressive_strength": "Concrete compressive strength, MPa"
+    }
+  },
   "dry_beans": {
     "dataset": "muratkokludataset/dry-bean-dataset",
     "target": "Class",

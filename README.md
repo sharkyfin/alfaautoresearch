@@ -24,11 +24,18 @@ Qwen теперь предлагает именованные формулы: в
 подбор порога с независимым подтверждением. Замеры:
 [docs/QUALITY_UPDATE.md](docs/QUALITY_UPDATE.md).
 
-Реальное качество можно проверять локально на трёх Kaggle-датасетах, без отправок
+Реальное качество можно проверять локально на четырёх Kaggle-датасетах, без отправок
 на платформу: `scripts/download_kaggle.py`, затем `scripts/benchmark_kaggle.py`.
 Стенд сравнивает LightGBM, поиск без Qwen и полный агент на одинаковых разбиениях,
 с отдельными внешними ответами и финальным резервом. Инструкция:
 [docs/KAGGLE_BENCHMARK.md](docs/KAGGLE_BENCHMARK.md).
+
+Готовый ZIP также прошёл полный запуск `python3 solution.py task.md` с реальным
+Qwen и обычным бюджетом 900 секунд на новой задаче Concrete Strength: 64,9 секунды,
+820 обучающих строк и 210 отложенных; RMSE 4,173875 МПа, R² 0,931296. Финальные
+предсказания получены после подтверждения ансамбля и переобучения на всех
+обучающих строках. Отчёт: [reports/kaggle-full-concrete.md](reports/kaggle-full-concrete.md).
+Повторить: `.venv/bin/python scripts/run_kaggle_full.py --case concrete_strength`.
 
 ## Запуск
 

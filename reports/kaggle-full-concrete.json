@@ -1,0 +1,1304 @@
+{
+  "status": "completed",
+  "entrypoint": [
+    "python3",
+    "solution.py",
+    "task.md"
+  ],
+  "agent_default_overrides": {},
+  "supervisor_seconds": 960,
+  "archive_sha256": "c213bab63badfcf8fc92001c7e3de92c6a7bd333c60931a7e9814a5b1a4ce89c",
+  "runtime_code_sha256": "f2d104a73fac2a01c7c615fee1bcfb0fd18c0faa52a87579b6f1ecd2ca122eb7",
+  "copied_root_files": [
+    "solution.py",
+    "_atlas_entry.py",
+    "atlas___init__.py",
+    "atlas_agent.py",
+    "atlas_budget.py",
+    "atlas_context.py",
+    "atlas_contract.py",
+    "atlas_ensemble.py",
+    "atlas_experiments.py",
+    "atlas_expressions.py",
+    "atlas_features.py",
+    "atlas_judge.py",
+    "atlas_metrics.py",
+    "atlas_models.py",
+    "atlas_orchestration.py",
+    "atlas_recipes.py",
+    "atlas_research.py",
+    "atlas_search.py",
+    "atlas_submit.py",
+    "atlas_task.py",
+    "atlas_utils.py",
+    "atlas_validation.py",
+    "atlas_worker.py",
+    "requirements.txt"
+  ],
+  "run_root": "/Users/nosovdanil/PycharmProjects/1/alfaautoresearch/runs/kaggle-full-iuj74mxd",
+  "log": "/Users/nosovdanil/PycharmProjects/1/alfaautoresearch/runs/kaggle-full-iuj74mxd/pipeline.log",
+  "submission": "/Users/nosovdanil/PycharmProjects/1/alfaautoresearch/runs/kaggle-full-iuj74mxd/prepared/inputs/submission.csv",
+  "data": {
+    "case": "concrete_strength",
+    "dataset": "elikplim/concrete-compressive-strength-data-set",
+    "source": "https://www.kaggle.com/datasets/elikplim/concrete-compressive-strength-data-set",
+    "raw_sha256": "e1accd70da31187a50c652c50acb4c8392f440174562f6a5510ac4fcaa437bb8",
+    "member": "concrete_data.csv",
+    "target": "concrete_compressive_strength",
+    "id_column": "benchmark_id",
+    "metric": "rmse",
+    "seed": 42,
+    "phase": "final_lockbox",
+    "rows": 1030,
+    "training_rows": 820,
+    "evaluation_rows": 210,
+    "reserved_final_rows": 210,
+    "features": 8,
+    "split_sha256": "e39d6f9e1afd9ff31f863da7d7645a608fbbb2bc816c3e43d9639fad063918a2",
+    "input_sha256": {
+      "train.csv": "8e26a5510eff323c2b37322aef245bdfdaf08fd57a2244cbb43a93426fb83698",
+      "test.csv": "53de97b2c0ff1c99a11fc8acf99706caa22bf0e355585dacee0391f99e57ad7d",
+      "data_dictionary.csv": "1ee6e0d445c66f6090cb653418b3c3dcc2bd662cd6a9266311e4d80ecef387e2",
+      "sample_submission.csv": "41a2454fbf8ccd7cc90070264f27291b540798aa8943699d71a7dd3d3edc56d6",
+      "task.md": "d08915a64901e848a0a4ba84873a63217174be882f2f0df8ce168fb1ffd68efc"
+    },
+    "labels": [],
+    "labels_outside_task_directory": true,
+    "feature_duplicate_groups_kept_together": true
+  },
+  "packages": {
+    "numpy": "1.26.4",
+    "pandas": "2.2.3",
+    "scikit-learn": "1.5.2",
+    "scipy": "1.12.0",
+    "lightgbm": "4.6.0",
+    "xgboost": "2.1.4"
+  },
+  "platform_submissions": 0,
+  "kaggle_submissions": 0,
+  "returncode": 0,
+  "timed_out": false,
+  "wall_seconds": 64.879,
+  "agent_summary": {
+    "runtime_code_sha256": "f2d104a73fac2a01c7c615fee1bcfb0fd18c0faa52a87579b6f1ecd2ca122eb7",
+    "mode": "live-agent",
+    "budget_seconds": 900.0,
+    "elapsed_seconds": 64.75741045799805,
+    "first_checkpoint_latency": 0.9736872080247849,
+    "validation": {
+      "id": "2ae7a13e53d672f4",
+      "kind": "duplicate_group",
+      "reason": "Exact feature duplicates held together",
+      "seed": 42,
+      "train_rows": 657,
+      "valid_rows": 163
+    },
+    "metric": "rmse",
+    "dummy_utility": -15.42951983645236,
+    "experiments": 24,
+    "successful_experiments": 24,
+    "accepted_experiments": 4,
+    "champion_metric": 4.283762986481228,
+    "champion_recipe": {
+      "model_family": "xgboost",
+      "params": {
+        "iterations": 1800,
+        "max_depth": 6
+      },
+      "feature_ops": [
+        {
+          "op": "ratio",
+          "columns": [
+            "cement",
+            "blast_furnace_slag"
+          ]
+        }
+      ],
+      "target_transform": "none",
+      "max_runtime_sec": 135.0,
+      "validation_plan_id": "2ae7a13e53d672f4",
+      "feature_expressions": [],
+      "id": "local_4",
+      "statement": "Bounded numeric interaction may capture nonlinear rates",
+      "parent_experiment": "exp_0006"
+    },
+    "confirmation_metric": 5.31711769017379,
+    "ensemble": {
+      "weights": [
+        0.75,
+        0.25
+      ],
+      "metric_value": 4.27743108823975,
+      "confirmation_metric": 5.300066063799533,
+      "confirmation_metrics": [
+        {
+          "split_id": "7feb21aac743f127",
+          "metric_value": 5.300066063799533,
+          "utility": -5.300066063799533
+        }
+      ],
+      "robust_utility": -4.916577947964614
+    },
+    "multipliers": null,
+    "qwen_calls": 3,
+    "qwen_proposals": 4,
+    "qwen_tokens": 13555,
+    "qwen_events": [
+      {
+        "status": "api_usage",
+        "call": 1,
+        "response_model": "qwen/qwen3.8-27b",
+        "prompt_tokens": 3972,
+        "completion_tokens": 484,
+        "reasoning_tokens": 0,
+        "finish_reason": "stop",
+        "reported_cost": 0.215982658788,
+        "elapsed_seconds": 3.416,
+        "timeout_seconds": 40.0
+      },
+      {
+        "status": "response",
+        "call": 1,
+        "tokens": 4456,
+        "elapsed_seconds": 3.416,
+        "timeout_seconds": 40.0
+      },
+      {
+        "status": "api_usage",
+        "call": 2,
+        "response_model": "qwen/qwen3.8-27b",
+        "prompt_tokens": 4261,
+        "completion_tokens": 260,
+        "reasoning_tokens": 0,
+        "finish_reason": "stop",
+        "reported_cost": 0.05618738654879999,
+        "elapsed_seconds": 4.224,
+        "timeout_seconds": 40.0
+      },
+      {
+        "status": "response",
+        "call": 2,
+        "tokens": 8977,
+        "elapsed_seconds": 4.224,
+        "timeout_seconds": 40.0
+      },
+      {
+        "status": "api_usage",
+        "call": 3,
+        "response_model": "qwen/qwen3.8-27b",
+        "prompt_tokens": 4227,
+        "completion_tokens": 351,
+        "reasoning_tokens": 0,
+        "finish_reason": "stop",
+        "reported_cost": 0.06927845281110001,
+        "elapsed_seconds": 17.953,
+        "timeout_seconds": 40.0
+      },
+      {
+        "status": "response",
+        "call": 3,
+        "tokens": 13555,
+        "elapsed_seconds": 17.953,
+        "timeout_seconds": 40.0
+      },
+      {
+        "status": "token_budget_exhausted"
+      }
+    ],
+    "max_live_worker_threads": 15,
+    "peak_worker_memory_mb": 181.828125,
+    "cancelled": false,
+    "output": "/Users/nosovdanil/PycharmProjects/1/alfaautoresearch/runs/kaggle-full-iuj74mxd/prepared/inputs/submission.csv",
+    "output_sha256": "9ef547602973428af05a0bac87ce2bec06d129f136d2bc2b2ec9e829323ca620",
+    "full_refit_published": true,
+    "confirmation_plan": [
+      {
+        "id": "7feb21aac743f127",
+        "kind": "duplicate_group",
+        "reason": "Exact feature duplicates held together",
+        "seed": 1051,
+        "train_rows": 618,
+        "valid_rows": 202
+      }
+    ],
+    "confirmation_metrics": [
+      {
+        "split_id": "7feb21aac743f127",
+        "metric_value": 5.31711769017379
+      }
+    ],
+    "feature_group_trials": 6,
+    "feature_ablation_checks": 0,
+    "accepted_feature_ablations": 0,
+    "researcher_provider": "organizer-qwen",
+    "researcher_model": "qwen/qwen3.8-27b",
+    "researcher_calls": 3,
+    "researcher_proposals": 4,
+    "researcher_tokens": 13555,
+    "researcher_events": [
+      {
+        "status": "api_usage",
+        "call": 1,
+        "response_model": "qwen/qwen3.8-27b",
+        "prompt_tokens": 3972,
+        "completion_tokens": 484,
+        "reasoning_tokens": 0,
+        "finish_reason": "stop",
+        "reported_cost": 0.215982658788,
+        "elapsed_seconds": 3.416,
+        "timeout_seconds": 40.0
+      },
+      {
+        "status": "response",
+        "call": 1,
+        "tokens": 4456,
+        "elapsed_seconds": 3.416,
+        "timeout_seconds": 40.0
+      },
+      {
+        "status": "api_usage",
+        "call": 2,
+        "response_model": "qwen/qwen3.8-27b",
+        "prompt_tokens": 4261,
+        "completion_tokens": 260,
+        "reasoning_tokens": 0,
+        "finish_reason": "stop",
+        "reported_cost": 0.05618738654879999,
+        "elapsed_seconds": 4.224,
+        "timeout_seconds": 40.0
+      },
+      {
+        "status": "response",
+        "call": 2,
+        "tokens": 8977,
+        "elapsed_seconds": 4.224,
+        "timeout_seconds": 40.0
+      },
+      {
+        "status": "api_usage",
+        "call": 3,
+        "response_model": "qwen/qwen3.8-27b",
+        "prompt_tokens": 4227,
+        "completion_tokens": 351,
+        "reasoning_tokens": 0,
+        "finish_reason": "stop",
+        "reported_cost": 0.06927845281110001,
+        "elapsed_seconds": 17.953,
+        "timeout_seconds": 40.0
+      },
+      {
+        "status": "response",
+        "call": 3,
+        "tokens": 13555,
+        "elapsed_seconds": 17.953,
+        "timeout_seconds": 40.0
+      },
+      {
+        "status": "token_budget_exhausted"
+      }
+    ]
+  },
+  "inputs_unchanged": true,
+  "experiments": [
+    {
+      "experiment_id": "exp_0001",
+      "origin": "deterministic",
+      "status": "ok",
+      "metric_value": 10.446921554109537,
+      "accepted": true,
+      "recipe": {
+        "model_family": "linear",
+        "params": {
+          "alpha": 10
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 135.0,
+        "validation_plan_id": "2ae7a13e53d672f4",
+        "feature_expressions": [],
+        "id": "candidate",
+        "statement": "Fast regularized linear baseline",
+        "parent_experiment": null
+      },
+      "runtime_sec": 0.9512522500008345
+    },
+    {
+      "experiment_id": "exp_0002",
+      "origin": "deterministic",
+      "status": "ok",
+      "metric_value": 4.603486269348158,
+      "accepted": true,
+      "recipe": {
+        "model_family": "lightgbm",
+        "params": {
+          "iterations": 1800,
+          "num_leaves": 31,
+          "min_child_samples": 30
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 135.0,
+        "validation_plan_id": "2ae7a13e53d672f4",
+        "feature_expressions": [],
+        "id": "candidate",
+        "statement": "Fast leaf-wise booster with categorical handling",
+        "parent_experiment": null
+      },
+      "runtime_sec": 1.9169415830110665
+    },
+    {
+      "experiment_id": "exp_0003",
+      "origin": "qwen",
+      "status": "ok",
+      "metric_value": 4.9177126150443415,
+      "accepted": false,
+      "recipe": {
+        "model_family": "lightgbm",
+        "params": {
+          "iterations": 1800,
+          "num_leaves": 31,
+          "min_child_samples": 30
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 135.0,
+        "validation_plan_id": "2ae7a13e53d672f4",
+        "feature_expressions": [
+          {
+            "name": "water_to_binder_ratio",
+            "expression": "col(\"water\") / maximum(col(\"cement\") + col(\"blast_furnace_slag\") + col(\"fly_ash\"), 1)",
+            "reason": "The water-to-binder ratio is the primary determinant of concrete strength. The model currently has to infer this ratio from individual components, which is difficult for tree-based models when the components are collinear."
+          },
+          {
+            "name": "log_age",
+            "expression": "log1p(col(\"age\"))",
+            "reason": "Concrete strength increases logarithmically with age. The raw age column has a wide range (1 to 365 days) and is highly skewed. Log-transforming it helps the model capture the diminishing returns of curing time."
+          },
+          {
+            "name": "cement_to_water_ratio",
+            "expression": "col(\"cement\") / maximum(col(\"water\"), 1)",
+            "reason": "The inverse of the water-to-cement ratio is a common proxy for strength. Providing both the ratio and its inverse (or a related ratio) can help the model partition the feature space more effectively."
+          }
+        ],
+        "id": "candidate",
+        "statement": "Concrete strength is governed by the water-to-binder ratio and the logarithmic maturity (age). Adding the water-to-binder ratio, log1p(age), and the cement-to-water ratio should reduce RMSE by giving the booster explicit access to the dominant physical relationships.",
+        "parent_experiment": "exp_0002"
+      },
+      "feature_trial": {
+        "kind": "feature_group",
+        "parent_experiment": "exp_0002",
+        "parent_metric": 4.603486269348158,
+        "parent_utility": -4.603486269348158,
+        "held_constant": [
+          "model_family",
+          "params",
+          "target_transform",
+          "validation",
+          "seed"
+        ],
+        "changes": [
+          {
+            "kind": "formula",
+            "name": "water_to_binder_ratio"
+          },
+          {
+            "kind": "formula",
+            "name": "log_age"
+          },
+          {
+            "kind": "formula",
+            "name": "cement_to_water_ratio"
+          }
+        ],
+        "ignored_model_overrides": [],
+        "group_experiment": "exp_0003",
+        "utility_gain_vs_parent": -0.31422634569618335
+      },
+      "runtime_sec": 1.5665350829949602
+    },
+    {
+      "experiment_id": "exp_0004",
+      "origin": "deterministic",
+      "status": "ok",
+      "metric_value": 4.718861507778356,
+      "accepted": false,
+      "recipe": {
+        "model_family": "hist",
+        "params": {
+          "iterations": 350
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 135.0,
+        "validation_plan_id": "2ae7a13e53d672f4",
+        "feature_expressions": [],
+        "id": "candidate",
+        "statement": "Histogram boosting diversity",
+        "parent_experiment": null
+      },
+      "runtime_sec": 1.6587642499944195
+    },
+    {
+      "experiment_id": "exp_0005",
+      "origin": "deterministic",
+      "status": "ok",
+      "metric_value": 4.6955377685965916,
+      "accepted": false,
+      "recipe": {
+        "model_family": "extra_trees",
+        "params": {
+          "iterations": 250,
+          "min_samples_leaf": 2
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 135.0,
+        "validation_plan_id": "2ae7a13e53d672f4",
+        "feature_expressions": [],
+        "id": "candidate",
+        "statement": "Randomized trees for complementary errors",
+        "parent_experiment": null
+      },
+      "runtime_sec": 1.005314082984114
+    },
+    {
+      "experiment_id": "exp_0006",
+      "origin": "deterministic",
+      "status": "ok",
+      "metric_value": 4.3950535780705,
+      "accepted": true,
+      "recipe": {
+        "model_family": "xgboost",
+        "params": {
+          "iterations": 1800,
+          "max_depth": 6
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 135.0,
+        "validation_plan_id": "2ae7a13e53d672f4",
+        "feature_expressions": [],
+        "id": "candidate",
+        "statement": "Regularized histogram booster diversity",
+        "parent_experiment": null
+      },
+      "runtime_sec": 1.6788664579798933
+    },
+    {
+      "experiment_id": "exp_0007",
+      "origin": "qwen",
+      "status": "ok",
+      "metric_value": 4.422756665216991,
+      "accepted": false,
+      "recipe": {
+        "model_family": "xgboost",
+        "params": {
+          "iterations": 1800,
+          "max_depth": 6
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 135.0,
+        "validation_plan_id": "2ae7a13e53d672f4",
+        "feature_expressions": [
+          {
+            "name": "total_binder",
+            "expression": "col(\"cement\") + col(\"blast_furnace_slag\") + col(\"fly_ash\")",
+            "reason": "Total cementitious material is the primary strength contributor; combining them gives the model a direct proxy for binder content."
+          },
+          {
+            "name": "water_to_binder",
+            "expression": "col(\"water\") / maximum(col(\"cement\") + col(\"blast_furnace_slag\") + col(\"fly_ash\"), 1)",
+            "reason": "Water-to-binder ratio is the key physical parameter governing strength; high error association with water suggests the model needs this normalized view."
+          }
+        ],
+        "id": "candidate",
+        "statement": "Adding the total binder mass (cement + slag + fly ash) and the water-to-binder ratio captures the dominant physical driver of concrete strength, which the current model under-uses despite high error association with water and cement.",
+        "parent_experiment": "exp_0006"
+      },
+      "feature_trial": {
+        "kind": "feature_group",
+        "parent_experiment": "exp_0006",
+        "parent_metric": 4.3950535780705,
+        "parent_utility": -4.3950535780705,
+        "held_constant": [
+          "model_family",
+          "params",
+          "target_transform",
+          "validation",
+          "seed"
+        ],
+        "changes": [
+          {
+            "kind": "formula",
+            "name": "total_binder"
+          },
+          {
+            "kind": "formula",
+            "name": "water_to_binder"
+          }
+        ],
+        "ignored_model_overrides": [],
+        "group_experiment": "exp_0007",
+        "utility_gain_vs_parent": -0.027703087146491612
+      },
+      "runtime_sec": 1.6289799169753678
+    },
+    {
+      "experiment_id": "exp_0008",
+      "origin": "qwen",
+      "status": "ok",
+      "metric_value": 4.435094766445134,
+      "accepted": false,
+      "recipe": {
+        "model_family": "xgboost",
+        "params": {
+          "iterations": 1800,
+          "max_depth": 6
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 135.0,
+        "validation_plan_id": "2ae7a13e53d672f4",
+        "feature_expressions": [
+          {
+            "name": "water_to_binder",
+            "expression": "col(\"water\") / maximum(col(\"cement\") + col(\"blast_furnace_slag\") + col(\"fly_ash\"), 1)",
+            "reason": "Water-to-binder ratio is a primary determinant of concrete strength; the previous attempt failed likely due to missing total_binder or interaction with age. This isolates the ratio."
+          },
+          {
+            "name": "log_age",
+            "expression": "log1p(col(\"age\"))",
+            "reason": "Concrete strength gain is logarithmic with age. The model importance for age is high (0.23), and error association is significant (0.22). Log transform helps the tree model capture the diminishing returns of curing time."
+          }
+        ],
+        "id": "candidate",
+        "statement": "Add water-to-total-binder ratio and log-transformed age to capture non-linear curing and mix proportion effects.",
+        "parent_experiment": "exp_0006"
+      },
+      "feature_trial": {
+        "kind": "feature_group",
+        "parent_experiment": "exp_0006",
+        "parent_metric": 4.3950535780705,
+        "parent_utility": -4.3950535780705,
+        "held_constant": [
+          "model_family",
+          "params",
+          "target_transform",
+          "validation",
+          "seed"
+        ],
+        "changes": [
+          {
+            "kind": "formula",
+            "name": "water_to_binder"
+          },
+          {
+            "kind": "formula",
+            "name": "log_age"
+          }
+        ],
+        "ignored_model_overrides": [],
+        "group_experiment": "exp_0008",
+        "utility_gain_vs_parent": -0.04004118837463455
+      },
+      "runtime_sec": 1.6724323339876719
+    },
+    {
+      "experiment_id": "exp_0009",
+      "origin": "deterministic",
+      "status": "ok",
+      "metric_value": 4.283762986481228,
+      "accepted": true,
+      "recipe": {
+        "model_family": "xgboost",
+        "params": {
+          "iterations": 1800,
+          "max_depth": 6
+        },
+        "feature_ops": [
+          {
+            "op": "ratio",
+            "columns": [
+              "cement",
+              "blast_furnace_slag"
+            ]
+          }
+        ],
+        "target_transform": "none",
+        "max_runtime_sec": 135.0,
+        "validation_plan_id": "2ae7a13e53d672f4",
+        "feature_expressions": [],
+        "id": "local_4",
+        "statement": "Bounded numeric interaction may capture nonlinear rates",
+        "parent_experiment": "exp_0006"
+      },
+      "feature_trial": {
+        "kind": "feature_group",
+        "parent_experiment": "exp_0006",
+        "parent_metric": 4.3950535780705,
+        "parent_utility": -4.3950535780705,
+        "held_constant": [
+          "model_family",
+          "params",
+          "target_transform",
+          "validation",
+          "seed"
+        ],
+        "changes": [
+          {
+            "kind": "operation",
+            "name": "{\"columns\": [\"cement\", \"blast_furnace_slag\"], \"op\": \"ratio\"}"
+          }
+        ],
+        "ignored_model_overrides": [],
+        "group_experiment": "exp_0009",
+        "utility_gain_vs_parent": 0.11129059158927213
+      },
+      "runtime_sec": 1.5213304169883486
+    },
+    {
+      "experiment_id": "exp_0010",
+      "origin": "deterministic",
+      "status": "ok",
+      "metric_value": 4.35387982582531,
+      "accepted": false,
+      "recipe": {
+        "model_family": "xgboost",
+        "params": {
+          "iterations": 1800,
+          "max_depth": 6
+        },
+        "feature_ops": [
+          {
+            "op": "ratio",
+            "columns": [
+              "cement",
+              "blast_furnace_slag"
+            ]
+          },
+          {
+            "op": "product",
+            "columns": [
+              "cement",
+              "blast_furnace_slag"
+            ]
+          }
+        ],
+        "target_transform": "none",
+        "max_runtime_sec": 135.0,
+        "validation_plan_id": "2ae7a13e53d672f4",
+        "feature_expressions": [],
+        "id": "local_5",
+        "statement": "Bounded numeric interaction may capture nonlinear rates",
+        "parent_experiment": "exp_0009"
+      },
+      "feature_trial": {
+        "kind": "feature_group",
+        "parent_experiment": "exp_0009",
+        "parent_metric": 4.283762986481228,
+        "parent_utility": -4.283762986481228,
+        "held_constant": [
+          "model_family",
+          "params",
+          "target_transform",
+          "validation",
+          "seed"
+        ],
+        "changes": [
+          {
+            "kind": "operation",
+            "name": "{\"columns\": [\"cement\", \"blast_furnace_slag\"], \"op\": \"product\"}"
+          }
+        ],
+        "ignored_model_overrides": [],
+        "group_experiment": "exp_0010",
+        "utility_gain_vs_parent": -0.07011683934408275
+      },
+      "runtime_sec": 1.5828394160198513
+    },
+    {
+      "experiment_id": "exp_0011",
+      "origin": "deterministic",
+      "status": "ok",
+      "metric_value": 4.283762986481228,
+      "accepted": false,
+      "recipe": {
+        "model_family": "xgboost",
+        "params": {
+          "iterations": 1800,
+          "max_depth": 6
+        },
+        "feature_ops": [
+          {
+            "op": "ratio",
+            "columns": [
+              "cement",
+              "blast_furnace_slag"
+            ]
+          },
+          {
+            "op": "clip",
+            "columns": [
+              "cement",
+              "blast_furnace_slag",
+              "fly_ash",
+              "water",
+              "superplasticizer",
+              "coarse_aggregate",
+              "fine_aggregate",
+              "age"
+            ]
+          }
+        ],
+        "target_transform": "none",
+        "max_runtime_sec": 135.0,
+        "validation_plan_id": "2ae7a13e53d672f4",
+        "feature_expressions": [],
+        "id": "local_6",
+        "statement": "Fold-fitted clipped copies may reduce outlier sensitivity while retaining originals",
+        "parent_experiment": "exp_0009"
+      },
+      "feature_trial": {
+        "kind": "feature_group",
+        "parent_experiment": "exp_0009",
+        "parent_metric": 4.283762986481228,
+        "parent_utility": -4.283762986481228,
+        "held_constant": [
+          "model_family",
+          "params",
+          "target_transform",
+          "validation",
+          "seed"
+        ],
+        "changes": [
+          {
+            "kind": "operation",
+            "name": "{\"columns\": [\"cement\", \"blast_furnace_slag\", \"fly_ash\", \"water\", \"superplasticizer\", \"coarse_aggregate\", \"fine_aggregate\", \"age\"], \"op\": \"clip\"}"
+          }
+        ],
+        "ignored_model_overrides": [],
+        "group_experiment": "exp_0011",
+        "utility_gain_vs_parent": 0.0
+      },
+      "runtime_sec": 1.6572234579944052
+    },
+    {
+      "experiment_id": "exp_0012",
+      "origin": "deterministic",
+      "status": "ok",
+      "metric_value": 4.417929315710496,
+      "accepted": false,
+      "recipe": {
+        "model_family": "xgboost",
+        "params": {
+          "iterations": 1800,
+          "max_depth": 5,
+          "min_child_weight": 15
+        },
+        "feature_ops": [
+          {
+            "op": "ratio",
+            "columns": [
+              "cement",
+              "blast_furnace_slag"
+            ]
+          }
+        ],
+        "target_transform": "none",
+        "max_runtime_sec": 135.0,
+        "validation_plan_id": "2ae7a13e53d672f4",
+        "feature_expressions": [],
+        "id": "local_7",
+        "statement": "Focused local hyperparameter search around measured champion",
+        "parent_experiment": "exp_0009"
+      },
+      "runtime_sec": 1.5770053330052178
+    },
+    {
+      "experiment_id": "exp_0013",
+      "origin": "deterministic",
+      "status": "ok",
+      "metric_value": 4.810451674763484,
+      "accepted": false,
+      "recipe": {
+        "model_family": "xgboost",
+        "params": {
+          "iterations": 1800,
+          "max_depth": 3,
+          "min_child_weight": 15
+        },
+        "feature_ops": [
+          {
+            "op": "ratio",
+            "columns": [
+              "cement",
+              "blast_furnace_slag"
+            ]
+          }
+        ],
+        "target_transform": "none",
+        "max_runtime_sec": 135.0,
+        "validation_plan_id": "2ae7a13e53d672f4",
+        "feature_expressions": [],
+        "id": "local_8",
+        "statement": "Focused local hyperparameter search around measured champion",
+        "parent_experiment": "exp_0009"
+      },
+      "runtime_sec": 1.3571813330054283
+    },
+    {
+      "experiment_id": "exp_0014",
+      "origin": "deterministic",
+      "status": "ok",
+      "metric_value": 4.791424202503315,
+      "accepted": false,
+      "recipe": {
+        "model_family": "xgboost",
+        "params": {
+          "iterations": 1800,
+          "max_depth": 3,
+          "min_child_weight": 1
+        },
+        "feature_ops": [
+          {
+            "op": "ratio",
+            "columns": [
+              "cement",
+              "blast_furnace_slag"
+            ]
+          }
+        ],
+        "target_transform": "none",
+        "max_runtime_sec": 135.0,
+        "validation_plan_id": "2ae7a13e53d672f4",
+        "feature_expressions": [],
+        "id": "local_9",
+        "statement": "Focused local hyperparameter search around measured champion",
+        "parent_experiment": "exp_0009"
+      },
+      "runtime_sec": 1.4858452499902342
+    },
+    {
+      "experiment_id": "exp_0015",
+      "origin": "deterministic",
+      "status": "ok",
+      "metric_value": 4.703158170893681,
+      "accepted": false,
+      "recipe": {
+        "model_family": "xgboost",
+        "params": {
+          "iterations": 1800,
+          "max_depth": 7,
+          "min_child_weight": 15
+        },
+        "feature_ops": [
+          {
+            "op": "ratio",
+            "columns": [
+              "cement",
+              "blast_furnace_slag"
+            ]
+          }
+        ],
+        "target_transform": "none",
+        "max_runtime_sec": 135.0,
+        "validation_plan_id": "2ae7a13e53d672f4",
+        "feature_expressions": [],
+        "id": "local_10",
+        "statement": "Focused local hyperparameter search around measured champion",
+        "parent_experiment": "exp_0009"
+      },
+      "runtime_sec": 1.870893333980348
+    },
+    {
+      "experiment_id": "exp_0016",
+      "origin": "deterministic",
+      "status": "ok",
+      "metric_value": 4.50903930006071,
+      "accepted": false,
+      "recipe": {
+        "model_family": "xgboost",
+        "params": {
+          "iterations": 1800,
+          "max_depth": 7,
+          "min_child_weight": 1
+        },
+        "feature_ops": [
+          {
+            "op": "ratio",
+            "columns": [
+              "cement",
+              "blast_furnace_slag"
+            ]
+          }
+        ],
+        "target_transform": "none",
+        "max_runtime_sec": 135.0,
+        "validation_plan_id": "2ae7a13e53d672f4",
+        "feature_expressions": [],
+        "id": "local_13",
+        "statement": "Focused local hyperparameter search around measured champion",
+        "parent_experiment": "exp_0009"
+      },
+      "runtime_sec": 2.204264041996794
+    },
+    {
+      "experiment_id": "exp_0017",
+      "origin": "deterministic",
+      "status": "ok",
+      "metric_value": 4.7481372253690575,
+      "accepted": false,
+      "recipe": {
+        "model_family": "xgboost",
+        "params": {
+          "iterations": 1800,
+          "max_depth": 9,
+          "min_child_weight": 5
+        },
+        "feature_ops": [
+          {
+            "op": "ratio",
+            "columns": [
+              "cement",
+              "blast_furnace_slag"
+            ]
+          }
+        ],
+        "target_transform": "none",
+        "max_runtime_sec": 135.0,
+        "validation_plan_id": "2ae7a13e53d672f4",
+        "feature_expressions": [],
+        "id": "local_14",
+        "statement": "Focused local hyperparameter search around measured champion",
+        "parent_experiment": "exp_0009"
+      },
+      "runtime_sec": 2.352172540995525
+    },
+    {
+      "experiment_id": "exp_0018",
+      "origin": "deterministic",
+      "status": "ok",
+      "metric_value": 4.57469691011294,
+      "accepted": false,
+      "recipe": {
+        "model_family": "xgboost",
+        "params": {
+          "iterations": 1800,
+          "max_depth": 7,
+          "min_child_weight": 5
+        },
+        "feature_ops": [
+          {
+            "op": "ratio",
+            "columns": [
+              "cement",
+              "blast_furnace_slag"
+            ]
+          }
+        ],
+        "target_transform": "none",
+        "max_runtime_sec": 135.0,
+        "validation_plan_id": "2ae7a13e53d672f4",
+        "feature_expressions": [],
+        "id": "local_15",
+        "statement": "Focused local hyperparameter search around measured champion",
+        "parent_experiment": "exp_0009"
+      },
+      "runtime_sec": 2.304147874994669
+    },
+    {
+      "experiment_id": "exp_0019",
+      "origin": "deterministic",
+      "status": "ok",
+      "metric_value": 4.616977274329248,
+      "accepted": false,
+      "recipe": {
+        "model_family": "xgboost",
+        "params": {
+          "iterations": 1800,
+          "max_depth": 5,
+          "min_child_weight": 1
+        },
+        "feature_ops": [
+          {
+            "op": "ratio",
+            "columns": [
+              "cement",
+              "blast_furnace_slag"
+            ]
+          }
+        ],
+        "target_transform": "none",
+        "max_runtime_sec": 135.0,
+        "validation_plan_id": "2ae7a13e53d672f4",
+        "feature_expressions": [],
+        "id": "local_20",
+        "statement": "Focused local hyperparameter search around measured champion",
+        "parent_experiment": "exp_0009"
+      },
+      "runtime_sec": 1.348395916982554
+    },
+    {
+      "experiment_id": "exp_0020",
+      "status": "ok",
+      "metric_value": 5.31711769017379,
+      "accepted": false,
+      "recipe": {
+        "model_family": "xgboost",
+        "params": {
+          "iterations": 1800,
+          "max_depth": 6
+        },
+        "feature_ops": [
+          {
+            "op": "ratio",
+            "columns": [
+              "cement",
+              "blast_furnace_slag"
+            ]
+          }
+        ],
+        "target_transform": "none",
+        "max_runtime_sec": 135.0,
+        "validation_plan_id": "7feb21aac743f127",
+        "feature_expressions": [],
+        "id": "local_4",
+        "statement": "Bounded numeric interaction may capture nonlinear rates",
+        "parent_experiment": "exp_0006"
+      },
+      "runtime_sec": 1.2890879590122495
+    },
+    {
+      "experiment_id": "exp_0021",
+      "status": "ok",
+      "metric_value": 5.31711769017379,
+      "accepted": false,
+      "recipe": {
+        "model_family": "xgboost",
+        "params": {
+          "iterations": 1800,
+          "max_depth": 6
+        },
+        "feature_ops": [
+          {
+            "op": "ratio",
+            "columns": [
+              "cement",
+              "blast_furnace_slag"
+            ]
+          },
+          {
+            "op": "clip",
+            "columns": [
+              "cement",
+              "blast_furnace_slag",
+              "fly_ash",
+              "water",
+              "superplasticizer",
+              "coarse_aggregate",
+              "fine_aggregate",
+              "age"
+            ]
+          }
+        ],
+        "target_transform": "none",
+        "max_runtime_sec": 135.0,
+        "validation_plan_id": "7feb21aac743f127",
+        "feature_expressions": [],
+        "id": "local_6",
+        "statement": "Fold-fitted clipped copies may reduce outlier sensitivity while retaining originals",
+        "parent_experiment": "exp_0009"
+      },
+      "runtime_sec": 1.3947845000075176
+    },
+    {
+      "experiment_id": "exp_0022",
+      "status": "ok",
+      "metric_value": 5.358365830582133,
+      "accepted": false,
+      "recipe": {
+        "model_family": "xgboost",
+        "params": {
+          "iterations": 1800,
+          "max_depth": 6
+        },
+        "feature_ops": [
+          {
+            "op": "ratio",
+            "columns": [
+              "cement",
+              "blast_furnace_slag"
+            ]
+          },
+          {
+            "op": "product",
+            "columns": [
+              "cement",
+              "blast_furnace_slag"
+            ]
+          }
+        ],
+        "target_transform": "none",
+        "max_runtime_sec": 135.0,
+        "validation_plan_id": "7feb21aac743f127",
+        "feature_expressions": [],
+        "id": "local_5",
+        "statement": "Bounded numeric interaction may capture nonlinear rates",
+        "parent_experiment": "exp_0009"
+      },
+      "runtime_sec": 1.1609902920026798
+    },
+    {
+      "experiment_id": "exp_0023",
+      "status": "ok",
+      "accepted": false,
+      "recipe": {
+        "model_family": "xgboost",
+        "params": {
+          "iterations": 1800,
+          "max_depth": 6
+        },
+        "feature_ops": [
+          {
+            "op": "ratio",
+            "columns": [
+              "cement",
+              "blast_furnace_slag"
+            ]
+          }
+        ],
+        "target_transform": "none",
+        "max_runtime_sec": 135.0,
+        "validation_plan_id": "2ae7a13e53d672f4",
+        "feature_expressions": [],
+        "id": "local_4",
+        "statement": "Bounded numeric interaction may capture nonlinear rates",
+        "parent_experiment": "exp_0006"
+      },
+      "runtime_sec": 1.4056238750054035
+    },
+    {
+      "experiment_id": "exp_0024",
+      "status": "ok",
+      "accepted": false,
+      "recipe": {
+        "model_family": "xgboost",
+        "params": {
+          "iterations": 1800,
+          "max_depth": 6
+        },
+        "feature_ops": [
+          {
+            "op": "ratio",
+            "columns": [
+              "cement",
+              "blast_furnace_slag"
+            ]
+          },
+          {
+            "op": "product",
+            "columns": [
+              "cement",
+              "blast_furnace_slag"
+            ]
+          }
+        ],
+        "target_transform": "none",
+        "max_runtime_sec": 135.0,
+        "validation_plan_id": "2ae7a13e53d672f4",
+        "feature_expressions": [],
+        "id": "local_5",
+        "statement": "Bounded numeric interaction may capture nonlinear rates",
+        "parent_experiment": "exp_0009"
+      },
+      "runtime_sec": 1.456781333021354
+    }
+  ],
+  "qwen_fits": 3,
+  "qwen_accepted": 0,
+  "final_recipe": {
+    "output_sha256": "9ef547602973428af05a0bac87ce2bec06d129f136d2bc2b2ec9e829323ca620",
+    "full_refit": true,
+    "seed": 42,
+    "labels": [],
+    "components": [
+      {
+        "recipe": {
+          "model_family": "xgboost",
+          "params": {
+            "iterations": 1800,
+            "max_depth": 6
+          },
+          "feature_ops": [
+            {
+              "op": "ratio",
+              "columns": [
+                "cement",
+                "blast_furnace_slag"
+              ]
+            }
+          ],
+          "target_transform": "none",
+          "max_runtime_sec": 135.0,
+          "validation_plan_id": "2ae7a13e53d672f4",
+          "feature_expressions": [],
+          "id": "local_4",
+          "statement": "Bounded numeric interaction may capture nonlinear rates",
+          "parent_experiment": "exp_0006"
+        },
+        "iterations": 567,
+        "experiment_id": "exp_0009"
+      },
+      {
+        "recipe": {
+          "model_family": "xgboost",
+          "params": {
+            "iterations": 1800,
+            "max_depth": 6
+          },
+          "feature_ops": [
+            {
+              "op": "ratio",
+              "columns": [
+                "cement",
+                "blast_furnace_slag"
+              ]
+            },
+            {
+              "op": "product",
+              "columns": [
+                "cement",
+                "blast_furnace_slag"
+              ]
+            }
+          ],
+          "target_transform": "none",
+          "max_runtime_sec": 135.0,
+          "validation_plan_id": "2ae7a13e53d672f4",
+          "feature_expressions": [],
+          "id": "local_5",
+          "statement": "Bounded numeric interaction may capture nonlinear rates",
+          "parent_experiment": "exp_0009"
+        },
+        "iterations": 564,
+        "experiment_id": "exp_0010"
+      }
+    ],
+    "blend_weights": [
+      0.75,
+      0.25
+    ],
+    "probability_multipliers": null
+  },
+  "run_dir": "/Users/nosovdanil/PycharmProjects/1/alfaautoresearch/runs/kaggle-full-iuj74mxd/prepared/inputs/.atlas/20261021_212022_sxeo0ftd",
+  "output_sha256": "9ef547602973428af05a0bac87ce2bec06d129f136d2bc2b2ec9e829323ca620",
+  "credential_absent_from_artifacts": true,
+  "external_metric": 4.173874736717437,
+  "output_schema_valid": true,
+  "regression_metrics": {
+    "mae": 2.8457580200000003,
+    "r2": 0.9312957814794613,
+    "training_mean_rmse": 15.926242223625053
+  }
+}
