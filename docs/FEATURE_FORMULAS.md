@@ -89,10 +89,11 @@ formula is not evidence of improvement until the fixed validation metric improve
 
 From the repository root with its Python 3.12 environment:
 
-The official entrypoint and generated upload use a fast 900-second (15-minute)
-budget per task by default. It may finish earlier. Platform queue time is separate.
-Development wrappers accept `--budget 10500` for a longer local search; their own
-short defaults are unchanged.
+The official entrypoint and generated upload use a 10,500-second (2-hour 55-minute)
+budget per task by default, below the platform's three-hour limit. It may finish
+earlier when search stagnates. Platform queue time is separate. Development
+wrappers accept `--budget 900` for a quick local search; their own short defaults
+are unchanged.
 
 ```sh
 .venv/bin/python -m pytest tests -q

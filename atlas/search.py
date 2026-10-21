@@ -58,13 +58,14 @@ class SearchController:
             self.stop_reason='Bounded local search stagnated';return True
         return False
     def summary(self):
-        return {**self.hpo.summary(),'stop_reason':self.stop_reason,'research_steps':self.research_index}
+        return {**self.hpo.summary(),'stop_reason':self.stop_reason,'research_steps':self.research_index,
+                'research_trial_limit':self.budget.research_trial_limit}
     def next(self,champion):
         early_research=self.mode=='live-agent' and champion is not None and self.initial_attempts>=2 and self.research_index==0
         if self.queue and not early_research:
             self.stage='MODEL_DIVERSITY';self.initial_attempts+=1;return self.queue.pop(0)
         self.stage='RESEARCH';self.research_index+=1
-        if not champion or self.research_index>48:
+        if not champion or self.research_index>self.budget.research_trial_limit:
             self.stop_reason='No champion or bounded research trial cap reached';return None
         spec=self.spec;base=copy.deepcopy(champion['recipe']);base.pop('validation_plan_id',None);base['parent_experiment']=champion['experiment_id'];base['id']=f'local_{self.research_index}'
         family=base['model_family'];i=self.research_index

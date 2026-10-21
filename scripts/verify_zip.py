@@ -5,6 +5,7 @@ from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1];sys.path.insert(0,str(ROOT))
 from scripts.synthetic import create
 from atlas.utils import code_digest
+from atlas.budget import DEFAULT_BUDGET_SECONDS
 
 
 def verify(archive):
@@ -48,7 +49,7 @@ def verify(archive):
                     summaries=list((task.parent/'.atlas').glob('*/summary.json'));assert len(summaries)==1
                     summary=json.loads(summaries[0].read_text())
                     assert summary['runtime_code_sha256']==code_digest()
-                    assert summary['budget_seconds']==900,summary['budget_seconds']
+                    assert summary['budget_seconds']==DEFAULT_BUDGET_SECONDS,summary['budget_seconds']
                     assert summary['cancelled'] and not (summaries[0].parent/'error.txt').exists()
                     records.append({'scenario':scenario,'status':'passed','accepted_checkpoint':True,'returncode':proc.returncode,'runtime_code_sha256':summary['runtime_code_sha256'],'default_budget_seconds':summary['budget_seconds']})
                 finally:

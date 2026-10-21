@@ -174,6 +174,24 @@ def test_adaptive_search_revisits_two_families_and_preserves_their_features(tmp_
     assert scheduler.hpo.completed==6
 
 
+@pytest.mark.parametrize('seconds,continues',[(900,False),(10500,True)])
+def test_long_budget_can_research_beyond_the_fast_run_cap(tmp_path,seconds,continues):
+    data=load(read_inputs(create(tmp_path,n=100)))
+    scheduler=SearchController(data.spec,Budget(seconds),seed=12)
+    scheduler.queue=[];scheduler.research_index=48
+    champion={'experiment_id':'base','recipe':validate({'model_family':'hist',
+               'params':{'iterations':40}},data.spec),'runtime_sec':1.}
+    proposal=scheduler.next(champion)
+    if continues:
+        assert proposal is not None
+        validate(proposal,data.spec)
+        # A longer budget must still stop when measured search stagnates.
+        scheduler.hpo.completed=12
+        assert scheduler.should_stop(18)
+    else:
+        assert proposal is None and scheduler.stop_reason
+
+
 def test_tpe_seed_and_observation_sequence_are_reproducible(tmp_path):
     data=load(read_inputs(create(tmp_path,n=100)))
     data.spec.validation_plan=selection_splits(data)[0].json()

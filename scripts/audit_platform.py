@@ -22,6 +22,7 @@ import zipfile
 
 ROOT=Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT))
+from atlas.budget import DEFAULT_BUDGET_SECONDS
 
 
 def audit_static(archive):
@@ -105,12 +106,12 @@ def complete_case(upload,root,scenario,nested=False):
     try:
         with logfile.open('w') as log:
             proc=subprocess.Popen(['python3','solution.py','task.md'],cwd=root,env=env,stdout=log,stderr=log)
-            try:proc.wait(timeout=90)
+            try:proc.wait(timeout=300)
             except subprocess.TimeoutExpired:
                 proc.terminate()
                 try:proc.wait(timeout=8)
                 except subprocess.TimeoutExpired:proc.kill();proc.wait()
-                raise AssertionError('Complete fixture exceeded 90 seconds; see '+str(logfile))
+                raise AssertionError('Complete fixture exceeded 300 seconds; see '+str(logfile))
         assert proc.returncode==0,logfile.read_text()[-5000:]
     finally:
         server.shutdown();server.server_close();thread.join(timeout=2)
@@ -127,7 +128,7 @@ def complete_case(upload,root,scenario,nested=False):
     summaries=list((root/'.atlas').glob('*/summary.json'));assert len(summaries)==1
     summary=json.loads(summaries[0].read_text())
     assert summary['runtime_code_sha256']==code_digest()
-    assert summary['budget_seconds']==900 and not summary['cancelled']
+    assert summary['budget_seconds']==DEFAULT_BUDGET_SECONDS and not summary['cancelled']
     assert summary['mode']=='live-agent' and summary['qwen_calls']>=1 and requests
     assert requests[0]['model']=='qwen/qwen3.8-27b'
     history=[json.loads(line) for line in (summaries[0].parent/'experiments.jsonl').read_text().splitlines()]

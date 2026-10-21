@@ -2,8 +2,8 @@
   "status": "LOCAL_PLATFORM_CONTRACT_PASSED",
   "static": {
     "status": "passed",
-    "archive_sha256": "228593d0ddc7a82c21d0201b61c63ab3f163d913bb8644272fb8b9e5e29b14b5",
-    "archive_bytes": 60167,
+    "archive_sha256": "95080f8dd3a651c6762df6933a82091f89abc708cd6d1797363b49a102a64bc9",
+    "archive_bytes": 60367,
     "root_file_count": 25,
     "official_requirements_unchanged": true,
     "third_party_imports": [
@@ -18,18 +18,18 @@
     ],
     "credential_literals_absent": true,
     "no_runtime_installer_or_alternative_llm": true,
-    "runtime_code_sha256": "e2f776a1bdeb35a2010a1cba434733fd6edf6d97566cd045a832c1ee27dbb7d9"
+    "runtime_code_sha256": "110869ae56302830a4d920ad4bde9d06e9c7b2ac45a3e97aa6ab96252331c507"
   },
   "complete_runs": [
     {
       "scenario": "iid",
       "status": "passed",
-      "seconds": 47.97,
+      "seconds": 48.784,
       "command": "python3 solution.py task.md",
       "nested_markdown_inputs": false,
       "only_platform_api_environment": true,
       "model_environment_variable_omitted": true,
-      "default_budget_seconds": 900.0,
+      "default_budget_seconds": 10500.0,
       "completed_without_signal": true,
       "full_refit_published": true,
       "output_path": "submission.csv",
@@ -55,17 +55,17 @@
       ],
       "worker_thread_budget": 8,
       "worker_memory_limit_mb": 24576,
-      "runtime_code_sha256": "e2f776a1bdeb35a2010a1cba434733fd6edf6d97566cd045a832c1ee27dbb7d9"
+      "runtime_code_sha256": "110869ae56302830a4d920ad4bde9d06e9c7b2ac45a3e97aa6ab96252331c507"
     },
     {
       "scenario": "integer_labels",
       "status": "passed",
-      "seconds": 49.974,
+      "seconds": 49.529,
       "command": "python3 solution.py task.md",
       "nested_markdown_inputs": true,
       "only_platform_api_environment": true,
       "model_environment_variable_omitted": true,
-      "default_budget_seconds": 900.0,
+      "default_budget_seconds": 10500.0,
       "completed_without_signal": true,
       "full_refit_published": true,
       "output_path": "submission.csv",
@@ -91,17 +91,17 @@
       ],
       "worker_thread_budget": 8,
       "worker_memory_limit_mb": 24576,
-      "runtime_code_sha256": "e2f776a1bdeb35a2010a1cba434733fd6edf6d97566cd045a832c1ee27dbb7d9"
+      "runtime_code_sha256": "110869ae56302830a4d920ad4bde9d06e9c7b2ac45a3e97aa6ab96252331c507"
     },
     {
       "scenario": "future",
       "status": "passed",
-      "seconds": 67.011,
+      "seconds": 64.224,
       "command": "python3 solution.py task.md",
       "nested_markdown_inputs": false,
       "only_platform_api_environment": true,
       "model_environment_variable_omitted": true,
-      "default_budget_seconds": 900.0,
+      "default_budget_seconds": 10500.0,
       "completed_without_signal": true,
       "full_refit_published": true,
       "output_path": "submission.csv",
@@ -117,7 +117,7 @@
       ],
       "qwen_stub_requests": 4,
       "research_fits": 1,
-      "generated_code_files": 59,
+      "generated_code_files": 60,
       "successful_families": [
         "extra_trees",
         "hist",
@@ -127,7 +127,7 @@
       ],
       "worker_thread_budget": 8,
       "worker_memory_limit_mb": 24576,
-      "runtime_code_sha256": "e2f776a1bdeb35a2010a1cba434733fd6edf6d97566cd045a832c1ee27dbb7d9"
+      "runtime_code_sha256": "110869ae56302830a4d920ad4bde9d06e9c7b2ac45a3e97aa6ab96252331c507"
     }
   ],
   "api_check": "Local OpenAI-compatible HTTP stub, not a real LLM; no organizer key used",
@@ -137,5 +137,5 @@
     "No leaderboard submission or public quality benchmark in this audit"
   ],
   "platform_submitted": false,
-  "run_dir": "/Users/nosovdanil/PycharmProjects/1/alfaautoresearch/runs/platform-audit-t2rm3391"
+  "run_dir": "/Users/nosovdanil/PycharmProjects/1/alfaautoresearch/runs/platform-audit-knewi1cs"
 }

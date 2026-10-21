@@ -1,22 +1,22 @@
 {
   "python": "3.12.13 (main, Mar  3 2026, 15:35:03) [Clang 21.1.4 ]",
-  "sha256": "228593d0ddc7a82c21d0201b61c63ab3f163d913bb8644272fb8b9e5e29b14b5",
+  "sha256": "95080f8dd3a651c6762df6933a82091f89abc708cd6d1797363b49a102a64bc9",
   "tests": [
     {
       "scenario": "iid",
       "status": "passed",
       "accepted_checkpoint": true,
       "returncode": 0,
-      "runtime_code_sha256": "e2f776a1bdeb35a2010a1cba434733fd6edf6d97566cd045a832c1ee27dbb7d9",
-      "default_budget_seconds": 900.0
+      "runtime_code_sha256": "110869ae56302830a4d920ad4bde9d06e9c7b2ac45a3e97aa6ab96252331c507",
+      "default_budget_seconds": 10500.0
     },
     {
       "scenario": "integer_labels",
       "status": "passed",
       "accepted_checkpoint": true,
       "returncode": 0,
-      "runtime_code_sha256": "e2f776a1bdeb35a2010a1cba434733fd6edf6d97566cd045a832c1ee27dbb7d9",
-      "default_budget_seconds": 900.0
+      "runtime_code_sha256": "110869ae56302830a4d920ad4bde9d06e9c7b2ac45a3e97aa6ab96252331c507",
+      "default_budget_seconds": 10500.0
     }
   ],
   "environment": "macOS; root-only platform copy; python solution.py task.md; no API credentials; SIGTERM after fitted checkpoint"

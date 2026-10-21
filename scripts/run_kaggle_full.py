@@ -20,6 +20,7 @@ import zipfile
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
+from atlas.budget import DEFAULT_BUDGET_SECONDS
 
 
 def sha256(path):
@@ -113,7 +114,7 @@ def main():
     parser.add_argument('--key-file', type=Path, default=ROOT / '.env.organizer.local')
     parser.add_argument('--run-root', type=Path)
     parser.add_argument('--report', type=Path, default=ROOT / 'reports/kaggle-full-concrete.json')
-    parser.add_argument('--supervisor-seconds', type=float, default=960,
+    parser.add_argument('--supervisor-seconds', type=float, default=10_800,
                         help='Outer failure guard only; does not alter the agent budget')
     args = parser.parse_args()
     registry = json.loads((ROOT / 'benchmarks/kaggle_cases.json').read_text())
@@ -122,8 +123,8 @@ def main():
     archive = args.raw_dir / (args.case + '.zip')
     if not archive.is_file():
         parser.error('Download the public dataset first with download_kaggle.py')
-    if args.supervisor_seconds < 930:
-        parser.error('Allow the default 900-second agent budget plus shutdown time')
+    if args.supervisor_seconds < DEFAULT_BUDGET_SECONDS + 30:
+        parser.error('Allow the default agent budget plus at least 30 seconds for shutdown')
     from scripts.run_organizer import load_environment
     settings = load_environment(args.key_file)
     for name in ['OMP_NUM_THREADS', 'MKL_NUM_THREADS', 'OPENBLAS_NUM_THREADS', 'NUMEXPR_NUM_THREADS', 'VECLIB_MAXIMUM_THREADS']:

@@ -5,9 +5,11 @@ import os,signal,subprocess,time
 from pathlib import Path
 import psutil
 
+DEFAULT_BUDGET_SECONDS = 10_500
+
 @dataclass
 class Budget:
-    total: float=10800
+    total: float=DEFAULT_BUDGET_SECONDS
     started: float=0
     def __post_init__(self):
         if not self.started:self.started=time.monotonic()
@@ -18,6 +20,10 @@ class Budget:
     def can_run(self,estimate,refit_estimate=0,finalization_estimate=0):return self.remaining>estimate*1.3+max(self.reserve,refit_estimate*1.5,finalization_estimate)
     @property
     def search_remaining(self):return max(0.,self.remaining-self.reserve)
+    @property
+    def research_trial_limit(self):
+        # Preserve short-run bounds while allowing longer research on the platform.
+        return max(48,min(512,int(self.total*48/900)))
 
 
 def stop_process(proc):
