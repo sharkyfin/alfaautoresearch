@@ -1,0 +1,2361 @@
+{
+  "status": "completed",
+  "entrypoint": [
+    "python3",
+    "solution.py",
+    "task.md"
+  ],
+  "agent_default_overrides": {},
+  "supervisor_seconds": 960,
+  "archive_sha256": "228593d0ddc7a82c21d0201b61c63ab3f163d913bb8644272fb8b9e5e29b14b5",
+  "runtime_code_sha256": "e2f776a1bdeb35a2010a1cba434733fd6edf6d97566cd045a832c1ee27dbb7d9",
+  "copied_root_files": [
+    "solution.py",
+    "_atlas_entry.py",
+    "atlas___init__.py",
+    "atlas_agent.py",
+    "atlas_budget.py",
+    "atlas_context.py",
+    "atlas_contract.py",
+    "atlas_ensemble.py",
+    "atlas_experiments.py",
+    "atlas_expressions.py",
+    "atlas_features.py",
+    "atlas_hpo.py",
+    "atlas_judge.py",
+    "atlas_metrics.py",
+    "atlas_models.py",
+    "atlas_orchestration.py",
+    "atlas_recipes.py",
+    "atlas_research.py",
+    "atlas_search.py",
+    "atlas_submit.py",
+    "atlas_task.py",
+    "atlas_utils.py",
+    "atlas_validation.py",
+    "atlas_worker.py",
+    "requirements.txt"
+  ],
+  "run_root": "/Users/nosovdanil/PycharmProjects/1/alfaautoresearch/runs/kaggle-full-6ldyl982",
+  "log": "/Users/nosovdanil/PycharmProjects/1/alfaautoresearch/runs/kaggle-full-6ldyl982/pipeline.log",
+  "submission": "/Users/nosovdanil/PycharmProjects/1/alfaautoresearch/runs/kaggle-full-6ldyl982/prepared/inputs/submission.csv",
+  "data": {
+    "case": "sms_spam",
+    "dataset": "team-ai/spam-text-message-classification",
+    "source": "https://www.kaggle.com/datasets/team-ai/spam-text-message-classification",
+    "raw_sha256": "47fe77c6a9ff3ae913562c1fb9206ca5f0dac7f0c83c0dbfb8e249775e674224",
+    "member": "SPAM text message 20170820 - Data.csv",
+    "target": "Category",
+    "id_column": "benchmark_id",
+    "metric": "f1_macro",
+    "seed": 42,
+    "phase": "final_lockbox",
+    "rows": 5572,
+    "training_rows": 4464,
+    "evaluation_rows": 1108,
+    "reserved_final_rows": 1108,
+    "features": 1,
+    "split_sha256": "b9651668114ecec2e3110de15dfde6da2cbdc18484072cc5d21e469725ea5e93",
+    "input_sha256": {
+      "train.csv": "a321967a4b4cff2067280035fbd359863828cd41d1a68dd286233e96b35b8b4b",
+      "test.csv": "4e4dc1017cc3e025ae78f45bfbed00b8a299631fda2ff7b08479d5a5ebc7bd7e",
+      "data_dictionary.csv": "e62885d3d5fed544058fa82598364f42cf64cacfb5c1ce588da095fc3c3c1fd4",
+      "sample_submission.csv": "c898019eae2a807b53a725a96e2b926427cc2f8f673ba6ed469494b4d6cb8270",
+      "task.md": "63e4814916086b506166a065c75bad8af027562b7017a4a459589e269ff43e3f"
+    },
+    "labels": [
+      "ham",
+      "spam"
+    ],
+    "labels_outside_task_directory": true,
+    "feature_duplicate_groups_kept_together": true
+  },
+  "packages": {
+    "numpy": "1.26.4",
+    "pandas": "2.2.3",
+    "scikit-learn": "1.5.2",
+    "scipy": "1.12.0",
+    "lightgbm": "4.6.0",
+    "xgboost": "2.1.4"
+  },
+  "platform_submissions": 0,
+  "kaggle_submissions": 0,
+  "returncode": 0,
+  "timed_out": false,
+  "wall_seconds": 120.558,
+  "agent_summary": {
+    "runtime_code_sha256": "e2f776a1bdeb35a2010a1cba434733fd6edf6d97566cd045a832c1ee27dbb7d9",
+    "mode": "live-agent",
+    "budget_seconds": 900.0,
+    "elapsed_seconds": 120.42571208399022,
+    "first_checkpoint_latency": 0.926696250011446,
+    "validation": {
+      "id": "099532e1660f09b8",
+      "kind": "duplicate_group",
+      "reason": "Exact feature duplicates held together",
+      "seed": 42,
+      "train_rows": 2977,
+      "valid_rows": 1487
+    },
+    "metric": "f1_macro",
+    "dummy_utility": 0.4625948680881821,
+    "experiments": 53,
+    "successful_experiments": 53,
+    "accepted_experiments": 7,
+    "champion_metric": 0.9758042208373334,
+    "champion_recipe": {
+      "model_family": "lightgbm",
+      "params": {
+        "iterations": 1800,
+        "num_leaves": 87,
+        "min_child_samples": 133,
+        "reg_lambda": 12.078895763406415,
+        "learning_rate": 0.07881430083217134,
+        "colsample_bytree": 0.7006199863761076,
+        "subsample": 0.9276691460774541,
+        "weight": "sqrt",
+        "text_svd_components": 128
+      },
+      "feature_ops": [],
+      "target_transform": "none",
+      "max_runtime_sec": 120.0,
+      "validation_plan_id": "099532e1660f09b8",
+      "feature_expressions": [
+        {
+          "name": "msg_digit_density",
+          "expression": "digit_count(col(\"Message\")) / maximum(word_count(col(\"Message\")), 1)",
+          "reason": "Spam often contains phone numbers or URLs with high digit density"
+        },
+        {
+          "name": "msg_avg_word_len",
+          "expression": "length(col(\"Message\")) / maximum(word_count(col(\"Message\")), 1)",
+          "reason": "Shorter average word length may indicate spam-like abbreviations"
+        }
+      ],
+      "id": "tpe_12",
+      "statement": "Seeded TPE trial from measured results for this model and feature representation",
+      "parent_experiment": "exp_0025"
+    },
+    "confirmation_metric": 0.9749363430062661,
+    "ensemble": null,
+    "multipliers": null,
+    "qwen_calls": 3,
+    "qwen_proposals": 4,
+    "qwen_tokens": 13072,
+    "qwen_events": [
+      {
+        "status": "api_usage",
+        "call": 1,
+        "response_model": "qwen/qwen3.8-27b",
+        "prompt_tokens": 3427,
+        "completion_tokens": 213,
+        "reasoning_tokens": 0,
+        "finish_reason": "stop",
+        "reported_cost": 0.0749452498704,
+        "elapsed_seconds": 2.721,
+        "timeout_seconds": 40.0
+      },
+      {
+        "status": "response",
+        "call": 1,
+        "tokens": 3640,
+        "elapsed_seconds": 2.722,
+        "timeout_seconds": 40.0
+      },
+      {
+        "status": "api_usage",
+        "call": 2,
+        "response_model": "qwen/qwen3.8-27b",
+        "prompt_tokens": 4098,
+        "completion_tokens": 880,
+        "reasoning_tokens": 0,
+        "finish_reason": "stop",
+        "reported_cost": 0.2547224739384,
+        "elapsed_seconds": 8.53,
+        "timeout_seconds": 40.0
+      },
+      {
+        "status": "response",
+        "call": 2,
+        "tokens": 8618,
+        "elapsed_seconds": 8.53,
+        "timeout_seconds": 40.0
+      },
+      {
+        "status": "recipe_rejected",
+        "reason": "Formula reason must be a short string"
+      },
+      {
+        "status": "api_usage",
+        "call": 3,
+        "response_model": "qwen/qwen3.8-27b",
+        "prompt_tokens": 4118,
+        "completion_tokens": 336,
+        "reasoning_tokens": 0,
+        "finish_reason": "stop",
+        "reported_cost": 0.1082628701544,
+        "elapsed_seconds": 4.066,
+        "timeout_seconds": 40.0
+      },
+      {
+        "status": "response",
+        "call": 3,
+        "tokens": 13072,
+        "elapsed_seconds": 4.066,
+        "timeout_seconds": 40.0
+      },
+      {
+        "status": "recipe_rejected",
+        "reason": "Unknown recipe fields: ."
+      },
+      {
+        "status": "token_budget_exhausted"
+      }
+    ],
+    "max_live_worker_threads": 22,
+    "peak_worker_memory_mb": 289.171875,
+    "cancelled": false,
+    "output": "/Users/nosovdanil/PycharmProjects/1/alfaautoresearch/runs/kaggle-full-6ldyl982/prepared/inputs/submission.csv",
+    "output_sha256": "8cbc59dc8bda655f0b5d2d872d602907d6e450da638901e23304647b0ea01b85",
+    "full_refit_published": true,
+    "adaptive_search": {
+      "backend": "optuna-tpe",
+      "studies": 2,
+      "proposed_trials": 30,
+      "completed_trials": 30,
+      "family_proposals": {
+        "hist": 10,
+        "lightgbm": 20
+      },
+      "stop_reason": "TPE search stagnated after exploring multiple model families",
+      "research_steps": 38
+    },
+    "cross_validation": {
+      "planned_folds": 3,
+      "completed_candidates": 3,
+      "selection_basis": "mean utility minus 0.25 standard deviation on all frozen folds",
+      "candidates": [
+        {
+          "experiment_id": "exp_0028",
+          "model_family": "lightgbm",
+          "fold_metrics": [
+            0.9758042208373334,
+            0.9729432870794128,
+            0.9769293989331194
+          ],
+          "mean_metric": 0.9752256356166219,
+          "metric_std": 0.001677963561540075,
+          "robust_utility": 0.9748061447262368
+        },
+        {
+          "experiment_id": "exp_0025",
+          "model_family": "lightgbm",
+          "fold_metrics": [
+            0.9742208267519359,
+            0.9729432870794128,
+            0.9768220010081424
+          ],
+          "mean_metric": 0.9746620382798303,
+          "metric_std": 0.0016139198956764743,
+          "robust_utility": 0.9742585583059112
+        },
+        {
+          "experiment_id": "exp_0007",
+          "model_family": "hist",
+          "fold_metrics": [
+            0.9593893379943195,
+            0.9479614111682275,
+            0.9626538442373811
+          ],
+          "mean_metric": 0.956668197799976,
+          "metric_std": 0.006299224838070316,
+          "robust_utility": 0.9550933915904585
+        }
+      ]
+    },
+    "confirmation_plan": [
+      {
+        "id": "91b3275350931d44",
+        "kind": "duplicate_group",
+        "reason": "Frozen cross-validation control 1; validation disjoint from search and other controls",
+        "seed": 1052,
+        "train_rows": 2986,
+        "valid_rows": 1478
+      },
+      {
+        "id": "0c3a11779b124c2d",
+        "kind": "duplicate_group",
+        "reason": "Frozen cross-validation control 2; validation disjoint from search and other controls",
+        "seed": 1053,
+        "train_rows": 2965,
+        "valid_rows": 1499
+      }
+    ],
+    "confirmation_metrics": [
+      {
+        "split_id": "91b3275350931d44",
+        "metric_value": 0.9729432870794128
+      },
+      {
+        "split_id": "0c3a11779b124c2d",
+        "metric_value": 0.9769293989331194
+      }
+    ],
+    "feature_group_trials": 2,
+    "feature_ablation_checks": 2,
+    "accepted_feature_ablations": 0,
+    "researcher_provider": "organizer-qwen",
+    "researcher_model": "qwen/qwen3.8-27b",
+    "researcher_calls": 3,
+    "researcher_proposals": 4,
+    "researcher_tokens": 13072,
+    "researcher_events": [
+      {
+        "status": "api_usage",
+        "call": 1,
+        "response_model": "qwen/qwen3.8-27b",
+        "prompt_tokens": 3427,
+        "completion_tokens": 213,
+        "reasoning_tokens": 0,
+        "finish_reason": "stop",
+        "reported_cost": 0.0749452498704,
+        "elapsed_seconds": 2.721,
+        "timeout_seconds": 40.0
+      },
+      {
+        "status": "response",
+        "call": 1,
+        "tokens": 3640,
+        "elapsed_seconds": 2.722,
+        "timeout_seconds": 40.0
+      },
+      {
+        "status": "api_usage",
+        "call": 2,
+        "response_model": "qwen/qwen3.8-27b",
+        "prompt_tokens": 4098,
+        "completion_tokens": 880,
+        "reasoning_tokens": 0,
+        "finish_reason": "stop",
+        "reported_cost": 0.2547224739384,
+        "elapsed_seconds": 8.53,
+        "timeout_seconds": 40.0
+      },
+      {
+        "status": "response",
+        "call": 2,
+        "tokens": 8618,
+        "elapsed_seconds": 8.53,
+        "timeout_seconds": 40.0
+      },
+      {
+        "status": "recipe_rejected",
+        "reason": "Formula reason must be a short string"
+      },
+      {
+        "status": "api_usage",
+        "call": 3,
+        "response_model": "qwen/qwen3.8-27b",
+        "prompt_tokens": 4118,
+        "completion_tokens": 336,
+        "reasoning_tokens": 0,
+        "finish_reason": "stop",
+        "reported_cost": 0.1082628701544,
+        "elapsed_seconds": 4.066,
+        "timeout_seconds": 40.0
+      },
+      {
+        "status": "response",
+        "call": 3,
+        "tokens": 13072,
+        "elapsed_seconds": 4.066,
+        "timeout_seconds": 40.0
+      },
+      {
+        "status": "recipe_rejected",
+        "reason": "Unknown recipe fields: ."
+      },
+      {
+        "status": "token_budget_exhausted"
+      }
+    ]
+  },
+  "inputs_unchanged": true,
+  "experiments": [
+    {
+      "experiment_id": "exp_0001",
+      "origin": "deterministic",
+      "status": "ok",
+      "metric_value": 0.896205782068312,
+      "accepted": true,
+      "recipe": {
+        "model_family": "linear",
+        "params": {
+          "C": 1
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 135.0,
+        "validation_plan_id": "099532e1660f09b8",
+        "feature_expressions": [],
+        "id": "candidate",
+        "statement": "Fast regularized linear baseline",
+        "parent_experiment": null
+      },
+      "runtime_sec": 1.0699942089850083
+    },
+    {
+      "experiment_id": "exp_0002",
+      "origin": "deterministic",
+      "status": "ok",
+      "metric_value": 0.945758444219009,
+      "accepted": true,
+      "recipe": {
+        "model_family": "lightgbm",
+        "params": {
+          "iterations": 1800,
+          "num_leaves": 31,
+          "min_child_samples": 30
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 135.0,
+        "validation_plan_id": "099532e1660f09b8",
+        "feature_expressions": [],
+        "id": "candidate",
+        "statement": "Fast leaf-wise booster with categorical handling",
+        "parent_experiment": null
+      },
+      "runtime_sec": 1.7745610829733778
+    },
+    {
+      "experiment_id": "exp_0003",
+      "origin": "qwen",
+      "status": "ok",
+      "metric_value": 0.9669910521342749,
+      "accepted": true,
+      "recipe": {
+        "model_family": "lightgbm",
+        "params": {
+          "iterations": 1800,
+          "num_leaves": 31,
+          "min_child_samples": 30
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 120.0,
+        "validation_plan_id": "099532e1660f09b8",
+        "feature_expressions": [
+          {
+            "name": "msg_digit_density",
+            "expression": "digit_count(col(\"Message\")) / maximum(word_count(col(\"Message\")), 1)",
+            "reason": "Spam often contains phone numbers or URLs with high digit density"
+          },
+          {
+            "name": "msg_avg_word_len",
+            "expression": "length(col(\"Message\")) / maximum(word_count(col(\"Message\")), 1)",
+            "reason": "Shorter average word length may indicate spam-like abbreviations"
+          }
+        ],
+        "id": "cand_0003",
+        "statement": "Spam messages are shorter and contain more digits; adding length-to-word ratio and digit density should improve spam recall.",
+        "parent_experiment": "exp_0002"
+      },
+      "feature_trial": {
+        "kind": "feature_group",
+        "parent_experiment": "exp_0002",
+        "parent_metric": 0.945758444219009,
+        "parent_utility": 0.945758444219009,
+        "held_constant": [
+          "model_family",
+          "params",
+          "target_transform",
+          "validation",
+          "seed"
+        ],
+        "changes": [
+          {
+            "kind": "formula",
+            "name": "msg_digit_density"
+          },
+          {
+            "kind": "formula",
+            "name": "msg_avg_word_len"
+          }
+        ],
+        "ignored_model_overrides": [],
+        "group_experiment": "exp_0003",
+        "utility_gain_vs_parent": 0.021232607915265933
+      },
+      "runtime_sec": 1.8128658329951577
+    },
+    {
+      "experiment_id": "exp_0004",
+      "origin": "feature-ablation",
+      "status": "ok",
+      "metric_value": 0.9641207088416032,
+      "accepted": false,
+      "recipe": {
+        "model_family": "lightgbm",
+        "params": {
+          "iterations": 1800,
+          "num_leaves": 31,
+          "min_child_samples": 30
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 120.0,
+        "validation_plan_id": "099532e1660f09b8",
+        "feature_expressions": [
+          {
+            "name": "msg_digit_density",
+            "expression": "digit_count(col(\"Message\")) / maximum(word_count(col(\"Message\")), 1)",
+            "reason": "Spam often contains phone numbers or URLs with high digit density"
+          }
+        ],
+        "id": "ablation_1",
+        "statement": "Controlled feature ablation: revert formula:msg_avg_word_len",
+        "parent_experiment": "exp_0002"
+      },
+      "feature_trial": {
+        "kind": "feature_ablation",
+        "group_experiment": "exp_0003",
+        "parent_experiment": "exp_0002",
+        "held_constant": [
+          "model_family",
+          "params",
+          "target_transform",
+          "validation",
+          "seed"
+        ],
+        "label": "formula:msg_avg_word_len",
+        "reverted": [
+          "msg_avg_word_len"
+        ]
+      },
+      "runtime_sec": 1.8600043339829426
+    },
+    {
+      "experiment_id": "exp_0005",
+      "origin": "feature-ablation",
+      "status": "ok",
+      "metric_value": 0.9484678990012407,
+      "accepted": false,
+      "recipe": {
+        "model_family": "lightgbm",
+        "params": {
+          "iterations": 1800,
+          "num_leaves": 31,
+          "min_child_samples": 30
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 120.0,
+        "validation_plan_id": "099532e1660f09b8",
+        "feature_expressions": [
+          {
+            "name": "msg_avg_word_len",
+            "expression": "length(col(\"Message\")) / maximum(word_count(col(\"Message\")), 1)",
+            "reason": "Shorter average word length may indicate spam-like abbreviations"
+          }
+        ],
+        "id": "ablation_1",
+        "statement": "Controlled feature ablation: revert formula:msg_digit_density",
+        "parent_experiment": "exp_0002"
+      },
+      "feature_trial": {
+        "kind": "feature_ablation",
+        "group_experiment": "exp_0003",
+        "parent_experiment": "exp_0002",
+        "held_constant": [
+          "model_family",
+          "params",
+          "target_transform",
+          "validation",
+          "seed"
+        ],
+        "label": "formula:msg_digit_density",
+        "reverted": [
+          "msg_digit_density"
+        ]
+      },
+      "runtime_sec": 1.7378977919870522
+    },
+    {
+      "experiment_id": "exp_0006",
+      "origin": "deterministic",
+      "status": "ok",
+      "metric_value": 0.9576688050024296,
+      "accepted": false,
+      "recipe": {
+        "model_family": "lightgbm",
+        "params": {
+          "iterations": 1800,
+          "num_leaves": 31,
+          "min_child_samples": 30,
+          "weight": "sqrt",
+          "stopping_metric": "primary"
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 135.0,
+        "validation_plan_id": "099532e1660f09b8",
+        "feature_expressions": [],
+        "id": "candidate",
+        "statement": "Measured minority-weighted booster with early stopping on the actual primary metric",
+        "parent_experiment": null
+      },
+      "runtime_sec": 2.426603667001473
+    },
+    {
+      "experiment_id": "exp_0007",
+      "origin": "deterministic",
+      "status": "ok",
+      "metric_value": 0.9593893379943195,
+      "accepted": false,
+      "recipe": {
+        "model_family": "hist",
+        "params": {
+          "iterations": 350
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 135.0,
+        "validation_plan_id": "099532e1660f09b8",
+        "feature_expressions": [],
+        "id": "candidate",
+        "statement": "Histogram boosting diversity",
+        "parent_experiment": null
+      },
+      "runtime_sec": 2.1047169160156045
+    },
+    {
+      "experiment_id": "exp_0008",
+      "origin": "deterministic",
+      "status": "ok",
+      "metric_value": 0.9466476905781329,
+      "accepted": false,
+      "recipe": {
+        "model_family": "extra_trees",
+        "params": {
+          "iterations": 250,
+          "min_samples_leaf": 2
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 135.0,
+        "validation_plan_id": "099532e1660f09b8",
+        "feature_expressions": [],
+        "id": "candidate",
+        "statement": "Randomized trees for complementary errors",
+        "parent_experiment": null
+      },
+      "runtime_sec": 1.5108367500070017
+    },
+    {
+      "experiment_id": "exp_0009",
+      "origin": "deterministic",
+      "status": "ok",
+      "metric_value": 0.9482430275516749,
+      "accepted": false,
+      "recipe": {
+        "model_family": "extra_trees",
+        "params": {
+          "iterations": 250,
+          "min_samples_leaf": 2,
+          "weight": "sqrt"
+        },
+        "feature_ops": [
+          {
+            "op": "frequency",
+            "columns": [
+              "Message"
+            ]
+          }
+        ],
+        "target_transform": "none",
+        "max_runtime_sec": 135.0,
+        "validation_plan_id": "099532e1660f09b8",
+        "feature_expressions": [],
+        "id": "candidate",
+        "statement": "Weighted randomized trees with fold-fitted category rarity",
+        "parent_experiment": null
+      },
+      "runtime_sec": 1.4961140000086743
+    },
+    {
+      "experiment_id": "exp_0010",
+      "origin": "deterministic",
+      "status": "ok",
+      "metric_value": 0.9484678990012407,
+      "accepted": false,
+      "recipe": {
+        "model_family": "xgboost",
+        "params": {
+          "iterations": 1800,
+          "max_depth": 6
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 135.0,
+        "validation_plan_id": "099532e1660f09b8",
+        "feature_expressions": [],
+        "id": "candidate",
+        "statement": "Regularized histogram booster diversity",
+        "parent_experiment": null
+      },
+      "runtime_sec": 1.541234959004214
+    },
+    {
+      "experiment_id": "exp_0011",
+      "origin": "deterministic",
+      "status": "ok",
+      "metric_value": 0.9669910521342749,
+      "accepted": false,
+      "recipe": {
+        "model_family": "lightgbm",
+        "params": {
+          "iterations": 1800,
+          "num_leaves": 31,
+          "min_child_samples": 30
+        },
+        "feature_ops": [
+          {
+            "op": "frequency",
+            "columns": [
+              "Message"
+            ]
+          }
+        ],
+        "target_transform": "none",
+        "max_runtime_sec": 120.0,
+        "validation_plan_id": "099532e1660f09b8",
+        "feature_expressions": [
+          {
+            "name": "msg_digit_density",
+            "expression": "digit_count(col(\"Message\")) / maximum(word_count(col(\"Message\")), 1)",
+            "reason": "Spam often contains phone numbers or URLs with high digit density"
+          },
+          {
+            "name": "msg_avg_word_len",
+            "expression": "length(col(\"Message\")) / maximum(word_count(col(\"Message\")), 1)",
+            "reason": "Shorter average word length may indicate spam-like abbreviations"
+          }
+        ],
+        "id": "local_2",
+        "statement": "Fold-fitted category frequency may expose rarity without target leakage",
+        "parent_experiment": "exp_0003"
+      },
+      "feature_trial": {
+        "kind": "feature_group",
+        "parent_experiment": "exp_0003",
+        "parent_metric": 0.9669910521342749,
+        "parent_utility": 0.9669910521342749,
+        "held_constant": [
+          "model_family",
+          "params",
+          "target_transform",
+          "validation",
+          "seed"
+        ],
+        "changes": [
+          {
+            "kind": "operation",
+            "name": "{\"columns\": [\"Message\"], \"op\": \"frequency\"}"
+          }
+        ],
+        "ignored_model_overrides": [],
+        "group_experiment": "exp_0011",
+        "utility_gain_vs_parent": 0.0
+      },
+      "runtime_sec": 2.1029569169913884
+    },
+    {
+      "experiment_id": "exp_0012",
+      "origin": "deterministic",
+      "status": "ok",
+      "metric_value": 0.9671284882910678,
+      "accepted": false,
+      "recipe": {
+        "model_family": "lightgbm",
+        "params": {
+          "iterations": 1800,
+          "num_leaves": 15,
+          "min_child_samples": 100,
+          "reg_lambda": 5.0
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 120.0,
+        "validation_plan_id": "099532e1660f09b8",
+        "feature_expressions": [
+          {
+            "name": "msg_digit_density",
+            "expression": "digit_count(col(\"Message\")) / maximum(word_count(col(\"Message\")), 1)",
+            "reason": "Spam often contains phone numbers or URLs with high digit density"
+          },
+          {
+            "name": "msg_avg_word_len",
+            "expression": "length(col(\"Message\")) / maximum(word_count(col(\"Message\")), 1)",
+            "reason": "Shorter average word length may indicate spam-like abbreviations"
+          }
+        ],
+        "id": "local_4",
+        "statement": "Focused local hyperparameter search around measured champion",
+        "parent_experiment": "exp_0003"
+      },
+      "runtime_sec": 1.6884296659845859
+    },
+    {
+      "experiment_id": "exp_0013",
+      "origin": "deterministic",
+      "status": "ok",
+      "metric_value": 0.9698613954269466,
+      "accepted": true,
+      "recipe": {
+        "model_family": "lightgbm",
+        "params": {
+          "iterations": 1800,
+          "num_leaves": 31,
+          "min_child_samples": 30,
+          "reg_lambda": 20.0
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 120.0,
+        "validation_plan_id": "099532e1660f09b8",
+        "feature_expressions": [
+          {
+            "name": "msg_digit_density",
+            "expression": "digit_count(col(\"Message\")) / maximum(word_count(col(\"Message\")), 1)",
+            "reason": "Spam often contains phone numbers or URLs with high digit density"
+          },
+          {
+            "name": "msg_avg_word_len",
+            "expression": "length(col(\"Message\")) / maximum(word_count(col(\"Message\")), 1)",
+            "reason": "Shorter average word length may indicate spam-like abbreviations"
+          }
+        ],
+        "id": "local_5",
+        "statement": "Focused local hyperparameter search around measured champion",
+        "parent_experiment": "exp_0003"
+      },
+      "runtime_sec": 2.0809199579816777
+    },
+    {
+      "experiment_id": "exp_0014",
+      "origin": "deterministic",
+      "status": "ok",
+      "metric_value": 0.9697346218596532,
+      "accepted": false,
+      "recipe": {
+        "model_family": "lightgbm",
+        "params": {
+          "iterations": 1800,
+          "num_leaves": 15,
+          "min_child_samples": 60,
+          "reg_lambda": 0.0
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 120.0,
+        "validation_plan_id": "099532e1660f09b8",
+        "feature_expressions": [
+          {
+            "name": "msg_digit_density",
+            "expression": "digit_count(col(\"Message\")) / maximum(word_count(col(\"Message\")), 1)",
+            "reason": "Spam often contains phone numbers or URLs with high digit density"
+          },
+          {
+            "name": "msg_avg_word_len",
+            "expression": "length(col(\"Message\")) / maximum(word_count(col(\"Message\")), 1)",
+            "reason": "Shorter average word length may indicate spam-like abbreviations"
+          }
+        ],
+        "id": "local_6",
+        "statement": "Focused local hyperparameter search around measured champion",
+        "parent_experiment": "exp_0013"
+      },
+      "runtime_sec": 1.6056535830139183
+    },
+    {
+      "experiment_id": "exp_0015",
+      "origin": "deterministic",
+      "status": "ok",
+      "metric_value": 0.9657704525574329,
+      "accepted": false,
+      "recipe": {
+        "model_family": "lightgbm",
+        "params": {
+          "iterations": 1800,
+          "num_leaves": 15,
+          "min_child_samples": 60,
+          "reg_lambda": 20.0
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 120.0,
+        "validation_plan_id": "099532e1660f09b8",
+        "feature_expressions": [
+          {
+            "name": "msg_digit_density",
+            "expression": "digit_count(col(\"Message\")) / maximum(word_count(col(\"Message\")), 1)",
+            "reason": "Spam often contains phone numbers or URLs with high digit density"
+          },
+          {
+            "name": "msg_avg_word_len",
+            "expression": "length(col(\"Message\")) / maximum(word_count(col(\"Message\")), 1)",
+            "reason": "Shorter average word length may indicate spam-like abbreviations"
+          }
+        ],
+        "id": "local_7",
+        "statement": "Focused local hyperparameter search around measured champion",
+        "parent_experiment": "exp_0013"
+      },
+      "runtime_sec": 1.878055500012124
+    },
+    {
+      "experiment_id": "exp_0016",
+      "origin": "deterministic",
+      "status": "ok",
+      "metric_value": 0.9671284882910678,
+      "accepted": false,
+      "recipe": {
+        "model_family": "lightgbm",
+        "params": {
+          "iterations": 1800,
+          "num_leaves": 63,
+          "min_child_samples": 100,
+          "reg_lambda": 5.0
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 120.0,
+        "validation_plan_id": "099532e1660f09b8",
+        "feature_expressions": [
+          {
+            "name": "msg_digit_density",
+            "expression": "digit_count(col(\"Message\")) / maximum(word_count(col(\"Message\")), 1)",
+            "reason": "Spam often contains phone numbers or URLs with high digit density"
+          },
+          {
+            "name": "msg_avg_word_len",
+            "expression": "length(col(\"Message\")) / maximum(word_count(col(\"Message\")), 1)",
+            "reason": "Shorter average word length may indicate spam-like abbreviations"
+          }
+        ],
+        "id": "local_8",
+        "statement": "Focused local hyperparameter search around measured champion",
+        "parent_experiment": "exp_0013"
+      },
+      "runtime_sec": 1.566237374994671
+    },
+    {
+      "experiment_id": "exp_0017",
+      "origin": "optuna-tpe",
+      "status": "ok",
+      "metric_value": 0.8058126843868705,
+      "accepted": false,
+      "recipe": {
+        "model_family": "hist",
+        "params": {
+          "iterations": 350,
+          "max_leaf_nodes": 27,
+          "min_samples_leaf": 55,
+          "l2_regularization": 2.152139789658978,
+          "learning_rate": 0.13422324957981657,
+          "weight": "sqrt",
+          "text_svd_components": 0
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 135.0,
+        "validation_plan_id": "099532e1660f09b8",
+        "feature_expressions": [],
+        "id": "tpe_1",
+        "statement": "Seeded TPE trial from measured results for this model and feature representation",
+        "parent_experiment": "exp_0007"
+      },
+      "runtime_sec": 1.7214873750053812
+    },
+    {
+      "experiment_id": "exp_0018",
+      "origin": "optuna-tpe",
+      "status": "ok",
+      "metric_value": 0.9401894105601871,
+      "accepted": false,
+      "recipe": {
+        "model_family": "lightgbm",
+        "params": {
+          "iterations": 1800,
+          "num_leaves": 122,
+          "min_child_samples": 6,
+          "reg_lambda": 48.64504766305414,
+          "learning_rate": 0.015325277329238511,
+          "colsample_bytree": 0.6147233968786429,
+          "subsample": 0.6655186360948955,
+          "weight": "balanced",
+          "text_svd_components": 0
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 120.0,
+        "validation_plan_id": "099532e1660f09b8",
+        "feature_expressions": [
+          {
+            "name": "msg_digit_density",
+            "expression": "digit_count(col(\"Message\")) / maximum(word_count(col(\"Message\")), 1)",
+            "reason": "Spam often contains phone numbers or URLs with high digit density"
+          },
+          {
+            "name": "msg_avg_word_len",
+            "expression": "length(col(\"Message\")) / maximum(word_count(col(\"Message\")), 1)",
+            "reason": "Shorter average word length may indicate spam-like abbreviations"
+          }
+        ],
+        "id": "tpe_2",
+        "statement": "Seeded TPE trial from measured results for this model and feature representation",
+        "parent_experiment": "exp_0013"
+      },
+      "runtime_sec": 3.359745500027202
+    },
+    {
+      "experiment_id": "exp_0019",
+      "origin": "optuna-tpe",
+      "status": "ok",
+      "metric_value": 0.9686229148443135,
+      "accepted": false,
+      "recipe": {
+        "model_family": "lightgbm",
+        "params": {
+          "iterations": 1800,
+          "num_leaves": 60,
+          "min_child_samples": 19,
+          "reg_lambda": 29.73079971993971,
+          "learning_rate": 0.12815412362573064,
+          "colsample_bytree": 0.8203836275734275,
+          "subsample": 0.8555157098706727,
+          "weight": "sqrt",
+          "text_svd_components": 32
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 120.0,
+        "validation_plan_id": "099532e1660f09b8",
+        "feature_expressions": [
+          {
+            "name": "msg_digit_density",
+            "expression": "digit_count(col(\"Message\")) / maximum(word_count(col(\"Message\")), 1)",
+            "reason": "Spam often contains phone numbers or URLs with high digit density"
+          },
+          {
+            "name": "msg_avg_word_len",
+            "expression": "length(col(\"Message\")) / maximum(word_count(col(\"Message\")), 1)",
+            "reason": "Shorter average word length may indicate spam-like abbreviations"
+          }
+        ],
+        "id": "tpe_3",
+        "statement": "Seeded TPE trial from measured results for this model and feature representation",
+        "parent_experiment": "exp_0013"
+      },
+      "runtime_sec": 1.8010790839907713
+    },
+    {
+      "experiment_id": "exp_0020",
+      "origin": "optuna-tpe",
+      "status": "ok",
+      "metric_value": 0.9471102926065856,
+      "accepted": false,
+      "recipe": {
+        "model_family": "hist",
+        "params": {
+          "iterations": 350,
+          "max_leaf_nodes": 23,
+          "min_samples_leaf": 60,
+          "l2_regularization": 3.7749259334507568,
+          "learning_rate": 0.03350630446365132,
+          "weight": "none",
+          "text_svd_components": 128
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 135.0,
+        "validation_plan_id": "099532e1660f09b8",
+        "feature_expressions": [],
+        "id": "tpe_4",
+        "statement": "Seeded TPE trial from measured results for this model and feature representation",
+        "parent_experiment": "exp_0007"
+      },
+      "runtime_sec": 2.2182197500078473
+    },
+    {
+      "experiment_id": "exp_0021",
+      "origin": "optuna-tpe",
+      "status": "ok",
+      "metric_value": 0.9648527502781998,
+      "accepted": false,
+      "recipe": {
+        "model_family": "lightgbm",
+        "params": {
+          "iterations": 1800,
+          "num_leaves": 103,
+          "min_child_samples": 50,
+          "reg_lambda": 23.078322785816436,
+          "learning_rate": 0.021593286628715156,
+          "colsample_bytree": 0.8226465587745,
+          "subsample": 0.8783451212104014,
+          "weight": "balanced",
+          "text_svd_components": 128
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 120.0,
+        "validation_plan_id": "099532e1660f09b8",
+        "feature_expressions": [
+          {
+            "name": "msg_digit_density",
+            "expression": "digit_count(col(\"Message\")) / maximum(word_count(col(\"Message\")), 1)",
+            "reason": "Spam often contains phone numbers or URLs with high digit density"
+          },
+          {
+            "name": "msg_avg_word_len",
+            "expression": "length(col(\"Message\")) / maximum(word_count(col(\"Message\")), 1)",
+            "reason": "Shorter average word length may indicate spam-like abbreviations"
+          }
+        ],
+        "id": "tpe_5",
+        "statement": "Seeded TPE trial from measured results for this model and feature representation",
+        "parent_experiment": "exp_0013"
+      },
+      "runtime_sec": 3.679688834003173
+    },
+    {
+      "experiment_id": "exp_0022",
+      "origin": "optuna-tpe",
+      "status": "ok",
+      "metric_value": 0.9496940217718168,
+      "accepted": false,
+      "recipe": {
+        "model_family": "lightgbm",
+        "params": {
+          "iterations": 1800,
+          "num_leaves": 45,
+          "min_child_samples": 141,
+          "reg_lambda": 42.47304359686393,
+          "learning_rate": 0.09065203148219693,
+          "colsample_bytree": 0.8817898827466754,
+          "subsample": 0.7300537739002211,
+          "weight": "sqrt",
+          "text_svd_components": 0
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 120.0,
+        "validation_plan_id": "099532e1660f09b8",
+        "feature_expressions": [
+          {
+            "name": "msg_digit_density",
+            "expression": "digit_count(col(\"Message\")) / maximum(word_count(col(\"Message\")), 1)",
+            "reason": "Spam often contains phone numbers or URLs with high digit density"
+          },
+          {
+            "name": "msg_avg_word_len",
+            "expression": "length(col(\"Message\")) / maximum(word_count(col(\"Message\")), 1)",
+            "reason": "Shorter average word length may indicate spam-like abbreviations"
+          }
+        ],
+        "id": "tpe_6",
+        "statement": "Seeded TPE trial from measured results for this model and feature representation",
+        "parent_experiment": "exp_0013"
+      },
+      "runtime_sec": 1.3690805420046672
+    },
+    {
+      "experiment_id": "exp_0023",
+      "origin": "optuna-tpe",
+      "status": "ok",
+      "metric_value": 0.8232868948369167,
+      "accepted": false,
+      "recipe": {
+        "model_family": "hist",
+        "params": {
+          "iterations": 350,
+          "max_leaf_nodes": 21,
+          "min_samples_leaf": 77,
+          "l2_regularization": 12.389218484758706,
+          "learning_rate": 0.03385340815239104,
+          "weight": "sqrt",
+          "text_svd_components": 0
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 135.0,
+        "validation_plan_id": "099532e1660f09b8",
+        "feature_expressions": [],
+        "id": "tpe_7",
+        "statement": "Seeded TPE trial from measured results for this model and feature representation",
+        "parent_experiment": "exp_0007"
+      },
+      "runtime_sec": 1.5289697500120383
+    },
+    {
+      "experiment_id": "exp_0024",
+      "origin": "optuna-tpe",
+      "status": "ok",
+      "metric_value": 0.9717096000913207,
+      "accepted": true,
+      "recipe": {
+        "model_family": "lightgbm",
+        "params": {
+          "iterations": 1800,
+          "num_leaves": 94,
+          "min_child_samples": 85,
+          "reg_lambda": 16.545490879675835,
+          "learning_rate": 0.07338602973635439,
+          "colsample_bytree": 0.6611483116068304,
+          "subsample": 0.9062279677972188,
+          "weight": "sqrt",
+          "text_svd_components": 128
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 120.0,
+        "validation_plan_id": "099532e1660f09b8",
+        "feature_expressions": [
+          {
+            "name": "msg_digit_density",
+            "expression": "digit_count(col(\"Message\")) / maximum(word_count(col(\"Message\")), 1)",
+            "reason": "Spam often contains phone numbers or URLs with high digit density"
+          },
+          {
+            "name": "msg_avg_word_len",
+            "expression": "length(col(\"Message\")) / maximum(word_count(col(\"Message\")), 1)",
+            "reason": "Shorter average word length may indicate spam-like abbreviations"
+          }
+        ],
+        "id": "tpe_8",
+        "statement": "Seeded TPE trial from measured results for this model and feature representation",
+        "parent_experiment": "exp_0013"
+      },
+      "runtime_sec": 1.9299097089970019
+    },
+    {
+      "experiment_id": "exp_0025",
+      "origin": "optuna-tpe",
+      "status": "ok",
+      "metric_value": 0.9742208267519359,
+      "accepted": true,
+      "recipe": {
+        "model_family": "lightgbm",
+        "params": {
+          "iterations": 1800,
+          "num_leaves": 89,
+          "min_child_samples": 93,
+          "reg_lambda": 16.582455897931837,
+          "learning_rate": 0.07800198005647639,
+          "colsample_bytree": 0.6403500373271875,
+          "subsample": 0.9019487345880651,
+          "weight": "sqrt",
+          "text_svd_components": 128
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 120.0,
+        "validation_plan_id": "099532e1660f09b8",
+        "feature_expressions": [
+          {
+            "name": "msg_digit_density",
+            "expression": "digit_count(col(\"Message\")) / maximum(word_count(col(\"Message\")), 1)",
+            "reason": "Spam often contains phone numbers or URLs with high digit density"
+          },
+          {
+            "name": "msg_avg_word_len",
+            "expression": "length(col(\"Message\")) / maximum(word_count(col(\"Message\")), 1)",
+            "reason": "Shorter average word length may indicate spam-like abbreviations"
+          }
+        ],
+        "id": "tpe_9",
+        "statement": "Seeded TPE trial from measured results for this model and feature representation",
+        "parent_experiment": "exp_0024"
+      },
+      "runtime_sec": 1.9072886659996584
+    },
+    {
+      "experiment_id": "exp_0026",
+      "origin": "optuna-tpe",
+      "status": "ok",
+      "metric_value": 0.9527824085099627,
+      "accepted": false,
+      "recipe": {
+        "model_family": "hist",
+        "params": {
+          "iterations": 350,
+          "max_leaf_nodes": 51,
+          "min_samples_leaf": 5,
+          "l2_regularization": 28.863392131282403,
+          "learning_rate": 0.08456684926694402,
+          "weight": "none",
+          "text_svd_components": 64
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 135.0,
+        "validation_plan_id": "099532e1660f09b8",
+        "feature_expressions": [],
+        "id": "tpe_10",
+        "statement": "Seeded TPE trial from measured results for this model and feature representation",
+        "parent_experiment": "exp_0007"
+      },
+      "runtime_sec": 3.264954417012632
+    },
+    {
+      "experiment_id": "exp_0027",
+      "origin": "optuna-tpe",
+      "status": "ok",
+      "metric_value": 0.9730689124332156,
+      "accepted": false,
+      "recipe": {
+        "model_family": "lightgbm",
+        "params": {
+          "iterations": 1800,
+          "num_leaves": 96,
+          "min_child_samples": 96,
+          "reg_lambda": 14.129129328923698,
+          "learning_rate": 0.07905978363700186,
+          "colsample_bytree": 0.6227851409113077,
+          "subsample": 0.9142542383510982,
+          "weight": "sqrt",
+          "text_svd_components": 128
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 120.0,
+        "validation_plan_id": "099532e1660f09b8",
+        "feature_expressions": [
+          {
+            "name": "msg_digit_density",
+            "expression": "digit_count(col(\"Message\")) / maximum(word_count(col(\"Message\")), 1)",
+            "reason": "Spam often contains phone numbers or URLs with high digit density"
+          },
+          {
+            "name": "msg_avg_word_len",
+            "expression": "length(col(\"Message\")) / maximum(word_count(col(\"Message\")), 1)",
+            "reason": "Shorter average word length may indicate spam-like abbreviations"
+          }
+        ],
+        "id": "tpe_11",
+        "statement": "Seeded TPE trial from measured results for this model and feature representation",
+        "parent_experiment": "exp_0025"
+      },
+      "runtime_sec": 1.7494803329755086
+    },
+    {
+      "experiment_id": "exp_0028",
+      "origin": "optuna-tpe",
+      "status": "ok",
+      "metric_value": 0.9758042208373334,
+      "accepted": true,
+      "recipe": {
+        "model_family": "lightgbm",
+        "params": {
+          "iterations": 1800,
+          "num_leaves": 87,
+          "min_child_samples": 133,
+          "reg_lambda": 12.078895763406415,
+          "learning_rate": 0.07881430083217134,
+          "colsample_bytree": 0.7006199863761076,
+          "subsample": 0.9276691460774541,
+          "weight": "sqrt",
+          "text_svd_components": 128
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 120.0,
+        "validation_plan_id": "099532e1660f09b8",
+        "feature_expressions": [
+          {
+            "name": "msg_digit_density",
+            "expression": "digit_count(col(\"Message\")) / maximum(word_count(col(\"Message\")), 1)",
+            "reason": "Spam often contains phone numbers or URLs with high digit density"
+          },
+          {
+            "name": "msg_avg_word_len",
+            "expression": "length(col(\"Message\")) / maximum(word_count(col(\"Message\")), 1)",
+            "reason": "Shorter average word length may indicate spam-like abbreviations"
+          }
+        ],
+        "id": "tpe_12",
+        "statement": "Seeded TPE trial from measured results for this model and feature representation",
+        "parent_experiment": "exp_0025"
+      },
+      "runtime_sec": 1.7968433339847252
+    },
+    {
+      "experiment_id": "exp_0029",
+      "origin": "optuna-tpe",
+      "status": "ok",
+      "metric_value": 0.9451184926184926,
+      "accepted": false,
+      "recipe": {
+        "model_family": "hist",
+        "params": {
+          "iterations": 350,
+          "max_leaf_nodes": 47,
+          "min_samples_leaf": 13,
+          "l2_regularization": 16.83790401945893,
+          "learning_rate": 0.06460325569892802,
+          "weight": "balanced",
+          "text_svd_components": 32
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 135.0,
+        "validation_plan_id": "099532e1660f09b8",
+        "feature_expressions": [],
+        "id": "tpe_13",
+        "statement": "Seeded TPE trial from measured results for this model and feature representation",
+        "parent_experiment": "exp_0007"
+      },
+      "runtime_sec": 2.5848386250145268
+    },
+    {
+      "experiment_id": "exp_0030",
+      "origin": "optuna-tpe",
+      "status": "ok",
+      "metric_value": 0.9715930799443706,
+      "accepted": false,
+      "recipe": {
+        "model_family": "lightgbm",
+        "params": {
+          "iterations": 1800,
+          "num_leaves": 81,
+          "min_child_samples": 133,
+          "reg_lambda": 33.141066622731856,
+          "learning_rate": 0.14147766755494573,
+          "colsample_bytree": 0.7152953072611781,
+          "subsample": 0.7869374582412605,
+          "weight": "sqrt",
+          "text_svd_components": 128
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 120.0,
+        "validation_plan_id": "099532e1660f09b8",
+        "feature_expressions": [
+          {
+            "name": "msg_digit_density",
+            "expression": "digit_count(col(\"Message\")) / maximum(word_count(col(\"Message\")), 1)",
+            "reason": "Spam often contains phone numbers or URLs with high digit density"
+          },
+          {
+            "name": "msg_avg_word_len",
+            "expression": "length(col(\"Message\")) / maximum(word_count(col(\"Message\")), 1)",
+            "reason": "Shorter average word length may indicate spam-like abbreviations"
+          }
+        ],
+        "id": "tpe_14",
+        "statement": "Seeded TPE trial from measured results for this model and feature representation",
+        "parent_experiment": "exp_0028"
+      },
+      "runtime_sec": 1.762660375010455
+    },
+    {
+      "experiment_id": "exp_0031",
+      "origin": "optuna-tpe",
+      "status": "ok",
+      "metric_value": 0.9701110963284707,
+      "accepted": false,
+      "recipe": {
+        "model_family": "lightgbm",
+        "params": {
+          "iterations": 1800,
+          "num_leaves": 76,
+          "min_child_samples": 122,
+          "reg_lambda": 12.866775875291665,
+          "learning_rate": 0.06547890846656065,
+          "colsample_bytree": 0.72396914828523,
+          "subsample": 0.925377678680886,
+          "weight": "sqrt",
+          "text_svd_components": 128
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 120.0,
+        "validation_plan_id": "099532e1660f09b8",
+        "feature_expressions": [
+          {
+            "name": "msg_digit_density",
+            "expression": "digit_count(col(\"Message\")) / maximum(word_count(col(\"Message\")), 1)",
+            "reason": "Spam often contains phone numbers or URLs with high digit density"
+          },
+          {
+            "name": "msg_avg_word_len",
+            "expression": "length(col(\"Message\")) / maximum(word_count(col(\"Message\")), 1)",
+            "reason": "Shorter average word length may indicate spam-like abbreviations"
+          }
+        ],
+        "id": "tpe_15",
+        "statement": "Seeded TPE trial from measured results for this model and feature representation",
+        "parent_experiment": "exp_0028"
+      },
+      "runtime_sec": 1.817184042010922
+    },
+    {
+      "experiment_id": "exp_0032",
+      "origin": "optuna-tpe",
+      "status": "ok",
+      "metric_value": 0.9502636445913508,
+      "accepted": false,
+      "recipe": {
+        "model_family": "hist",
+        "params": {
+          "iterations": 350,
+          "max_leaf_nodes": 7,
+          "min_samples_leaf": 29,
+          "l2_regularization": 11.825865423462366,
+          "learning_rate": 0.020802481246081597,
+          "weight": "none",
+          "text_svd_components": 64
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 135.0,
+        "validation_plan_id": "099532e1660f09b8",
+        "feature_expressions": [],
+        "id": "tpe_16",
+        "statement": "Seeded TPE trial from measured results for this model and feature representation",
+        "parent_experiment": "exp_0007"
+      },
+      "runtime_sec": 1.5627471249899827
+    },
+    {
+      "experiment_id": "exp_0033",
+      "origin": "optuna-tpe",
+      "status": "ok",
+      "metric_value": 0.9702340611103962,
+      "accepted": false,
+      "recipe": {
+        "model_family": "lightgbm",
+        "params": {
+          "iterations": 1800,
+          "num_leaves": 119,
+          "min_child_samples": 123,
+          "reg_lambda": 9.428501765630598,
+          "learning_rate": 0.10290425277461619,
+          "colsample_bytree": 0.7153592993944677,
+          "subsample": 0.7925946610346675,
+          "weight": "sqrt",
+          "text_svd_components": 128
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 120.0,
+        "validation_plan_id": "099532e1660f09b8",
+        "feature_expressions": [
+          {
+            "name": "msg_digit_density",
+            "expression": "digit_count(col(\"Message\")) / maximum(word_count(col(\"Message\")), 1)",
+            "reason": "Spam often contains phone numbers or URLs with high digit density"
+          },
+          {
+            "name": "msg_avg_word_len",
+            "expression": "length(col(\"Message\")) / maximum(word_count(col(\"Message\")), 1)",
+            "reason": "Shorter average word length may indicate spam-like abbreviations"
+          }
+        ],
+        "id": "tpe_17",
+        "statement": "Seeded TPE trial from measured results for this model and feature representation",
+        "parent_experiment": "exp_0028"
+      },
+      "runtime_sec": 1.5783641669841018
+    },
+    {
+      "experiment_id": "exp_0034",
+      "origin": "optuna-tpe",
+      "status": "ok",
+      "metric_value": 0.9715930799443706,
+      "accepted": false,
+      "recipe": {
+        "model_family": "lightgbm",
+        "params": {
+          "iterations": 1800,
+          "num_leaves": 81,
+          "min_child_samples": 119,
+          "reg_lambda": 28.52626816471365,
+          "learning_rate": 0.05801770218593456,
+          "colsample_bytree": 0.6638229215706325,
+          "subsample": 0.9509758774426853,
+          "weight": "sqrt",
+          "text_svd_components": 32
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 120.0,
+        "validation_plan_id": "099532e1660f09b8",
+        "feature_expressions": [
+          {
+            "name": "msg_digit_density",
+            "expression": "digit_count(col(\"Message\")) / maximum(word_count(col(\"Message\")), 1)",
+            "reason": "Spam often contains phone numbers or URLs with high digit density"
+          },
+          {
+            "name": "msg_avg_word_len",
+            "expression": "length(col(\"Message\")) / maximum(word_count(col(\"Message\")), 1)",
+            "reason": "Shorter average word length may indicate spam-like abbreviations"
+          }
+        ],
+        "id": "tpe_18",
+        "statement": "Seeded TPE trial from measured results for this model and feature representation",
+        "parent_experiment": "exp_0028"
+      },
+      "runtime_sec": 1.794700832979288
+    },
+    {
+      "experiment_id": "exp_0035",
+      "origin": "optuna-tpe",
+      "status": "ok",
+      "metric_value": 0.9501851605474512,
+      "accepted": false,
+      "recipe": {
+        "model_family": "hist",
+        "params": {
+          "iterations": 350,
+          "max_leaf_nodes": 62,
+          "min_samples_leaf": 97,
+          "l2_regularization": 23.933067114675133,
+          "learning_rate": 0.1251781312969056,
+          "weight": "balanced",
+          "text_svd_components": 64
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 135.0,
+        "validation_plan_id": "099532e1660f09b8",
+        "feature_expressions": [],
+        "id": "tpe_19",
+        "statement": "Seeded TPE trial from measured results for this model and feature representation",
+        "parent_experiment": "exp_0007"
+      },
+      "runtime_sec": 1.855860500014387
+    },
+    {
+      "experiment_id": "exp_0036",
+      "origin": "optuna-tpe",
+      "status": "ok",
+      "metric_value": 0.9691330766908213,
+      "accepted": false,
+      "recipe": {
+        "model_family": "lightgbm",
+        "params": {
+          "iterations": 1800,
+          "num_leaves": 109,
+          "min_child_samples": 105,
+          "reg_lambda": 8.601904208398597,
+          "learning_rate": 0.03185797621814552,
+          "colsample_bytree": 0.7673047299045075,
+          "subsample": 0.8333437942589027,
+          "weight": "balanced",
+          "text_svd_components": 128
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 120.0,
+        "validation_plan_id": "099532e1660f09b8",
+        "feature_expressions": [
+          {
+            "name": "msg_digit_density",
+            "expression": "digit_count(col(\"Message\")) / maximum(word_count(col(\"Message\")), 1)",
+            "reason": "Spam often contains phone numbers or URLs with high digit density"
+          },
+          {
+            "name": "msg_avg_word_len",
+            "expression": "length(col(\"Message\")) / maximum(word_count(col(\"Message\")), 1)",
+            "reason": "Shorter average word length may indicate spam-like abbreviations"
+          }
+        ],
+        "id": "tpe_20",
+        "statement": "Seeded TPE trial from measured results for this model and feature representation",
+        "parent_experiment": "exp_0028"
+      },
+      "runtime_sec": 2.207678249978926
+    },
+    {
+      "experiment_id": "exp_0037",
+      "origin": "optuna-tpe",
+      "status": "ok",
+      "metric_value": 0.9703557931370344,
+      "accepted": false,
+      "recipe": {
+        "model_family": "lightgbm",
+        "params": {
+          "iterations": 1800,
+          "num_leaves": 51,
+          "min_child_samples": 82,
+          "reg_lambda": 37.7043182416781,
+          "learning_rate": 0.11715221151096429,
+          "colsample_bytree": 0.6619257035600162,
+          "subsample": 0.8663042439305527,
+          "weight": "sqrt",
+          "text_svd_components": 128
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 120.0,
+        "validation_plan_id": "099532e1660f09b8",
+        "feature_expressions": [
+          {
+            "name": "msg_digit_density",
+            "expression": "digit_count(col(\"Message\")) / maximum(word_count(col(\"Message\")), 1)",
+            "reason": "Spam often contains phone numbers or URLs with high digit density"
+          },
+          {
+            "name": "msg_avg_word_len",
+            "expression": "length(col(\"Message\")) / maximum(word_count(col(\"Message\")), 1)",
+            "reason": "Shorter average word length may indicate spam-like abbreviations"
+          }
+        ],
+        "id": "tpe_21",
+        "statement": "Seeded TPE trial from measured results for this model and feature representation",
+        "parent_experiment": "exp_0028"
+      },
+      "runtime_sec": 1.9625263749912847
+    },
+    {
+      "experiment_id": "exp_0038",
+      "origin": "optuna-tpe",
+      "status": "ok",
+      "metric_value": 0.952035493207203,
+      "accepted": false,
+      "recipe": {
+        "model_family": "hist",
+        "params": {
+          "iterations": 350,
+          "max_leaf_nodes": 37,
+          "min_samples_leaf": 35,
+          "l2_regularization": 0.47391886794953153,
+          "learning_rate": 0.0820677544105701,
+          "weight": "none",
+          "text_svd_components": 128
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 135.0,
+        "validation_plan_id": "099532e1660f09b8",
+        "feature_expressions": [],
+        "id": "tpe_22",
+        "statement": "Seeded TPE trial from measured results for this model and feature representation",
+        "parent_experiment": "exp_0007"
+      },
+      "runtime_sec": 2.7867704999807756
+    },
+    {
+      "experiment_id": "exp_0039",
+      "origin": "optuna-tpe",
+      "status": "ok",
+      "metric_value": 0.9715930799443706,
+      "accepted": false,
+      "recipe": {
+        "model_family": "lightgbm",
+        "params": {
+          "iterations": 1800,
+          "num_leaves": 86,
+          "min_child_samples": 146,
+          "reg_lambda": 24.7326332493338,
+          "learning_rate": 0.032199335769689585,
+          "colsample_bytree": 0.759043331224466,
+          "subsample": 0.9596251631149653,
+          "weight": "sqrt",
+          "text_svd_components": 32
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 120.0,
+        "validation_plan_id": "099532e1660f09b8",
+        "feature_expressions": [
+          {
+            "name": "msg_digit_density",
+            "expression": "digit_count(col(\"Message\")) / maximum(word_count(col(\"Message\")), 1)",
+            "reason": "Spam often contains phone numbers or URLs with high digit density"
+          },
+          {
+            "name": "msg_avg_word_len",
+            "expression": "length(col(\"Message\")) / maximum(word_count(col(\"Message\")), 1)",
+            "reason": "Shorter average word length may indicate spam-like abbreviations"
+          }
+        ],
+        "id": "tpe_23",
+        "statement": "Seeded TPE trial from measured results for this model and feature representation",
+        "parent_experiment": "exp_0028"
+      },
+      "runtime_sec": 1.9969392079801764
+    },
+    {
+      "experiment_id": "exp_0040",
+      "origin": "optuna-tpe",
+      "status": "ok",
+      "metric_value": 0.9688805601004528,
+      "accepted": false,
+      "recipe": {
+        "model_family": "lightgbm",
+        "params": {
+          "iterations": 1800,
+          "num_leaves": 96,
+          "min_child_samples": 90,
+          "reg_lambda": 15.422583905791685,
+          "learning_rate": 0.07548575052392881,
+          "colsample_bytree": 0.6051623242958865,
+          "subsample": 0.9007924635600516,
+          "weight": "sqrt",
+          "text_svd_components": 128
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 120.0,
+        "validation_plan_id": "099532e1660f09b8",
+        "feature_expressions": [
+          {
+            "name": "msg_digit_density",
+            "expression": "digit_count(col(\"Message\")) / maximum(word_count(col(\"Message\")), 1)",
+            "reason": "Spam often contains phone numbers or URLs with high digit density"
+          },
+          {
+            "name": "msg_avg_word_len",
+            "expression": "length(col(\"Message\")) / maximum(word_count(col(\"Message\")), 1)",
+            "reason": "Shorter average word length may indicate spam-like abbreviations"
+          }
+        ],
+        "id": "tpe_24",
+        "statement": "Seeded TPE trial from measured results for this model and feature representation",
+        "parent_experiment": "exp_0028"
+      },
+      "runtime_sec": 1.773244792013429
+    },
+    {
+      "experiment_id": "exp_0041",
+      "origin": "optuna-tpe",
+      "status": "ok",
+      "metric_value": 0.9473379766261363,
+      "accepted": false,
+      "recipe": {
+        "model_family": "hist",
+        "params": {
+          "iterations": 350,
+          "max_leaf_nodes": 10,
+          "min_samples_leaf": 33,
+          "l2_regularization": 7.1741207714038255,
+          "learning_rate": 0.047372166177217345,
+          "weight": "none",
+          "text_svd_components": 32
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 135.0,
+        "validation_plan_id": "099532e1660f09b8",
+        "feature_expressions": [],
+        "id": "tpe_25",
+        "statement": "Seeded TPE trial from measured results for this model and feature representation",
+        "parent_experiment": "exp_0007"
+      },
+      "runtime_sec": 1.6539704589813482
+    },
+    {
+      "experiment_id": "exp_0042",
+      "origin": "optuna-tpe",
+      "status": "ok",
+      "metric_value": 0.9715930799443706,
+      "accepted": false,
+      "recipe": {
+        "model_family": "lightgbm",
+        "params": {
+          "iterations": 1800,
+          "num_leaves": 107,
+          "min_child_samples": 66,
+          "reg_lambda": 11.97212797804542,
+          "learning_rate": 0.08905415340311926,
+          "colsample_bytree": 0.6416710865758678,
+          "subsample": 0.9380003657880842,
+          "weight": "sqrt",
+          "text_svd_components": 128
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 120.0,
+        "validation_plan_id": "099532e1660f09b8",
+        "feature_expressions": [
+          {
+            "name": "msg_digit_density",
+            "expression": "digit_count(col(\"Message\")) / maximum(word_count(col(\"Message\")), 1)",
+            "reason": "Spam often contains phone numbers or URLs with high digit density"
+          },
+          {
+            "name": "msg_avg_word_len",
+            "expression": "length(col(\"Message\")) / maximum(word_count(col(\"Message\")), 1)",
+            "reason": "Shorter average word length may indicate spam-like abbreviations"
+          }
+        ],
+        "id": "tpe_26",
+        "statement": "Seeded TPE trial from measured results for this model and feature representation",
+        "parent_experiment": "exp_0028"
+      },
+      "runtime_sec": 1.763486332987668
+    },
+    {
+      "experiment_id": "exp_0043",
+      "origin": "optuna-tpe",
+      "status": "ok",
+      "metric_value": 0.9715930799443706,
+      "accepted": false,
+      "recipe": {
+        "model_family": "lightgbm",
+        "params": {
+          "iterations": 1800,
+          "num_leaves": 96,
+          "min_child_samples": 110,
+          "reg_lambda": 18.82453002154746,
+          "learning_rate": 0.05850502086927867,
+          "colsample_bytree": 0.6896183385452033,
+          "subsample": 0.8980864405871058,
+          "weight": "sqrt",
+          "text_svd_components": 128
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 120.0,
+        "validation_plan_id": "099532e1660f09b8",
+        "feature_expressions": [
+          {
+            "name": "msg_digit_density",
+            "expression": "digit_count(col(\"Message\")) / maximum(word_count(col(\"Message\")), 1)",
+            "reason": "Spam often contains phone numbers or URLs with high digit density"
+          },
+          {
+            "name": "msg_avg_word_len",
+            "expression": "length(col(\"Message\")) / maximum(word_count(col(\"Message\")), 1)",
+            "reason": "Shorter average word length may indicate spam-like abbreviations"
+          }
+        ],
+        "id": "tpe_27",
+        "statement": "Seeded TPE trial from measured results for this model and feature representation",
+        "parent_experiment": "exp_0028"
+      },
+      "runtime_sec": 1.9586692499869969
+    },
+    {
+      "experiment_id": "exp_0044",
+      "origin": "optuna-tpe",
+      "status": "ok",
+      "metric_value": 0.952035493207203,
+      "accepted": false,
+      "recipe": {
+        "model_family": "hist",
+        "params": {
+          "iterations": 350,
+          "max_leaf_nodes": 37,
+          "min_samples_leaf": 22,
+          "l2_regularization": 19.97853564261956,
+          "learning_rate": 0.09837040090819514,
+          "weight": "sqrt",
+          "text_svd_components": 64
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 135.0,
+        "validation_plan_id": "099532e1660f09b8",
+        "feature_expressions": [],
+        "id": "tpe_28",
+        "statement": "Seeded TPE trial from measured results for this model and feature representation",
+        "parent_experiment": "exp_0007"
+      },
+      "runtime_sec": 2.591919375001453
+    },
+    {
+      "experiment_id": "exp_0045",
+      "origin": "optuna-tpe",
+      "status": "ok",
+      "metric_value": 0.9451702904339917,
+      "accepted": false,
+      "recipe": {
+        "model_family": "lightgbm",
+        "params": {
+          "iterations": 1800,
+          "num_leaves": 72,
+          "min_child_samples": 71,
+          "reg_lambda": 6.157033050477072,
+          "learning_rate": 0.0837045518866856,
+          "colsample_bytree": 0.6262352795754309,
+          "subsample": 0.828539166622225,
+          "weight": "sqrt",
+          "text_svd_components": 0
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 120.0,
+        "validation_plan_id": "099532e1660f09b8",
+        "feature_expressions": [
+          {
+            "name": "msg_digit_density",
+            "expression": "digit_count(col(\"Message\")) / maximum(word_count(col(\"Message\")), 1)",
+            "reason": "Spam often contains phone numbers or URLs with high digit density"
+          },
+          {
+            "name": "msg_avg_word_len",
+            "expression": "length(col(\"Message\")) / maximum(word_count(col(\"Message\")), 1)",
+            "reason": "Shorter average word length may indicate spam-like abbreviations"
+          }
+        ],
+        "id": "tpe_29",
+        "statement": "Seeded TPE trial from measured results for this model and feature representation",
+        "parent_experiment": "exp_0028"
+      },
+      "runtime_sec": 1.2221664160024375
+    },
+    {
+      "experiment_id": "exp_0046",
+      "origin": "optuna-tpe",
+      "status": "ok",
+      "metric_value": 0.9675325353405614,
+      "accepted": false,
+      "recipe": {
+        "model_family": "lightgbm",
+        "params": {
+          "iterations": 1800,
+          "num_leaves": 127,
+          "min_child_samples": 133,
+          "reg_lambda": 15.38016700127925,
+          "learning_rate": 0.10387162717066935,
+          "colsample_bytree": 0.6747426589704022,
+          "subsample": 0.9615801024373237,
+          "weight": "balanced",
+          "text_svd_components": 128
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 120.0,
+        "validation_plan_id": "099532e1660f09b8",
+        "feature_expressions": [
+          {
+            "name": "msg_digit_density",
+            "expression": "digit_count(col(\"Message\")) / maximum(word_count(col(\"Message\")), 1)",
+            "reason": "Spam often contains phone numbers or URLs with high digit density"
+          },
+          {
+            "name": "msg_avg_word_len",
+            "expression": "length(col(\"Message\")) / maximum(word_count(col(\"Message\")), 1)",
+            "reason": "Shorter average word length may indicate spam-like abbreviations"
+          }
+        ],
+        "id": "tpe_30",
+        "statement": "Seeded TPE trial from measured results for this model and feature representation",
+        "parent_experiment": "exp_0028"
+      },
+      "runtime_sec": 1.8237972919887397
+    },
+    {
+      "experiment_id": "exp_0047",
+      "status": "ok",
+      "metric_value": 0.9729432870794128,
+      "accepted": false,
+      "recipe": {
+        "model_family": "lightgbm",
+        "params": {
+          "iterations": 1800,
+          "num_leaves": 87,
+          "min_child_samples": 133,
+          "reg_lambda": 12.078895763406415,
+          "learning_rate": 0.07881430083217134,
+          "colsample_bytree": 0.7006199863761076,
+          "subsample": 0.9276691460774541,
+          "weight": "sqrt",
+          "text_svd_components": 128
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 120.0,
+        "validation_plan_id": "91b3275350931d44",
+        "feature_expressions": [
+          {
+            "name": "msg_digit_density",
+            "expression": "digit_count(col(\"Message\")) / maximum(word_count(col(\"Message\")), 1)",
+            "reason": "Spam often contains phone numbers or URLs with high digit density"
+          },
+          {
+            "name": "msg_avg_word_len",
+            "expression": "length(col(\"Message\")) / maximum(word_count(col(\"Message\")), 1)",
+            "reason": "Shorter average word length may indicate spam-like abbreviations"
+          }
+        ],
+        "id": "tpe_12",
+        "statement": "Seeded TPE trial from measured results for this model and feature representation",
+        "parent_experiment": "exp_0025"
+      },
+      "runtime_sec": 1.8607702089939266,
+      "phase": "confirmation"
+    },
+    {
+      "experiment_id": "exp_0048",
+      "status": "ok",
+      "metric_value": 0.9729432870794128,
+      "accepted": false,
+      "recipe": {
+        "model_family": "lightgbm",
+        "params": {
+          "iterations": 1800,
+          "num_leaves": 89,
+          "min_child_samples": 93,
+          "reg_lambda": 16.582455897931837,
+          "learning_rate": 0.07800198005647639,
+          "colsample_bytree": 0.6403500373271875,
+          "subsample": 0.9019487345880651,
+          "weight": "sqrt",
+          "text_svd_components": 128
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 120.0,
+        "validation_plan_id": "91b3275350931d44",
+        "feature_expressions": [
+          {
+            "name": "msg_digit_density",
+            "expression": "digit_count(col(\"Message\")) / maximum(word_count(col(\"Message\")), 1)",
+            "reason": "Spam often contains phone numbers or URLs with high digit density"
+          },
+          {
+            "name": "msg_avg_word_len",
+            "expression": "length(col(\"Message\")) / maximum(word_count(col(\"Message\")), 1)",
+            "reason": "Shorter average word length may indicate spam-like abbreviations"
+          }
+        ],
+        "id": "tpe_9",
+        "statement": "Seeded TPE trial from measured results for this model and feature representation",
+        "parent_experiment": "exp_0024"
+      },
+      "runtime_sec": 1.92926212499151,
+      "phase": "confirmation"
+    },
+    {
+      "experiment_id": "exp_0049",
+      "status": "ok",
+      "metric_value": 0.9479614111682275,
+      "accepted": false,
+      "recipe": {
+        "model_family": "hist",
+        "params": {
+          "iterations": 350
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 135.0,
+        "validation_plan_id": "91b3275350931d44",
+        "feature_expressions": [],
+        "id": "candidate",
+        "statement": "Histogram boosting diversity",
+        "parent_experiment": null
+      },
+      "runtime_sec": 2.189112833002582,
+      "phase": "confirmation"
+    },
+    {
+      "experiment_id": "exp_0050",
+      "status": "ok",
+      "metric_value": 0.9769293989331194,
+      "accepted": false,
+      "recipe": {
+        "model_family": "lightgbm",
+        "params": {
+          "iterations": 1800,
+          "num_leaves": 87,
+          "min_child_samples": 133,
+          "reg_lambda": 12.078895763406415,
+          "learning_rate": 0.07881430083217134,
+          "colsample_bytree": 0.7006199863761076,
+          "subsample": 0.9276691460774541,
+          "weight": "sqrt",
+          "text_svd_components": 128
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 120.0,
+        "validation_plan_id": "0c3a11779b124c2d",
+        "feature_expressions": [
+          {
+            "name": "msg_digit_density",
+            "expression": "digit_count(col(\"Message\")) / maximum(word_count(col(\"Message\")), 1)",
+            "reason": "Spam often contains phone numbers or URLs with high digit density"
+          },
+          {
+            "name": "msg_avg_word_len",
+            "expression": "length(col(\"Message\")) / maximum(word_count(col(\"Message\")), 1)",
+            "reason": "Shorter average word length may indicate spam-like abbreviations"
+          }
+        ],
+        "id": "tpe_12",
+        "statement": "Seeded TPE trial from measured results for this model and feature representation",
+        "parent_experiment": "exp_0025"
+      },
+      "runtime_sec": 1.9250674590002745,
+      "phase": "confirmation"
+    },
+    {
+      "experiment_id": "exp_0051",
+      "status": "ok",
+      "metric_value": 0.9768220010081424,
+      "accepted": false,
+      "recipe": {
+        "model_family": "lightgbm",
+        "params": {
+          "iterations": 1800,
+          "num_leaves": 89,
+          "min_child_samples": 93,
+          "reg_lambda": 16.582455897931837,
+          "learning_rate": 0.07800198005647639,
+          "colsample_bytree": 0.6403500373271875,
+          "subsample": 0.9019487345880651,
+          "weight": "sqrt",
+          "text_svd_components": 128
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 120.0,
+        "validation_plan_id": "0c3a11779b124c2d",
+        "feature_expressions": [
+          {
+            "name": "msg_digit_density",
+            "expression": "digit_count(col(\"Message\")) / maximum(word_count(col(\"Message\")), 1)",
+            "reason": "Spam often contains phone numbers or URLs with high digit density"
+          },
+          {
+            "name": "msg_avg_word_len",
+            "expression": "length(col(\"Message\")) / maximum(word_count(col(\"Message\")), 1)",
+            "reason": "Shorter average word length may indicate spam-like abbreviations"
+          }
+        ],
+        "id": "tpe_9",
+        "statement": "Seeded TPE trial from measured results for this model and feature representation",
+        "parent_experiment": "exp_0024"
+      },
+      "runtime_sec": 2.002128874999471,
+      "phase": "confirmation"
+    },
+    {
+      "experiment_id": "exp_0052",
+      "status": "ok",
+      "metric_value": 0.9626538442373811,
+      "accepted": false,
+      "recipe": {
+        "model_family": "hist",
+        "params": {
+          "iterations": 350
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 135.0,
+        "validation_plan_id": "0c3a11779b124c2d",
+        "feature_expressions": [],
+        "id": "candidate",
+        "statement": "Histogram boosting diversity",
+        "parent_experiment": null
+      },
+      "runtime_sec": 2.230852207983844,
+      "phase": "confirmation"
+    },
+    {
+      "experiment_id": "exp_0053",
+      "status": "ok",
+      "accepted": false,
+      "recipe": {
+        "model_family": "lightgbm",
+        "params": {
+          "iterations": 1800,
+          "num_leaves": 87,
+          "min_child_samples": 133,
+          "reg_lambda": 12.078895763406415,
+          "learning_rate": 0.07881430083217134,
+          "colsample_bytree": 0.7006199863761076,
+          "subsample": 0.9276691460774541,
+          "weight": "sqrt",
+          "text_svd_components": 128
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 120.0,
+        "validation_plan_id": "099532e1660f09b8",
+        "feature_expressions": [
+          {
+            "name": "msg_digit_density",
+            "expression": "digit_count(col(\"Message\")) / maximum(word_count(col(\"Message\")), 1)",
+            "reason": "Spam often contains phone numbers or URLs with high digit density"
+          },
+          {
+            "name": "msg_avg_word_len",
+            "expression": "length(col(\"Message\")) / maximum(word_count(col(\"Message\")), 1)",
+            "reason": "Shorter average word length may indicate spam-like abbreviations"
+          }
+        ],
+        "id": "tpe_12",
+        "statement": "Seeded TPE trial from measured results for this model and feature representation",
+        "parent_experiment": "exp_0025"
+      },
+      "runtime_sec": 1.9831035410170443,
+      "phase": "refit"
+    }
+  ],
+  "qwen_fits": 1,
+  "qwen_accepted": 1,
+  "final_recipe": {
+    "output_sha256": "8cbc59dc8bda655f0b5d2d872d602907d6e450da638901e23304647b0ea01b85",
+    "full_refit": true,
+    "seed": 42,
+    "labels": [
+      "ham",
+      "spam"
+    ],
+    "components": [
+      {
+        "recipe": {
+          "model_family": "lightgbm",
+          "params": {
+            "iterations": 1800,
+            "num_leaves": 87,
+            "min_child_samples": 133,
+            "reg_lambda": 12.078895763406415,
+            "learning_rate": 0.07881430083217134,
+            "colsample_bytree": 0.7006199863761076,
+            "subsample": 0.9276691460774541,
+            "weight": "sqrt",
+            "text_svd_components": 128
+          },
+          "feature_ops": [],
+          "target_transform": "none",
+          "max_runtime_sec": 120.0,
+          "validation_plan_id": "099532e1660f09b8",
+          "feature_expressions": [
+            {
+              "name": "msg_digit_density",
+              "expression": "digit_count(col(\"Message\")) / maximum(word_count(col(\"Message\")), 1)",
+              "reason": "Spam often contains phone numbers or URLs with high digit density"
+            },
+            {
+              "name": "msg_avg_word_len",
+              "expression": "length(col(\"Message\")) / maximum(word_count(col(\"Message\")), 1)",
+              "reason": "Shorter average word length may indicate spam-like abbreviations"
+            }
+          ],
+          "id": "tpe_12",
+          "statement": "Seeded TPE trial from measured results for this model and feature representation",
+          "parent_experiment": "exp_0025"
+        },
+        "iterations": 336,
+        "experiment_id": "exp_0028"
+      }
+    ],
+    "blend_weights": [
+      1.0
+    ],
+    "probability_multipliers": null
+  },
+  "run_dir": "/Users/nosovdanil/PycharmProjects/1/alfaautoresearch/runs/kaggle-full-6ldyl982/prepared/inputs/.atlas/20261021_220459_is8c82e8",
+  "output_sha256": "8cbc59dc8bda655f0b5d2d872d602907d6e450da638901e23304647b0ea01b85",
+  "credential_absent_from_artifacts": true,
+  "external_metric": 0.9771250825809292,
+  "output_schema_valid": true
+}

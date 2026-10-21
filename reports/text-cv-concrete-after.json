@@ -1,0 +1,1482 @@
+{
+  "status": "completed",
+  "entrypoint": [
+    "python3",
+    "solution.py",
+    "task.md"
+  ],
+  "agent_default_overrides": {},
+  "supervisor_seconds": 960,
+  "archive_sha256": "228593d0ddc7a82c21d0201b61c63ab3f163d913bb8644272fb8b9e5e29b14b5",
+  "runtime_code_sha256": "e2f776a1bdeb35a2010a1cba434733fd6edf6d97566cd045a832c1ee27dbb7d9",
+  "copied_root_files": [
+    "solution.py",
+    "_atlas_entry.py",
+    "atlas___init__.py",
+    "atlas_agent.py",
+    "atlas_budget.py",
+    "atlas_context.py",
+    "atlas_contract.py",
+    "atlas_ensemble.py",
+    "atlas_experiments.py",
+    "atlas_expressions.py",
+    "atlas_features.py",
+    "atlas_hpo.py",
+    "atlas_judge.py",
+    "atlas_metrics.py",
+    "atlas_models.py",
+    "atlas_orchestration.py",
+    "atlas_recipes.py",
+    "atlas_research.py",
+    "atlas_search.py",
+    "atlas_submit.py",
+    "atlas_task.py",
+    "atlas_utils.py",
+    "atlas_validation.py",
+    "atlas_worker.py",
+    "requirements.txt"
+  ],
+  "run_root": "/Users/nosovdanil/PycharmProjects/1/alfaautoresearch/runs/kaggle-full-igepsyzz",
+  "log": "/Users/nosovdanil/PycharmProjects/1/alfaautoresearch/runs/kaggle-full-igepsyzz/pipeline.log",
+  "submission": "/Users/nosovdanil/PycharmProjects/1/alfaautoresearch/runs/kaggle-full-igepsyzz/prepared/inputs/submission.csv",
+  "data": {
+    "case": "concrete_strength",
+    "dataset": "elikplim/concrete-compressive-strength-data-set",
+    "source": "https://www.kaggle.com/datasets/elikplim/concrete-compressive-strength-data-set",
+    "raw_sha256": "e1accd70da31187a50c652c50acb4c8392f440174562f6a5510ac4fcaa437bb8",
+    "member": "concrete_data.csv",
+    "target": "concrete_compressive_strength",
+    "id_column": "benchmark_id",
+    "metric": "rmse",
+    "seed": 42,
+    "phase": "final_lockbox",
+    "rows": 1030,
+    "training_rows": 820,
+    "evaluation_rows": 210,
+    "reserved_final_rows": 210,
+    "features": 8,
+    "split_sha256": "e39d6f9e1afd9ff31f863da7d7645a608fbbb2bc816c3e43d9639fad063918a2",
+    "input_sha256": {
+      "train.csv": "8e26a5510eff323c2b37322aef245bdfdaf08fd57a2244cbb43a93426fb83698",
+      "test.csv": "53de97b2c0ff1c99a11fc8acf99706caa22bf0e355585dacee0391f99e57ad7d",
+      "data_dictionary.csv": "1ee6e0d445c66f6090cb653418b3c3dcc2bd662cd6a9266311e4d80ecef387e2",
+      "sample_submission.csv": "41a2454fbf8ccd7cc90070264f27291b540798aa8943699d71a7dd3d3edc56d6",
+      "task.md": "d08915a64901e848a0a4ba84873a63217174be882f2f0df8ce168fb1ffd68efc"
+    },
+    "labels": [],
+    "labels_outside_task_directory": true,
+    "feature_duplicate_groups_kept_together": true
+  },
+  "packages": {
+    "numpy": "1.26.4",
+    "pandas": "2.2.3",
+    "scikit-learn": "1.5.2",
+    "scipy": "1.12.0",
+    "lightgbm": "4.6.0",
+    "xgboost": "2.1.4"
+  },
+  "platform_submissions": 0,
+  "kaggle_submissions": 0,
+  "returncode": 0,
+  "timed_out": false,
+  "wall_seconds": 70.705,
+  "agent_summary": {
+    "runtime_code_sha256": "e2f776a1bdeb35a2010a1cba434733fd6edf6d97566cd045a832c1ee27dbb7d9",
+    "mode": "live-agent",
+    "budget_seconds": 900.0,
+    "elapsed_seconds": 70.60367229199619,
+    "first_checkpoint_latency": 0.7657150420127437,
+    "validation": {
+      "id": "46b548d151f218d8",
+      "kind": "duplicate_group",
+      "reason": "Exact feature duplicates held together",
+      "seed": 42,
+      "train_rows": 542,
+      "valid_rows": 278
+    },
+    "metric": "rmse",
+    "dummy_utility": -16.507184118306157,
+    "experiments": 33,
+    "successful_experiments": 33,
+    "accepted_experiments": 3,
+    "champion_metric": 5.072755517144531,
+    "champion_recipe": {
+      "model_family": "lightgbm",
+      "params": {
+        "iterations": 1800,
+        "num_leaves": 70,
+        "min_child_samples": 10,
+        "reg_lambda": 6.245825628586184,
+        "learning_rate": 0.01950145515294856,
+        "colsample_bytree": 0.746535123941664,
+        "subsample": 0.6973128783510931
+      },
+      "feature_ops": [],
+      "target_transform": "none",
+      "max_runtime_sec": 135.0,
+      "validation_plan_id": "46b548d151f218d8",
+      "feature_expressions": [],
+      "id": "tpe_12",
+      "statement": "Seeded TPE trial from measured results for this model and feature representation",
+      "parent_experiment": "exp_0020"
+    },
+    "confirmation_metric": 4.668706581065185,
+    "ensemble": null,
+    "multipliers": null,
+    "qwen_calls": 3,
+    "qwen_proposals": 4,
+    "qwen_tokens": 13298,
+    "qwen_events": [
+      {
+        "status": "api_usage",
+        "call": 1,
+        "response_model": "qwen/qwen3.8-27b",
+        "prompt_tokens": 3955,
+        "completion_tokens": 473,
+        "reasoning_tokens": 0,
+        "finish_reason": "stop",
+        "reported_cost": 0.142795958604,
+        "elapsed_seconds": 4.306,
+        "timeout_seconds": 40.0
+      },
+      {
+        "status": "response",
+        "call": 1,
+        "tokens": 4428,
+        "elapsed_seconds": 4.306,
+        "timeout_seconds": 40.0
+      },
+      {
+        "status": "api_usage",
+        "call": 2,
+        "response_model": "qwen/qwen3.8-27b",
+        "prompt_tokens": 4102,
+        "completion_tokens": 334,
+        "reasoning_tokens": 0,
+        "finish_reason": "stop",
+        "reported_cost": 0.10925593350672,
+        "elapsed_seconds": 3.269,
+        "timeout_seconds": 40.0
+      },
+      {
+        "status": "response",
+        "call": 2,
+        "tokens": 8864,
+        "elapsed_seconds": 3.269,
+        "timeout_seconds": 40.0
+      },
+      {
+        "status": "api_usage",
+        "call": 3,
+        "response_model": "qwen/qwen3.8-27b",
+        "prompt_tokens": 4086,
+        "completion_tokens": 348,
+        "reasoning_tokens": 0,
+        "finish_reason": "stop",
+        "reported_cost": 0.11261528062824,
+        "elapsed_seconds": 3.478,
+        "timeout_seconds": 40.0
+      },
+      {
+        "status": "response",
+        "call": 3,
+        "tokens": 13298,
+        "elapsed_seconds": 3.478,
+        "timeout_seconds": 40.0
+      },
+      {
+        "status": "token_budget_exhausted"
+      }
+    ],
+    "max_live_worker_threads": 15,
+    "peak_worker_memory_mb": 196.6875,
+    "cancelled": false,
+    "output": "/Users/nosovdanil/PycharmProjects/1/alfaautoresearch/runs/kaggle-full-igepsyzz/prepared/inputs/submission.csv",
+    "output_sha256": "b0bbdbc05e8949295406a87137b7d2bd29fc0b3f3f53bb74fbd73e7322c1c35b",
+    "full_refit_published": true,
+    "adaptive_search": {
+      "backend": "optuna-tpe",
+      "studies": 2,
+      "proposed_trials": 12,
+      "completed_trials": 12,
+      "family_proposals": {
+        "hist": 8,
+        "lightgbm": 4
+      },
+      "stop_reason": "TPE search stagnated after exploring multiple model families",
+      "research_steps": 21
+    },
+    "cross_validation": {
+      "planned_folds": 3,
+      "completed_candidates": 3,
+      "selection_basis": "mean utility minus 0.25 standard deviation on all frozen folds",
+      "candidates": [
+        {
+          "experiment_id": "exp_0004",
+          "model_family": "hist",
+          "fold_metrics": [
+            5.026616249621276,
+            5.652592082062622,
+            4.612415809960781
+          ],
+          "mean_metric": 5.097208047214893,
+          "metric_std": 0.4275738304094741,
+          "robust_utility": -5.204101504817261
+        },
+        {
+          "experiment_id": "exp_0011",
+          "model_family": "hist",
+          "fold_metrics": [
+            5.026616249621276,
+            5.652592082062622,
+            4.612415809960781
+          ],
+          "mean_metric": 5.097208047214893,
+          "metric_std": 0.4275738304094741,
+          "robust_utility": -5.204101504817261
+        },
+        {
+          "experiment_id": "exp_0026",
+          "model_family": "lightgbm",
+          "fold_metrics": [
+            5.072755517144531,
+            5.248080102433348,
+            4.089333059697021
+          ],
+          "mean_metric": 4.8033895597583,
+          "metric_std": 0.5099622152744887,
+          "robust_utility": -4.930880113576922
+        }
+      ]
+    },
+    "confirmation_plan": [
+      {
+        "id": "ca6a952f49bbb395",
+        "kind": "duplicate_group",
+        "reason": "Frozen cross-validation control 1; validation disjoint from search and other controls",
+        "seed": 1052,
+        "train_rows": 549,
+        "valid_rows": 271
+      },
+      {
+        "id": "d31972b31f4b1b5e",
+        "kind": "duplicate_group",
+        "reason": "Frozen cross-validation control 2; validation disjoint from search and other controls",
+        "seed": 1053,
+        "train_rows": 549,
+        "valid_rows": 271
+      }
+    ],
+    "confirmation_metrics": [
+      {
+        "split_id": "ca6a952f49bbb395",
+        "metric_value": 5.248080102433348
+      },
+      {
+        "split_id": "d31972b31f4b1b5e",
+        "metric_value": 4.089333059697021
+      }
+    ],
+    "feature_group_trials": 6,
+    "feature_ablation_checks": 0,
+    "accepted_feature_ablations": 0,
+    "researcher_provider": "organizer-qwen",
+    "researcher_model": "qwen/qwen3.8-27b",
+    "researcher_calls": 3,
+    "researcher_proposals": 4,
+    "researcher_tokens": 13298,
+    "researcher_events": [
+      {
+        "status": "api_usage",
+        "call": 1,
+        "response_model": "qwen/qwen3.8-27b",
+        "prompt_tokens": 3955,
+        "completion_tokens": 473,
+        "reasoning_tokens": 0,
+        "finish_reason": "stop",
+        "reported_cost": 0.142795958604,
+        "elapsed_seconds": 4.306,
+        "timeout_seconds": 40.0
+      },
+      {
+        "status": "response",
+        "call": 1,
+        "tokens": 4428,
+        "elapsed_seconds": 4.306,
+        "timeout_seconds": 40.0
+      },
+      {
+        "status": "api_usage",
+        "call": 2,
+        "response_model": "qwen/qwen3.8-27b",
+        "prompt_tokens": 4102,
+        "completion_tokens": 334,
+        "reasoning_tokens": 0,
+        "finish_reason": "stop",
+        "reported_cost": 0.10925593350672,
+        "elapsed_seconds": 3.269,
+        "timeout_seconds": 40.0
+      },
+      {
+        "status": "response",
+        "call": 2,
+        "tokens": 8864,
+        "elapsed_seconds": 3.269,
+        "timeout_seconds": 40.0
+      },
+      {
+        "status": "api_usage",
+        "call": 3,
+        "response_model": "qwen/qwen3.8-27b",
+        "prompt_tokens": 4086,
+        "completion_tokens": 348,
+        "reasoning_tokens": 0,
+        "finish_reason": "stop",
+        "reported_cost": 0.11261528062824,
+        "elapsed_seconds": 3.478,
+        "timeout_seconds": 40.0
+      },
+      {
+        "status": "response",
+        "call": 3,
+        "tokens": 13298,
+        "elapsed_seconds": 3.478,
+        "timeout_seconds": 40.0
+      },
+      {
+        "status": "token_budget_exhausted"
+      }
+    ]
+  },
+  "inputs_unchanged": true,
+  "experiments": [
+    {
+      "experiment_id": "exp_0001",
+      "origin": "deterministic",
+      "status": "ok",
+      "metric_value": 10.755316718425265,
+      "accepted": true,
+      "recipe": {
+        "model_family": "linear",
+        "params": {
+          "alpha": 10
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 135.0,
+        "validation_plan_id": "46b548d151f218d8",
+        "feature_expressions": [],
+        "id": "candidate",
+        "statement": "Fast regularized linear baseline",
+        "parent_experiment": null
+      },
+      "runtime_sec": 0.9644106249907054
+    },
+    {
+      "experiment_id": "exp_0002",
+      "origin": "deterministic",
+      "status": "ok",
+      "metric_value": 5.227853222697959,
+      "accepted": true,
+      "recipe": {
+        "model_family": "lightgbm",
+        "params": {
+          "iterations": 1800,
+          "num_leaves": 31,
+          "min_child_samples": 30
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 135.0,
+        "validation_plan_id": "46b548d151f218d8",
+        "feature_expressions": [],
+        "id": "candidate",
+        "statement": "Fast leaf-wise booster with categorical handling",
+        "parent_experiment": null
+      },
+      "runtime_sec": 2.1295577500131913
+    },
+    {
+      "experiment_id": "exp_0003",
+      "origin": "qwen",
+      "status": "ok",
+      "metric_value": 5.365039019694114,
+      "accepted": false,
+      "recipe": {
+        "model_family": "lightgbm",
+        "params": {
+          "iterations": 1800,
+          "num_leaves": 31,
+          "min_child_samples": 30
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 135.0,
+        "validation_plan_id": "46b548d151f218d8",
+        "feature_expressions": [
+          {
+            "name": "water_to_binder",
+            "expression": "col(\"water\") / maximum(col(\"cement\") + col(\"blast_furnace_slag\") + col(\"fly_ash\"), 1)",
+            "reason": "Water-to-binder ratio is the primary determinant of concrete strength."
+          },
+          {
+            "name": "maturity",
+            "expression": "col(\"age\") * col(\"cement\")",
+            "reason": "Maturity (age * cement) captures the time-dependent strength gain driven by cement hydration."
+          },
+          {
+            "name": "total_binder",
+            "expression": "col(\"cement\") + col(\"blast_furnace_slag\") + col(\"fly_ash\")",
+            "reason": "Total binder content provides the absolute scale of the cementitious matrix."
+          },
+          {
+            "name": "sp_to_binder",
+            "expression": "col(\"superplasticizer\") / maximum(col(\"cement\") + col(\"blast_furnace_slag\") + col(\"fly_ash\"), 1)",
+            "reason": "Superplasticizer dosage relative to binder affects workability and strength."
+          }
+        ],
+        "id": "candidate",
+        "statement": "Concrete strength is governed by the water-to-binder ratio and the maturity (age * cement content); adding these domain-specific ratios should reduce RMSE by providing the model with the primary physical drivers directly.",
+        "parent_experiment": "exp_0002"
+      },
+      "feature_trial": {
+        "kind": "feature_group",
+        "parent_experiment": "exp_0002",
+        "parent_metric": 5.227853222697959,
+        "parent_utility": -5.227853222697959,
+        "held_constant": [
+          "model_family",
+          "params",
+          "target_transform",
+          "validation",
+          "seed"
+        ],
+        "changes": [
+          {
+            "kind": "formula",
+            "name": "water_to_binder"
+          },
+          {
+            "kind": "formula",
+            "name": "maturity"
+          },
+          {
+            "kind": "formula",
+            "name": "total_binder"
+          },
+          {
+            "kind": "formula",
+            "name": "sp_to_binder"
+          }
+        ],
+        "ignored_model_overrides": [],
+        "group_experiment": "exp_0003",
+        "utility_gain_vs_parent": -0.13718579699615496
+      },
+      "runtime_sec": 1.6175385410024319
+    },
+    {
+      "experiment_id": "exp_0004",
+      "origin": "deterministic",
+      "status": "ok",
+      "metric_value": 5.026616249621276,
+      "accepted": true,
+      "recipe": {
+        "model_family": "hist",
+        "params": {
+          "iterations": 350
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 135.0,
+        "validation_plan_id": "46b548d151f218d8",
+        "feature_expressions": [],
+        "id": "candidate",
+        "statement": "Histogram boosting diversity",
+        "parent_experiment": null
+      },
+      "runtime_sec": 1.4702310419816058
+    },
+    {
+      "experiment_id": "exp_0005",
+      "origin": "deterministic",
+      "status": "ok",
+      "metric_value": 5.621158488631391,
+      "accepted": false,
+      "recipe": {
+        "model_family": "extra_trees",
+        "params": {
+          "iterations": 250,
+          "min_samples_leaf": 2
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 135.0,
+        "validation_plan_id": "46b548d151f218d8",
+        "feature_expressions": [],
+        "id": "candidate",
+        "statement": "Randomized trees for complementary errors",
+        "parent_experiment": null
+      },
+      "runtime_sec": 1.0549895000003744
+    },
+    {
+      "experiment_id": "exp_0006",
+      "origin": "deterministic",
+      "status": "ok",
+      "metric_value": 5.3129467977457825,
+      "accepted": false,
+      "recipe": {
+        "model_family": "xgboost",
+        "params": {
+          "iterations": 1800,
+          "max_depth": 6
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 135.0,
+        "validation_plan_id": "46b548d151f218d8",
+        "feature_expressions": [],
+        "id": "candidate",
+        "statement": "Regularized histogram booster diversity",
+        "parent_experiment": null
+      },
+      "runtime_sec": 1.4863624580029864
+    },
+    {
+      "experiment_id": "exp_0007",
+      "origin": "qwen",
+      "status": "ok",
+      "metric_value": 5.197547884914494,
+      "accepted": false,
+      "recipe": {
+        "model_family": "hist",
+        "params": {
+          "iterations": 350
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 135.0,
+        "validation_plan_id": "46b548d151f218d8",
+        "feature_expressions": [
+          {
+            "name": "water_to_binder",
+            "expression": "col(\"water\") / maximum(col(\"cement\") + col(\"blast_furnace_slag\") + col(\"fly_ash\"), 1)",
+            "reason": "Water-to-binder ratio is the primary predictor of concrete strength; high error association with water suggests the model needs this normalized view."
+          },
+          {
+            "name": "maturity",
+            "expression": "sqrt(col(\"age\"))",
+            "reason": "Concrete strength gain follows a square-root-of-age law; transforming age to maturity linearizes the relationship and helps the tree model capture early-age strength better."
+          }
+        ],
+        "id": "candidate",
+        "statement": "Adding the water-to-binder ratio and a maturity index (sqrt(age)) captures the dominant physical drivers of concrete strength that the current model underutilizes, as evidenced by high error associations with water and fine_aggregate.",
+        "parent_experiment": "exp_0004"
+      },
+      "feature_trial": {
+        "kind": "feature_group",
+        "parent_experiment": "exp_0004",
+        "parent_metric": 5.026616249621276,
+        "parent_utility": -5.026616249621276,
+        "held_constant": [
+          "model_family",
+          "params",
+          "target_transform",
+          "validation",
+          "seed"
+        ],
+        "changes": [
+          {
+            "kind": "formula",
+            "name": "water_to_binder"
+          },
+          {
+            "kind": "formula",
+            "name": "maturity"
+          }
+        ],
+        "ignored_model_overrides": [],
+        "group_experiment": "exp_0007",
+        "utility_gain_vs_parent": -0.17093163529321753
+      },
+      "runtime_sec": 1.5321300840005279
+    },
+    {
+      "experiment_id": "exp_0008",
+      "origin": "qwen",
+      "status": "ok",
+      "metric_value": 5.168841546345676,
+      "accepted": false,
+      "recipe": {
+        "model_family": "hist",
+        "params": {
+          "iterations": 350
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 120.0,
+        "validation_plan_id": "46b548d151f218d8",
+        "feature_expressions": [
+          {
+            "name": "binder_total",
+            "expression": "col(\"cement\") + col(\"blast_furnace_slag\") + col(\"fly_ash\")",
+            "reason": "Total binder mass per m3; captures overall cementitious content that drives strength."
+          },
+          {
+            "name": "water_to_binder",
+            "expression": "col(\"water\") / maximum(col(\"cement\") + col(\"blast_furnace_slag\") + col(\"fly_ash\"), 1)",
+            "reason": "Water-to-binder ratio is a primary strength driver; errors correlate with water and binder components."
+          },
+          {
+            "name": "cement_share",
+            "expression": "col(\"cement\") / maximum(col(\"cement\") + col(\"blast_furnace_slag\") + col(\"fly_ash\"), 1)",
+            "reason": "Cement fraction of binder; high-strength mixes often have higher cement share, and cement error association is moderate."
+          },
+          {
+            "name": "age_log",
+            "expression": "log1p(col(\"age\"))",
+            "reason": "Strength gain is logarithmic in age; log transform linearizes early-age growth and may help the top quantile where bias is negative."
+          }
+        ],
+        "id": "cand_0008",
+        "statement": "High-strength concrete errors are driven by binder composition and water-to-binder ratio; adding binder share and water-to-binder ratio should reduce RMSE in the top target quantile.",
+        "parent_experiment": "exp_0004"
+      },
+      "feature_trial": {
+        "kind": "feature_group",
+        "parent_experiment": "exp_0004",
+        "parent_metric": 5.026616249621276,
+        "parent_utility": -5.026616249621276,
+        "held_constant": [
+          "model_family",
+          "params",
+          "target_transform",
+          "validation",
+          "seed"
+        ],
+        "changes": [
+          {
+            "kind": "formula",
+            "name": "binder_total"
+          },
+          {
+            "kind": "formula",
+            "name": "water_to_binder"
+          },
+          {
+            "kind": "formula",
+            "name": "cement_share"
+          },
+          {
+            "kind": "formula",
+            "name": "age_log"
+          }
+        ],
+        "ignored_model_overrides": [],
+        "group_experiment": "exp_0008",
+        "utility_gain_vs_parent": -0.14222529672439954
+      },
+      "runtime_sec": 1.5435205840039998
+    },
+    {
+      "experiment_id": "exp_0009",
+      "origin": "deterministic",
+      "status": "ok",
+      "metric_value": 5.363526188352537,
+      "accepted": false,
+      "recipe": {
+        "model_family": "hist",
+        "params": {
+          "iterations": 350
+        },
+        "feature_ops": [
+          {
+            "op": "ratio",
+            "columns": [
+              "cement",
+              "blast_furnace_slag"
+            ]
+          }
+        ],
+        "target_transform": "none",
+        "max_runtime_sec": 135.0,
+        "validation_plan_id": "46b548d151f218d8",
+        "feature_expressions": [],
+        "id": "local_4",
+        "statement": "Bounded numeric interaction may capture nonlinear rates",
+        "parent_experiment": "exp_0004"
+      },
+      "feature_trial": {
+        "kind": "feature_group",
+        "parent_experiment": "exp_0004",
+        "parent_metric": 5.026616249621276,
+        "parent_utility": -5.026616249621276,
+        "held_constant": [
+          "model_family",
+          "params",
+          "target_transform",
+          "validation",
+          "seed"
+        ],
+        "changes": [
+          {
+            "kind": "operation",
+            "name": "{\"columns\": [\"cement\", \"blast_furnace_slag\"], \"op\": \"ratio\"}"
+          }
+        ],
+        "ignored_model_overrides": [],
+        "group_experiment": "exp_0009",
+        "utility_gain_vs_parent": -0.33690993873126107
+      },
+      "runtime_sec": 1.5992562090104911
+    },
+    {
+      "experiment_id": "exp_0010",
+      "origin": "deterministic",
+      "status": "ok",
+      "metric_value": 5.084221528697345,
+      "accepted": false,
+      "recipe": {
+        "model_family": "hist",
+        "params": {
+          "iterations": 350
+        },
+        "feature_ops": [
+          {
+            "op": "product",
+            "columns": [
+              "cement",
+              "blast_furnace_slag"
+            ]
+          }
+        ],
+        "target_transform": "none",
+        "max_runtime_sec": 135.0,
+        "validation_plan_id": "46b548d151f218d8",
+        "feature_expressions": [],
+        "id": "local_5",
+        "statement": "Bounded numeric interaction may capture nonlinear rates",
+        "parent_experiment": "exp_0004"
+      },
+      "feature_trial": {
+        "kind": "feature_group",
+        "parent_experiment": "exp_0004",
+        "parent_metric": 5.026616249621276,
+        "parent_utility": -5.026616249621276,
+        "held_constant": [
+          "model_family",
+          "params",
+          "target_transform",
+          "validation",
+          "seed"
+        ],
+        "changes": [
+          {
+            "kind": "operation",
+            "name": "{\"columns\": [\"cement\", \"blast_furnace_slag\"], \"op\": \"product\"}"
+          }
+        ],
+        "ignored_model_overrides": [],
+        "group_experiment": "exp_0010",
+        "utility_gain_vs_parent": -0.057605279076068605
+      },
+      "runtime_sec": 1.525933291995898
+    },
+    {
+      "experiment_id": "exp_0011",
+      "origin": "deterministic",
+      "status": "ok",
+      "metric_value": 5.026616249621276,
+      "accepted": false,
+      "recipe": {
+        "model_family": "hist",
+        "params": {
+          "iterations": 350
+        },
+        "feature_ops": [
+          {
+            "op": "clip",
+            "columns": [
+              "cement",
+              "blast_furnace_slag",
+              "fly_ash",
+              "water",
+              "superplasticizer",
+              "coarse_aggregate",
+              "fine_aggregate",
+              "age"
+            ]
+          }
+        ],
+        "target_transform": "none",
+        "max_runtime_sec": 135.0,
+        "validation_plan_id": "46b548d151f218d8",
+        "feature_expressions": [],
+        "id": "local_6",
+        "statement": "Fold-fitted clipped copies may reduce outlier sensitivity while retaining originals",
+        "parent_experiment": "exp_0004"
+      },
+      "feature_trial": {
+        "kind": "feature_group",
+        "parent_experiment": "exp_0004",
+        "parent_metric": 5.026616249621276,
+        "parent_utility": -5.026616249621276,
+        "held_constant": [
+          "model_family",
+          "params",
+          "target_transform",
+          "validation",
+          "seed"
+        ],
+        "changes": [
+          {
+            "kind": "operation",
+            "name": "{\"columns\": [\"cement\", \"blast_furnace_slag\", \"fly_ash\", \"water\", \"superplasticizer\", \"coarse_aggregate\", \"fine_aggregate\", \"age\"], \"op\": \"clip\"}"
+          }
+        ],
+        "ignored_model_overrides": [],
+        "group_experiment": "exp_0011",
+        "utility_gain_vs_parent": 0.0
+      },
+      "runtime_sec": 1.674901708989637
+    },
+    {
+      "experiment_id": "exp_0012",
+      "origin": "deterministic",
+      "status": "ok",
+      "metric_value": 5.321328395147944,
+      "accepted": false,
+      "recipe": {
+        "model_family": "hist",
+        "params": {
+          "iterations": 350,
+          "max_leaf_nodes": 31,
+          "l2_regularization": 1.0
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 135.0,
+        "validation_plan_id": "46b548d151f218d8",
+        "feature_expressions": [],
+        "id": "local_7",
+        "statement": "Focused local hyperparameter search around measured champion",
+        "parent_experiment": "exp_0004"
+      },
+      "runtime_sec": 1.4911418340052478
+    },
+    {
+      "experiment_id": "exp_0013",
+      "origin": "deterministic",
+      "status": "ok",
+      "metric_value": 5.345510700899054,
+      "accepted": false,
+      "recipe": {
+        "model_family": "hist",
+        "params": {
+          "iterations": 350,
+          "max_leaf_nodes": 31,
+          "l2_regularization": 10.0
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 135.0,
+        "validation_plan_id": "46b548d151f218d8",
+        "feature_expressions": [],
+        "id": "local_8",
+        "statement": "Focused local hyperparameter search around measured champion",
+        "parent_experiment": "exp_0004"
+      },
+      "runtime_sec": 1.6469762079941574
+    },
+    {
+      "experiment_id": "exp_0014",
+      "origin": "deterministic",
+      "status": "ok",
+      "metric_value": 5.064982062583808,
+      "accepted": false,
+      "recipe": {
+        "model_family": "hist",
+        "params": {
+          "iterations": 700
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 135.0,
+        "validation_plan_id": "46b548d151f218d8",
+        "feature_expressions": [],
+        "id": "local_9",
+        "statement": "Training reached its iteration cap; test more rounds within measured fit and refit costs",
+        "parent_experiment": "exp_0004"
+      },
+      "runtime_sec": 2.092400458001066
+    },
+    {
+      "experiment_id": "exp_0015",
+      "origin": "optuna-tpe",
+      "status": "ok",
+      "metric_value": 5.339187084659835,
+      "accepted": false,
+      "recipe": {
+        "model_family": "hist",
+        "params": {
+          "iterations": 350,
+          "max_leaf_nodes": 27,
+          "min_samples_leaf": 55,
+          "l2_regularization": 2.152139789658978,
+          "learning_rate": 0.13422324957981657
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 135.0,
+        "validation_plan_id": "46b548d151f218d8",
+        "feature_expressions": [],
+        "id": "tpe_1",
+        "statement": "Seeded TPE trial from measured results for this model and feature representation",
+        "parent_experiment": "exp_0004"
+      },
+      "runtime_sec": 1.1215718750027008
+    },
+    {
+      "experiment_id": "exp_0016",
+      "origin": "optuna-tpe",
+      "status": "ok",
+      "metric_value": 7.163388037446366,
+      "accepted": false,
+      "recipe": {
+        "model_family": "hist",
+        "params": {
+          "iterations": 350,
+          "max_leaf_nodes": 51,
+          "min_samples_leaf": 100,
+          "l2_regularization": 28.863392131282403,
+          "learning_rate": 0.021317599289290126
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 135.0,
+        "validation_plan_id": "46b548d151f218d8",
+        "feature_expressions": [],
+        "id": "tpe_2",
+        "statement": "Seeded TPE trial from measured results for this model and feature representation",
+        "parent_experiment": "exp_0004"
+      },
+      "runtime_sec": 1.0556631670042407
+    },
+    {
+      "experiment_id": "exp_0017",
+      "origin": "optuna-tpe",
+      "status": "ok",
+      "metric_value": 6.34666909288904,
+      "accepted": false,
+      "recipe": {
+        "model_family": "lightgbm",
+        "params": {
+          "iterations": 1800,
+          "num_leaves": 103,
+          "min_child_samples": 121,
+          "reg_lambda": 29.55987147810717,
+          "learning_rate": 0.14128464671179475,
+          "colsample_bytree": 0.6886174391243027,
+          "subsample": 0.9004607292086675
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 135.0,
+        "validation_plan_id": "46b548d151f218d8",
+        "feature_expressions": [],
+        "id": "tpe_3",
+        "statement": "Seeded TPE trial from measured results for this model and feature representation",
+        "parent_experiment": "exp_0002"
+      },
+      "runtime_sec": 1.586891458980972
+    },
+    {
+      "experiment_id": "exp_0018",
+      "origin": "optuna-tpe",
+      "status": "ok",
+      "metric_value": 5.927946749409265,
+      "accepted": false,
+      "recipe": {
+        "model_family": "hist",
+        "params": {
+          "iterations": 350,
+          "max_leaf_nodes": 8,
+          "min_samples_leaf": 49,
+          "l2_regularization": 19.96163756781227,
+          "learning_rate": 0.038411665733706454
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 135.0,
+        "validation_plan_id": "46b548d151f218d8",
+        "feature_expressions": [],
+        "id": "tpe_4",
+        "statement": "Seeded TPE trial from measured results for this model and feature representation",
+        "parent_experiment": "exp_0004"
+      },
+      "runtime_sec": 1.0964120000135154
+    },
+    {
+      "experiment_id": "exp_0019",
+      "origin": "optuna-tpe",
+      "status": "ok",
+      "metric_value": 5.614583305758379,
+      "accepted": false,
+      "recipe": {
+        "model_family": "hist",
+        "params": {
+          "iterations": 350,
+          "max_leaf_nodes": 62,
+          "min_samples_leaf": 5,
+          "l2_regularization": 11.200450459563658,
+          "learning_rate": 0.046837159451486865
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 135.0,
+        "validation_plan_id": "46b548d151f218d8",
+        "feature_expressions": [],
+        "id": "tpe_5",
+        "statement": "Seeded TPE trial from measured results for this model and feature representation",
+        "parent_experiment": "exp_0004"
+      },
+      "runtime_sec": 2.6315940829808824
+    },
+    {
+      "experiment_id": "exp_0020",
+      "origin": "optuna-tpe",
+      "status": "ok",
+      "metric_value": 5.163101099196127,
+      "accepted": false,
+      "recipe": {
+        "model_family": "lightgbm",
+        "params": {
+          "iterations": 1800,
+          "num_leaves": 39,
+          "min_child_samples": 21,
+          "reg_lambda": 15.650520016593529,
+          "learning_rate": 0.06954784493917855,
+          "colsample_bytree": 0.7664469804742221,
+          "subsample": 0.7574453911388034
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 135.0,
+        "validation_plan_id": "46b548d151f218d8",
+        "feature_expressions": [],
+        "id": "tpe_6",
+        "statement": "Seeded TPE trial from measured results for this model and feature representation",
+        "parent_experiment": "exp_0002"
+      },
+      "runtime_sec": 1.8160341249895282
+    },
+    {
+      "experiment_id": "exp_0021",
+      "origin": "optuna-tpe",
+      "status": "ok",
+      "metric_value": 5.369012859294941,
+      "accepted": false,
+      "recipe": {
+        "model_family": "hist",
+        "params": {
+          "iterations": 350,
+          "max_leaf_nodes": 9,
+          "min_samples_leaf": 55,
+          "l2_regularization": 20.637447921748624,
+          "learning_rate": 0.13928292348469193
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 135.0,
+        "validation_plan_id": "46b548d151f218d8",
+        "feature_expressions": [],
+        "id": "tpe_7",
+        "statement": "Seeded TPE trial from measured results for this model and feature representation",
+        "parent_experiment": "exp_0004"
+      },
+      "runtime_sec": 1.1017229999997653
+    },
+    {
+      "experiment_id": "exp_0022",
+      "origin": "optuna-tpe",
+      "status": "ok",
+      "metric_value": 5.556534465499525,
+      "accepted": false,
+      "recipe": {
+        "model_family": "hist",
+        "params": {
+          "iterations": 350,
+          "max_leaf_nodes": 47,
+          "min_samples_leaf": 35,
+          "l2_regularization": 6.883475569662632,
+          "learning_rate": 0.07746281314570219
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 135.0,
+        "validation_plan_id": "46b548d151f218d8",
+        "feature_expressions": [],
+        "id": "tpe_8",
+        "statement": "Seeded TPE trial from measured results for this model and feature representation",
+        "parent_experiment": "exp_0004"
+      },
+      "runtime_sec": 1.233861958986381
+    },
+    {
+      "experiment_id": "exp_0023",
+      "origin": "optuna-tpe",
+      "status": "ok",
+      "metric_value": 8.370672111804971,
+      "accepted": false,
+      "recipe": {
+        "model_family": "lightgbm",
+        "params": {
+          "iterations": 1800,
+          "num_leaves": 26,
+          "min_child_samples": 149,
+          "reg_lambda": 23.39821380169001,
+          "learning_rate": 0.0688041712431434,
+          "colsample_bytree": 0.924258323862018,
+          "subsample": 0.9795849349931915
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 135.0,
+        "validation_plan_id": "46b548d151f218d8",
+        "feature_expressions": [],
+        "id": "tpe_9",
+        "statement": "Seeded TPE trial from measured results for this model and feature representation",
+        "parent_experiment": "exp_0020"
+      },
+      "runtime_sec": 1.6038917920086533
+    },
+    {
+      "experiment_id": "exp_0024",
+      "origin": "optuna-tpe",
+      "status": "ok",
+      "metric_value": 7.0001669426256825,
+      "accepted": false,
+      "recipe": {
+        "model_family": "hist",
+        "params": {
+          "iterations": 350,
+          "max_leaf_nodes": 19,
+          "min_samples_leaf": 92,
+          "l2_regularization": 17.167109920007004,
+          "learning_rate": 0.02959237068422552
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 135.0,
+        "validation_plan_id": "46b548d151f218d8",
+        "feature_expressions": [],
+        "id": "tpe_10",
+        "statement": "Seeded TPE trial from measured results for this model and feature representation",
+        "parent_experiment": "exp_0004"
+      },
+      "runtime_sec": 1.0479412499989849
+    },
+    {
+      "experiment_id": "exp_0025",
+      "origin": "optuna-tpe",
+      "status": "ok",
+      "metric_value": 6.126958708515252,
+      "accepted": false,
+      "recipe": {
+        "model_family": "hist",
+        "params": {
+          "iterations": 350,
+          "max_leaf_nodes": 43,
+          "min_samples_leaf": 76,
+          "l2_regularization": 28.94827181268566,
+          "learning_rate": 0.05925562313191737
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 135.0,
+        "validation_plan_id": "46b548d151f218d8",
+        "feature_expressions": [],
+        "id": "tpe_11",
+        "statement": "Seeded TPE trial from measured results for this model and feature representation",
+        "parent_experiment": "exp_0004"
+      },
+      "runtime_sec": 1.1658590830047615
+    },
+    {
+      "experiment_id": "exp_0026",
+      "origin": "optuna-tpe",
+      "status": "ok",
+      "metric_value": 5.072755517144531,
+      "accepted": false,
+      "recipe": {
+        "model_family": "lightgbm",
+        "params": {
+          "iterations": 1800,
+          "num_leaves": 70,
+          "min_child_samples": 10,
+          "reg_lambda": 6.245825628586184,
+          "learning_rate": 0.01950145515294856,
+          "colsample_bytree": 0.746535123941664,
+          "subsample": 0.6973128783510931
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 135.0,
+        "validation_plan_id": "46b548d151f218d8",
+        "feature_expressions": [],
+        "id": "tpe_12",
+        "statement": "Seeded TPE trial from measured results for this model and feature representation",
+        "parent_experiment": "exp_0020"
+      },
+      "runtime_sec": 3.649429750017589
+    },
+    {
+      "experiment_id": "exp_0027",
+      "status": "ok",
+      "metric_value": 5.652592082062622,
+      "accepted": false,
+      "recipe": {
+        "model_family": "hist",
+        "params": {
+          "iterations": 350
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 135.0,
+        "validation_plan_id": "ca6a952f49bbb395",
+        "feature_expressions": [],
+        "id": "candidate",
+        "statement": "Histogram boosting diversity",
+        "parent_experiment": null
+      },
+      "runtime_sec": 1.5928797920059878,
+      "phase": "confirmation"
+    },
+    {
+      "experiment_id": "exp_0028",
+      "status": "ok",
+      "metric_value": 5.652592082062622,
+      "accepted": false,
+      "recipe": {
+        "model_family": "hist",
+        "params": {
+          "iterations": 350
+        },
+        "feature_ops": [
+          {
+            "op": "clip",
+            "columns": [
+              "cement",
+              "blast_furnace_slag",
+              "fly_ash",
+              "water",
+              "superplasticizer",
+              "coarse_aggregate",
+              "fine_aggregate",
+              "age"
+            ]
+          }
+        ],
+        "target_transform": "none",
+        "max_runtime_sec": 135.0,
+        "validation_plan_id": "ca6a952f49bbb395",
+        "feature_expressions": [],
+        "id": "local_6",
+        "statement": "Fold-fitted clipped copies may reduce outlier sensitivity while retaining originals",
+        "parent_experiment": "exp_0004"
+      },
+      "runtime_sec": 1.5338061249931343,
+      "phase": "confirmation"
+    },
+    {
+      "experiment_id": "exp_0029",
+      "status": "ok",
+      "metric_value": 5.248080102433348,
+      "accepted": false,
+      "recipe": {
+        "model_family": "lightgbm",
+        "params": {
+          "iterations": 1800,
+          "num_leaves": 70,
+          "min_child_samples": 10,
+          "reg_lambda": 6.245825628586184,
+          "learning_rate": 0.01950145515294856,
+          "colsample_bytree": 0.746535123941664,
+          "subsample": 0.6973128783510931
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 135.0,
+        "validation_plan_id": "ca6a952f49bbb395",
+        "feature_expressions": [],
+        "id": "tpe_12",
+        "statement": "Seeded TPE trial from measured results for this model and feature representation",
+        "parent_experiment": "exp_0020"
+      },
+      "runtime_sec": 2.73433812498115,
+      "phase": "confirmation"
+    },
+    {
+      "experiment_id": "exp_0030",
+      "status": "ok",
+      "metric_value": 4.612415809960781,
+      "accepted": false,
+      "recipe": {
+        "model_family": "hist",
+        "params": {
+          "iterations": 350
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 135.0,
+        "validation_plan_id": "d31972b31f4b1b5e",
+        "feature_expressions": [],
+        "id": "candidate",
+        "statement": "Histogram boosting diversity",
+        "parent_experiment": null
+      },
+      "runtime_sec": 1.4797274160082452,
+      "phase": "confirmation"
+    },
+    {
+      "experiment_id": "exp_0031",
+      "status": "ok",
+      "metric_value": 4.612415809960781,
+      "accepted": false,
+      "recipe": {
+        "model_family": "hist",
+        "params": {
+          "iterations": 350
+        },
+        "feature_ops": [
+          {
+            "op": "clip",
+            "columns": [
+              "cement",
+              "blast_furnace_slag",
+              "fly_ash",
+              "water",
+              "superplasticizer",
+              "coarse_aggregate",
+              "fine_aggregate",
+              "age"
+            ]
+          }
+        ],
+        "target_transform": "none",
+        "max_runtime_sec": 135.0,
+        "validation_plan_id": "d31972b31f4b1b5e",
+        "feature_expressions": [],
+        "id": "local_6",
+        "statement": "Fold-fitted clipped copies may reduce outlier sensitivity while retaining originals",
+        "parent_experiment": "exp_0004"
+      },
+      "runtime_sec": 1.6086209579952992,
+      "phase": "confirmation"
+    },
+    {
+      "experiment_id": "exp_0032",
+      "status": "ok",
+      "metric_value": 4.089333059697021,
+      "accepted": false,
+      "recipe": {
+        "model_family": "lightgbm",
+        "params": {
+          "iterations": 1800,
+          "num_leaves": 70,
+          "min_child_samples": 10,
+          "reg_lambda": 6.245825628586184,
+          "learning_rate": 0.01950145515294856,
+          "colsample_bytree": 0.746535123941664,
+          "subsample": 0.6973128783510931
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 135.0,
+        "validation_plan_id": "d31972b31f4b1b5e",
+        "feature_expressions": [],
+        "id": "tpe_12",
+        "statement": "Seeded TPE trial from measured results for this model and feature representation",
+        "parent_experiment": "exp_0020"
+      },
+      "runtime_sec": 4.070224958006293,
+      "phase": "confirmation"
+    },
+    {
+      "experiment_id": "exp_0033",
+      "status": "ok",
+      "accepted": false,
+      "recipe": {
+        "model_family": "lightgbm",
+        "params": {
+          "iterations": 1800,
+          "num_leaves": 70,
+          "min_child_samples": 10,
+          "reg_lambda": 6.245825628586184,
+          "learning_rate": 0.01950145515294856,
+          "colsample_bytree": 0.746535123941664,
+          "subsample": 0.6973128783510931
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 135.0,
+        "validation_plan_id": "46b548d151f218d8",
+        "feature_expressions": [],
+        "id": "tpe_12",
+        "statement": "Seeded TPE trial from measured results for this model and feature representation",
+        "parent_experiment": "exp_0020"
+      },
+      "runtime_sec": 4.570118833013112,
+      "phase": "refit"
+    }
+  ],
+  "qwen_fits": 3,
+  "qwen_accepted": 0,
+  "final_recipe": {
+    "output_sha256": "b0bbdbc05e8949295406a87137b7d2bd29fc0b3f3f53bb74fbd73e7322c1c35b",
+    "full_refit": true,
+    "seed": 42,
+    "labels": [],
+    "components": [
+      {
+        "recipe": {
+          "model_family": "lightgbm",
+          "params": {
+            "iterations": 1800,
+            "num_leaves": 70,
+            "min_child_samples": 10,
+            "reg_lambda": 6.245825628586184,
+            "learning_rate": 0.01950145515294856,
+            "colsample_bytree": 0.746535123941664,
+            "subsample": 0.6973128783510931
+          },
+          "feature_ops": [],
+          "target_transform": "none",
+          "max_runtime_sec": 135.0,
+          "validation_plan_id": "46b548d151f218d8",
+          "feature_expressions": [],
+          "id": "tpe_12",
+          "statement": "Seeded TPE trial from measured results for this model and feature representation",
+          "parent_experiment": "exp_0020"
+        },
+        "iterations": 1173,
+        "experiment_id": "exp_0026"
+      }
+    ],
+    "blend_weights": [
+      1.0
+    ],
+    "probability_multipliers": null
+  },
+  "run_dir": "/Users/nosovdanil/PycharmProjects/1/alfaautoresearch/runs/kaggle-full-igepsyzz/prepared/inputs/.atlas/20261021_220719_o3_nna0b",
+  "output_sha256": "b0bbdbc05e8949295406a87137b7d2bd29fc0b3f3f53bb74fbd73e7322c1c35b",
+  "credential_absent_from_artifacts": true,
+  "external_metric": 3.755457396841884,
+  "output_schema_valid": true,
+  "regression_metrics": {
+    "mae": 2.7062584210753067,
+    "r2": 0.944380092686476,
+    "training_mean_rmse": 15.926242223625053
+  }
+}

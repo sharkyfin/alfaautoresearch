@@ -13,8 +13,10 @@ def fit_predict(data,recipe,train_idx,valid_idx,seed=42,threads=8,refit=False,it
     a=data.train.iloc[train_idx];b=data.train.iloc[valid_idx]
     f=FeatureBuilder(spec,ops,feature_function,recipe.get('feature_expressions',[])).fit(a)
     za=f.transform(a);zb=f.transform(b);zt=f.transform(data.test)
-    matrix=MatrixBuilder('linear' if family=='linear' else family,f.cat,f.num,spec.text_candidates).fit(za)
+    text_components=params.pop('text_svd_components',64)
+    matrix=MatrixBuilder('linear' if family=='linear' else family,f.cat,f.num,spec.text_candidates,text_components,seed).fit(za)
     xa=matrix.transform(za);xv=matrix.transform(zb) if len(valid_idx) else None;xt=matrix.transform(zt)
+    encoded_names=list(xa.columns) if family!='linear' else []
     if family!='linear':
         safe_names=[f'f{i:05d}' for i in range(xa.shape[1])]
         for frame in (xa,xv,xt):
@@ -37,6 +39,7 @@ def fit_predict(data,recipe,train_idx,valid_idx,seed=42,threads=8,refit=False,it
         import lightgbm as lgb
         objective=('multiclass' if len(spec.labels)>2 else 'binary') if cl else 'regression_l1' if spec.metric.name=='mae' else 'regression'
         model=(lgb.LGBMClassifier if cl else lgb.LGBMRegressor)(n_estimators=rounds,learning_rate=params.pop('learning_rate',.045),num_leaves=params.pop('num_leaves',31),verbosity=-1,n_jobs=threads,objective=objective,deterministic=True,force_col_wise=True,**common,**params)
+        if params.get('subsample',1.)<1.:model.set_params(subsample_freq=1)
         if len(valid_idx) and not refit:
             if stopping_metric=='primary' and cl:
                 classes=np.unique(y)
@@ -92,11 +95,13 @@ def fit_predict(data,recipe,train_idx,valid_idx,seed=42,threads=8,refit=False,it
         try:best=model.best_iteration+1
         except AttributeError:pass
     importance=getattr(model,'feature_importances_',None)
-    diagnostics={'feature_importance':dict(sorted(zip(f.columns,map(float,importance)),key=lambda t:-t[1])[:15])} if importance is not None else {}
+    diagnostics={'feature_importance':dict(sorted(zip(encoded_names,map(float,importance)),key=lambda t:-t[1])[:15])} if importance is not None else {}
+    text_info={c:{'components':p.components,'vocabulary':len(p.vectorizer.vocabulary_),'fit_rows':p.fit_rows} for c,p in matrix.text_projections.items()}
+    if text_info:diagnostics['text_projections']=text_info
     train_metric=None
     try:
         sample=xa.iloc[:2048] if hasattr(xa,'iloc') else xa[:2048]
         train_metric=spec.metric.score(data.y[train_idx][:2048],predict(sample))
     except ValueError as error:
         diagnostics['training_metric_unavailable']=str(error)[:200]
-    return pv,pt,{'iterations':int(best),'features':len(f.columns),'diagnostics':diagnostics,'train_sample_metric':train_metric}
+    return pv,pt,{'iterations':int(best),'features':xa.shape[1],'diagnostics':diagnostics,'train_sample_metric':train_metric}

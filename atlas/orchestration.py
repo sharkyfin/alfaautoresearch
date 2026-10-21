@@ -7,7 +7,7 @@ from .utils import code_digest
 from .contract import read_inputs
 from .task import load,leakage_signals
 from .submit import checkpoint,dummy_prediction
-from .validation import design,confirmation_splits,Split
+from .validation import selection_splits,Split
 from .budget import Budget
 from .experiments import Executor,register
 from .recipes import validate,RecipeError,recipe_hash
@@ -20,7 +20,7 @@ from .ensemble import choose_blend,tune_multipliers,adjust_probabilities,robust_
 
 def emit(event,**values):print(json.dumps({'event':event,**values},ensure_ascii=False,allow_nan=False),flush=True)
 
-def run(task_path,started=None,budget_seconds=900,mode='auto',seed=42,threads=8,max_experiments=30,memory_mb=24576,run_dir=None,strict=True,research_client=None):
+def run(task_path,started=None,budget_seconds=900,mode='auto',seed=42,threads=8,max_experiments=60,memory_mb=24576,run_dir=None,strict=True,research_client=None):
     # Install before the first atomic CSV becomes visible. A platform SIGTERM
     # immediately after that checkpoint must take the graceful path as well.
     stop={'requested':False}
@@ -48,9 +48,8 @@ def _run(task_path,started,budget_seconds,mode,seed,threads,max_experiments,memo
         parent=inputs.task_path.parent/'.atlas';parent.mkdir(exist_ok=True)
         directory=Path(tempfile.mkdtemp(prefix=time.strftime('%Y%m%d_%H%M%S')+'_',dir=parent))
     (directory/'task_spec.json').write_text(json.dumps(data.spec.json(),ensure_ascii=False,indent=2,allow_nan=False))
-    history=[];finalists=[];family_best={};champion=None;confirmed={};blend=None;multipliers=None;refit_published=False
-    split=design(data,seed);data.spec.validation_plan=split.json()
-    control_plan=confirmation_splits(data,split,seed)
+    history=[];finalists=[];family_best={};champion=None;confirmed={};blend=None;multipliers=None;refit_published=False;cv_selection={}
+    split,control_plan=selection_splits(data,seed);data.spec.validation_plan=split.json()
     data.spec.suspicious_leakage_features=leakage_signals(data,split.train)
     qwen=research_client if research_client is not None else QwenClient('live' if mode in {'auto','live-agent'} else 'disabled')
     research_origin=getattr(qwen,'origin','qwen');research_provider=getattr(qwen,'provider','organizer-qwen')
@@ -59,6 +58,7 @@ def _run(task_path,started,budget_seconds,mode,seed,threads,max_experiments,memo
     executor=Executor(data,directory/'experiments',threads,memory_mb,lambda:stop['requested'],strict)
     initial_utility=None;no_gain=0;stage='SAFE_BASELINE';pending_ablation=None
     def record(result):
+        if not result.get('phase'):scheduler.observe(result)
         history.append(result);register(directory/'experiments.jsonl',result)
         emit('experiment',id=result['experiment_id'],family=result['recipe']['model_family'],status=result['status'],score=result.get('metric_value'),accepted=result.get('accepted',False),seconds=round(result['runtime_sec'],3))
     def publish(candidate):
@@ -92,7 +92,7 @@ def _run(task_path,started,budget_seconds,mode,seed,threads,max_experiments,memo
             else:
                 pending_ablation=None
                 raw=scheduler.next(champion);stage=scheduler.stage
-                is_research=stage=='RESEARCH';origin='deterministic'
+                is_research=stage=='RESEARCH';origin='optuna-tpe' if stage=='HYPERPARAMETER_SEARCH' else 'deterministic'
             if raw is None:break
             remaining=budget.search_remaining
             fallback=raw
@@ -172,7 +172,8 @@ def _run(task_path,started,budget_seconds,mode,seed,threads,max_experiments,memo
             if champion: keep_ids.add(champion['experiment_id'])
             for artifact in executor.root.glob('exp_*/predictions.npz'):
                 if artifact.parent.name not in keep_ids:artifact.unlink()
-            if no_gain>=10:break
+            if scheduler.should_stop(no_gain):break
+        scheduler.hpo.abandon()
         if champion and not stop['requested']:
             stage='CONFIRMATION'
             ordered=[champion]+[c for c in finalists if c['experiment_id']!=champion['experiment_id']]
@@ -193,8 +194,9 @@ def _run(task_path,started,budget_seconds,mode,seed,threads,max_experiments,memo
                             confirmed.setdefault(candidate['experiment_id'],[]).append({**result,'predictions':predictions,'split':second})
                         except ValueError as error:result.update(status='judge_error',message=str(error))
                     record(result)
-            stable=[c for c in ordered if c['experiment_id'] in confirmed]
-            common=set.intersection(*[{r['split'].id for r in confirmed[c['experiment_id']]} for c in stable]) if stable else set()
+            required={window.id for window in control_plan}
+            stable=[c for c in ordered if required and {r['split'].id for r in confirmed.get(c['experiment_id'],[])}>=required]
+            common=required if stable else set()
             common_evidence={c['experiment_id']:[r for r in confirmed[c['experiment_id']] if r['split'].id in common] for c in stable}
             if common:
                 for candidate in stable:
@@ -202,13 +204,25 @@ def _run(task_path,started,budget_seconds,mode,seed,threads,max_experiments,memo
                     candidate['robust_utility']=robust_utility([candidate['standardized_utility'],*[r['standardized_utility'] for r in evidence]])
                     candidate['confirmation_metrics']=[{'split_id':r['split'].id,'metric_value':r['metric_value']} for r in evidence]
                     candidate['confirmation_metric']=float(np.mean([r['metric_value'] for r in evidence]))
-                if len(stable)>=2 and champion['experiment_id'] in common_evidence:
-                    champion=max(stable,key=lambda c:c['robust_utility']);publish(champion)
+                    rounds=[r.get('iterations') for r in [candidate,*evidence] if r.get('iterations')]
+                    if rounds:candidate['refit_iterations']=int(np.median(rounds))
+                champion=max(stable,key=lambda c:c['robust_utility']);publish(champion)
+                cv_selection={'planned_folds':1+len(control_plan),'completed_candidates':len(stable),
+                    'selection_basis':'mean utility minus 0.25 standard deviation on all frozen folds',
+                    'candidates':[{'experiment_id':c['experiment_id'],'model_family':c['recipe']['model_family'],
+                        'fold_metrics':[c['metric_value'],*[r['metric_value'] for r in common_evidence[c['experiment_id']]]],
+                        'mean_metric':float(np.mean([c['metric_value'],*[r['metric_value'] for r in common_evidence[c['experiment_id']]]])),
+                        'metric_std':float(np.std([c['metric_value'],*[r['metric_value'] for r in common_evidence[c['experiment_id']]]])),
+                        'robust_utility':c['robust_utility']} for c in stable]}
+                emit('cross_validation_selected',champion=champion['experiment_id'],folds=1+len(control_plan),candidates=len(stable))
+                if len(stable)>=2:
                     stage='ENSEMBLE';blend=choose_blend(data,stable,common_evidence)
                     if blend:checkpoint(data,blend['predictions'][1]);emit('ensemble_accepted',weights=blend['weights'],score=blend['metric_value'],confirmation=blend['confirmation_metric'])
                 if not blend:
                     multipliers=tune_multipliers(data,champion,common_evidence.get(champion['experiment_id']))
                     if multipliers:checkpoint(data,multipliers['predictions'][1]);emit('probability_adjustment_accepted',score=multipliers['metric_value'],confirmation=multipliers['confirmation_metric'])
+            else:
+                cv_selection={'planned_folds':1+len(control_plan),'completed_candidates':0,'selection_basis':'search holdout fallback; confirmation incomplete'}
         # Publish refit only after every component succeeds; previous good file survives.
         if champion and not stop['requested']:
             stage='FINALIZE';components=blend['components'] if blend else [champion];weights=blend['weights'] if blend else [1.]
@@ -217,7 +231,7 @@ def _run(task_path,started,budget_seconds,mode,seed,threads,max_experiments,memo
                 estimate=max(2,c['runtime_sec']*1.6)
                 if budget.remaining<max(1.5,estimate*.45):break
                 timeout=max(1,min(estimate*2+5,budget.remaining-min(5,budget.reserve*.25)))
-                result,predictions=executor.run(c['recipe'],full_split,timeout,seed,refit=True,iterations_override=c.get('iterations'))
+                result,predictions=executor.run(c['recipe'],full_split,timeout,seed,refit=True,iterations_override=c.get('refit_iterations',c.get('iterations')))
                 result['accepted']=False;result['phase']='refit'
                 record(result)
                 if result['status']!='ok' or predictions is None:break
@@ -235,6 +249,8 @@ def _run(task_path,started,budget_seconds,mode,seed,threads,max_experiments,memo
     finally:
         summary={'runtime_code_sha256':source_digest,'mode':actual_mode,'budget_seconds':budget.total,'elapsed_seconds':time.monotonic()-start,'first_checkpoint_latency':first_latency,'validation':split.json(),'metric':data.spec.metric.name,'dummy_utility':initial_utility,'experiments':len(history),'successful_experiments':sum(r['status']=='ok' for r in history),'accepted_experiments':sum(r.get('accepted',False) for r in history),'champion_metric':champion['metric_value'] if champion else None,'champion_recipe':champion['recipe'] if champion else None,'confirmation_metric':champion.get('confirmation_metric') if champion else None,'ensemble':{k:v for k,v in blend.items() if k not in {'components','predictions'}} if blend else None,'multipliers':{k:v for k,v in multipliers.items() if k!='predictions'} if multipliers else None,'qwen_calls':qwen.requests,'qwen_proposals':qwen.calls,'qwen_tokens':qwen.tokens,'qwen_events':qwen.events,'max_live_worker_threads':max((r.get('max_live_threads',0) for r in history),default=0),'peak_worker_memory_mb':max((r['peak_memory_mb'] for r in history),default=0),'cancelled':stop['requested'],'output':str(inputs.output),'output_sha256':hashlib.sha256(inputs.output.read_bytes()).hexdigest() if inputs.output.exists() else None}
         summary['full_refit_published']=refit_published
+        summary['adaptive_search']=scheduler.summary()
+        summary['cross_validation']=cv_selection
         summary['confirmation_plan']=[s.json() for s in control_plan]
         summary['confirmation_metrics']=champion.get('confirmation_metrics',[]) if champion else []
         summary['feature_group_trials']=sum(r.get('feature_trial',{}).get('kind')=='feature_group' for r in history)
@@ -243,7 +259,7 @@ def _run(task_path,started,budget_seconds,mode,seed,threads,max_experiments,memo
         summary.update(researcher_provider=research_provider,researcher_model=qwen.model if qwen.configured else None,researcher_calls=qwen.requests,researcher_proposals=qwen.calls,researcher_tokens=qwen.tokens,researcher_events=qwen.events)
         if research_provider!='organizer-qwen':
             summary.update(qwen_calls=0,qwen_proposals=0,qwen_tokens=0,qwen_events=[])
-        final_recipe={'output_sha256':summary['output_sha256'],'full_refit':refit_published,'seed':seed,'labels':data.spec.labels,'components':[{'recipe':c['recipe'],'iterations':c.get('iterations'),'experiment_id':c['experiment_id']} for c in (blend['components'] if blend else [champion] if champion else [])],'blend_weights':blend['weights'] if blend else [1.],'probability_multipliers':multipliers['weights'] if multipliers else None}
+        final_recipe={'output_sha256':summary['output_sha256'],'full_refit':refit_published,'seed':seed,'labels':data.spec.labels,'components':[{'recipe':c['recipe'],'iterations':c.get('refit_iterations',c.get('iterations')),'experiment_id':c['experiment_id']} for c in (blend['components'] if blend else [champion] if champion else [])],'blend_weights':blend['weights'] if blend else [1.],'probability_multipliers':multipliers['weights'] if multipliers else None}
         (directory/'final_recipe.json').write_text(json.dumps(final_recipe,ensure_ascii=False,indent=2,allow_nan=False))
         (directory/'summary.json').write_text(json.dumps(summary,ensure_ascii=False,indent=2,allow_nan=False))
         emit('DONE',summary=str(directory/'summary.json'),elapsed=round(summary['elapsed_seconds'],3),champion_metric=summary['champion_metric'])

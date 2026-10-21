@@ -4,7 +4,7 @@ from dataclasses import dataclass
 import hashlib,re
 import numpy as np
 import pandas as pd
-from sklearn.model_selection import GroupShuffleSplit,train_test_split
+from sklearn.model_selection import GroupShuffleSplit,GroupKFold,KFold,StratifiedKFold,StratifiedGroupKFold,train_test_split
 from .task import Dataset
 
 @dataclass(frozen=True)
@@ -16,12 +16,14 @@ class Split:
     seed: int
     time_column: str | None = None
     gap_rows: int = 0
+    group_column: str | None = None
     @property
     def id(self):
         return hashlib.sha256(self.train.tobytes()+self.valid.tobytes()+self.kind.encode()).hexdigest()[:16]
     def json(self):
         result={'id':self.id,'kind':self.kind,'reason':self.reason,'seed':self.seed,'train_rows':len(self.train),'valid_rows':len(self.valid)}
         if self.time_column is not None:result.update(time_column=self.time_column,gap_rows=self.gap_rows)
+        if self.group_column is not None:result['group_column']=self.group_column
         return result
 
 
@@ -39,11 +41,37 @@ def _time_window(dates, lower, upper, seed, column, gap, reason):
 
 
 def confirmation_splits(data: Dataset, primary: Split, seed=42, max_windows=2):
-    """Freeze score-independent controls; temporal validation windows never overlap."""
+    """Freeze controls with disjoint validation rows and preserved groups/time."""
     if max_windows<1 or not len(primary.valid):return []
     if primary.kind!='time':
-        second=design(data,seed+1009,fraction=.25)
-        return [second] if len(second.valid) and second.id!=primary.id else []
+        indices=np.arange(len(data.y));pool=np.asarray(primary.train)
+        # Singleton classes must be trainable in every fold, never held out.
+        if data.spec.classification:
+            counts=np.bincount(data.y,minlength=len(data.spec.labels))
+            pool=pool[counts[data.y[pool]]>=2]
+        if len(pool)<4:return []
+        groups=None
+        if primary.kind=='group':
+            if primary.group_column is None:return []
+            groups=data.train[primary.group_column].fillna('__MISSING__').astype(str).to_numpy()
+        elif primary.kind=='duplicate_group':
+            groups=pd.util.hash_pandas_object(data.train[data.spec.features],index=False).to_numpy()
+        if groups is not None:
+            if len(np.unique(groups[pool]))<2:return []
+            splitter=StratifiedGroupKFold(n_splits=2,shuffle=True,random_state=seed+1009) if data.spec.classification else GroupKFold(n_splits=2)
+            folds=splitter.split(pool,data.y[pool],groups[pool])
+        elif data.spec.classification and np.unique(data.y[pool],return_counts=True)[1].min()>=2:
+            folds=StratifiedKFold(n_splits=2,shuffle=True,random_state=seed+1009).split(pool,data.y[pool])
+        else:
+            folds=KFold(n_splits=2,shuffle=True,random_state=seed+1009).split(pool)
+        out=[]
+        for number,(_,held) in enumerate(folds,1):
+            valid=pool[held];train=np.setdiff1d(indices,valid)
+            if data.spec.classification and set(data.y[train])!=set(data.y):continue
+            out.append(Split(train,valid,primary.kind,
+                'Frozen cross-validation control '+str(number)+'; validation disjoint from search and other controls',
+                seed+1009+number,group_column=primary.group_column))
+        return out[:max_windows]
     column=primary.time_column
     if column is None:return []
     dates=pd.to_datetime(data.train[column],errors='coerce',utc=True)
@@ -64,6 +92,14 @@ def confirmation_splits(data: Dataset, primary: Split, seed=42, max_windows=2):
         windows.append(split)
         upper=lower
     return windows
+
+
+def selection_splits(data: Dataset,seed=42):
+    """One search fold, then two frozen confirmation folds for the finalists."""
+    primary=design(data,seed)
+    if primary.kind not in {'time','unsupported_tiny','unsupported_gap'}:
+        primary=design(data,seed,fraction=1/3)
+    return primary,confirmation_splits(data,primary,seed)
 
 
 def design(data: Dataset,seed=42,fraction=.2) -> Split:
@@ -89,11 +125,11 @@ def design(data: Dataset,seed=42,fraction=.2) -> Split:
         explicit=bool(re.search(r'validation\s*:\s*group|unseen (?:entities|groups)|новы[ех].*(?:групп|сущност|пациент)',desc))
         if groups.nunique()>2 and groups.nunique()<n*.8 and (unseen>.8 or explicit):
             a,b=next(GroupShuffleSplit(n_splits=1,test_size=fraction,random_state=seed).split(idx,groups=groups))
-            return Split(a,b,'group',f'Repeated {col}; new test entity fraction {unseen:.3f}',seed)
+            return Split(a,b,'group',f'Repeated {col}; new test entity fraction {unseen:.3f}',seed,group_column=col)
     # Exact duplicate feature rows cannot leak across random folds.
     if spec.features:
         fingerprints=pd.util.hash_pandas_object(train[spec.features],index=False).to_numpy()
-        if len(np.unique(fingerprints))<n*.98 and len(np.unique(fingerprints))>2:
+        if len(np.unique(fingerprints))<n and len(np.unique(fingerprints))>2:
             a,b=next(GroupShuffleSplit(n_splits=1,test_size=fraction,random_state=seed).split(idx,groups=fingerprints))
             return Split(a,b,'duplicate_group','Exact feature duplicates held together',seed)
     if spec.classification:

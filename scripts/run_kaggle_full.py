@@ -76,12 +76,22 @@ def write_report(path, report):
     if 'regression_metrics' in report:
         metrics = report['regression_metrics']
         lines += [f"MAE: {metrics['mae']:.6f}; R²: {metrics['r2']:.6f}; training-mean baseline RMSE: {metrics['training_mean_rmse']:.6f}."]
-    lines += ['', '| Trial | Origin | Model | Internal score | Accepted |',
-              '|---|---|---|---:|---|']
+    hpo=summary.get('adaptive_search', {})
+    if hpo:lines += ['', f"TPE: {hpo.get('completed_trials', 0)} completed trials; family proposals: {hpo.get('family_proposals', {})}."]
+    cv=summary.get('cross_validation', {})
+    if cv:
+        lines += [f"Frozen CV: {cv.get('planned_folds')} planned folds; {cv.get('completed_candidates')} fully checked candidates.",
+                  '', '| Candidate | Model | Fold scores | Mean | Standard deviation |',
+                  '|---|---|---|---:|---:|']
+        for row in cv.get('candidates', []):
+            scores=', '.join(f'{score:.6f}' for score in row['fold_metrics'])
+            lines.append(f"| {row['experiment_id']} | {row['model_family']} | {scores} | {row['mean_metric']:.6f} | {row['metric_std']:.6f} |")
+    lines += ['', '| Trial | Phase | Origin | Model | Internal score | Accepted |',
+              '|---|---|---|---|---:|---|']
     for row in report.get('experiments', []):
         score = row.get('metric_value')
         formatted = f'{score:.6f}' if score is not None else '—'
-        lines.append(f"| {row['experiment_id']} | {row.get('origin', '')} | {row['recipe']['model_family']} | {formatted} | {row.get('accepted', False)} |")
+        lines.append(f"| {row['experiment_id']} | {row.get('phase', 'search')} | {row.get('origin', '')} | {row['recipe']['model_family']} | {formatted} | {row.get('accepted', False)} |")
     lines += ['', 'Primary validation acceptance does not guarantee that an external test improves.',
               'This single run is an integration and quality check; it is not a hackathon leaderboard score.',
               'No external metric was supplied to the agent and no post-test model changes were made.',
@@ -176,7 +186,7 @@ def main():
             raise ValueError('Agent modified task input material')
         history = [json.loads(line) for line in (run_dir / 'experiments.jsonl').read_text().splitlines()]
         report['experiments'] = [{key: row[key] for key in
-                                 ['experiment_id', 'origin', 'status', 'metric_value', 'accepted', 'recipe', 'feature_trial', 'runtime_sec', 'confirmation_metric']
+                                 ['experiment_id', 'origin', 'phase', 'status', 'metric_value', 'accepted', 'recipe', 'feature_trial', 'runtime_sec', 'confirmation_metric']
                                  if key in row} for row in history]
         research = [row for row in history if row.get('origin') == 'qwen']
         report['qwen_fits'] = sum(row['status'] == 'ok' for row in research)

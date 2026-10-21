@@ -38,7 +38,7 @@ if __name__=='__main__':
 def build(output=None):
     output=Path(output or ROOT/'submission.zip')
     files=[ROOT/'solution.py',*sorted((ROOT/'atlas').glob('*.py'))]
-    allowed_imports={'numpy','pandas','sklearn','scipy','psutil','lightgbm','xgboost','httpx'}
+    allowed_imports={'numpy','pandas','sklearn','scipy','psutil','lightgbm','xgboost','httpx','optuna'}
     payload={};mapping={};originals={}
     for file in files:
         source=file.read_text();tree=ast.parse(source)

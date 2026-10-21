@@ -9,7 +9,7 @@ from sklearn.preprocessing import LabelEncoder
 from .contract import Inputs
 from .metrics import Metric,REGRESSION,CLASSIFICATION,UnsupportedTask,infer_metric
 
-APPROVED={'numpy':'1.26.4','pandas':'2.2.3','scipy':'1.12.0','scikit-learn':'1.5.2','lightgbm':'4.6.0','xgboost':'2.1.4'}
+APPROVED={'numpy':'1.26.4','pandas':'2.2.3','scipy':'1.12.0','scikit-learn':'1.5.2','lightgbm':'4.6.0','xgboost':'2.1.4','optuna':'4.2.1'}
 
 def capabilities(strict=False):
     result={}
@@ -136,12 +136,12 @@ def load(inputs: Inputs, strict=False) -> Dataset:
         if r=='group' or (re.search(r'(^|_)(entity|patient|building|user|group|customer)(_id)?$',c.lower()) and s.nunique()<len(s)*.8): groups.append(c)
         hinted=str(dictionary.loc[dictionary['feature']==c,'dtype'].iloc[0]).lower() if {'feature','dtype'}<=set(dictionary) and (dictionary['feature']==c).any() else ''
         if hinted in {'datetime','date','timestamp'} or (not pd.api.types.is_numeric_dtype(s) and re.search(r'date|time|дата',c,re.I) and s.dropna().astype(str).str.contains(r'[-/:]').mean()>.8): dates.append(c)
-        elif hinted in {'category','categorical','string'}: cats.append(c)
+        elif hinted in {'category','categorical','string','text','free_text'}: cats.append(c)
         elif pd.api.types.is_numeric_dtype(s) and hinted not in {'category','categorical','string'}: numeric.append(c)
         elif hinted in {'numeric','float','integer'} or pd.to_numeric(s.astype('string').str.replace(',','.',regex=False),errors='coerce').notna().mean()>.95: numeric.append(c)
         else:
             cats.append(c)
-        if c in cats and s.dropna().astype(str).str.len().median()>35: texts.append(c)
+        if c in cats and (hinted in {'text','free_text'} or s.dropna().astype(str).str.len().median()>35): texts.append(c)
     spec=TaskSpec(target,ids,features,'binary' if len(labels)==2 else 'multiclass' if classification else 'regression',metric,labels,kind,proba_cols,numeric,cats,dates,texts,groups,capabilities(strict),warnings)
     spec.profile=profile(train,test,spec)
     return Dataset(inputs,train,test,sample,dictionary,spec,np.asarray(y))

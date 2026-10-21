@@ -40,6 +40,16 @@
       "income": "Income bracket to predict"
     }
   },
+  "sms_spam": {
+    "dataset": "team-ai/spam-text-message-classification",
+    "target": "Category",
+    "metric": "f1_macro",
+    "description": "Classify SMS text messages as spam or ham. Optimize Macro F1 across both classes. Message content is a text feature. This is IID text classification; duplicate messages must be kept together when validating.",
+    "columns": {
+      "Message": "Full text of an SMS message",
+      "Category": "Message label: spam or ham"
+    }
+  },
   "concrete_strength": {
     "dataset": "elikplim/concrete-compressive-strength-data-set",
     "target": "concrete_compressive_strength",

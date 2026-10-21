@@ -1,16 +1,16 @@
 {
   "status": "built; execution gates recorded separately",
   "layout": "root Python files and official requirements.txt only",
-  "runtime_code_sha256": "f2d104a73fac2a01c7c615fee1bcfb0fd18c0faa52a87579b6f1ecd2ca122eb7",
+  "runtime_code_sha256": "e2f776a1bdeb35a2010a1cba434733fd6edf6d97566cd045a832c1ee27dbb7d9",
   "archive": "submission.zip",
-  "bytes": 55076,
-  "sha256": "c213bab63badfcf8fc92001c7e3de92c6a7bd333c60931a7e9814a5b1a4ce89c",
+  "bytes": 60167,
+  "sha256": "228593d0ddc7a82c21d0201b61c63ab3f163d913bb8644272fb8b9e5e29b14b5",
   "files": [
     {
       "path": "solution.py",
       "source": "generated bootstrap",
-      "bytes": 3308,
-      "sha256": "edf18b7467b5e97625891a454a4bdd81257de944585e7f170dedf0f6ff365b34"
+      "bytes": 3410,
+      "sha256": "f11d3d27267f5d7e109649b4eb4af1acbd9405d518bc3b54f32a78c72f403043"
     },
     {
       "path": "_atlas_entry.py",
@@ -69,8 +69,14 @@
     {
       "path": "atlas_features.py",
       "source": "atlas/features.py",
-      "bytes": 7275,
-      "sha256": "42fa9725c013214ae7c6cb3a71860394a8fcc3067a5a496c8b19f6a67ba374d9"
+      "bytes": 10298,
+      "sha256": "46463335ef5bfc6e873803e7b5b16a5c57bd695416f71ab190a1ebcdc87d2db4"
+    },
+    {
+      "path": "atlas_hpo.py",
+      "source": "atlas/hpo.py",
+      "bytes": 7344,
+      "sha256": "6d99023c4d8a2d52f87dc2bbb7f679773e9b88ead975cb9c7bf7c25bda0cca7e"
     },
     {
       "path": "atlas_judge.py",
@@ -87,20 +93,20 @@
     {
       "path": "atlas_models.py",
       "source": "atlas/models.py",
-      "bytes": 6838,
-      "sha256": "62fc4865ca88023e389022580ec277937b39246428d00384f79426c3db02e46c"
+      "bytes": 7269,
+      "sha256": "bf1f62792376f2d81fa88eab88b9e6007d78b31f561f7a7b5a70b2d4180a11ef"
     },
     {
       "path": "atlas_orchestration.py",
       "source": "atlas/orchestration.py",
-      "bytes": 20700,
-      "sha256": "a2ed8b4d192bd6b9a033a8db2db09543b52f4850f4608dfd076bbe831759e099"
+      "bytes": 22277,
+      "sha256": "2a551c46358e2f2edaac17dea616e8891a768aa1a511742bcef2bcb3e5075027"
     },
     {
       "path": "atlas_recipes.py",
       "source": "atlas/recipes.py",
-      "bytes": 9382,
-      "sha256": "15d2ece9397c24f77e3f692db67284bc76db024382231e429f7d691e57f34db1"
+      "bytes": 9510,
+      "sha256": "df305314467e11c92f46c252ecdb42e693c028075900884193f16e2ee7ab8de4"
     },
     {
       "path": "atlas_research.py",
@@ -111,8 +117,8 @@
     {
       "path": "atlas_search.py",
       "source": "atlas/search.py",
-      "bytes": 9043,
-      "sha256": "2045184d31b6991145ba98535e9bc5617e9a828f2fee2bd5df2564cd2692ef79"
+      "bytes": 10743,
+      "sha256": "33758fe3a6ea4ac0d9fa6badb0fbf14d81c734b2323d410225e6299c1206f796"
     },
     {
       "path": "atlas_submit.py",
@@ -123,8 +129,8 @@
     {
       "path": "atlas_task.py",
       "source": "atlas/task.py",
-      "bytes": 10623,
-      "sha256": "1b735bb30b3a103e941be7b0264b9e4e24fdf8bdad6c75890f88428fc1c8657f"
+      "bytes": 10695,
+      "sha256": "7e75a99ed7ae9d28e96efd33ab33b694e3ab5cb9aec5daa612014e3ea79b554a"
     },
     {
       "path": "atlas_utils.py",
@@ -135,8 +141,8 @@
     {
       "path": "atlas_validation.py",
       "source": "atlas/validation.py",
-      "bytes": 6163,
-      "sha256": "d1cc9a6aaa1aab40321ab2c3e50213a524c730657184acd9e9ca4c016f3ad8d1"
+      "bytes": 8328,
+      "sha256": "c853b6bc8f705e8d919c6490e64873dccd95800349db6a4e1a8f30798e5b0b7a"
     },
     {
       "path": "atlas_worker.py",

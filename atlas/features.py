@@ -8,6 +8,7 @@ from sklearn.impute import SimpleImputer
 from sklearn.preprocessing import OneHotEncoder,StandardScaler
 from sklearn.pipeline import Pipeline
 from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.decomposition import TruncatedSVD
 from .expressions import ExpressionFeatures
 
 
@@ -91,8 +92,51 @@ class FeatureBuilder:
         for c in z.select_dtypes(include='number'): z[c]=z[c].replace([np.inf,-np.inf],np.nan).clip(-1e30,1e30)
         return z
 
+class TextProjection:
+    """Bounded LSA fitted on training text only; never loads external weights."""
+    def __init__(self,components=64,max_features=12000,seed=42,max_rows=20000):
+        self.requested=components;self.max_features=max_features;self.seed=seed;self.max_rows=max_rows
+        self.vectorizer=None;self.reducer=None;self.components=0;self.fit_rows=0
+    @staticmethod
+    def documents(series):return series.fillna('').astype(str).str.slice(0,4096)
+    def fit(self,series):
+        self.vectorizer=None;self.reducer=None;self.components=0
+        documents=self.documents(series)
+        if len(documents)>self.max_rows:
+            documents=documents.iloc[np.linspace(0,len(documents)-1,self.max_rows,dtype=int)]
+        self.fit_rows=len(documents)
+        if not len(documents) or not self.requested:return self
+        vectorizer=TfidfVectorizer(max_features=self.max_features,ngram_range=(1,2),
+            sublinear_tf=True,strip_accents='unicode',token_pattern=r'(?u)\b\w+\b',dtype=np.float32)
+        try:matrix=vectorizer.fit_transform(documents)
+        except ValueError as error:
+            if 'empty vocabulary' not in str(error):raise
+            return self
+        self.vectorizer=vectorizer
+        if matrix.shape[1]==1:
+            self.components=1
+        else:
+            self.components=min(self.requested,matrix.shape[1],matrix.shape[0])
+            self.reducer=TruncatedSVD(n_components=self.components,n_iter=5,random_state=self.seed).fit(matrix)
+        return self
+    def transform(self,series):
+        out=np.zeros((len(series),self.components),dtype=np.float32)
+        if self.vectorizer is None:return out
+        documents=self.documents(series)
+        for start in range(0,len(documents),2048):
+            matrix=self.vectorizer.transform(documents.iloc[start:start+2048])
+            values=self.reducer.transform(matrix) if self.reducer is not None else matrix.toarray()
+            # Unknown words change TF-IDF norms. Normalize the latent vectors so
+            # unseen message identifiers cannot rescale otherwise shared topics.
+            values=values/np.maximum(np.linalg.norm(values,axis=1,keepdims=True),1e-12)
+            out[start:start+len(values)]=values
+        return out
+
+
 class MatrixBuilder:
-    def __init__(self,kind,cat,num,text=()):self.kind=kind;self.cat=cat;self.num=num;self.text=[c for c in text if c in cat][:2]
+    def __init__(self,kind,cat,num,text=(),text_components=64,seed=42):
+        self.kind=kind;self.cat=cat;self.num=num;self.text=[c for c in text if c in cat][:2]
+        self.text_components=text_components;self.seed=seed;self.text_projections={}
     def fit(self,z):
         if self.kind=='linear':
             transformers=[]
@@ -104,14 +148,22 @@ class MatrixBuilder:
         else:
             self.maps={c:{v:i for i,v in enumerate(z[c].drop_duplicates())} for c in self.cat}
             self.medians={c:float(z[c].median()) if z[c].notna().any() else 0. for c in self.num}
+            for c in self.text:
+                projection=TextProjection(self.text_components,seed=self.seed).fit(z[c])
+                if projection.components:self.text_projections[c]=projection
         return self
     def transform(self,z):
         if self.kind=='linear':return self.encoder.transform(z)
         z=z.copy()
+        projected={c:projection.transform(z[c]) for c,projection in self.text_projections.items()}
         for c in self.cat:
             codes=z[c].map(self.maps[c]).fillna(-1).astype(int)
             if self.kind=='lightgbm':z[c]=pd.Categorical.from_codes(codes.to_numpy(),categories=list(range(len(self.maps[c]))))
             else:z[c]=codes.astype(float)
         if self.kind!='lightgbm':
             for c in self.num:z[c]=z[c].fillna(self.medians[c]).clip(-1e30,1e30)
+        for c,values in projected.items():
+            names=[c+'__svd_'+str(i) for i in range(values.shape[1])]
+            if set(names)&set(z):raise ValueError('Text projection column collides with an input feature')
+            z=pd.concat([z,pd.DataFrame(values,index=z.index,columns=names)],axis=1)
         return z

@@ -10,7 +10,8 @@ PARAMS={
 'extra_trees':{'iterations':(20,1000),'min_samples_leaf':(1,100),'max_features':(.1,1.),'max_depth':(2,40)},
 'lightgbm':{'stopping_metric':('loss','primary'),'iterations':(20,5000),'num_leaves':(7,255),'learning_rate':(.005,.3),'min_child_samples':(5,250),'reg_lambda':(0,100),'colsample_bytree':(.3,1),'subsample':(.5,1)},
 'xgboost':{'iterations':(20,3000),'max_depth':(2,12),'learning_rate':(.005,.3),'min_child_weight':(1,100),'reg_lambda':(0,100),'colsample_bytree':(.3,1),'subsample':(.5,1)}}
-INTEGER={'iterations','depth','max_depth','num_leaves','min_child_samples','max_leaf_nodes','min_samples_leaf'}
+for _family in {'hist','extra_trees','lightgbm','xgboost'}:PARAMS[_family]['text_svd_components']=(0,128)
+INTEGER={'iterations','depth','max_depth','num_leaves','min_child_samples','max_leaf_nodes','min_samples_leaf','text_svd_components'}
 OP_ARITY={'log1p':1,'sqrt':1,'square':1,'ratio':2,'difference':2,'product':2,'group_mean':2,'frequency':-1,'text_stats':-1,'drop':-1,'ip':-1,'clip':-1,'combine':2}
 MODEL_PACKAGE={'lightgbm':'lightgbm','xgboost':'xgboost'}
 

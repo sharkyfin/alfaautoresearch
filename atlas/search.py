@@ -3,6 +3,7 @@ from __future__ import annotations
 import copy
 import numpy as np
 from .recipes import PARAMS,recipe_hash,merge_hypothesis_features
+from .hpo import AdaptiveTPE
 
 
 def recipe(family,params=None,ops=None,statement='',transform='none'):
@@ -42,13 +43,29 @@ class SearchController:
     def __init__(self,spec,budget,mode='deterministic',seed=42):
         self.spec=spec;self.budget=budget;self.mode=mode;self.rng=np.random.default_rng(seed);self.stage='INITIALIZE';self.seen=set();self.failures={};self.research_index=0
         self.queue=initial_portfolio(spec,budget.total)
-        self.initial_attempts=0
+        self.initial_attempts=0;self.family_best={};self.hpo=AdaptiveTPE(spec,seed);self.stop_reason=None
+    def observe(self,result):
+        self.hpo.observe(result)
+        if result.get('status')!='ok' or result.get('standardized_utility') is None:return
+        family=result['recipe']['model_family'];old=self.family_best.get(family)
+        if old is None or result['standardized_utility']>old['standardized_utility']:
+            self.family_best[family]={key:copy.deepcopy(result[key]) for key in
+                ['experiment_id','recipe','standardized_utility','runtime_sec','iterations'] if key in result}
+    def should_stop(self,no_gain):
+        if no_gain>=18 and self.hpo.completed>=12:
+            self.stop_reason='TPE search stagnated after exploring multiple model families';return True
+        if not self.hpo.enabled and no_gain>=10:
+            self.stop_reason='Bounded local search stagnated';return True
+        return False
+    def summary(self):
+        return {**self.hpo.summary(),'stop_reason':self.stop_reason,'research_steps':self.research_index}
     def next(self,champion):
         early_research=self.mode=='live-agent' and champion is not None and self.initial_attempts>=2 and self.research_index==0
         if self.queue and not early_research:
             self.stage='MODEL_DIVERSITY';self.initial_attempts+=1;return self.queue.pop(0)
         self.stage='RESEARCH';self.research_index+=1
-        if not champion or self.research_index>24:return None
+        if not champion or self.research_index>48:
+            self.stop_reason='No champion or bounded research trial cap reached';return None
         spec=self.spec;base=copy.deepcopy(champion['recipe']);base.pop('validation_plan_id',None);base['parent_experiment']=champion['experiment_id'];base['id']=f'local_{self.research_index}'
         family=base['model_family'];i=self.research_index
         growth=None
@@ -60,6 +77,14 @@ class SearchController:
                 proposal=copy.deepcopy(base)
                 proposal['params']['iterations']=min(maximum,rounds*2)
                 if recipe_hash(proposal) not in self.seen:growth=proposal
+        if growth is None and i>=9 and self.hpo.enabled and self.family_best:
+            ranked=sorted(self.family_best.values(),key=lambda c:-c['standardized_utility'])[:2]
+            # Give the second family regular opportunities even after a narrow
+            # early winner. Its own measured features/transform stay attached.
+            index=1 if len(ranked)>1 and i%3==0 else 0
+            raw=self.hpo.propose(ranked[index],self.seen)
+            if raw is not None:
+                self.stage='HYPERPARAMETER_SEARCH';return raw
         # Test semantic/weighting changes before expensive hyperparameter variants.
         if growth is not None:
             base=growth;base['statement']='Training reached its iteration cap; test more rounds within measured fit and refit costs'

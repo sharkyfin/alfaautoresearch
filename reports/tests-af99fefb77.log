@@ -1,0 +1,29 @@
+........................................................................ [ 28%]
+........................................................................ [ 56%]
+........................................................................ [ 85%]
+......................................                                   [100%]
+=============================== warnings summary ===============================
+tests/test_core.py::test_real_model_apis[iid-lightgbm]
+  /Users/nosovdanil/PycharmProjects/1/alfaautoresearch/.venv/lib/python3.12/site-packages/matplotlib/_fontconfig_pattern.py:64: PyparsingDeprecationWarning: 'oneOf' deprecated - use 'one_of'
+    prop = Group((name + Suppress("=") + comma_separated(value)) | oneOf(_CONSTANTS))
+
+tests/test_core.py::test_real_model_apis[iid-lightgbm]
+tests/test_core.py::test_real_model_apis[iid-lightgbm]
+tests/test_core.py::test_real_model_apis[iid-lightgbm]
+tests/test_core.py::test_real_model_apis[iid-lightgbm]
+tests/test_core.py::test_real_model_apis[iid-lightgbm]
+tests/test_core.py::test_real_model_apis[iid-lightgbm]
+  /Users/nosovdanil/PycharmProjects/1/alfaautoresearch/.venv/lib/python3.12/site-packages/matplotlib/_fontconfig_pattern.py:85: PyparsingDeprecationWarning: 'parseString' deprecated - use 'parse_string'
+    parse = parser.parseString(pattern)
+
+tests/test_core.py::test_real_model_apis[iid-lightgbm]
+tests/test_core.py::test_real_model_apis[iid-lightgbm]
+tests/test_core.py::test_real_model_apis[iid-lightgbm]
+tests/test_core.py::test_real_model_apis[iid-lightgbm]
+tests/test_core.py::test_real_model_apis[iid-lightgbm]
+tests/test_core.py::test_real_model_apis[iid-lightgbm]
+  /Users/nosovdanil/PycharmProjects/1/alfaautoresearch/.venv/lib/python3.12/site-packages/matplotlib/_fontconfig_pattern.py:89: PyparsingDeprecationWarning: 'resetCache' deprecated - use 'reset_cache'
+    parser.resetCache()
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+254 passed, 13 warnings in 66.61s (0:01:06)

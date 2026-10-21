@@ -27,7 +27,7 @@ sys.path.insert(0,str(ROOT))
 def audit_static(archive):
     import re
     from atlas.utils import code_digest
-    allowed={'numpy','pandas','sklearn','scipy','psutil','lightgbm','xgboost','httpx','atlas'}
+    allowed={'numpy','pandas','sklearn','scipy','psutil','lightgbm','xgboost','httpx','optuna','atlas'}
     packages={'sklearn':'scikit-learn'}
     requirements=(ROOT/'artifacts/official/requirements-folder.txt').read_bytes()
     installed_in_image={match.group(1).lower() for line in requirements.decode().splitlines()

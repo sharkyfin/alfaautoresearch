@@ -1,0 +1,52 @@
+[
+  {
+    "case": "concrete_strength",
+    "metric": "rmse",
+    "before": 4.173874736717437,
+    "after": 3.755457396841884,
+    "signed_gain": 0.41841733987555285,
+    "before_seconds": 64.879,
+    "after_seconds": 70.705,
+    "same_inputs": true,
+    "new_hpo": {
+      "backend": "optuna-tpe",
+      "studies": 2,
+      "proposed_trials": 12,
+      "completed_trials": 12,
+      "family_proposals": {
+        "hist": 8,
+        "lightgbm": 4
+      },
+      "stop_reason": "TPE search stagnated after exploring multiple model families",
+      "research_steps": 21
+    },
+    "new_cv": 3,
+    "old_report": "reports/kaggle-full-concrete.json",
+    "new_report": "reports/text-cv-concrete-after.json"
+  },
+  {
+    "case": "sms_spam",
+    "metric": "f1_macro",
+    "before": 0.9769976540928813,
+    "after": 0.9771250825809292,
+    "signed_gain": 0.0001274284880479204,
+    "before_seconds": 34.519,
+    "after_seconds": 120.558,
+    "same_inputs": true,
+    "new_hpo": {
+      "backend": "optuna-tpe",
+      "studies": 2,
+      "proposed_trials": 30,
+      "completed_trials": 30,
+      "family_proposals": {
+        "hist": 10,
+        "lightgbm": 20
+      },
+      "stop_reason": "TPE search stagnated after exploring multiple model families",
+      "research_steps": 38
+    },
+    "new_cv": 3,
+    "old_report": "reports/text-cv-sms-before.json",
+    "new_report": "reports/text-cv-sms-after.json"
+  }
+]

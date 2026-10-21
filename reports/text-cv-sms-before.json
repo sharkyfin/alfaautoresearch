@@ -1,0 +1,1146 @@
+{
+  "status": "completed",
+  "entrypoint": [
+    "python3",
+    "solution.py",
+    "task.md"
+  ],
+  "agent_default_overrides": {},
+  "supervisor_seconds": 960,
+  "archive_sha256": "c213bab63badfcf8fc92001c7e3de92c6a7bd333c60931a7e9814a5b1a4ce89c",
+  "runtime_code_sha256": "f2d104a73fac2a01c7c615fee1bcfb0fd18c0faa52a87579b6f1ecd2ca122eb7",
+  "copied_root_files": [
+    "solution.py",
+    "_atlas_entry.py",
+    "atlas___init__.py",
+    "atlas_agent.py",
+    "atlas_budget.py",
+    "atlas_context.py",
+    "atlas_contract.py",
+    "atlas_ensemble.py",
+    "atlas_experiments.py",
+    "atlas_expressions.py",
+    "atlas_features.py",
+    "atlas_judge.py",
+    "atlas_metrics.py",
+    "atlas_models.py",
+    "atlas_orchestration.py",
+    "atlas_recipes.py",
+    "atlas_research.py",
+    "atlas_search.py",
+    "atlas_submit.py",
+    "atlas_task.py",
+    "atlas_utils.py",
+    "atlas_validation.py",
+    "atlas_worker.py",
+    "requirements.txt"
+  ],
+  "run_root": "/Users/nosovdanil/PycharmProjects/1/alfaautoresearch/runs/kaggle-full-jqht0q2i",
+  "log": "/Users/nosovdanil/PycharmProjects/1/alfaautoresearch/runs/kaggle-full-jqht0q2i/pipeline.log",
+  "submission": "/Users/nosovdanil/PycharmProjects/1/alfaautoresearch/runs/kaggle-full-jqht0q2i/prepared/inputs/submission.csv",
+  "data": {
+    "case": "sms_spam",
+    "dataset": "team-ai/spam-text-message-classification",
+    "source": "https://www.kaggle.com/datasets/team-ai/spam-text-message-classification",
+    "raw_sha256": "47fe77c6a9ff3ae913562c1fb9206ca5f0dac7f0c83c0dbfb8e249775e674224",
+    "member": "SPAM text message 20170820 - Data.csv",
+    "target": "Category",
+    "id_column": "benchmark_id",
+    "metric": "f1_macro",
+    "seed": 42,
+    "phase": "final_lockbox",
+    "rows": 5572,
+    "training_rows": 4464,
+    "evaluation_rows": 1108,
+    "reserved_final_rows": 1108,
+    "features": 1,
+    "split_sha256": "b9651668114ecec2e3110de15dfde6da2cbdc18484072cc5d21e469725ea5e93",
+    "input_sha256": {
+      "train.csv": "a321967a4b4cff2067280035fbd359863828cd41d1a68dd286233e96b35b8b4b",
+      "test.csv": "4e4dc1017cc3e025ae78f45bfbed00b8a299631fda2ff7b08479d5a5ebc7bd7e",
+      "data_dictionary.csv": "e62885d3d5fed544058fa82598364f42cf64cacfb5c1ce588da095fc3c3c1fd4",
+      "sample_submission.csv": "c898019eae2a807b53a725a96e2b926427cc2f8f673ba6ed469494b4d6cb8270",
+      "task.md": "63e4814916086b506166a065c75bad8af027562b7017a4a459589e269ff43e3f"
+    },
+    "labels": [
+      "ham",
+      "spam"
+    ],
+    "labels_outside_task_directory": true,
+    "feature_duplicate_groups_kept_together": true
+  },
+  "packages": {
+    "numpy": "1.26.4",
+    "pandas": "2.2.3",
+    "scikit-learn": "1.5.2",
+    "scipy": "1.12.0",
+    "lightgbm": "4.6.0",
+    "xgboost": "2.1.4"
+  },
+  "platform_submissions": 0,
+  "kaggle_submissions": 0,
+  "returncode": 0,
+  "timed_out": false,
+  "wall_seconds": 34.519,
+  "agent_summary": {
+    "runtime_code_sha256": "f2d104a73fac2a01c7c615fee1bcfb0fd18c0faa52a87579b6f1ecd2ca122eb7",
+    "mode": "live-agent",
+    "budget_seconds": 900.0,
+    "elapsed_seconds": 34.38698170799762,
+    "first_checkpoint_latency": 0.9248804159869906,
+    "validation": {
+      "id": "58947f9863ba44a9",
+      "kind": "duplicate_group",
+      "reason": "Exact feature duplicates held together",
+      "seed": 42,
+      "train_rows": 3577,
+      "valid_rows": 887
+    },
+    "metric": "f1_macro",
+    "dummy_utility": 0.45947592931139547,
+    "experiments": 21,
+    "successful_experiments": 21,
+    "accepted_experiments": 5,
+    "champion_metric": 0.9777493477824604,
+    "champion_recipe": {
+      "model_family": "linear",
+      "params": {
+        "C": 100.0
+      },
+      "feature_ops": [],
+      "target_transform": "none",
+      "max_runtime_sec": 60.0,
+      "validation_plan_id": "58947f9863ba44a9",
+      "feature_expressions": [
+        {
+          "name": "msg_length",
+          "expression": "length(col(\"Message\"))",
+          "reason": "Spam messages often have distinct length distributions"
+        },
+        {
+          "name": "msg_digits",
+          "expression": "digit_count(col(\"Message\"))",
+          "reason": "Spam frequently contains numbers for offers or codes"
+        }
+      ],
+      "id": "local_4",
+      "statement": "Focused local hyperparameter search around measured champion",
+      "parent_experiment": "exp_0006"
+    },
+    "confirmation_metric": 0.9754561637739207,
+    "ensemble": null,
+    "multipliers": null,
+    "qwen_calls": 3,
+    "qwen_proposals": 4,
+    "qwen_tokens": 12571,
+    "qwen_events": [
+      {
+        "status": "api_usage",
+        "call": 1,
+        "response_model": "qwen/qwen3.8-27b",
+        "prompt_tokens": 3184,
+        "completion_tokens": 224,
+        "reasoning_tokens": 0,
+        "finish_reason": "stop",
+        "reported_cost": 0.06923858373120001,
+        "elapsed_seconds": 3.457,
+        "timeout_seconds": 40.0
+      },
+      {
+        "status": "response",
+        "call": 1,
+        "tokens": 3408,
+        "elapsed_seconds": 3.457,
+        "timeout_seconds": 40.0
+      },
+      {
+        "status": "api_usage",
+        "call": 2,
+        "response_model": "qwen/qwen3.8-27b",
+        "prompt_tokens": 4212,
+        "completion_tokens": 370,
+        "reasoning_tokens": 0,
+        "finish_reason": "stop",
+        "reported_cost": 0.190444896798,
+        "elapsed_seconds": 2.887,
+        "timeout_seconds": 40.0
+      },
+      {
+        "status": "response",
+        "call": 2,
+        "tokens": 7990,
+        "elapsed_seconds": 2.887,
+        "timeout_seconds": 40.0
+      },
+      {
+        "status": "api_usage",
+        "call": 3,
+        "response_model": "qwen/qwen3.8-27b",
+        "prompt_tokens": 4198,
+        "completion_tokens": 383,
+        "reasoning_tokens": 0,
+        "finish_reason": "stop",
+        "reported_cost": 0.19364519861700003,
+        "elapsed_seconds": 2.696,
+        "timeout_seconds": 40.0
+      },
+      {
+        "status": "response",
+        "call": 3,
+        "tokens": 12571,
+        "elapsed_seconds": 2.696,
+        "timeout_seconds": 40.0
+      },
+      {
+        "status": "token_budget_exhausted"
+      }
+    ],
+    "max_live_worker_threads": 15,
+    "peak_worker_memory_mb": 194.625,
+    "cancelled": false,
+    "output": "/Users/nosovdanil/PycharmProjects/1/alfaautoresearch/runs/kaggle-full-jqht0q2i/prepared/inputs/submission.csv",
+    "output_sha256": "0bdfa67a6b88dafdd26968c4164dc78b06c08976e9e2d01050d986a8686eabfd",
+    "full_refit_published": true,
+    "confirmation_plan": [
+      {
+        "id": "0ffdfebd5b0c4035",
+        "kind": "duplicate_group",
+        "reason": "Exact feature duplicates held together",
+        "seed": 1051,
+        "train_rows": 3361,
+        "valid_rows": 1103
+      }
+    ],
+    "confirmation_metrics": [
+      {
+        "split_id": "0ffdfebd5b0c4035",
+        "metric_value": 0.9754561637739207
+      }
+    ],
+    "feature_group_trials": 3,
+    "feature_ablation_checks": 3,
+    "accepted_feature_ablations": 2,
+    "researcher_provider": "organizer-qwen",
+    "researcher_model": "qwen/qwen3.8-27b",
+    "researcher_calls": 3,
+    "researcher_proposals": 4,
+    "researcher_tokens": 12571,
+    "researcher_events": [
+      {
+        "status": "api_usage",
+        "call": 1,
+        "response_model": "qwen/qwen3.8-27b",
+        "prompt_tokens": 3184,
+        "completion_tokens": 224,
+        "reasoning_tokens": 0,
+        "finish_reason": "stop",
+        "reported_cost": 0.06923858373120001,
+        "elapsed_seconds": 3.457,
+        "timeout_seconds": 40.0
+      },
+      {
+        "status": "response",
+        "call": 1,
+        "tokens": 3408,
+        "elapsed_seconds": 3.457,
+        "timeout_seconds": 40.0
+      },
+      {
+        "status": "api_usage",
+        "call": 2,
+        "response_model": "qwen/qwen3.8-27b",
+        "prompt_tokens": 4212,
+        "completion_tokens": 370,
+        "reasoning_tokens": 0,
+        "finish_reason": "stop",
+        "reported_cost": 0.190444896798,
+        "elapsed_seconds": 2.887,
+        "timeout_seconds": 40.0
+      },
+      {
+        "status": "response",
+        "call": 2,
+        "tokens": 7990,
+        "elapsed_seconds": 2.887,
+        "timeout_seconds": 40.0
+      },
+      {
+        "status": "api_usage",
+        "call": 3,
+        "response_model": "qwen/qwen3.8-27b",
+        "prompt_tokens": 4198,
+        "completion_tokens": 383,
+        "reasoning_tokens": 0,
+        "finish_reason": "stop",
+        "reported_cost": 0.19364519861700003,
+        "elapsed_seconds": 2.696,
+        "timeout_seconds": 40.0
+      },
+      {
+        "status": "response",
+        "call": 3,
+        "tokens": 12571,
+        "elapsed_seconds": 2.696,
+        "timeout_seconds": 40.0
+      },
+      {
+        "status": "token_budget_exhausted"
+      }
+    ]
+  },
+  "inputs_unchanged": true,
+  "experiments": [
+    {
+      "experiment_id": "exp_0001",
+      "origin": "deterministic",
+      "status": "ok",
+      "metric_value": 0.9365032651145773,
+      "accepted": true,
+      "recipe": {
+        "model_family": "linear",
+        "params": {
+          "C": 1
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 135.0,
+        "validation_plan_id": "58947f9863ba44a9",
+        "feature_expressions": [],
+        "id": "candidate",
+        "statement": "Fast regularized linear baseline",
+        "parent_experiment": null
+      },
+      "runtime_sec": 1.0845231670245994
+    },
+    {
+      "experiment_id": "exp_0002",
+      "origin": "deterministic",
+      "status": "ok",
+      "metric_value": 0.7800632562650152,
+      "accepted": false,
+      "recipe": {
+        "model_family": "lightgbm",
+        "params": {
+          "iterations": 1800,
+          "num_leaves": 31,
+          "min_child_samples": 30
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 135.0,
+        "validation_plan_id": "58947f9863ba44a9",
+        "feature_expressions": [],
+        "id": "candidate",
+        "statement": "Fast leaf-wise booster with categorical handling",
+        "parent_experiment": null
+      },
+      "runtime_sec": 1.3631312499928754
+    },
+    {
+      "experiment_id": "exp_0003",
+      "origin": "qwen",
+      "status": "ok",
+      "metric_value": 0.9567726595343564,
+      "accepted": true,
+      "recipe": {
+        "model_family": "linear",
+        "params": {
+          "C": 1
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 60.0,
+        "validation_plan_id": "58947f9863ba44a9",
+        "feature_expressions": [
+          {
+            "name": "msg_length",
+            "expression": "length(col(\"Message\"))",
+            "reason": "Spam messages often have distinct length distributions"
+          },
+          {
+            "name": "msg_words",
+            "expression": "word_count(col(\"Message\"))",
+            "reason": "Word count captures message complexity"
+          },
+          {
+            "name": "msg_digits",
+            "expression": "digit_count(col(\"Message\"))",
+            "reason": "Spam frequently contains numbers for offers or codes"
+          },
+          {
+            "name": "msg_upper_ratio",
+            "expression": "length(lower(col(\"Message\"))) / maximum(length(col(\"Message\")), 1)",
+            "reason": "Uppercase intensity is a common spam signal"
+          }
+        ],
+        "id": "cand_0003",
+        "statement": "Add text-derived length, word, digit, and uppercase-ratio features to help the linear model separate spam from ham.",
+        "parent_experiment": "exp_0001"
+      },
+      "feature_trial": {
+        "kind": "feature_group",
+        "parent_experiment": "exp_0001",
+        "parent_metric": 0.9365032651145773,
+        "parent_utility": 0.9365032651145773,
+        "held_constant": [
+          "model_family",
+          "params",
+          "target_transform",
+          "validation",
+          "seed"
+        ],
+        "changes": [
+          {
+            "kind": "formula",
+            "name": "msg_length"
+          },
+          {
+            "kind": "formula",
+            "name": "msg_words"
+          },
+          {
+            "kind": "formula",
+            "name": "msg_digits"
+          },
+          {
+            "kind": "formula",
+            "name": "msg_upper_ratio"
+          }
+        ],
+        "ignored_model_overrides": [],
+        "group_experiment": "exp_0003",
+        "utility_gain_vs_parent": 0.020269394419779152
+      },
+      "runtime_sec": 1.1529547499958426
+    },
+    {
+      "experiment_id": "exp_0004",
+      "origin": "feature-ablation",
+      "status": "ok",
+      "metric_value": 0.9567726595343564,
+      "accepted": true,
+      "recipe": {
+        "model_family": "linear",
+        "params": {
+          "C": 1
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 60.0,
+        "validation_plan_id": "58947f9863ba44a9",
+        "feature_expressions": [
+          {
+            "name": "msg_length",
+            "expression": "length(col(\"Message\"))",
+            "reason": "Spam messages often have distinct length distributions"
+          },
+          {
+            "name": "msg_words",
+            "expression": "word_count(col(\"Message\"))",
+            "reason": "Word count captures message complexity"
+          },
+          {
+            "name": "msg_digits",
+            "expression": "digit_count(col(\"Message\"))",
+            "reason": "Spam frequently contains numbers for offers or codes"
+          }
+        ],
+        "id": "ablation_1",
+        "statement": "Controlled feature ablation: revert formula:msg_upper_ratio",
+        "parent_experiment": "exp_0001"
+      },
+      "feature_trial": {
+        "kind": "feature_ablation",
+        "group_experiment": "exp_0003",
+        "parent_experiment": "exp_0001",
+        "held_constant": [
+          "model_family",
+          "params",
+          "target_transform",
+          "validation",
+          "seed"
+        ],
+        "label": "formula:msg_upper_ratio",
+        "reverted": [
+          "msg_upper_ratio"
+        ]
+      },
+      "runtime_sec": 1.0565394170116633
+    },
+    {
+      "experiment_id": "exp_0005",
+      "origin": "feature-ablation",
+      "status": "ok",
+      "metric_value": 0.9313330040976495,
+      "accepted": false,
+      "recipe": {
+        "model_family": "linear",
+        "params": {
+          "C": 1
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 60.0,
+        "validation_plan_id": "58947f9863ba44a9",
+        "feature_expressions": [
+          {
+            "name": "msg_length",
+            "expression": "length(col(\"Message\"))",
+            "reason": "Spam messages often have distinct length distributions"
+          },
+          {
+            "name": "msg_words",
+            "expression": "word_count(col(\"Message\"))",
+            "reason": "Word count captures message complexity"
+          }
+        ],
+        "id": "ablation_1",
+        "statement": "Controlled feature ablation: revert formula:msg_digits",
+        "parent_experiment": "exp_0001"
+      },
+      "feature_trial": {
+        "kind": "feature_ablation",
+        "group_experiment": "exp_0003",
+        "parent_experiment": "exp_0001",
+        "held_constant": [
+          "model_family",
+          "params",
+          "target_transform",
+          "validation",
+          "seed"
+        ],
+        "label": "formula:msg_digits",
+        "reverted": [
+          "msg_digits"
+        ]
+      },
+      "runtime_sec": 1.0362872919940855
+    },
+    {
+      "experiment_id": "exp_0006",
+      "origin": "feature-ablation",
+      "status": "ok",
+      "metric_value": 0.9567726595343564,
+      "accepted": true,
+      "recipe": {
+        "model_family": "linear",
+        "params": {
+          "C": 1
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 60.0,
+        "validation_plan_id": "58947f9863ba44a9",
+        "feature_expressions": [
+          {
+            "name": "msg_length",
+            "expression": "length(col(\"Message\"))",
+            "reason": "Spam messages often have distinct length distributions"
+          },
+          {
+            "name": "msg_digits",
+            "expression": "digit_count(col(\"Message\"))",
+            "reason": "Spam frequently contains numbers for offers or codes"
+          }
+        ],
+        "id": "ablation_1",
+        "statement": "Controlled feature ablation: revert formula:msg_words",
+        "parent_experiment": "exp_0001"
+      },
+      "feature_trial": {
+        "kind": "feature_ablation",
+        "group_experiment": "exp_0003",
+        "parent_experiment": "exp_0001",
+        "held_constant": [
+          "model_family",
+          "params",
+          "target_transform",
+          "validation",
+          "seed"
+        ],
+        "label": "formula:msg_words",
+        "reverted": [
+          "msg_words"
+        ]
+      },
+      "runtime_sec": 1.0624263750214595
+    },
+    {
+      "experiment_id": "exp_0007",
+      "origin": "deterministic",
+      "status": "ok",
+      "metric_value": 0.8402599682220535,
+      "accepted": false,
+      "recipe": {
+        "model_family": "lightgbm",
+        "params": {
+          "iterations": 1800,
+          "num_leaves": 31,
+          "min_child_samples": 30,
+          "weight": "sqrt",
+          "stopping_metric": "primary"
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 135.0,
+        "validation_plan_id": "58947f9863ba44a9",
+        "feature_expressions": [],
+        "id": "candidate",
+        "statement": "Measured minority-weighted booster with early stopping on the actual primary metric",
+        "parent_experiment": null
+      },
+      "runtime_sec": 1.5357232079841197
+    },
+    {
+      "experiment_id": "exp_0008",
+      "origin": "deterministic",
+      "status": "ok",
+      "metric_value": 0.7670693277310925,
+      "accepted": false,
+      "recipe": {
+        "model_family": "hist",
+        "params": {
+          "iterations": 350
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 135.0,
+        "validation_plan_id": "58947f9863ba44a9",
+        "feature_expressions": [],
+        "id": "candidate",
+        "statement": "Histogram boosting diversity",
+        "parent_experiment": null
+      },
+      "runtime_sec": 1.8389407079957891
+    },
+    {
+      "experiment_id": "exp_0009",
+      "origin": "deterministic",
+      "status": "ok",
+      "metric_value": 0.7685652001919014,
+      "accepted": false,
+      "recipe": {
+        "model_family": "extra_trees",
+        "params": {
+          "iterations": 250,
+          "min_samples_leaf": 2
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 135.0,
+        "validation_plan_id": "58947f9863ba44a9",
+        "feature_expressions": [],
+        "id": "candidate",
+        "statement": "Randomized trees for complementary errors",
+        "parent_experiment": null
+      },
+      "runtime_sec": 1.063036125007784
+    },
+    {
+      "experiment_id": "exp_0010",
+      "origin": "deterministic",
+      "status": "ok",
+      "metric_value": 0.8026257231864709,
+      "accepted": false,
+      "recipe": {
+        "model_family": "extra_trees",
+        "params": {
+          "iterations": 250,
+          "min_samples_leaf": 2,
+          "weight": "sqrt"
+        },
+        "feature_ops": [
+          {
+            "op": "frequency",
+            "columns": [
+              "Message"
+            ]
+          }
+        ],
+        "target_transform": "none",
+        "max_runtime_sec": 135.0,
+        "validation_plan_id": "58947f9863ba44a9",
+        "feature_expressions": [],
+        "id": "candidate",
+        "statement": "Weighted randomized trees with fold-fitted category rarity",
+        "parent_experiment": null
+      },
+      "runtime_sec": 1.1129165409947746
+    },
+    {
+      "experiment_id": "exp_0011",
+      "origin": "deterministic",
+      "status": "ok",
+      "metric_value": 0.7797920476234967,
+      "accepted": false,
+      "recipe": {
+        "model_family": "xgboost",
+        "params": {
+          "iterations": 1800,
+          "max_depth": 6
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 135.0,
+        "validation_plan_id": "58947f9863ba44a9",
+        "feature_expressions": [],
+        "id": "candidate",
+        "statement": "Regularized histogram booster diversity",
+        "parent_experiment": null
+      },
+      "runtime_sec": 1.1771389999776147
+    },
+    {
+      "experiment_id": "exp_0012",
+      "origin": "qwen",
+      "status": "ok",
+      "metric_value": 0.9546440040089178,
+      "accepted": false,
+      "recipe": {
+        "model_family": "linear",
+        "params": {
+          "C": 1
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 60.0,
+        "validation_plan_id": "58947f9863ba44a9",
+        "feature_expressions": [
+          {
+            "name": "msg_length",
+            "expression": "length(col(\"Message\"))",
+            "reason": "Spam messages often have distinct length distributions"
+          },
+          {
+            "name": "msg_digits",
+            "expression": "digit_count(col(\"Message\"))",
+            "reason": "Spam frequently contains numbers for offers or codes"
+          },
+          {
+            "name": "msg_punct_ratio",
+            "expression": "length(concat(col(\"Message\"), \"\")) / maximum(length(col(\"Message\")), 1)",
+            "reason": "Punctuation density often correlates with spam urgency"
+          },
+          {
+            "name": "msg_excl_count",
+            "expression": "length(concat(col(\"Message\"), \"\")) - length(concat(lower(col(\"Message\")), \"\"))",
+            "reason": "Exclamation marks are a strong spam indicator"
+          }
+        ],
+        "id": "cand_0012",
+        "statement": "Add punctuation density and exclamation count to capture urgency and promotional formatting signals that distinguish spam from ham.",
+        "parent_experiment": "exp_0006"
+      },
+      "feature_trial": {
+        "kind": "feature_group",
+        "parent_experiment": "exp_0006",
+        "parent_metric": 0.9567726595343564,
+        "parent_utility": 0.9567726595343564,
+        "held_constant": [
+          "model_family",
+          "params",
+          "target_transform",
+          "validation",
+          "seed"
+        ],
+        "changes": [
+          {
+            "kind": "formula",
+            "name": "msg_punct_ratio"
+          },
+          {
+            "kind": "formula",
+            "name": "msg_excl_count"
+          }
+        ],
+        "ignored_model_overrides": [],
+        "group_experiment": "exp_0012",
+        "utility_gain_vs_parent": -0.0021286555254386164
+      },
+      "runtime_sec": 1.0747996249992866
+    },
+    {
+      "experiment_id": "exp_0013",
+      "origin": "qwen",
+      "status": "ok",
+      "metric_value": 0.9546440040089178,
+      "accepted": false,
+      "recipe": {
+        "model_family": "linear",
+        "params": {
+          "C": 1
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 60.0,
+        "validation_plan_id": "58947f9863ba44a9",
+        "feature_expressions": [
+          {
+            "name": "msg_length",
+            "expression": "length(col(\"Message\"))",
+            "reason": "Spam messages often have distinct length distributions"
+          },
+          {
+            "name": "msg_digits",
+            "expression": "digit_count(col(\"Message\"))",
+            "reason": "Spam frequently contains numbers for offers or codes"
+          },
+          {
+            "name": "msg_upper_ratio",
+            "expression": "length(concat(col(\"Message\"), \"\")) - length(concat(lower(col(\"Message\")), \"\"))",
+            "reason": "Uppercase character count is a strong indicator of spam urgency and promotional style"
+          },
+          {
+            "name": "msg_word_ratio",
+            "expression": "word_count(col(\"Message\")) / maximum(length(col(\"Message\")), 1)",
+            "reason": "Word-to-character ratio captures average word length, distinguishing short spam keywords from natural ham sentences"
+          }
+        ],
+        "id": "cand_0013",
+        "statement": "Add uppercase ratio and word-length ratio to capture promotional formatting and keyword density signals that distinguish spam from ham.",
+        "parent_experiment": "exp_0006"
+      },
+      "feature_trial": {
+        "kind": "feature_group",
+        "parent_experiment": "exp_0006",
+        "parent_metric": 0.9567726595343564,
+        "parent_utility": 0.9567726595343564,
+        "held_constant": [
+          "model_family",
+          "params",
+          "target_transform",
+          "validation",
+          "seed"
+        ],
+        "changes": [
+          {
+            "kind": "formula",
+            "name": "msg_upper_ratio"
+          },
+          {
+            "kind": "formula",
+            "name": "msg_word_ratio"
+          }
+        ],
+        "ignored_model_overrides": [],
+        "group_experiment": "exp_0013",
+        "utility_gain_vs_parent": -0.0021286555254386164
+      },
+      "runtime_sec": 1.1408408750139643
+    },
+    {
+      "experiment_id": "exp_0014",
+      "origin": "deterministic",
+      "status": "ok",
+      "metric_value": 0.9777493477824604,
+      "accepted": true,
+      "recipe": {
+        "model_family": "linear",
+        "params": {
+          "C": 100.0
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 60.0,
+        "validation_plan_id": "58947f9863ba44a9",
+        "feature_expressions": [
+          {
+            "name": "msg_length",
+            "expression": "length(col(\"Message\"))",
+            "reason": "Spam messages often have distinct length distributions"
+          },
+          {
+            "name": "msg_digits",
+            "expression": "digit_count(col(\"Message\"))",
+            "reason": "Spam frequently contains numbers for offers or codes"
+          }
+        ],
+        "id": "local_4",
+        "statement": "Focused local hyperparameter search around measured champion",
+        "parent_experiment": "exp_0006"
+      },
+      "runtime_sec": 1.096597791009117
+    },
+    {
+      "experiment_id": "exp_0015",
+      "origin": "deterministic",
+      "status": "ok",
+      "metric_value": 0.9756004851394776,
+      "accepted": false,
+      "recipe": {
+        "model_family": "linear",
+        "params": {
+          "C": 10.0
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 60.0,
+        "validation_plan_id": "58947f9863ba44a9",
+        "feature_expressions": [
+          {
+            "name": "msg_length",
+            "expression": "length(col(\"Message\"))",
+            "reason": "Spam messages often have distinct length distributions"
+          },
+          {
+            "name": "msg_digits",
+            "expression": "digit_count(col(\"Message\"))",
+            "reason": "Spam frequently contains numbers for offers or codes"
+          }
+        ],
+        "id": "local_5",
+        "statement": "Focused local hyperparameter search around measured champion",
+        "parent_experiment": "exp_0014"
+      },
+      "runtime_sec": 0.9976307080069091
+    },
+    {
+      "experiment_id": "exp_0016",
+      "origin": "deterministic",
+      "status": "ok",
+      "metric_value": 0.9444965897002691,
+      "accepted": false,
+      "recipe": {
+        "model_family": "linear",
+        "params": {
+          "C": 0.1
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 60.0,
+        "validation_plan_id": "58947f9863ba44a9",
+        "feature_expressions": [
+          {
+            "name": "msg_length",
+            "expression": "length(col(\"Message\"))",
+            "reason": "Spam messages often have distinct length distributions"
+          },
+          {
+            "name": "msg_digits",
+            "expression": "digit_count(col(\"Message\"))",
+            "reason": "Spam frequently contains numbers for offers or codes"
+          }
+        ],
+        "id": "local_6",
+        "statement": "Focused local hyperparameter search around measured champion",
+        "parent_experiment": "exp_0014"
+      },
+      "runtime_sec": 1.0623957079951651
+    },
+    {
+      "experiment_id": "exp_0017",
+      "origin": "deterministic",
+      "status": "ok",
+      "metric_value": 0.9001644389173935,
+      "accepted": false,
+      "recipe": {
+        "model_family": "linear",
+        "params": {
+          "C": 0.01
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 60.0,
+        "validation_plan_id": "58947f9863ba44a9",
+        "feature_expressions": [
+          {
+            "name": "msg_length",
+            "expression": "length(col(\"Message\"))",
+            "reason": "Spam messages often have distinct length distributions"
+          },
+          {
+            "name": "msg_digits",
+            "expression": "digit_count(col(\"Message\"))",
+            "reason": "Spam frequently contains numbers for offers or codes"
+          }
+        ],
+        "id": "local_9",
+        "statement": "Focused local hyperparameter search around measured champion",
+        "parent_experiment": "exp_0014"
+      },
+      "runtime_sec": 1.0690569590078667
+    },
+    {
+      "experiment_id": "exp_0018",
+      "status": "ok",
+      "metric_value": 0.9754561637739207,
+      "accepted": false,
+      "recipe": {
+        "model_family": "linear",
+        "params": {
+          "C": 100.0
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 60.0,
+        "validation_plan_id": "0ffdfebd5b0c4035",
+        "feature_expressions": [
+          {
+            "name": "msg_length",
+            "expression": "length(col(\"Message\"))",
+            "reason": "Spam messages often have distinct length distributions"
+          },
+          {
+            "name": "msg_digits",
+            "expression": "digit_count(col(\"Message\"))",
+            "reason": "Spam frequently contains numbers for offers or codes"
+          }
+        ],
+        "id": "local_4",
+        "statement": "Focused local hyperparameter search around measured champion",
+        "parent_experiment": "exp_0006"
+      },
+      "runtime_sec": 1.045569624984637,
+      "phase": "confirmation"
+    },
+    {
+      "experiment_id": "exp_0019",
+      "status": "ok",
+      "metric_value": 0.9692262193726948,
+      "accepted": false,
+      "recipe": {
+        "model_family": "linear",
+        "params": {
+          "C": 10.0
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 60.0,
+        "validation_plan_id": "0ffdfebd5b0c4035",
+        "feature_expressions": [
+          {
+            "name": "msg_length",
+            "expression": "length(col(\"Message\"))",
+            "reason": "Spam messages often have distinct length distributions"
+          },
+          {
+            "name": "msg_digits",
+            "expression": "digit_count(col(\"Message\"))",
+            "reason": "Spam frequently contains numbers for offers or codes"
+          }
+        ],
+        "id": "local_5",
+        "statement": "Focused local hyperparameter search around measured champion",
+        "parent_experiment": "exp_0014"
+      },
+      "runtime_sec": 1.1163274999998976,
+      "phase": "confirmation"
+    },
+    {
+      "experiment_id": "exp_0020",
+      "status": "ok",
+      "metric_value": 0.945136975818794,
+      "accepted": false,
+      "recipe": {
+        "model_family": "linear",
+        "params": {
+          "C": 1
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 60.0,
+        "validation_plan_id": "0ffdfebd5b0c4035",
+        "feature_expressions": [
+          {
+            "name": "msg_length",
+            "expression": "length(col(\"Message\"))",
+            "reason": "Spam messages often have distinct length distributions"
+          },
+          {
+            "name": "msg_digits",
+            "expression": "digit_count(col(\"Message\"))",
+            "reason": "Spam frequently contains numbers for offers or codes"
+          }
+        ],
+        "id": "ablation_1",
+        "statement": "Controlled feature ablation: revert formula:msg_words",
+        "parent_experiment": "exp_0001"
+      },
+      "runtime_sec": 1.0526234159769956,
+      "phase": "confirmation"
+    },
+    {
+      "experiment_id": "exp_0021",
+      "status": "ok",
+      "accepted": false,
+      "recipe": {
+        "model_family": "linear",
+        "params": {
+          "C": 100.0
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 60.0,
+        "validation_plan_id": "58947f9863ba44a9",
+        "feature_expressions": [
+          {
+            "name": "msg_length",
+            "expression": "length(col(\"Message\"))",
+            "reason": "Spam messages often have distinct length distributions"
+          },
+          {
+            "name": "msg_digits",
+            "expression": "digit_count(col(\"Message\"))",
+            "reason": "Spam frequently contains numbers for offers or codes"
+          }
+        ],
+        "id": "local_4",
+        "statement": "Focused local hyperparameter search around measured champion",
+        "parent_experiment": "exp_0006"
+      },
+      "runtime_sec": 1.0659848329960369,
+      "phase": "refit"
+    }
+  ],
+  "qwen_fits": 3,
+  "qwen_accepted": 1,
+  "final_recipe": {
+    "output_sha256": "0bdfa67a6b88dafdd26968c4164dc78b06c08976e9e2d01050d986a8686eabfd",
+    "full_refit": true,
+    "seed": 42,
+    "labels": [
+      "ham",
+      "spam"
+    ],
+    "components": [
+      {
+        "recipe": {
+          "model_family": "linear",
+          "params": {
+            "C": 100.0
+          },
+          "feature_ops": [],
+          "target_transform": "none",
+          "max_runtime_sec": 60.0,
+          "validation_plan_id": "58947f9863ba44a9",
+          "feature_expressions": [
+            {
+              "name": "msg_length",
+              "expression": "length(col(\"Message\"))",
+              "reason": "Spam messages often have distinct length distributions"
+            },
+            {
+              "name": "msg_digits",
+              "expression": "digit_count(col(\"Message\"))",
+              "reason": "Spam frequently contains numbers for offers or codes"
+            }
+          ],
+          "id": "local_4",
+          "statement": "Focused local hyperparameter search around measured champion",
+          "parent_experiment": "exp_0006"
+        },
+        "iterations": 35,
+        "experiment_id": "exp_0014"
+      }
+    ],
+    "blend_weights": [
+      1.0
+    ],
+    "probability_multipliers": null
+  },
+  "run_dir": "/Users/nosovdanil/PycharmProjects/1/alfaautoresearch/runs/kaggle-full-jqht0q2i/prepared/inputs/.atlas/20261021_220339_mz9zf7yt",
+  "output_sha256": "0bdfa67a6b88dafdd26968c4164dc78b06c08976e9e2d01050d986a8686eabfd",
+  "credential_absent_from_artifacts": true,
+  "external_metric": 0.9769976540928813,
+  "output_schema_valid": true
+}

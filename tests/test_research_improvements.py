@@ -252,9 +252,9 @@ def test_time_controls_are_fixed_before_scores_and_used_by_orchestrator(tmp_path
         assert len(seen) == 3 and len({split.id for split in seen}) == 3
 
 
-def test_non_temporal_tasks_keep_one_control_and_time_gap_is_never_relaxed(tmp_path):
+def test_non_temporal_tasks_use_two_controls_and_time_gap_is_never_relaxed(tmp_path):
     data = load(read_inputs(create(tmp_path/'iid')))
-    assert len(confirmation_splits(data, design(data))) == 1
+    assert len(confirmation_splits(data, design(data))) == 2
     task = create(tmp_path/'time', 'future', n=60)
     task.write_text(task.read_text()+'\ngap_rows: 35\n')
     data = load(read_inputs(task))
