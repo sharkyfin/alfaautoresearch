@@ -1,5 +1,9 @@
 # Evaluation evidence
 
+Historical measurements before named feature formulas and CatBoost removal.
+Current-change checks are in `feature-formulas-release.json` and
+`feature-formulas-live.json`; public metrics below were not rerun for that change.
+
 Current runtime source SHA256: `b1fa509ddea5537172c227f44f74a6a8eb1f3b902532f535c52d02a117436e6e`.
 
 Automated suite: **160 passed**, 13 warnings in 62.97s.

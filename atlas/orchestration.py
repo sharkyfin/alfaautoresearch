@@ -10,7 +10,7 @@ from .submit import checkpoint,dummy_prediction
 from .validation import design,Split
 from .budget import Budget
 from .experiments import Executor,register
-from .recipes import validate,RecipeError,recipe_hash
+from .recipes import validate,RecipeError,recipe_hash,merge_hypothesis_features
 from .search import SearchController,mock_hypothesis,retain_finalists,estimate_runtime
 from .agent import QwenClient,researcher_context
 from .judge import evaluate,meaningful_gain
@@ -92,7 +92,9 @@ def _run(task_path,started,budget_seconds,mode,seed,threads,max_experiments,memo
             if scheduler.failures.get(raw.get('model_family'),0)>=2:continue
             timeout=min(float(raw.get('max_runtime_sec',300)),max(2,budget.total*.15),budget.search_remaining)
             raw['max_runtime_sec']=timeout;raw['validation_plan_id']=split.id
-            try:r=validate(raw,data.spec,remaining=budget.search_remaining,seen=scheduler.seen)
+            try:
+                if origin==research_origin and champion:raw=merge_hypothesis_features(raw,champion['recipe'])
+                r=validate(raw,data.spec,remaining=budget.search_remaining,seen=scheduler.seen)
             except RecipeError as error:
                 register(directory/'rejections.jsonl',{'reason':str(error),'origin':origin})
                 if origin==research_origin:

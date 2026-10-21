@@ -2,7 +2,7 @@
 from __future__ import annotations
 import copy
 import numpy as np
-from .recipes import recipe_hash
+from .recipes import recipe_hash,merge_hypothesis_features
 
 
 def recipe(family,params=None,ops=None,statement='',transform='none'):
@@ -13,7 +13,6 @@ def initial_portfolio(spec,budget=10800):
     rounds=150 if budget<120 else 500 if budget<900 else 1800
     out=[recipe('linear',{'C':1} if spec.classification else {'alpha':10},statement='Fast regularized linear baseline')]
     if 'lightgbm' in spec.available_capabilities:out.append(recipe('lightgbm',{'iterations':rounds,'num_leaves':31,'min_child_samples':30},statement='Fast leaf-wise booster with categorical handling'))
-    if 'catboost' in spec.available_capabilities:out.append(recipe('catboost',{'iterations':min(rounds,150) if spec.classification and budget<600 else rounds,'depth':7},statement='Native categorical symmetric booster'))
     out.append(recipe('hist',{'iterations':min(350,rounds)},statement='Histogram boosting diversity'))
     out.append(recipe('extra_trees',{'iterations':min(250,rounds),'min_samples_leaf':2},statement='Randomized trees for complementary errors'))
     if 'xgboost' in spec.available_capabilities:out.append(recipe('xgboost',{'iterations':rounds,'max_depth':6},statement='Regularized histogram booster diversity'))
@@ -68,13 +67,12 @@ class SearchController:
             base['feature_ops']=[{'op':'group_mean','columns':[spec.categorical_features[0],spec.numeric_features[0]]}];base['statement']='Training-fold feature aggregate may capture group scale without target encoding'
         else:
             base['statement']='Focused local hyperparameter search around measured champion'
-            if family=='catboost':base['params'].update(depth=int(self.rng.choice([5,6,8,9])),l2_leaf_reg=float(self.rng.choice([1,3,10,30])),learning_rate=float(self.rng.choice([.025,.04,.08])))
-            elif family=='lightgbm':base['params'].update(num_leaves=int(self.rng.choice([15,31,63,127])),min_child_samples=int(self.rng.choice([10,30,60,100])),reg_lambda=float(self.rng.choice([0,1,5,20])))
+            if family=='lightgbm':base['params'].update(num_leaves=int(self.rng.choice([15,31,63,127])),min_child_samples=int(self.rng.choice([10,30,60,100])),reg_lambda=float(self.rng.choice([0,1,5,20])))
             elif family=='xgboost':base['params'].update(max_depth=int(self.rng.choice([3,5,7,9])),min_child_weight=int(self.rng.choice([1,5,15])))
             elif family=='extra_trees':base['params'].update(min_samples_leaf=int(self.rng.choice([1,3,5,10])),max_features=float(self.rng.choice([.5,.8,1.])))
             elif family=='hist':base['params'].update(max_leaf_nodes=int(self.rng.choice([15,31,63])),l2_regularization=float(self.rng.choice([0,1,10])))
             else:base['params'].update({'C':float(self.rng.choice([.01,.1,10,100]))} if spec.classification else {'alpha':float(self.rng.choice([.1,1,100,1000]))})
-        return base
+        return merge_hypothesis_features(base,champion['recipe'])
 
 
 def mock_hypothesis(spec,champion,number):
@@ -93,7 +91,7 @@ def estimate_runtime(recipe,history,timeout,total_budget):
     if not measured:return min(timeout,max(3.,total_budget*.03))
     previous=measured[-1];old=previous['recipe']['params'];new=recipe.get('params',{})
     scale=max(.5,min(3.,new.get('iterations',500)/max(old.get('iterations',500),1)))
-    if recipe['model_family'] in {'catboost','xgboost'}:
-        key='depth' if recipe['model_family']=='catboost' else 'max_depth'
+    if recipe['model_family']=='xgboost':
+        key='max_depth'
         scale*=2**((new.get(key,7)-old.get(key,7))*.25)
     return min(timeout,max(1.,previous['runtime_sec']*scale*1.2))

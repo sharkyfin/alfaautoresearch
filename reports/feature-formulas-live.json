@@ -1,0 +1,41 @@
+{
+  "status": "passed",
+  "runtime_code_sha256": "1d8e9883ca4c9a4b1f1bd35fdb69b4b68d1f3b24da542abaf22b3bee346cf4a8",
+  "mode": "organizer-qwen",
+  "metric": "rmse",
+  "baseline_metric": 3.1593049134148417,
+  "feature_metric": 7.312456044191744e-05,
+  "improved": true,
+  "feature_expressions": [
+    {
+      "name": "x0_x1_product",
+      "expression": "col(\"x0\") * col(\"x1\")",
+      "reason": "Direct multiplicative interaction between x0 and x1."
+    },
+    {
+      "name": "x0_x1_product_squared",
+      "expression": "col(\"x0\") * col(\"x1\") * col(\"x0\") * col(\"x1\")",
+      "reason": "Quadratic interaction term to capture curvature in the x0-x1 relationship."
+    }
+  ],
+  "qwen_calls": 1,
+  "qwen_events": [
+    {
+      "status": "api_usage",
+      "call": 1,
+      "response_model": "qwen/qwen3.8-27b",
+      "prompt_tokens": 4298,
+      "completion_tokens": 1010,
+      "reported_cost": 0.364540102992
+    },
+    {
+      "status": "response",
+      "call": 1,
+      "tokens": 5308
+    }
+  ],
+  "worker_status": "ok",
+  "output_valid": true,
+  "run_dir": "/Users/nosovdanil/PycharmProjects/1/alfaautoresearch/runs/feature-smoke-x6ps2kj0",
+  "limitation": "Synthetic plumbing check with an explicitly suggested interaction; not a public leaderboard benchmark"
+}

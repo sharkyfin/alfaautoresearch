@@ -241,8 +241,8 @@ def test_linear_champion_full_refit_e2e(tmp_path):
 
 def test_measured_cost_and_finalization_admission():
     from atlas.search import estimate_runtime
-    recipe={'model_family':'catboost','params':{'iterations':200,'depth':7}}
-    history=[{'status':'ok','runtime_sec':10.,'recipe':{'model_family':'catboost','params':{'iterations':100,'depth':7}}}]
+    recipe={'model_family':'xgboost','params':{'iterations':200,'max_depth':7}}
+    history=[{'status':'ok','runtime_sec':10.,'recipe':{'model_family':'xgboost','params':{'iterations':100,'max_depth':7}}}]
     assert estimate_runtime(recipe,history,100,900)==24.
     assert estimate_runtime(recipe,[],100,900)==27.
     b=Budget(30,time.monotonic()-10)

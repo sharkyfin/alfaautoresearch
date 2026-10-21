@@ -1,0 +1,62 @@
+{
+  "status": "LOCAL_CHECKS_PASSED",
+  "runtime_code_sha256": "1d8e9883ca4c9a4b1f1bd35fdb69b4b68d1f3b24da542abaf22b3bee346cf4a8",
+  "changes": [
+    "Named Qwen feature expressions with fold-fitted statistics and dependency chains",
+    "Accepted features retained between hypotheses; explicit replace mode",
+    "CatBoost removed from search, model wrappers, Qwen capabilities and development requirements",
+    "Categorical numeric hints respected",
+    "Ensembles compared to the best confirmed single model"
+  ],
+  "tests": {
+    "passed": 188,
+    "warnings": 13,
+    "seconds": 38.59,
+    "python": "3.12.13 (main, Mar  3 2026, 15:35:03) [Clang 21.1.4 ]",
+    "source_unchanged_during_tests": true,
+    "log": "reports/tests-72d3679a0a.log"
+  },
+  "archive": {
+    "path": "submission.zip",
+    "bytes": 45248,
+    "sha256": "4aaf393272dd866c12770c532c7f83a3801766fd5a4e95b457454c4b9fac4b7b",
+    "root_file_count": 22,
+    "official_requirements_unchanged": true,
+    "secret_scan_passed": true,
+    "catboost_absent_from_runtime_python": true
+  },
+  "zip_execution": [
+    {
+      "scenario": "iid",
+      "status": "passed",
+      "accepted_checkpoint": true,
+      "returncode": 0,
+      "runtime_code_sha256": "1d8e9883ca4c9a4b1f1bd35fdb69b4b68d1f3b24da542abaf22b3bee346cf4a8"
+    },
+    {
+      "scenario": "integer_labels",
+      "status": "passed",
+      "accepted_checkpoint": true,
+      "returncode": 0,
+      "runtime_code_sha256": "1d8e9883ca4c9a4b1f1bd35fdb69b4b68d1f3b24da542abaf22b3bee346cf4a8"
+    }
+  ],
+  "live_qwen": {
+    "report": "reports/feature-formulas-live.json",
+    "requests": 1,
+    "formula_count": 2,
+    "worker_status": "ok",
+    "output_valid": true,
+    "baseline_rmse": 3.1593049134148417,
+    "feature_rmse": 7.312456044191744e-05,
+    "limitation": "Synthetic plumbing check with an explicitly suggested interaction; not a public leaderboard benchmark"
+  },
+  "limitations": [
+    "No new full public-task benchmark or leaderboard score",
+    "Current archive not reverified in the organizer Linux image",
+    "Live synthetic diagnostic explicitly suggests the interaction and does not measure autonomous discovery quality",
+    "Official dependency file still lists CatBoost as required by organizers; runtime does not train it"
+  ],
+  "publish_status": "local_only_at_user_request",
+  "platform_submitted": false
+}

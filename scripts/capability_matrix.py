@@ -10,7 +10,7 @@ from scripts.synthetic import create
 records=[]
 for scenario in ['iid','integer_labels','binary_imbalance']:
  data=load(read_inputs(create(ROOT/'runs/capabilities'/scenario,scenario)));split=design(data)
- for family in ['linear','hist','extra_trees','catboost','lightgbm','xgboost']:
+ for family in ['linear','hist','extra_trees','lightgbm','xgboost']:
   start=time.monotonic()
   try:
    v,t,info=fit_predict(data,{'model_family':family,'params':{'iterations':25} if family!='linear' else {}},split.train,split.valid,threads=1)

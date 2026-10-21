@@ -1,8 +1,14 @@
 # ATLAS AutoResearch
 
 Автономный CPU-агент для табличной регрессии и классификации Alfa Hack AutoML.
-Текущие результаты и открытые проверки: `reports/final-release-audit.json`.
-Ключ организаторов подключён; протокол и настоящее обучение по гипотезе Qwen проверены.
+Текущий релиз с формулами признаков и без CatBoost: `reports/feature-formulas-release.json`.
+Предыдущие метрики и аудиты сохранены как история; они относятся к указанным в них SHA256.
+Ключ организаторов подключён локально; в git и ZIP ключей нет.
+
+Qwen теперь предлагает именованные формулы: вложенную арифметику, константы,
+условия, даты, текст и групповые статистики. Принятые признаки сохраняются между
+гипотезами. CatBoost исключён из обучения и доступных Qwen моделей.
+Формат и примеры: [docs/FEATURE_FORMULAS.md](docs/FEATURE_FORMULAS.md).
 
 ## Запуск
 
@@ -40,6 +46,8 @@ Python 3.12; библиотеки из официального `artifacts/offic
 .venv/bin/python scripts/run_dev.py path/task.md --budget 360 --threads 8 --mode deterministic --run-dir runs/experiment
 .venv/bin/python scripts/run_dev.py path/task.md --budget 60 --mode mock-agent
 .venv/bin/python scripts/run_organizer.py path/task.md --budget 120 --max-calls 2 --run-dir runs/my-qwen
+.venv/bin/python scripts/feature_smoke.py
+.venv/bin/python scripts/feature_smoke.py --live
 .venv/bin/python -m pytest tests -q
 .venv/bin/python scripts/benchmark_suite.py
 .venv/bin/python scripts/package_submission.py
@@ -80,12 +88,16 @@ JSON-ответы и подходящие опубликованные пока�
 - TaskSpec объединяет словарь ролей, train/test schema, sample и описание метрики.
 - Валидация фиксируется до поиска: stratified/random, forward при подтверждённом
   прогнозировании, group для новых сущностей; точные дубликаты не разделяются.
-- Линейные модели, CatBoost, LightGBM, XGBoost, HistGradientBoosting и ExtraTrees.
+- Линейные модели, LightGBM, XGBoost, HistGradientBoosting и ExtraTrees.
 - Предобработка, frequencies и group aggregates обучаются только на training fold.
-- Qwen предлагает ограниченную JSON-рецептуру. Validator запрещает произвольный
-  код, импорты, target/ID в feature ops, изменение метрики и схемы валидации.
+- Qwen предлагает JSON-рецептуру с `feature_expressions`: до 16 именованных формул
+  с условиями и зависимостями от предыдущих формул. По умолчанию новые признаки
+  добавляются к принятым; `feature_mode=replace` проверяет явную замену.
+  Validator запрещает импорты, target/ID в формулах, изменение метрики и валидации.
 - Компилятор генерирует Python с выражениями признаков; новый worker запускает
-  настоящий fit. Trusted judge рассчитывает метрику по сохранённому holdout.
+  настоящий fit. Формулы исполняет отдельный интерпретатор разрешённых AST-узлов;
+  `eval` и произвольный Python в формулах не используются. Trusted judge
+  рассчитывает метрику по сохранённому holdout.
 - Локальный HPO, подтверждение на втором split, ограниченный convex ensemble и
   вероятностные поправки принимаются по исходной метрике.
 - Полный refit публикуется только при успехе всех компонентов. Иначе остаётся
@@ -103,9 +115,9 @@ F1; ROC AUC, logloss, binary average precision. Неизвестная метр�
 Это ограниченная DSL, а не sandbox для произвольного Python. Linux worker имеет
 RLIMIT_AS, parent проверяет RSS всего дерева и wall-clock; сетевые действия из
 рецептуры невозможны. Контейнер/cgroup ограничения дополнительно задаёт платформа.
-Хост разработки — macOS: 12 логических CPU, 16 GiB RAM. Linux-проверка выполнена
+Хост предыдущих проверок — macOS: 12 логических CPU, 16 GiB RAM. Историческая Linux-проверка выполнена
 в Lima VM без монтирования домашней папки и файлов ключей: 8 CPU, контейнер 6 GiB,
-без сети; все шесть семейств обучились на регрессии и классификации. Проверены
+без сети; тогда все шесть семейств обучились на регрессии и классификации. Проверены
 RLIMIT_AS, RSS и timeout, валидные CSV после SIGTERM. Подробности: `reports/linux-verification.json`. В macOS LightGBM/XGBoost требуют libomp; в этом dev-окружении применена
 ссылка на уже установленную libomp из sklearn. В ZIP никаких dylib нет.
 
@@ -163,3 +175,7 @@ regression и multiclass прошли официальный CLI с реальн
 [reports/release-manifest.json](reports/release-manifest.json); проверка релиза —
 в [reports/RELEASE_AUDIT.md](reports/RELEASE_AUDIT.md).
 Локальные метрики и замеры относятся к указанным в отчёте версиям исходников.
+Предыдущие числа тестов и Linux-проверки не являются повторной проверкой текущего
+изменения. Новые проверки и SHA256 готового ZIP находятся в
+`reports/feature-formulas-release.json`; проверка реального Qwen — в
+`reports/feature-formulas-live.json`.

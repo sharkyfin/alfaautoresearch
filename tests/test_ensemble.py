@@ -52,3 +52,21 @@ def test_finalist_retention_keeps_close_different_family():
     selected=retain_finalists(pool)
     assert len(selected)==3 and selected[0]['standardized_utility']==-43.
     assert selected[2]['recipe']['model_family']=='xgboost'
+
+
+def test_blend_cannot_replace_a_better_third_single_model():
+    from types import SimpleNamespace
+    from atlas.metrics import Metric
+    from atlas.validation import Split
+    metric=Metric('rmse')
+    data=SimpleNamespace(y=np.zeros(4),spec=SimpleNamespace(metric=metric))
+    primary=Split(np.array([2,3]),np.array([0,1]),'random','test',42)
+    control=Split(np.array([0,1]),np.array([2,3]),'random','test',43)
+    def candidate(name,errors,split):
+        prediction=np.asarray(errors,dtype=float)
+        return {'experiment_id':name,'split':split,'predictions':(prediction,prediction),
+                'standardized_utility':metric.utility(metric.score(data.y[split.valid],prediction))}
+    errors={'best':[.1,.1],'second':[2.,0.],'third':[0.,2.]}
+    finalists=[candidate(name,p,primary) for name,p in errors.items()]
+    confirmed={name:candidate(name,p,control) for name,p in errors.items()}
+    assert choose_blend(data,finalists,confirmed) is None

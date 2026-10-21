@@ -43,7 +43,7 @@ def main():
                 assert not (summaries[0].parent/'error.txt').exists()
                 history=[json.loads(line) for line in (summaries[0].parent/'experiments.jsonl').read_text().splitlines()]
                 families={r['recipe']['model_family'] for r in history if r['status']=='ok'}
-                assert {'linear','lightgbm','catboost','hist','extra_trees','xgboost'}<=families
+                assert {'linear','lightgbm','hist','extra_trees','xgboost'}<=families
                 cases.append({'scenario':scenario,'status':'passed','rows':len(prediction),'returncode':process.returncode,'seconds':time.monotonic()-start,'successful_experiments':summary['successful_experiments'],'model_families':sorted(families),'peak_worker_memory_mb':summary['peak_worker_memory_mb']})
             finally:
                 if process.poll() is None:process.kill();process.wait()

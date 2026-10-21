@@ -4,14 +4,14 @@ import numpy as np
 from sklearn.utils.class_weight import compute_sample_weight
 from .features import FeatureBuilder,MatrixBuilder
 
-FAMILIES={'linear','hist','extra_trees','catboost','lightgbm','xgboost'}
+FAMILIES={'linear','hist','extra_trees','lightgbm','xgboost'}
 
 
 def fit_predict(data,recipe,train_idx,valid_idx,seed=42,threads=8,refit=False,iterations_override=None,feature_function=None,progress_path=None):
     spec=data.spec;cl=spec.classification;family=recipe['model_family'];params=dict(recipe.get('params',{}));ops=recipe.get('feature_ops',[])
     transform=recipe.get('target_transform','none')
     a=data.train.iloc[train_idx];b=data.train.iloc[valid_idx]
-    f=FeatureBuilder(spec,ops,feature_function).fit(a)
+    f=FeatureBuilder(spec,ops,feature_function,recipe.get('feature_expressions',[])).fit(a)
     za=f.transform(a);zb=f.transform(b);zt=f.transform(data.test)
     matrix=MatrixBuilder('linear' if family=='linear' else family,f.cat,f.num,spec.text_candidates).fit(za)
     xa=matrix.transform(za);xv=matrix.transform(zb) if len(valid_idx) else None;xt=matrix.transform(zt)
@@ -33,13 +33,7 @@ def fit_predict(data,recipe,train_idx,valid_idx,seed=42,threads=8,refit=False,it
     loss='absolute_error' if spec.metric.name=='mae' else 'squared_error'
     common=dict(random_state=seed)
     fit_args={}
-    if family=='catboost':
-        from catboost import CatBoostClassifier,CatBoostRegressor
-        objective='MultiClass' if cl else 'MAE' if spec.metric.name=='mae' else 'RMSE'
-        model=(CatBoostClassifier if cl else CatBoostRegressor)(iterations=rounds,depth=params.pop('depth',7),learning_rate=params.pop('learning_rate',.06),loss_function=objective,thread_count=threads,random_seed=seed,allow_writing_files=False,verbose=False,**params)
-        fit_args['cat_features']=[za.columns.get_loc(c) for c in f.cat]
-        if len(valid_idx) and not refit: fit_args.update(eval_set=(xv,yv),early_stopping_rounds=max(30,min(100,rounds//5)))
-    elif family=='lightgbm':
+    if family=='lightgbm':
         import lightgbm as lgb
         objective=('multiclass' if len(spec.labels)>2 else 'binary') if cl else 'regression_l1' if spec.metric.name=='mae' else 'regression'
         model=(lgb.LGBMClassifier if cl else lgb.LGBMRegressor)(n_estimators=rounds,learning_rate=params.pop('learning_rate',.045),num_leaves=params.pop('num_leaves',31),verbosity=-1,n_jobs=threads,objective=objective,deterministic=True,force_col_wise=True,**common,**params)
@@ -91,8 +85,7 @@ def fit_predict(data,recipe,train_idx,valid_idx,seed=42,threads=8,refit=False,it
     pv=predict(xv) if len(valid_idx) else np.empty((0,len(spec.labels))) if cl else np.empty(0)
     pt=predict(xt)
     best=getattr(model,'best_iteration_',None) or getattr(model,'tree_count_',None) or rounds
-    if family=='catboost':best=model.tree_count_
-    elif family=='linear':
+    if family=='linear':
         count=getattr(model,'n_iter_',None)
         if count is not None:best=int(np.max(count))
     if hasattr(model,'best_iteration'):

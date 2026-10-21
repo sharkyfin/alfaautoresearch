@@ -7,6 +7,10 @@ from .judge import meaningful_gain
 def choose_blend(data,finalists,confirmed):
     if len(finalists)<2:return None
     metric=data.spec.metric;best=None
+    def robustness(first,second):
+        values=np.asarray([first,second],dtype=float)
+        return float(values.mean()-.25*values.std())
+    reference=max((robustness(c['standardized_utility'],confirmed[c['experiment_id']]['standardized_utility']) for c in finalists if c['experiment_id'] in confirmed),default=-np.inf)
     for i,a in enumerate(finalists[:3]):
         for b in finalists[:3][i+1:]:
             if a['experiment_id'] not in confirmed or b['experiment_id'] not in confirmed:continue
@@ -24,7 +28,8 @@ def choose_blend(data,finalists,confirmed):
             confirm_score=metric.score(data.y[ca['split'].valid],cv)
             confirm_utility=metric.utility(confirm_score)
             if confirm_utility<=max(ca['standardized_utility'],cb['standardized_utility']):continue
-            robust=(utility+confirm_utility)/2
+            robust=robustness(utility,confirm_utility)
+            if not meaningful_gain(robust,reference):continue
             if best is None or robust>best['robust_utility']:
                 best={'components':[a,b],'weights':[w,1-w],'predictions':(pv,w*a['predictions'][1]+(1-w)*b['predictions'][1]),'metric_value':score,'confirmation_metric':confirm_score,'robust_utility':robust}
     return best

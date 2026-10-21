@@ -2,23 +2,23 @@
 from __future__ import annotations
 import hashlib,json,math,re
 from .models import FAMILIES
+from .expressions import ExpressionError,validate_expressions
 
 PARAMS={
 'linear':{'alpha':(.0001,1e5),'C':(.0001,1e4)},
 'hist':{'iterations':(20,3000),'learning_rate':(.005,.3),'max_leaf_nodes':(4,127),'l2_regularization':(0,100),'min_samples_leaf':(2,200)},
 'extra_trees':{'iterations':(20,1000),'min_samples_leaf':(1,100),'max_features':(.1,1.),'max_depth':(2,40)},
-'catboost':{'iterations':(20,5000),'depth':(3,10),'learning_rate':(.005,.3),'l2_leaf_reg':(.01,100),'random_strength':(0,10),'bagging_temperature':(0,10)},
 'lightgbm':{'stopping_metric':('loss','primary'),'iterations':(20,5000),'num_leaves':(7,255),'learning_rate':(.005,.3),'min_child_samples':(5,250),'reg_lambda':(0,100),'colsample_bytree':(.3,1),'subsample':(.5,1)},
 'xgboost':{'iterations':(20,3000),'max_depth':(2,12),'learning_rate':(.005,.3),'min_child_weight':(1,100),'reg_lambda':(0,100),'colsample_bytree':(.3,1),'subsample':(.5,1)}}
 INTEGER={'iterations','depth','max_depth','num_leaves','min_child_samples','max_leaf_nodes','min_samples_leaf'}
 OP_ARITY={'log1p':1,'sqrt':1,'square':1,'ratio':2,'difference':2,'product':2,'group_mean':2,'frequency':-1,'text_stats':-1,'drop':-1,'ip':-1,'clip':-1,'combine':2}
-MODEL_PACKAGE={'catboost':'catboost','lightgbm':'lightgbm','xgboost':'xgboost'}
+MODEL_PACKAGE={'lightgbm':'lightgbm','xgboost':'xgboost'}
 
 class RecipeError(ValueError):pass
 
 def validate(raw,spec,remaining=10800,seen=None):
     if not isinstance(raw,dict):raise RecipeError('Recipe must be an object')
-    allowed={'id','parent_experiment','statement','evidence','operation','model_family','params','feature_ops','target_transform','validation_plan_id','max_runtime_sec','expected_rationale'}
+    allowed={'id','parent_experiment','statement','evidence','operation','model_family','params','feature_ops','feature_expressions','target_transform','validation_plan_id','max_runtime_sec','expected_rationale'}
     if set(raw)-allowed:raise RecipeError('Unknown recipe fields')
     family=raw.get('model_family')
     if not isinstance(family,str) or family not in FAMILIES:raise RecipeError('Unknown or forbidden model')
@@ -52,12 +52,15 @@ def validate(raw,spec,remaining=10800,seen=None):
         if op['op']=='group_mean' and cols[1] not in spec.numeric_features:raise RecipeError('Group mean needs numeric value')
         total+=len(cols)
     if total>60:raise RecipeError('Feature memory/cost bound')
+    try:expressions=validate_expressions(raw.get('feature_expressions',[]),spec.features,[spec.target,*spec.ids])
+    except ExpressionError as error:raise RecipeError(str(error)) from error
     transform=raw.get('target_transform','none')
     if not isinstance(transform,str) or transform not in {'none','log1p'} or transform!='none' and (spec.classification or min(spec.profile.get('target',{}).get('quantiles',{'0':0}).values())<0):raise RecipeError('Invalid target transform')
     runtime=raw.get('max_runtime_sec',300)
     if isinstance(runtime,bool) or not isinstance(runtime,(int,float)) or not 1<=runtime<=1800:raise RecipeError('Invalid time budget')
     if runtime>remaining:raise RecipeError('Insufficient remaining budget')
     clean={'model_family':family,'params':p,'feature_ops':ops,'target_transform':transform,'max_runtime_sec':float(runtime),'validation_plan_id':spec.validation_plan.get('id')}
+    clean['feature_expressions']=expressions
     clean['id']=str(raw.get('id','candidate'))[:80]
     clean['statement']=str(raw.get('statement',''))[:1000]
     clean['parent_experiment']=raw.get('parent_experiment')
@@ -67,7 +70,31 @@ def validate(raw,spec,remaining=10800,seen=None):
 
 def recipe_hash(recipe):
     core={k:recipe.get(k) for k in ['model_family','params','feature_ops','target_transform']}
+    core['feature_expressions']=[{k:f[k] for k in ('name','expression')} for f in recipe.get('feature_expressions',[])]
     return hashlib.sha256(json.dumps(core,sort_keys=True,ensure_ascii=False).encode()).hexdigest()
+
+
+def merge_hypothesis_features(raw,parent):
+    """Research proposals append to accepted features unless explicitly replacing them."""
+    if not isinstance(raw,dict):raise RecipeError('Recipe must be an object')
+    merged=dict(raw)
+    mode=merged.pop('feature_mode','append')
+    if not isinstance(mode,str) or mode not in {'append','replace'}:raise RecipeError('feature_mode must be append or replace')
+    for key in ('feature_ops','feature_expressions'):
+        additions=merged.get(key,[])
+        if not isinstance(additions,list):raise RecipeError(key+' must be a list')
+        if mode=='replace':continue
+        previous=parent.get(key,[])
+        if key=='feature_expressions':
+            combined={f['name']:dict(f) for f in previous}
+            for feature in additions:
+                if not isinstance(feature,dict) or not isinstance(feature.get('name'),str):raise RecipeError('Invalid named feature')
+                combined[feature['name']]=feature
+            merged[key]=list(combined.values())
+        else:
+            unique={json.dumps(op,sort_keys=True):op for op in [*previous,*additions]}
+            merged[key]=list(unique.values())
+    return merged
 
 def compile_recipe(recipe,job_path,code_root):
     # Column names are Python string literals. No model-supplied source is ever executed.

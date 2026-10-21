@@ -71,7 +71,7 @@ def test_fold_fitted_features(tmp_path):
     assert 'unseen' not in f.counts['category']
     matrix=MatrixBuilder('linear',f.cat,f.num).fit(f.transform(a));assert np.isfinite(matrix.transform(f.transform(b)).toarray()).all() if hasattr(matrix.transform(f.transform(b)),'toarray') else True
 
-@pytest.mark.parametrize('family',['linear','hist','extra_trees','catboost','lightgbm','xgboost'])
+@pytest.mark.parametrize('family',['linear','hist','extra_trees','lightgbm','xgboost'])
 @pytest.mark.parametrize('scenario',['iid','integer_labels'])
 def test_real_model_apis(tmp_path,family,scenario):
     data=load(read_inputs(create(tmp_path,scenario)));split=design(data)
@@ -82,7 +82,7 @@ def test_real_model_apis(tmp_path,family,scenario):
 @pytest.mark.parametrize('mutation',[{'model_family':'pretrained'},{'params':{'eval_metric':'accuracy'}},{'feature_ops':[{'op':'ratio','columns':['response','x0']}]},{'operation':'shell'},{'params':{'depth':'7'}},{'feature_ops':[{'op':'exec','columns':['x0']}]},{'target_transform':'__import__'},{'max_runtime_sec':-1},{'validation_plan_id':'other'}])
 def test_recipe_rejects_unsafe(tmp_path,mutation):
     data=load(read_inputs(create(tmp_path)));data.spec.validation_plan=design(data).json()
-    raw={'model_family':'catboost','params':{},'max_runtime_sec':10,**mutation}
+    raw={'model_family':'hist','params':{},'max_runtime_sec':10,**mutation}
     with pytest.raises(RecipeError):validate(raw,data.spec)
 
 def test_atomic_writer_survives_invalid(tmp_path):
@@ -96,7 +96,7 @@ def test_path_injection(tmp_path):
 def test_unknown_primary_does_not_optimize_auxiliary():
     assert infer_metric('Primary metric: mystery(beta=2)\nAccuracy is auxiliary')[0] is None
 
-@pytest.mark.parametrize('family',['linear','hist','extra_trees','catboost','lightgbm','xgboost'])
+@pytest.mark.parametrize('family',['linear','hist','extra_trees','lightgbm','xgboost'])
 def test_binary_model_api(tmp_path,family):
     data=load(read_inputs(create(tmp_path,'binary_imbalance')));s=design(data)
     p,t,info=fit_predict(data,{'model_family':family,'params':{'iterations':25} if family!='linear' else {}},s.train,s.valid,threads=1)
@@ -152,14 +152,13 @@ def test_binary_probability_and_f1_metric_identity(positive):
     assert Metric('roc_auc',2,positive).score(y,p)==pytest.approx(sk.roc_auc_score(y==positive,p[:,positive]))
     assert Metric('average_precision',2,positive).score(y,p)==pytest.approx(sk.average_precision_score(y==positive,p[:,positive]))
 
-@pytest.mark.parametrize('family',['linear','hist','extra_trees','catboost','lightgbm','xgboost'])
+@pytest.mark.parametrize('family',['linear','hist','extra_trees','lightgbm','xgboost'])
 @pytest.mark.parametrize('scenario',['iid','integer_labels','binary_imbalance'])
 def test_full_refit_all_model_apis(tmp_path,family,scenario):
     data=load(read_inputs(create(tmp_path,scenario)))
     recipe={'model_family':family,'params':{'iterations':25} if family!='linear' else {}}
     p,t,info=fit_predict(data,recipe,np.arange(len(data.y)),np.empty(0,dtype=int),seed=42,threads=1,refit=True,iterations_override=25)
     assert len(p)==0 and len(t)==len(data.test) and np.isfinite(t).all()
-    if family=='catboost':assert info['iterations']==25
     checkpoint(data,t)
 
 @pytest.mark.parametrize('scenario',['integer_labels','binary_imbalance','weighted_f1'])

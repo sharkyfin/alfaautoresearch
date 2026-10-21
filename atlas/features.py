@@ -8,6 +8,7 @@ from sklearn.impute import SimpleImputer
 from sklearn.preprocessing import OneHotEncoder,StandardScaler
 from sklearn.pipeline import Pipeline
 from sklearn.feature_extraction.text import TfidfVectorizer
+from .expressions import ExpressionFeatures
 
 
 def numeric(series):
@@ -16,9 +17,11 @@ def numeric(series):
     return pd.to_numeric(s,errors='coerce').astype(float).replace([np.inf,-np.inf],np.nan)
 
 class FeatureBuilder:
-    def __init__(self,spec,ops=(),feature_function=None):
+    def __init__(self,spec,ops=(),feature_function=None,expressions=()):
         self.spec=spec;self.ops=ops;self.feature_function=feature_function
+        self.expression_builder=ExpressionFeatures(list(expressions),spec.features,[spec.target,*spec.ids])
     def fit(self,x):
+        self.expression_builder.fit(x)
         self.counts={c:x[c].fillna('__MISSING__').astype(str).value_counts(normalize=True).to_dict() for c in self.spec.categorical_features}
         self.clip_limits={c:tuple(numeric(x[c]).quantile([.01,.99]).fillna(0)) for op in self.ops if op['op']=='clip' for c in op['columns']}
         self.group_stats={}
@@ -80,6 +83,9 @@ class FeatureBuilder:
                 elif kind=='difference':out[key]=a-numeric(x[columns[1]])
                 elif kind=='product':out[key]=(a.clip(-1e100,1e100)*numeric(x[columns[1]]).clip(-1e100,1e100)).clip(-1e200,1e200)
         if self.feature_function is not None: out.update(self.feature_function(x,self))
+        generated=self.expression_builder.transform(x)
+        if set(generated)&set(out):raise ValueError('Named feature collides with an existing transformed column')
+        out.update(generated)
         z=pd.DataFrame(out,index=x.index)
         if not len(z.columns):z['__constant__']=0.
         for c in z.select_dtypes(include='number'): z[c]=z[c].replace([np.inf,-np.inf],np.nan).clip(-1e30,1e30)
@@ -101,10 +107,6 @@ class MatrixBuilder:
         return self
     def transform(self,z):
         if self.kind=='linear':return self.encoder.transform(z)
-        if self.kind=='catboost':
-            z=z.copy()
-            for c in self.num:z[c]=z[c].fillna(self.medians[c]).clip(-1e30,1e30)
-            return z
         z=z.copy()
         for c in self.cat:
             codes=z[c].map(self.maps[c]).fillna(-1).astype(int)
