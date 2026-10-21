@@ -31,8 +31,9 @@ def main():
     from atlas.agent import QwenClient, researcher_context
     from atlas.contract import read_inputs
     from atlas.experiments import Executor
-    from atlas.judge import evaluate
-    from atlas.recipes import RecipeError, merge_hypothesis_features, validate
+    from atlas.judge import evaluate, meaningful_gain
+    from atlas.recipes import RecipeError, recipe_hash, validate
+    from atlas.research import ablation_options, accepts_ablation, controlled_hypothesis
     from atlas.submit import checkpoint
     from atlas.task import load
     from atlas.utils import code_digest
@@ -79,7 +80,7 @@ def main():
             proposal = client.propose(context, timeout=20)
             if proposal and proposal.get('feature_expressions'):
                 try:
-                    proposal = validate(merge_hypothesis_features(proposal, baseline), data.spec)
+                    proposal, _ = controlled_hypothesis(proposal, champion, data.spec, 90)
                     break
                 except RecipeError as error:
                     client.events.append({'status': 'recipe_rejected', 'reason': str(error)})
@@ -90,20 +91,45 @@ def main():
             (directory / 'report.json').write_text(json.dumps(report, indent=2))
             print(json.dumps(report, ensure_ascii=False, indent=2))
             return 1
-    candidate = validate(merge_hypothesis_features(proposal, baseline), data.spec)
+    candidate, feature_trial = controlled_hypothesis(proposal, champion, data.spec, 90)
     info, predictions = executor.run(candidate, split, timeout=30)
     if info['status'] != 'ok':
         raise RuntimeError('Feature worker failed: ' + info['status'])
-    enhanced_metric = evaluate(data, split, predictions, info)['metric_value']
-    checkpoint(data, predictions[1])
+    evaluation = evaluate(data, split, predictions, info)
+    enhanced_metric = evaluation['metric_value']
+    best = {**info, **evaluation, 'recipe': candidate, 'predictions': predictions}
+    ablations = []
+    attempted = set()
+    seen = {recipe_hash(baseline), recipe_hash(candidate)}
+    if meaningful_gain(best['standardized_utility'], champion['standardized_utility']):
+        for _ in range(3):
+            options = [(raw, detail) for raw, detail in ablation_options(best['recipe'], baseline, attempted)
+                       if recipe_hash(raw) not in seen]
+            if not options:break
+            raw, detail = options[0]
+            attempted.add(detail['label'])
+            recipe = validate(raw, data.spec)
+            seen.add(recipe_hash(recipe))
+            ablation_info, ablation_predictions = executor.run(recipe, split, timeout=30)
+            record = {**detail, 'status': ablation_info['status'], 'accepted': False}
+            if ablation_info['status'] == 'ok':
+                score = evaluate(data, split, ablation_predictions, ablation_info)
+                accepted = accepts_ablation(score['standardized_utility'], best['standardized_utility'], champion['standardized_utility'])
+                record.update(metric_value=score['metric_value'], accepted=accepted)
+                if accepted:best = {**ablation_info, **score, 'recipe': recipe, 'predictions': ablation_predictions}
+            ablations.append(record)
+    checkpoint(data, best['predictions'][1])
     report = {'status': 'passed', 'runtime_code_sha256': code_digest(),
               'mode': 'organizer-qwen' if args.live else 'offline',
               'metric': data.spec.metric.name, 'baseline_metric': baseline_metric,
               'feature_metric': enhanced_metric, 'improved': enhanced_metric < baseline_metric,
-              'feature_expressions': candidate['feature_expressions'],
+              'selected_metric': best['metric_value'],
+              'feature_expressions': best['recipe']['feature_expressions'],
+              'feature_trial': feature_trial, 'ablations': ablations,
+              'model_controls_frozen': all(best['recipe'][key] == baseline[key] for key in ['model_family','params','target_transform']),
               'qwen_calls': client.requests if client else 0,
               'qwen_events': client.events if client else [],
-              'worker_status': info['status'], 'output_valid': True,
+              'worker_status': best['status'], 'output_valid': True,
               'run_dir': str(directory),
               'limitation': 'Synthetic plumbing check with an explicitly suggested interaction; not a public leaderboard benchmark'}
     (directory / 'report.json').write_text(json.dumps(report, ensure_ascii=False, indent=2))

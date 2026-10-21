@@ -1,4 +1,4 @@
-"""Audit a flat upload and complete the exact platform CLI on two fresh tasks.
+"""Audit a flat upload and complete the exact platform CLI on three fresh tasks.
 
 The local HTTP proxy is a protocol stub with a fake key; it is not a real LLM.
 No local organizer credentials are used by the executed upload.
@@ -86,7 +86,7 @@ def complete_case(upload,root,scenario,nested=False):
             requests.append({'model':body['model']})
             if len(requests)>1:
                 self.send_response(503);self.end_headers();return
-            proposal={'model_family':'linear','params':{'alpha':.1} if scenario=='iid' else {'C':1.},
+            proposal={'model_family':'linear','params':{'C':1.} if scenario=='integer_labels' else {'alpha':.1},
                       'feature_expressions':[{'name':'audit_interaction','expression':'x0 * x1'}],
                       'statement':'Protocol audit: execute one named interaction','max_runtime_sec':20}
             payload=json.dumps({'model':'qwen/qwen3.8-27b','choices':[{'message':{'content':json.dumps(proposal)}}],
@@ -122,8 +122,8 @@ def complete_case(upload,root,scenario,nested=False):
     train=pd.read_csv(data_root/'train.csv')
     assert list(frame.columns)==list(sample.columns) and len(frame)==len(sample)
     assert frame.id.equals(sample.id) and frame.notna().all().all()
-    if scenario=='iid':assert np.isfinite(frame.response).all()
-    else:assert set(frame.response)<=set(train.response)
+    if scenario=='integer_labels':assert set(frame.response)<=set(train.response)
+    else:assert np.isfinite(frame.response).all()
     summaries=list((root/'.atlas').glob('*/summary.json'));assert len(summaries)==1
     summary=json.loads(summaries[0].read_text())
     assert summary['runtime_code_sha256']==code_digest()
@@ -134,6 +134,19 @@ def complete_case(upload,root,scenario,nested=False):
     research=[r for r in history if r.get('origin')=='qwen' and r['status']=='ok']
     assert research and research[0]['recipe']['feature_expressions']
     assert summary['full_refit_published'] and not (summaries[0].parent/'error.txt').exists()
+    if scenario=='future':
+        assert summary['validation']['kind']=='time'
+        assert len(summary['confirmation_plan'])==len(summary['confirmation_metrics'])==2
+        split_paths=list(summaries[0].parent.glob('experiments/exp_*/split.npz'))
+        windows={}
+        for path in split_paths:
+            with np.load(path) as split:
+                if len(split['valid']):windows[tuple(split['valid'])]=split['train'].copy()
+        assert len(windows)==3
+        dates=pd.to_datetime(train.event_date)
+        for valid,fit in windows.items():assert dates.iloc[fit].max()<dates.iloc[list(valid)].min()
+        sets=[set(valid) for valid in windows]
+        assert all(not a&b for i,a in enumerate(sets) for b in sets[i+1:])
     jobs=[json.loads(path.read_text()) for path in summaries[0].parent.glob('experiments/exp_*/job.json')]
     assert all(job['threads']<=8 and job['memory_mb']<=24576 for job in jobs)
     return {'scenario':scenario,'status':'passed','seconds':round(time.monotonic()-start,3),
@@ -141,6 +154,11 @@ def complete_case(upload,root,scenario,nested=False):
             'only_platform_api_environment':True,'model_environment_variable_omitted':True,
             'default_budget_seconds':summary['budget_seconds'],'completed_without_signal':True,
             'full_refit_published':True,'output_path':'submission.csv','rows':len(frame),
+            'validation_kind':summary['validation']['kind'],
+            'planned_confirmation_windows':len(summary['confirmation_plan']),
+            'completed_common_confirmation_windows':len(summary['confirmation_metrics']),
+            'controlled_feature_trials':summary['feature_group_trials'],
+            'feature_ablation_checks':summary['feature_ablation_checks'],
             'columns':list(frame.columns),'qwen_stub_requests':len(requests),'research_fits':len(research),
             'generated_code_files':len(list(summaries[0].parent.glob('experiments/exp_*/recipe.py'))),
             'successful_families':sorted({r['recipe']['model_family'] for r in history if r['status']=='ok'}),
@@ -158,7 +176,8 @@ def main():
     upload=directory/'upload';upload.mkdir()
     with zipfile.ZipFile(args.zip) as z:z.extractall(upload)
     cases=[complete_case(upload,directory/'regression','iid'),
-           complete_case(upload,directory/'classification','integer_labels',nested=True)]
+           complete_case(upload,directory/'classification','integer_labels',nested=True),
+           complete_case(upload,directory/'temporal','future')]
     result={'status':'LOCAL_PLATFORM_CONTRACT_PASSED','static':static,'complete_runs':cases,
             'api_check':'Local OpenAI-compatible HTTP stub, not a real LLM; no organizer key used',
             'limitations':['Organizer Docker image is unavailable locally; execution verified on Python 3.12 macOS',

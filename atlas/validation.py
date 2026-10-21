@@ -14,10 +14,56 @@ class Split:
     kind: str
     reason: str
     seed: int
+    time_column: str | None = None
+    gap_rows: int = 0
     @property
     def id(self):
         return hashlib.sha256(self.train.tobytes()+self.valid.tobytes()+self.kind.encode()).hexdigest()[:16]
-    def json(self): return {'id':self.id,'kind':self.kind,'reason':self.reason,'seed':self.seed,'train_rows':len(self.train),'valid_rows':len(self.valid)}
+    def json(self):
+        result={'id':self.id,'kind':self.kind,'reason':self.reason,'seed':self.seed,'train_rows':len(self.train),'valid_rows':len(self.valid)}
+        if self.time_column is not None:result.update(time_column=self.time_column,gap_rows=self.gap_rows)
+        return result
+
+
+def _time_window(dates, lower, upper, seed, column, gap, reason):
+    idx=np.arange(len(dates))
+    a=idx[(dates<lower).to_numpy()]
+    mask=dates>=lower
+    if upper is not None:mask&=dates<upper
+    b=idx[mask.to_numpy()]
+    if gap:
+        if gap>=len(a)-1:return None
+        a=a[np.argsort(dates.iloc[a].to_numpy(),kind='stable')][:-gap]
+    if len(a)>1 and len(b):return Split(a,b,'time',reason,seed,column,gap)
+    return None
+
+
+def confirmation_splits(data: Dataset, primary: Split, seed=42, max_windows=2):
+    """Freeze score-independent controls; temporal validation windows never overlap."""
+    if max_windows<1 or not len(primary.valid):return []
+    if primary.kind!='time':
+        second=design(data,seed+1009,fraction=.25)
+        return [second] if len(second.valid) and second.id!=primary.id else []
+    column=primary.time_column
+    if column is None:return []
+    dates=pd.to_datetime(data.train[column],errors='coerce',utc=True)
+    ordered=dates.dropna().sort_values(kind='stable')
+    boundary=dates.iloc[primary.valid].min()
+    stop=int((ordered<boundary).sum())
+    width=max(1,len(primary.valid))
+    windows=[]
+    upper=boundary
+    for number in range(1,max_windows+1):
+        position=stop-number*width
+        if position<2:break
+        lower=ordered.iloc[position]
+        if lower>=upper:continue  # A repeated timestamp cannot be split across windows.
+        split=_time_window(dates,lower,upper,seed+1009+number,column,primary.gap_rows,
+                           f'Expanding-window control {number} in {column}; disjoint from later validation windows')
+        if split is None:break
+        windows.append(split)
+        upper=lower
+    return windows
 
 
 def design(data: Dataset,seed=42,fraction=.2) -> Split:
@@ -28,17 +74,15 @@ def design(data: Dataset,seed=42,fraction=.2) -> Split:
     explicit_time=bool(re.search(r'forecast|forward validation|time.series|прогноз.*будущ|временн.*ряд|будущ.*период|validation\s*:\s*time',desc))
     for col in spec.datetime_candidates:
         dates=pd.to_datetime(train[col],errors='coerce',utc=True)
-        testdates=pd.to_datetime(data.test[col],errors='coerce',utc=True)
         if explicit_time and dates.notna().mean()>.95:
             # Split at a timestamp boundary; no equal timestamps straddle the boundary.
-            cutoff=dates.sort_values().iloc[max(1,int(n*(1-fraction)))]
-            a=idx[(dates<cutoff).to_numpy()];b=idx[(dates>=cutoff).to_numpy()]
+            ordered=dates.dropna().sort_values(kind='stable')
+            cutoff=ordered.iloc[min(len(ordered)-1,max(1,int(len(ordered)*(1-fraction))))]
             gap_match=re.search(r'gap_rows\s*[:=]\s*(\d+)',desc)
-            if gap_match:
-                gap=int(gap_match.group(1))
-                if gap>=len(a)-1:return Split(idx,idx[:0],'unsupported_gap','Required temporal gap leaves too few training rows',seed)
-                if gap:a=a[np.argsort(dates.iloc[a].to_numpy())][:-gap]
-            if len(a)>1 and len(b):return Split(a,b,'time',f'Explicit forecasting intent; forward boundary in {col}',seed)
+            gap=int(gap_match.group(1)) if gap_match else 0
+            split=_time_window(dates,cutoff,None,seed,col,gap,f'Explicit forecasting intent; forward boundary in {col}')
+            if split is not None:return split
+            if gap:return Split(idx,idx[:0],'unsupported_gap','Required temporal gap leaves too few training rows',seed)
     for col in spec.group_candidates:
         groups=train[col].fillna('__MISSING__').astype(str)
         unseen=(~data.test[col].fillna('__MISSING__').astype(str).isin(groups)).mean()

@@ -3,6 +3,7 @@ from __future__ import annotations
 import numpy as np
 from sklearn.metrics import classification_report,confusion_matrix
 import pandas as pd
+from .context import error_associations,input_importance
 
 
 def diagnostics(data,idx,pred):
@@ -48,6 +49,8 @@ def evaluate(data,split,predictions,model_info=None):
     pv,pt=predictions;metric=data.spec.metric
     score=metric.score(data.y[split.valid],pv)
     detail={**(model_info or {}).get('diagnostics',{}),**diagnostics(data,split.valid,pv)}
+    importance=input_importance(data.spec,(model_info or {}).get('recipe',{}),detail)
+    detail['error_associations']=error_associations(data,split.valid,pv,importance)
     train_metric=(model_info or {}).get('train_sample_metric')
     if train_metric is not None:detail['train_validation_utility_gap']=metric.utility(train_metric)-metric.utility(score)
     return {'metric_name':metric.name,'metric_value':score,'metric_direction':metric.direction,'standardized_utility':metric.utility(score),'diagnostics':detail}

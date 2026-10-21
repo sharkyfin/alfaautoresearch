@@ -33,6 +33,26 @@ FUNCTIONS = {
 }
 
 
+def expression_references(source):
+    """Read formula dependencies without interpreting any expression."""
+    references = set()
+
+    class References(ast.NodeVisitor):
+        def visit_Name(self, node):
+            references.add(node.id)
+
+        def visit_Call(self, node):
+            if isinstance(node.func, ast.Name) and node.func.id == 'col':
+                if node.args and isinstance(node.args[0], ast.Constant):
+                    references.add(node.args[0].value)
+            else:
+                for argument in node.args:
+                    self.visit(argument)
+
+    References().visit(ast.parse(source, mode='eval'))
+    return references
+
+
 def _validate_node(node, columns, depth=0):
     if depth > 12:
         raise ExpressionError('Formula nesting exceeds 12 levels')

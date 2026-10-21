@@ -2,9 +2,9 @@
   "status": "LOCAL_PLATFORM_CONTRACT_PASSED",
   "static": {
     "status": "passed",
-    "archive_sha256": "f4eedfe8fd7d66ccf3e4a351cddba3409472c68979cf003e56d803cbdb435618",
-    "archive_bytes": 45810,
-    "root_file_count": 22,
+    "archive_sha256": "0c6f99d1abd2a77fdda3c7ea3ca72e5ad43eb2cbf78a0ad819de12be81090776",
+    "archive_bytes": 53498,
+    "root_file_count": 24,
     "official_requirements_unchanged": true,
     "third_party_imports": [
       "httpx",
@@ -17,14 +17,13 @@
     ],
     "credential_literals_absent": true,
     "no_runtime_installer_or_alternative_llm": true,
-    "runtime_code_sha256": "68117d082cc1a4d1c79ee053497c3a39e1063211ef6378cbc54b29f07b7cd05a",
-    "actual_organizer_key_absent_from_zip": true
+    "runtime_code_sha256": "6778485712c29058303916a56480400352e6c38de6e4e29785026a6bc3157362"
   },
   "complete_runs": [
     {
       "scenario": "iid",
       "status": "passed",
-      "seconds": 31.391,
+      "seconds": 29.441,
       "command": "python3 solution.py task.md",
       "nested_markdown_inputs": false,
       "only_platform_api_environment": true,
@@ -34,6 +33,11 @@
       "full_refit_published": true,
       "output_path": "submission.csv",
       "rows": 60,
+      "validation_kind": "random",
+      "planned_confirmation_windows": 1,
+      "completed_common_confirmation_windows": 1,
+      "controlled_feature_trials": 6,
+      "feature_ablation_checks": 0,
       "columns": [
         "id",
         "response"
@@ -50,12 +54,12 @@
       ],
       "worker_thread_budget": 8,
       "worker_memory_limit_mb": 24576,
-      "runtime_code_sha256": "68117d082cc1a4d1c79ee053497c3a39e1063211ef6378cbc54b29f07b7cd05a"
+      "runtime_code_sha256": "6778485712c29058303916a56480400352e6c38de6e4e29785026a6bc3157362"
     },
     {
       "scenario": "integer_labels",
       "status": "passed",
-      "seconds": 34.616,
+      "seconds": 32.175,
       "command": "python3 solution.py task.md",
       "nested_markdown_inputs": true,
       "only_platform_api_environment": true,
@@ -65,6 +69,11 @@
       "full_refit_published": true,
       "output_path": "submission.csv",
       "rows": 60,
+      "validation_kind": "stratified",
+      "planned_confirmation_windows": 1,
+      "completed_common_confirmation_windows": 1,
+      "controlled_feature_trials": 6,
+      "feature_ablation_checks": 0,
       "columns": [
         "id",
         "response"
@@ -81,7 +90,43 @@
       ],
       "worker_thread_budget": 8,
       "worker_memory_limit_mb": 24576,
-      "runtime_code_sha256": "68117d082cc1a4d1c79ee053497c3a39e1063211ef6378cbc54b29f07b7cd05a"
+      "runtime_code_sha256": "6778485712c29058303916a56480400352e6c38de6e4e29785026a6bc3157362"
+    },
+    {
+      "scenario": "future",
+      "status": "passed",
+      "seconds": 29.342,
+      "command": "python3 solution.py task.md",
+      "nested_markdown_inputs": false,
+      "only_platform_api_environment": true,
+      "model_environment_variable_omitted": true,
+      "default_budget_seconds": 900.0,
+      "completed_without_signal": true,
+      "full_refit_published": true,
+      "output_path": "submission.csv",
+      "rows": 60,
+      "validation_kind": "time",
+      "planned_confirmation_windows": 2,
+      "completed_common_confirmation_windows": 2,
+      "controlled_feature_trials": 6,
+      "feature_ablation_checks": 0,
+      "columns": [
+        "id",
+        "response"
+      ],
+      "qwen_stub_requests": 4,
+      "research_fits": 1,
+      "generated_code_files": 28,
+      "successful_families": [
+        "extra_trees",
+        "hist",
+        "lightgbm",
+        "linear",
+        "xgboost"
+      ],
+      "worker_thread_budget": 8,
+      "worker_memory_limit_mb": 24576,
+      "runtime_code_sha256": "6778485712c29058303916a56480400352e6c38de6e4e29785026a6bc3157362"
     }
   ],
   "api_check": "Local OpenAI-compatible HTTP stub, not a real LLM; no organizer key used",
@@ -91,44 +136,26 @@
     "No leaderboard submission or public quality benchmark in this audit"
   ],
   "platform_submitted": false,
-  "run_dir": "/Users/nosovdanil/PycharmProjects/1/alfaautoresearch/runs/platform-audit-rgcdklh3",
-  "tests": {
-    "passed": 199,
-    "warnings": 13,
-    "seconds": 49.31,
-    "source_unchanged_during_tests": true,
-    "log": "reports/tests-d0a19cb904.log"
+  "run_dir": "/Users/nosovdanil/PycharmProjects/1/alfaautoresearch/runs/platform-audit-ey_ekax6",
+  "unit_tests": {
+    "status": "passed",
+    "passed": 217,
+    "report": "reports/test-state.json",
+    "runtime_code_sha256": "6778485712c29058303916a56480400352e6c38de6e4e29785026a6bc3157362"
   },
-  "stop_preserves_submission": {
+  "signal_preservation": {
+    "status": "passed",
     "report": "reports/zip-verification.json",
-    "tests": [
-      {
-        "scenario": "iid",
-        "status": "passed",
-        "accepted_checkpoint": true,
-        "returncode": 0,
-        "runtime_code_sha256": "68117d082cc1a4d1c79ee053497c3a39e1063211ef6378cbc54b29f07b7cd05a",
-        "default_budget_seconds": 900.0
-      },
-      {
-        "scenario": "integer_labels",
-        "status": "passed",
-        "accepted_checkpoint": true,
-        "returncode": 0,
-        "runtime_code_sha256": "68117d082cc1a4d1c79ee053497c3a39e1063211ef6378cbc54b29f07b7cd05a",
-        "default_budget_seconds": 900.0
-      }
-    ]
+    "archive_sha256": "0c6f99d1abd2a77fdda3c7ea3ca72e5ad43eb2cbf78a0ad819de12be81090776"
   },
-  "organizer_qwen_live": {
+  "organizer_qwen": {
     "status": "passed",
     "report": "reports/platform-qwen-live.json",
-    "runtime_code_sha256": "68117d082cc1a4d1c79ee053497c3a39e1063211ef6378cbc54b29f07b7cd05a",
-    "requests": 1,
-    "formula_count": 2,
-    "worker_status": "ok",
-    "output_valid": true,
-    "limitation": "Synthetic plumbing check with an explicitly suggested interaction; not a public leaderboard benchmark"
+    "calls": 1,
+    "model_controls_frozen": true,
+    "successful_ablation_checks": 1,
+    "runtime_code_sha256": "6778485712c29058303916a56480400352e6c38de6e4e29785026a6bc3157362"
   },
-  "publish_status": "local_only_at_user_request"
+  "organizer_key_absent_from_archive": true,
+  "publication": "Local commit and ZIP only, as requested; no push or platform submission"
 }

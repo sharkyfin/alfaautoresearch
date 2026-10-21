@@ -41,6 +41,13 @@ with an existing name updates that formula in place. `feature_mode: "replace"`
 performs an explicit ablation using only the supplied feature lists. Deterministic
 local search also retains accepted named formulas and earlier legacy operations.
 
+Feature hypotheses now hold the champion's model family, parameters, target
+transform, split and seed fixed. Requested model changes are recorded and ignored
+for these trials; propose model tuning separately. Change at most four
+formulas/legacy operations per hypothesis. A successful group may receive up to
+three dependency-aware ablation fits within the same run budget. The total limit
+of 16 formulas is unchanged. See [AUTORESEARCH.md](AUTORESEARCH.md).
+
 ## Supported expressions
 
 - Arithmetic: `+`, `-`, `*`, `/`, `%`, `**` with a constant exponent in [-4, 4].

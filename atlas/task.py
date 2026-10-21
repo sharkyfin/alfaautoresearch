@@ -147,24 +147,28 @@ def load(inputs: Inputs, strict=False) -> Dataset:
     return Dataset(inputs,train,test,sample,dictionary,spec,np.asarray(y))
 
 
+def column_profile(train,test,spec,c):
+    s=train[c];t=test[c]
+    info={'dtype':str(s.dtype),'missing':round(float(s.isna().mean()),4),'cardinality':int(s.nunique())}
+    if c in spec.numeric_features:
+        def numeric_values(series):
+            if not pd.api.types.is_numeric_dtype(series):series=series.astype('string').str.replace(' ','',regex=False).str.replace(',','.',regex=False)
+            return pd.to_numeric(series,errors='coerce').replace([np.inf,-np.inf],np.nan)
+        a=numeric_values(s);test_numeric=numeric_values(t)
+        scale=float(a.std()) if a.notna().sum()>1 else 0.
+        info['median_shift_std']=float((test_numeric.median()-a.median())/scale) if scale>0 and np.isfinite(scale) and a.notna().any() and test_numeric.notna().any() else 0.
+        info['zero_fraction']=float((a==0).mean())
+        info['nonfinite_or_missing_fraction']=float(a.isna().mean())
+        info['quantiles']={str(k):float(v) for k,v in a.quantile([0,.25,.5,.75,1]).items() if np.isfinite(v)}
+    elif c not in spec.datetime_candidates:
+        info['unseen_fraction']=float((~t.isin(s.dropna())).mean()) if len(t) else 0.
+        lengths=s.dropna().astype(str).str.len()
+        info['median_length']=float(lengths.median()) if len(lengths) else 0.
+    return info
+
+
 def profile(train,test,spec):
-    cols={}
-    for c in spec.features[:200]:
-        s=train[c];t=test[c]
-        info={'dtype':str(s.dtype),'missing':round(float(s.isna().mean()),4),'cardinality':int(s.nunique())}
-        if c in spec.numeric_features:
-            a=pd.to_numeric(s,errors='coerce').replace([np.inf,-np.inf],np.nan)
-            test_numeric=pd.to_numeric(t,errors='coerce').replace([np.inf,-np.inf],np.nan)
-            scale=float(a.std()) if a.notna().sum()>1 else 0.
-            info['median_shift_std']=float((test_numeric.median()-a.median())/scale) if scale>0 and np.isfinite(scale) and a.notna().any() and test_numeric.notna().any() else 0.
-            info['zero_fraction']=float((a==0).mean())
-            info['nonfinite_or_missing_fraction']=float(a.isna().mean())
-            info['quantiles']={str(k):float(v) for k,v in a.quantile([0,.25,.5,.75,1]).items() if np.isfinite(v)}
-        elif c not in spec.datetime_candidates:
-            info['unseen_fraction']=float((~t.isin(s.dropna())).mean()) if len(t) else 0.
-            lengths=s.dropna().astype(str).str.len()
-            info['median_length']=float(lengths.median()) if len(lengths) else 0.
-        cols[c]=info
+    cols={c:column_profile(train,test,spec,c) for c in spec.features[:200]}
     y=train[spec.target]
     target={'counts':{str(k):int(v) for k,v in y.value_counts().items()}} if spec.classification else {'quantiles':{str(k):float(v) for k,v in y.quantile([0,.01,.25,.5,.75,.99,1]).items()}}
     return {'train_shape':list(train.shape),'test_shape':list(test.shape),'columns':cols,'target':target,'memory_mb':float(train.memory_usage(deep=True).sum()/2**20)}
