@@ -1,0 +1,48 @@
+{
+  "status": "LOCAL_CHECKS_PASSED",
+  "runtime_code_sha256": "7971fad57c6b2bf9e81df22d62fa4903ec6900868e82eedbc136382af55fb7bf",
+  "default_budget_seconds": 900,
+  "default_budget_minutes": 15,
+  "official_entrypoint": "python solution.py task.md",
+  "previous_default_budget_seconds": 10500,
+  "tests": {
+    "passed": 188,
+    "warnings": 13,
+    "seconds": 37.38,
+    "source_unchanged_during_tests": true,
+    "log": "reports/tests-b3f93addd9.log"
+  },
+  "archive": {
+    "path": "submission.zip",
+    "bytes": 45245,
+    "sha256": "5179e3243c55937a1ec37151f8322d90d80d5bf2aca10e7ee9c2f1f3e16b68ad",
+    "official_requirements_unchanged": true,
+    "secret_scan_passed": true
+  },
+  "zip_execution": [
+    {
+      "scenario": "iid",
+      "status": "passed",
+      "accepted_checkpoint": true,
+      "returncode": 0,
+      "runtime_code_sha256": "7971fad57c6b2bf9e81df22d62fa4903ec6900868e82eedbc136382af55fb7bf",
+      "default_budget_seconds": 900.0
+    },
+    {
+      "scenario": "integer_labels",
+      "status": "passed",
+      "accepted_checkpoint": true,
+      "returncode": 0,
+      "runtime_code_sha256": "7971fad57c6b2bf9e81df22d62fa4903ec6900868e82eedbc136382af55fb7bf",
+      "default_budget_seconds": 900.0
+    }
+  ],
+  "prior_feature_evidence": "reports/feature-formulas-release.json",
+  "limitations": [
+    "Default-budget change only; public task quality has not been rebenchmarked",
+    "No full 15-minute soak; clean-ZIP checks validate default budget and output preservation",
+    "Platform queue time is outside the agent budget"
+  ],
+  "publish_status": "local_only_at_user_request",
+  "platform_submitted": false
+}

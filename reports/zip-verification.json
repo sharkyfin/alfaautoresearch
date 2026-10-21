@@ -1,20 +1,22 @@
 {
   "python": "3.12.13 (main, Mar  3 2026, 15:35:03) [Clang 21.1.4 ]",
-  "sha256": "4aaf393272dd866c12770c532c7f83a3801766fd5a4e95b457454c4b9fac4b7b",
+  "sha256": "5179e3243c55937a1ec37151f8322d90d80d5bf2aca10e7ee9c2f1f3e16b68ad",
   "tests": [
     {
       "scenario": "iid",
       "status": "passed",
       "accepted_checkpoint": true,
       "returncode": 0,
-      "runtime_code_sha256": "1d8e9883ca4c9a4b1f1bd35fdb69b4b68d1f3b24da542abaf22b3bee346cf4a8"
+      "runtime_code_sha256": "7971fad57c6b2bf9e81df22d62fa4903ec6900868e82eedbc136382af55fb7bf",
+      "default_budget_seconds": 900.0
     },
     {
       "scenario": "integer_labels",
       "status": "passed",
       "accepted_checkpoint": true,
       "returncode": 0,
-      "runtime_code_sha256": "1d8e9883ca4c9a4b1f1bd35fdb69b4b68d1f3b24da542abaf22b3bee346cf4a8"
+      "runtime_code_sha256": "7971fad57c6b2bf9e81df22d62fa4903ec6900868e82eedbc136382af55fb7bf",
+      "default_budget_seconds": 900.0
     }
   ],
   "environment": "macOS; root-only platform copy; python solution.py task.md; no API credentials; SIGTERM after fitted checkpoint"

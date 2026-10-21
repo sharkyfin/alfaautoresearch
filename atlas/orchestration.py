@@ -19,7 +19,7 @@ from .ensemble import choose_blend,tune_multipliers,adjust_probabilities
 
 def emit(event,**values):print(json.dumps({'event':event,**values},ensure_ascii=False,allow_nan=False),flush=True)
 
-def run(task_path,started=None,budget_seconds=10500,mode='auto',seed=42,threads=8,max_experiments=30,memory_mb=24576,run_dir=None,strict=True,research_client=None):
+def run(task_path,started=None,budget_seconds=900,mode='auto',seed=42,threads=8,max_experiments=30,memory_mb=24576,run_dir=None,strict=True,research_client=None):
     # Install before the first atomic CSV becomes visible. A platform SIGTERM
     # immediately after that checkpoint must take the graceful path as well.
     stop={'requested':False}

@@ -48,8 +48,9 @@ def verify(archive):
                     summaries=list((task.parent/'.atlas').glob('*/summary.json'));assert len(summaries)==1
                     summary=json.loads(summaries[0].read_text())
                     assert summary['runtime_code_sha256']==code_digest()
+                    assert summary['budget_seconds']==900,summary['budget_seconds']
                     assert summary['cancelled'] and not (summaries[0].parent/'error.txt').exists()
-                    records.append({'scenario':scenario,'status':'passed','accepted_checkpoint':True,'returncode':proc.returncode,'runtime_code_sha256':summary['runtime_code_sha256']})
+                    records.append({'scenario':scenario,'status':'passed','accepted_checkpoint':True,'returncode':proc.returncode,'runtime_code_sha256':summary['runtime_code_sha256'],'default_budget_seconds':summary['budget_seconds']})
                 finally:
                     if proc.poll() is None:proc.kill();proc.wait()
     return {'python':sys.version,'sha256':hashlib.sha256(Path(archive).read_bytes()).hexdigest(),'tests':records,'environment':'macOS; root-only platform copy; python solution.py task.md; no API credentials; SIGTERM after fitted checkpoint'}

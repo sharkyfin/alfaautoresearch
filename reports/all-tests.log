@@ -25,4 +25,4 @@ tests/test_core.py::test_real_model_apis[iid-lightgbm]
     parser.resetCache()
 
 -- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
-188 passed, 13 warnings in 38.59s
+188 passed, 13 warnings in 37.38s
