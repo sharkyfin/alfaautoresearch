@@ -1,0 +1,204 @@
+{
+  "status": "completed",
+  "runtime_code_sha256": "6778485712c29058303916a56480400352e6c38de6e4e29785026a6bc3157362",
+  "archive_sha256": "0c6f99d1abd2a77fdda3c7ea3ca72e5ad43eb2cbf78a0ad819de12be81090776",
+  "budget_seconds_per_task": 300.0,
+  "threads": 8,
+  "memory_mb": 8192,
+  "phase": "development",
+  "run_root": "/Users/nosovdanil/PycharmProjects/1/alfaautoresearch/runs/kaggle-benchmark-pj3p21kq",
+  "packages": {
+    "numpy": "1.26.4",
+    "pandas": "2.2.3",
+    "scikit-learn": "1.5.2",
+    "scipy": "1.12.0",
+    "lightgbm": "4.6.0",
+    "xgboost": "2.1.4"
+  },
+  "runs": [
+    {
+      "case": "california_housing",
+      "mode": "deterministic",
+      "seed": 42,
+      "phase": "development",
+      "metric": "rmse",
+      "budget_seconds": 300.0,
+      "wall_seconds": 87.357,
+      "threads": 8,
+      "memory_mb": 8192,
+      "runtime_code_sha256": "6778485712c29058303916a56480400352e6c38de6e4e29785026a6bc3157362",
+      "raw_sha256": "929d21111f99a691e8222aad1c5b14fcd198de057016ba7bff5e3c10b92f072f",
+      "split_sha256": "45e65ba3dede472c36a10acfaf3e9ff95805f54a27bd8dc028dc7b3d8a24e5f9",
+      "returncode": 0,
+      "log": "/Users/nosovdanil/PycharmProjects/1/alfaautoresearch/runs/kaggle-benchmark-pj3p21kq/california_housing_42/deterministic/deterministic.log",
+      "run_dir": "/Users/nosovdanil/PycharmProjects/1/alfaautoresearch/runs/kaggle-benchmark-pj3p21kq/california_housing_42/deterministic/run",
+      "qwen_calls": 0,
+      "qwen_tokens": 0,
+      "internal_metric": 46263.943961524994,
+      "experiments": 32,
+      "full_refit": true,
+      "champion_family": "lightgbm",
+      "feature_ablation_checks": 0,
+      "accepted_feature_ablations": 0,
+      "external_metric": 45234.98666837975,
+      "status": "ok",
+      "qwen_fits": 0,
+      "qwen_accepted": 0,
+      "research_experiments": [],
+      "champion_recipe": {
+        "model_family": "lightgbm",
+        "params": {
+          "iterations": 500,
+          "num_leaves": 31,
+          "min_child_samples": 10,
+          "reg_lambda": 20.0
+        },
+        "feature_ops": [
+          {
+            "op": "ratio",
+            "columns": [
+              "longitude",
+              "latitude"
+            ]
+          },
+          {
+            "op": "product",
+            "columns": [
+              "longitude",
+              "latitude"
+            ]
+          }
+        ],
+        "target_transform": "none",
+        "max_runtime_sec": 45.0,
+        "validation_plan_id": "b4f9ef385748df3a",
+        "feature_expressions": [],
+        "id": "local_15",
+        "statement": "Focused local hyperparameter search around measured champion",
+        "parent_experiment": "exp_0009"
+      },
+      "qwen_events": []
+    },
+    {
+      "case": "california_housing",
+      "mode": "live-agent",
+      "seed": 42,
+      "phase": "development",
+      "metric": "rmse",
+      "budget_seconds": 300.0,
+      "wall_seconds": 127.64,
+      "threads": 8,
+      "memory_mb": 8192,
+      "runtime_code_sha256": "6778485712c29058303916a56480400352e6c38de6e4e29785026a6bc3157362",
+      "raw_sha256": "929d21111f99a691e8222aad1c5b14fcd198de057016ba7bff5e3c10b92f072f",
+      "split_sha256": "45e65ba3dede472c36a10acfaf3e9ff95805f54a27bd8dc028dc7b3d8a24e5f9",
+      "returncode": 0,
+      "log": "/Users/nosovdanil/PycharmProjects/1/alfaautoresearch/runs/kaggle-benchmark-pj3p21kq/california_housing_42/live-agent/live-agent.log",
+      "run_dir": "/Users/nosovdanil/PycharmProjects/1/alfaautoresearch/runs/kaggle-benchmark-pj3p21kq/california_housing_42/live-agent/run",
+      "qwen_calls": 2,
+      "qwen_tokens": 0,
+      "internal_metric": 46263.943961524994,
+      "experiments": 32,
+      "full_refit": true,
+      "champion_family": "lightgbm",
+      "feature_ablation_checks": 0,
+      "accepted_feature_ablations": 0,
+      "external_metric": 45234.98666837975,
+      "status": "ok",
+      "qwen_fits": 0,
+      "qwen_accepted": 0,
+      "research_experiments": [],
+      "champion_recipe": {
+        "model_family": "lightgbm",
+        "params": {
+          "iterations": 500,
+          "num_leaves": 31,
+          "min_child_samples": 10,
+          "reg_lambda": 20.0
+        },
+        "feature_ops": [
+          {
+            "op": "ratio",
+            "columns": [
+              "longitude",
+              "latitude"
+            ]
+          },
+          {
+            "op": "product",
+            "columns": [
+              "longitude",
+              "latitude"
+            ]
+          }
+        ],
+        "target_transform": "none",
+        "max_runtime_sec": 45.0,
+        "validation_plan_id": "b4f9ef385748df3a",
+        "feature_expressions": [],
+        "id": "local_15",
+        "statement": "Focused local hyperparameter search around measured champion",
+        "parent_experiment": "exp_0009"
+      },
+      "qwen_events": [
+        {
+          "status": "api_failure",
+          "exception_class": "TimeoutError",
+          "call": 1
+        },
+        {
+          "status": "api_failure",
+          "exception_class": "TimeoutError",
+          "call": 2
+        }
+      ]
+    }
+  ],
+  "cases": [
+    {
+      "case": "california_housing",
+      "dataset": "camnugent/california-housing-prices",
+      "source": "https://www.kaggle.com/datasets/camnugent/california-housing-prices",
+      "raw_sha256": "929d21111f99a691e8222aad1c5b14fcd198de057016ba7bff5e3c10b92f072f",
+      "member": "housing.csv",
+      "target": "median_house_value",
+      "id_column": "benchmark_id",
+      "metric": "rmse",
+      "seed": 42,
+      "phase": "development",
+      "rows": 20640,
+      "training_rows": 12384,
+      "evaluation_rows": 4128,
+      "reserved_final_rows": 4128,
+      "features": 9,
+      "split_sha256": "45e65ba3dede472c36a10acfaf3e9ff95805f54a27bd8dc028dc7b3d8a24e5f9",
+      "input_sha256": {
+        "train.csv": "113b2f9fe70dab24b014e34a31d14817e5e74d8a1bc9ca099752240fa5b0ce02",
+        "test.csv": "8060bc1dfc13c3ec5b6035700bc6868a36ed945cbb54761fd430f8182988aa3f",
+        "data_dictionary.csv": "6fdd078902c0580d53fe6bd398d8627ce583029b0d2155cf3bcc956536a4f495",
+        "sample_submission.csv": "65f302da3b625a192253e007acc76664c6562f5f2b42a3a302e17146058b028f",
+        "task.md": "b3cc43f6811f8d46b4882f9317e508926ef0d95de2251442fe34d4c170f489d6"
+      },
+      "labels": [],
+      "labels_outside_task_directory": true,
+      "feature_duplicate_groups_kept_together": true,
+      "sealed_labels": "/Users/nosovdanil/PycharmProjects/1/alfaautoresearch/runs/kaggle-benchmark-pj3p21kq/california_housing_42/sealed/evaluation.csv"
+    }
+  ],
+  "platform_submissions": 0,
+  "kaggle_submissions": 0,
+  "final_lockbox_used": false,
+  "comparisons": [],
+  "research_comparisons": [
+    {
+      "case": "california_housing",
+      "seed": 42,
+      "metric": "rmse",
+      "without_qwen": 45234.98666837975,
+      "with_qwen": 45234.98666837975,
+      "signed_gain": -0.0,
+      "qwen_fits": 0,
+      "qwen_accepted": 0
+    }
+  ]
+}

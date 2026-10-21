@@ -17,6 +17,12 @@ Qwen теперь предлагает именованные формулы: в
 абляции. Для временных задач используются до трёх непересекающихся окон.
 Подробности и проверки: [docs/AUTORESEARCH.md](docs/AUTORESEARCH.md).
 
+Реальное качество можно проверять локально на трёх Kaggle-датасетах, без отправок
+на платформу: `scripts/download_kaggle.py`, затем `scripts/benchmark_kaggle.py`.
+Стенд сравнивает LightGBM, поиск без Qwen и полный агент на одинаковых разбиениях,
+с отдельными внешними ответами и финальным резервом. Инструкция:
+[docs/KAGGLE_BENCHMARK.md](docs/KAGGLE_BENCHMARK.md).
+
 ## Запуск
 
 Python 3.12; библиотеки из официального `artifacts/official/requirements.txt`.

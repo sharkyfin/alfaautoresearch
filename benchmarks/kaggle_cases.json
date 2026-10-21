@@ -1,0 +1,68 @@
+{
+  "california_housing": {
+    "dataset": "camnugent/california-housing-prices",
+    "target": "median_house_value",
+    "metric": "rmse",
+    "description": "Predict the median house value of a California census block using its location and housing statistics. Counts describe a block, not one household. This is an IID tabular regression task, not forecasting.",
+    "columns": {
+      "longitude": "Geographic longitude in degrees",
+      "latitude": "Geographic latitude in degrees",
+      "housing_median_age": "Median age of housing in the block, years",
+      "total_rooms": "Total rooms in the census block",
+      "total_bedrooms": "Total bedrooms in the census block",
+      "population": "Total population in the census block",
+      "households": "Number of households in the census block",
+      "median_income": "Median household income, in units of 10000 USD",
+      "ocean_proximity": "Categorical description of proximity to the ocean",
+      "median_house_value": "Median house value in USD"
+    }
+  },
+  "adult_income": {
+    "dataset": "uciml/adult-census-income",
+    "target": "income",
+    "metric": "f1_macro",
+    "description": "Predict the income bracket (over 50K or at most 50K) from demographic, education and employment features. Optimize Macro F1, giving both classes equal weight. Missing categorical entries are unknown values. IID binary classification.",
+    "columns": {
+      "age": "Age in years",
+      "workclass": "Employment sector",
+      "fnlwgt": "Census sampling weight",
+      "education": "Highest education category",
+      "education.num": "Numeric education level",
+      "marital.status": "Marital status category",
+      "occupation": "Occupation category",
+      "relationship": "Relationship within a household",
+      "race": "Census race category",
+      "sex": "Census sex category",
+      "capital.gain": "Capital gain amount",
+      "capital.loss": "Capital loss amount",
+      "hours.per.week": "Working hours per week",
+      "native.country": "Country of origin",
+      "income": "Income bracket to predict"
+    }
+  },
+  "dry_beans": {
+    "dataset": "muratkokludataset/dry-bean-dataset",
+    "target": "Class",
+    "metric": "f1_macro",
+    "description": "Classify dry beans into seven varieties from geometric measurements of individual beans. Optimize Macro F1 across all varieties. Inputs are tabular geometric features, not images. IID multiclass classification.",
+    "columns": {
+      "Area": "Area enclosed by the bean boundary, pixels",
+      "Perimeter": "Length of the bean boundary",
+      "MajorAxisLength": "Length of the major axis of the fitted ellipse",
+      "MinorAxisLength": "Length of the minor axis of the fitted ellipse",
+      "AspectRation": "Ratio of major and minor axis lengths",
+      "Eccentricity": "Eccentricity of the fitted ellipse",
+      "ConvexArea": "Area of the convex hull",
+      "EquivDiameter": "Diameter of a circle with the same area",
+      "Extent": "Area divided by bounding box area",
+      "Solidity": "Area divided by convex hull area",
+      "roundness": "Roundness derived from area and perimeter",
+      "Compactness": "Equivalent diameter divided by major axis length",
+      "ShapeFactor1": "Shape descriptor derived from bean geometry",
+      "ShapeFactor2": "Shape descriptor derived from bean geometry",
+      "ShapeFactor3": "Shape descriptor derived from bean geometry",
+      "ShapeFactor4": "Shape descriptor derived from bean geometry",
+      "Class": "Bean variety to predict"
+    }
+  }
+}
