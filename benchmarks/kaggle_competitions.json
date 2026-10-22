@@ -1,0 +1,30 @@
+{
+  "spaceship_titanic": {
+    "slug": "spaceship-titanic",
+    "title": "Spaceship Titanic",
+    "source": "https://www.kaggle.com/competitions/spaceship-titanic",
+    "metric": "accuracy",
+    "target": "Transported",
+    "id_column": "PassengerId",
+    "labels": ["False", "True"],
+    "training_rows": 8693,
+    "test_rows": 4277,
+    "description": "Predict whether each passenger was transported to another dimension, using passenger records. This is binary classification. Predict True or False for every original test passenger.",
+    "columns": {
+      "PassengerId": "Passenger key gggg_pp; shared gggg denotes a travel group.",
+      "HomePlanet": "Planet of departure.",
+      "CryoSleep": "Whether the passenger chose suspended animation and remained in their cabin.",
+      "Cabin": "Cabin location as deck/number/side; side is P or S.",
+      "Destination": "Destination planet.",
+      "Age": "Passenger age.",
+      "VIP": "Whether the passenger paid for VIP service.",
+      "RoomService": "Amount billed for room service.",
+      "FoodCourt": "Amount billed for food.",
+      "ShoppingMall": "Amount billed for shopping.",
+      "Spa": "Amount billed for spa services.",
+      "VRDeck": "Amount billed for virtual reality services.",
+      "Name": "Passenger first and last names.",
+      "Transported": "Boolean target: whether the passenger was transported."
+    }
+  }
+}

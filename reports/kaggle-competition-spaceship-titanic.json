@@ -1,0 +1,2136 @@
+{
+  "status": "completed",
+  "title": "Spaceship Titanic",
+  "data": {
+    "competition": "spaceship-titanic",
+    "source": "https://www.kaggle.com/competitions/spaceship-titanic",
+    "metric": "accuracy",
+    "target": "Transported",
+    "id_column": "PassengerId",
+    "training_rows": 8693,
+    "test_rows": 4277,
+    "features": 12,
+    "original_split_preserved": true,
+    "test_labels_available": false,
+    "raw_sha256": {
+      "train.csv": "17336d553f49ebdf6ecb266d2b5d3746e5dd308445f7c7864141c4f28d2a88d0",
+      "test.csv": "3c02b0703423d27d51a657a111b15a37b8d03b3c1de325e3a1e6b26f6572fc88",
+      "sample_submission.csv": "c77c0a5ed1f3d2728d6add6079266a543d12755aebaf00f230ff1966b364ebed"
+    },
+    "input_sha256": {
+      "train.csv": "17336d553f49ebdf6ecb266d2b5d3746e5dd308445f7c7864141c4f28d2a88d0",
+      "test.csv": "3c02b0703423d27d51a657a111b15a37b8d03b3c1de325e3a1e6b26f6572fc88",
+      "data_dictionary.csv": "ff2d5cb6951c71fee58597f105a3c3d2603ba29680c0abe4935b0c4fddb0e31c",
+      "sample_submission.csv": "c77c0a5ed1f3d2728d6add6079266a543d12755aebaf00f230ff1966b364ebed",
+      "task.md": "b3f8c47b6dad9c7a95592abac6cd8cda8fdac66060d77f687b4e719bb47c62bf"
+    },
+    "provenance": {
+      "competition": "spaceship-titanic",
+      "competition_url": "https://www.kaggle.com/competitions/spaceship-titanic",
+      "data_license": "CC BY 4.0 as shown on the competition data page",
+      "source": "Public mirror of the original competition CSV files; no submitted predictions used",
+      "mirrors": [
+        {
+          "repository": "https://github.com/NickLitwinow/Kaggle-Spaceship-Titanic",
+          "commit": "d3a7041e9e508609f3890bae6e8abdfa3059fa40",
+          "directory": "."
+        },
+        {
+          "repository": "https://github.com/GaryTaipei/Build-Kaggle-Competition-Spaceship-Titanic",
+          "commit": "01b2bf051cfe5a25f0f40d150216b56ed4ad8e85",
+          "directory": "data"
+        }
+      ],
+      "files": {
+        "train.csv": {
+          "sha256": "17336d553f49ebdf6ecb266d2b5d3746e5dd308445f7c7864141c4f28d2a88d0",
+          "verification_sha256": "17336d553f49ebdf6ecb266d2b5d3746e5dd308445f7c7864141c4f28d2a88d0",
+          "rows": 8693,
+          "columns": [
+            "PassengerId",
+            "HomePlanet",
+            "CryoSleep",
+            "Cabin",
+            "Destination",
+            "Age",
+            "VIP",
+            "RoomService",
+            "FoodCourt",
+            "ShoppingMall",
+            "Spa",
+            "VRDeck",
+            "Name",
+            "Transported"
+          ],
+          "copies_equal": true,
+          "byte_identical": true
+        },
+        "test.csv": {
+          "sha256": "3c02b0703423d27d51a657a111b15a37b8d03b3c1de325e3a1e6b26f6572fc88",
+          "verification_sha256": "3c02b0703423d27d51a657a111b15a37b8d03b3c1de325e3a1e6b26f6572fc88",
+          "rows": 4277,
+          "columns": [
+            "PassengerId",
+            "HomePlanet",
+            "CryoSleep",
+            "Cabin",
+            "Destination",
+            "Age",
+            "VIP",
+            "RoomService",
+            "FoodCourt",
+            "ShoppingMall",
+            "Spa",
+            "VRDeck",
+            "Name"
+          ],
+          "copies_equal": true,
+          "byte_identical": true
+        },
+        "sample_submission.csv": {
+          "sha256": "c77c0a5ed1f3d2728d6add6079266a543d12755aebaf00f230ff1966b364ebed",
+          "verification_sha256": "c77c0a5ed1f3d2728d6add6079266a543d12755aebaf00f230ff1966b364ebed",
+          "rows": 4277,
+          "columns": [
+            "PassengerId",
+            "Transported"
+          ],
+          "copies_equal": true,
+          "byte_identical": true
+        }
+      },
+      "independent_public_copies_equal": true
+    }
+  },
+  "entrypoint": [
+    "python3",
+    "solution.py",
+    "task.md"
+  ],
+  "agent_default_overrides": {},
+  "archive_sha256": "95080f8dd3a651c6762df6933a82091f89abc708cd6d1797363b49a102a64bc9",
+  "runtime_code_sha256": "110869ae56302830a4d920ad4bde9d06e9c7b2ac45a3e97aa6ab96252331c507",
+  "copied_root_files": [
+    "solution.py",
+    "_atlas_entry.py",
+    "atlas___init__.py",
+    "atlas_agent.py",
+    "atlas_budget.py",
+    "atlas_context.py",
+    "atlas_contract.py",
+    "atlas_ensemble.py",
+    "atlas_experiments.py",
+    "atlas_expressions.py",
+    "atlas_features.py",
+    "atlas_hpo.py",
+    "atlas_judge.py",
+    "atlas_metrics.py",
+    "atlas_models.py",
+    "atlas_orchestration.py",
+    "atlas_recipes.py",
+    "atlas_research.py",
+    "atlas_search.py",
+    "atlas_submit.py",
+    "atlas_task.py",
+    "atlas_utils.py",
+    "atlas_validation.py",
+    "atlas_worker.py",
+    "requirements.txt"
+  ],
+  "supervisor_seconds": 10800,
+  "run_root": "/Users/nosovdanil/PycharmProjects/1/alfaautoresearch/runs/kaggle-competition-_pu8qhrh",
+  "submission": "/Users/nosovdanil/PycharmProjects/1/alfaautoresearch/runs/kaggle-competition-_pu8qhrh/inputs/submission.csv",
+  "log": "/Users/nosovdanil/PycharmProjects/1/alfaautoresearch/runs/kaggle-competition-_pu8qhrh/pipeline.log",
+  "manual_submission_url": "https://www.kaggle.com/competitions/spaceship-titanic/submit",
+  "leaderboard_url": "https://www.kaggle.com/competitions/spaceship-titanic/leaderboard",
+  "official_public_score": null,
+  "leaderboard_rank": null,
+  "submission_mode": "manual",
+  "kaggle_submissions": 0,
+  "platform_submissions": 0,
+  "returncode": 0,
+  "wall_seconds": 109.561,
+  "timed_out": false,
+  "agent_summary": {
+    "runtime_code_sha256": "110869ae56302830a4d920ad4bde9d06e9c7b2ac45a3e97aa6ab96252331c507",
+    "mode": "live-agent",
+    "budget_seconds": 10500.0,
+    "elapsed_seconds": 109.47800037500565,
+    "first_checkpoint_latency": 0.7623224169947207,
+    "validation": {
+      "id": "0eca5a18cb9cd560",
+      "kind": "stratified",
+      "reason": "IID classification",
+      "seed": 42,
+      "train_rows": 5796,
+      "valid_rows": 2897
+    },
+    "metric": "accuracy",
+    "dummy_utility": 0.5036244390749051,
+    "experiments": 60,
+    "successful_experiments": 60,
+    "accepted_experiments": 6,
+    "champion_metric": 0.8008284432171212,
+    "champion_recipe": {
+      "model_family": "lightgbm",
+      "params": {
+        "iterations": 1800,
+        "num_leaves": 92,
+        "min_child_samples": 44,
+        "reg_lambda": 39.26938502436161,
+        "learning_rate": 0.07292345674433275,
+        "colsample_bytree": 0.7473527455672508,
+        "subsample": 0.7609495163305703,
+        "weight": "balanced"
+      },
+      "feature_ops": [],
+      "target_transform": "none",
+      "max_runtime_sec": 300.0,
+      "validation_plan_id": "0eca5a18cb9cd560",
+      "feature_expressions": [],
+      "id": "tpe_22",
+      "statement": "Seeded TPE trial from measured results for this model and feature representation",
+      "parent_experiment": "exp_0016"
+    },
+    "confirmation_metric": 0.7945134575569358,
+    "ensemble": null,
+    "multipliers": null,
+    "qwen_calls": 2,
+    "qwen_proposals": 3,
+    "qwen_tokens": 9336,
+    "qwen_events": [
+      {
+        "status": "api_usage",
+        "call": 1,
+        "response_model": "qwen/qwen3.8-27b",
+        "prompt_tokens": 4343,
+        "completion_tokens": 431,
+        "reasoning_tokens": 0,
+        "finish_reason": "stop",
+        "reported_cost": 0.207388228827,
+        "elapsed_seconds": 6.081,
+        "timeout_seconds": 40.0
+      },
+      {
+        "status": "response",
+        "call": 1,
+        "tokens": 4774,
+        "elapsed_seconds": 6.082,
+        "timeout_seconds": 40.0
+      },
+      {
+        "status": "recipe_rejected",
+        "reason": "Forbidden formula syntax: Subscript"
+      },
+      {
+        "status": "api_usage",
+        "call": 2,
+        "response_model": "qwen/qwen3.8-27b",
+        "prompt_tokens": 4292,
+        "completion_tokens": 270,
+        "reasoning_tokens": 0,
+        "finish_reason": "stop",
+        "reported_cost": 0.163408411738,
+        "elapsed_seconds": 2.65,
+        "timeout_seconds": 40.0
+      },
+      {
+        "status": "response",
+        "call": 2,
+        "tokens": 9336,
+        "elapsed_seconds": 2.65,
+        "timeout_seconds": 40.0
+      },
+      {
+        "status": "recipe_rejected",
+        "reason": "Forbidden formula syntax: Subscript"
+      },
+      {
+        "status": "token_budget_exhausted"
+      }
+    ],
+    "max_live_worker_threads": 15,
+    "peak_worker_memory_mb": 243.84375,
+    "cancelled": false,
+    "output": "/Users/nosovdanil/PycharmProjects/1/alfaautoresearch/runs/kaggle-competition-_pu8qhrh/inputs/submission.csv",
+    "output_sha256": "3e3050a2315d0ce7afe3a4370bef3db140941f775ef71a7815d39eabb6712f77",
+    "full_refit_published": true,
+    "search_experiment_limit": 524,
+    "adaptive_search": {
+      "backend": "optuna-tpe",
+      "studies": 2,
+      "proposed_trials": 41,
+      "completed_trials": 41,
+      "family_proposals": {
+        "lightgbm": 14,
+        "xgboost": 27
+      },
+      "stop_reason": "TPE search stagnated after exploring multiple model families",
+      "research_steps": 49,
+      "research_trial_limit": 512
+    },
+    "cross_validation": {
+      "planned_folds": 3,
+      "completed_candidates": 3,
+      "selection_basis": "mean utility minus 0.25 standard deviation on all frozen folds",
+      "candidates": [
+        {
+          "experiment_id": "exp_0035",
+          "model_family": "xgboost",
+          "fold_metrics": [
+            0.8084225060407317,
+            0.7857142857142857,
+            0.7977915804002761
+          ],
+          "mean_metric": 0.7973094573850977,
+          "metric_std": 0.009276858288232702,
+          "robust_utility": 0.7949902428130395
+        },
+        {
+          "experiment_id": "exp_0033",
+          "model_family": "xgboost",
+          "fold_metrics": [
+            0.8073869520193303,
+            0.785024154589372,
+            0.7971014492753623
+          ],
+          "mean_metric": 0.7965041852946882,
+          "metric_std": 0.009139336971585893,
+          "robust_utility": 0.7942193510517918
+        },
+        {
+          "experiment_id": "exp_0034",
+          "model_family": "lightgbm",
+          "fold_metrics": [
+            0.8008284432171212,
+            0.7881297446514838,
+            0.8008971704623878
+          ],
+          "mean_metric": 0.7966184527769976,
+          "metric_std": 0.0060024886554763774,
+          "robust_utility": 0.7951178306131285
+        }
+      ]
+    },
+    "confirmation_plan": [
+      {
+        "id": "a9e80ff59d1e95b6",
+        "kind": "stratified",
+        "reason": "Frozen cross-validation control 1; validation disjoint from search and other controls",
+        "seed": 1052,
+        "train_rows": 5795,
+        "valid_rows": 2898
+      },
+      {
+        "id": "ec644214cb0f6fea",
+        "kind": "stratified",
+        "reason": "Frozen cross-validation control 2; validation disjoint from search and other controls",
+        "seed": 1053,
+        "train_rows": 5795,
+        "valid_rows": 2898
+      }
+    ],
+    "confirmation_metrics": [
+      {
+        "split_id": "a9e80ff59d1e95b6",
+        "metric_value": 0.7881297446514838
+      },
+      {
+        "split_id": "ec644214cb0f6fea",
+        "metric_value": 0.8008971704623878
+      }
+    ],
+    "feature_group_trials": 6,
+    "feature_ablation_checks": 0,
+    "accepted_feature_ablations": 0,
+    "researcher_provider": "organizer-qwen",
+    "researcher_model": "qwen/qwen3.8-27b",
+    "researcher_calls": 2,
+    "researcher_proposals": 3,
+    "researcher_tokens": 9336,
+    "researcher_events": [
+      {
+        "status": "api_usage",
+        "call": 1,
+        "response_model": "qwen/qwen3.8-27b",
+        "prompt_tokens": 4343,
+        "completion_tokens": 431,
+        "reasoning_tokens": 0,
+        "finish_reason": "stop",
+        "reported_cost": 0.207388228827,
+        "elapsed_seconds": 6.081,
+        "timeout_seconds": 40.0
+      },
+      {
+        "status": "response",
+        "call": 1,
+        "tokens": 4774,
+        "elapsed_seconds": 6.082,
+        "timeout_seconds": 40.0
+      },
+      {
+        "status": "recipe_rejected",
+        "reason": "Forbidden formula syntax: Subscript"
+      },
+      {
+        "status": "api_usage",
+        "call": 2,
+        "response_model": "qwen/qwen3.8-27b",
+        "prompt_tokens": 4292,
+        "completion_tokens": 270,
+        "reasoning_tokens": 0,
+        "finish_reason": "stop",
+        "reported_cost": 0.163408411738,
+        "elapsed_seconds": 2.65,
+        "timeout_seconds": 40.0
+      },
+      {
+        "status": "response",
+        "call": 2,
+        "tokens": 9336,
+        "elapsed_seconds": 2.65,
+        "timeout_seconds": 40.0
+      },
+      {
+        "status": "recipe_rejected",
+        "reason": "Forbidden formula syntax: Subscript"
+      },
+      {
+        "status": "token_budget_exhausted"
+      }
+    ]
+  },
+  "inputs_unchanged": true,
+  "experiments": [
+    {
+      "experiment_id": "exp_0001",
+      "origin": "deterministic",
+      "status": "ok",
+      "metric_value": 0.7849499482222989,
+      "accepted": true,
+      "recipe": {
+        "model_family": "linear",
+        "params": {
+          "C": 1
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 300.0,
+        "validation_plan_id": "0eca5a18cb9cd560",
+        "feature_expressions": [],
+        "id": "candidate",
+        "statement": "Fast regularized linear baseline",
+        "parent_experiment": null
+      }
+    },
+    {
+      "experiment_id": "exp_0002",
+      "origin": "deterministic",
+      "status": "ok",
+      "metric_value": 0.7991025198481188,
+      "accepted": true,
+      "recipe": {
+        "model_family": "lightgbm",
+        "params": {
+          "iterations": 1800,
+          "num_leaves": 31,
+          "min_child_samples": 30
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 300.0,
+        "validation_plan_id": "0eca5a18cb9cd560",
+        "feature_expressions": [],
+        "id": "candidate",
+        "statement": "Fast leaf-wise booster with categorical handling",
+        "parent_experiment": null
+      }
+    },
+    {
+      "experiment_id": "exp_0003",
+      "origin": "deterministic",
+      "status": "ok",
+      "metric_value": 0.7963410424577149,
+      "accepted": false,
+      "recipe": {
+        "model_family": "lightgbm",
+        "params": {
+          "iterations": 1800,
+          "num_leaves": 31,
+          "min_child_samples": 30,
+          "weight": "sqrt"
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 300.0,
+        "validation_plan_id": "0eca5a18cb9cd560",
+        "feature_expressions": [],
+        "id": "local_1",
+        "statement": "Minority recall may improve with sqrt-balanced sample weights",
+        "parent_experiment": "exp_0002"
+      }
+    },
+    {
+      "experiment_id": "exp_0004",
+      "origin": "deterministic",
+      "status": "ok",
+      "metric_value": 0.7611322057300656,
+      "accepted": false,
+      "recipe": {
+        "model_family": "hist",
+        "params": {
+          "iterations": 350
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 300.0,
+        "validation_plan_id": "0eca5a18cb9cd560",
+        "feature_expressions": [],
+        "id": "candidate",
+        "statement": "Histogram boosting diversity",
+        "parent_experiment": null
+      }
+    },
+    {
+      "experiment_id": "exp_0005",
+      "origin": "deterministic",
+      "status": "ok",
+      "metric_value": 0.7787366240938902,
+      "accepted": false,
+      "recipe": {
+        "model_family": "extra_trees",
+        "params": {
+          "iterations": 250,
+          "min_samples_leaf": 2
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 300.0,
+        "validation_plan_id": "0eca5a18cb9cd560",
+        "feature_expressions": [],
+        "id": "candidate",
+        "statement": "Randomized trees for complementary errors",
+        "parent_experiment": null
+      }
+    },
+    {
+      "experiment_id": "exp_0006",
+      "origin": "deterministic",
+      "status": "ok",
+      "metric_value": 0.8039351052813255,
+      "accepted": true,
+      "recipe": {
+        "model_family": "xgboost",
+        "params": {
+          "iterations": 1800,
+          "max_depth": 6
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 300.0,
+        "validation_plan_id": "0eca5a18cb9cd560",
+        "feature_expressions": [],
+        "id": "candidate",
+        "statement": "Regularized histogram booster diversity",
+        "parent_experiment": null
+      }
+    },
+    {
+      "experiment_id": "exp_0007",
+      "origin": "deterministic",
+      "status": "ok",
+      "metric_value": 0.8028995512599241,
+      "accepted": false,
+      "recipe": {
+        "model_family": "xgboost",
+        "params": {
+          "iterations": 1800,
+          "max_depth": 6
+        },
+        "feature_ops": [
+          {
+            "op": "frequency",
+            "columns": [
+              "HomePlanet",
+              "CryoSleep",
+              "Cabin",
+              "Destination",
+              "VIP",
+              "Name"
+            ]
+          }
+        ],
+        "target_transform": "none",
+        "max_runtime_sec": 300.0,
+        "validation_plan_id": "0eca5a18cb9cd560",
+        "feature_expressions": [],
+        "id": "local_2",
+        "statement": "Fold-fitted category frequency may expose rarity without target leakage",
+        "parent_experiment": "exp_0006"
+      }
+    },
+    {
+      "experiment_id": "exp_0008",
+      "origin": "deterministic",
+      "status": "ok",
+      "metric_value": 0.8015188125647221,
+      "accepted": false,
+      "recipe": {
+        "model_family": "xgboost",
+        "params": {
+          "iterations": 1800,
+          "max_depth": 6
+        },
+        "feature_ops": [
+          {
+            "op": "ratio",
+            "columns": [
+              "Age",
+              "RoomService"
+            ]
+          }
+        ],
+        "target_transform": "none",
+        "max_runtime_sec": 300.0,
+        "validation_plan_id": "0eca5a18cb9cd560",
+        "feature_expressions": [],
+        "id": "local_4",
+        "statement": "Bounded numeric interaction may capture nonlinear rates",
+        "parent_experiment": "exp_0006"
+      }
+    },
+    {
+      "experiment_id": "exp_0009",
+      "origin": "deterministic",
+      "status": "ok",
+      "metric_value": 0.8028995512599241,
+      "accepted": false,
+      "recipe": {
+        "model_family": "xgboost",
+        "params": {
+          "iterations": 1800,
+          "max_depth": 6
+        },
+        "feature_ops": [
+          {
+            "op": "product",
+            "columns": [
+              "Age",
+              "RoomService"
+            ]
+          }
+        ],
+        "target_transform": "none",
+        "max_runtime_sec": 300.0,
+        "validation_plan_id": "0eca5a18cb9cd560",
+        "feature_expressions": [],
+        "id": "local_5",
+        "statement": "Bounded numeric interaction may capture nonlinear rates",
+        "parent_experiment": "exp_0006"
+      }
+    },
+    {
+      "experiment_id": "exp_0010",
+      "origin": "deterministic",
+      "status": "ok",
+      "metric_value": 0.8011736278909216,
+      "accepted": false,
+      "recipe": {
+        "model_family": "xgboost",
+        "params": {
+          "iterations": 1800,
+          "max_depth": 6
+        },
+        "feature_ops": [
+          {
+            "op": "clip",
+            "columns": [
+              "Age",
+              "RoomService",
+              "FoodCourt",
+              "ShoppingMall",
+              "Spa",
+              "VRDeck"
+            ]
+          }
+        ],
+        "target_transform": "none",
+        "max_runtime_sec": 300.0,
+        "validation_plan_id": "0eca5a18cb9cd560",
+        "feature_expressions": [],
+        "id": "local_6",
+        "statement": "Fold-fitted clipped copies may reduce outlier sensitivity while retaining originals",
+        "parent_experiment": "exp_0006"
+      }
+    },
+    {
+      "experiment_id": "exp_0011",
+      "origin": "deterministic",
+      "status": "ok",
+      "metric_value": 0.802209181912323,
+      "accepted": false,
+      "recipe": {
+        "model_family": "xgboost",
+        "params": {
+          "iterations": 1800,
+          "max_depth": 6
+        },
+        "feature_ops": [
+          {
+            "op": "combine",
+            "columns": [
+              "HomePlanet",
+              "CryoSleep"
+            ]
+          }
+        ],
+        "target_transform": "none",
+        "max_runtime_sec": 300.0,
+        "validation_plan_id": "0eca5a18cb9cd560",
+        "feature_expressions": [],
+        "id": "local_7",
+        "statement": "Categorical composition may expose conditional patterns",
+        "parent_experiment": "exp_0006"
+      }
+    },
+    {
+      "experiment_id": "exp_0012",
+      "origin": "deterministic",
+      "status": "ok",
+      "metric_value": 0.8039351052813255,
+      "accepted": false,
+      "recipe": {
+        "model_family": "xgboost",
+        "params": {
+          "iterations": 1800,
+          "max_depth": 6
+        },
+        "feature_ops": [
+          {
+            "op": "group_mean",
+            "columns": [
+              "HomePlanet",
+              "Age"
+            ]
+          }
+        ],
+        "target_transform": "none",
+        "max_runtime_sec": 300.0,
+        "validation_plan_id": "0eca5a18cb9cd560",
+        "feature_expressions": [],
+        "id": "local_8",
+        "statement": "Training-fold feature aggregate may capture group scale without target encoding",
+        "parent_experiment": "exp_0006"
+      }
+    },
+    {
+      "experiment_id": "exp_0013",
+      "origin": "optuna-tpe",
+      "status": "ok",
+      "metric_value": 0.795650673110114,
+      "accepted": false,
+      "recipe": {
+        "model_family": "lightgbm",
+        "params": {
+          "iterations": 1800,
+          "num_leaves": 103,
+          "min_child_samples": 121,
+          "reg_lambda": 29.55987147810717,
+          "learning_rate": 0.14128464671179475,
+          "colsample_bytree": 0.6886174391243027,
+          "subsample": 0.9004607292086675,
+          "weight": "balanced"
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 300.0,
+        "validation_plan_id": "0eca5a18cb9cd560",
+        "feature_expressions": [],
+        "id": "tpe_1",
+        "statement": "Seeded TPE trial from measured results for this model and feature representation",
+        "parent_experiment": "exp_0002"
+      }
+    },
+    {
+      "experiment_id": "exp_0014",
+      "origin": "optuna-tpe",
+      "status": "ok",
+      "metric_value": 0.802209181912323,
+      "accepted": false,
+      "recipe": {
+        "model_family": "xgboost",
+        "params": {
+          "iterations": 1800,
+          "max_depth": 9,
+          "min_child_weight": 19.23323072261403,
+          "reg_lambda": 32.68760860351555,
+          "learning_rate": 0.03036251338079041,
+          "colsample_bytree": 0.6009611429829067,
+          "subsample": 0.6914477295419236,
+          "weight": "sqrt"
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 300.0,
+        "validation_plan_id": "0eca5a18cb9cd560",
+        "feature_expressions": [],
+        "id": "tpe_2",
+        "statement": "Seeded TPE trial from measured results for this model and feature representation",
+        "parent_experiment": "exp_0006"
+      }
+    },
+    {
+      "experiment_id": "exp_0015",
+      "origin": "optuna-tpe",
+      "status": "ok",
+      "metric_value": 0.8011736278909216,
+      "accepted": false,
+      "recipe": {
+        "model_family": "xgboost",
+        "params": {
+          "iterations": 1800,
+          "max_depth": 6,
+          "min_child_weight": 15.254673066719699,
+          "reg_lambda": 18.77831110773308,
+          "learning_rate": 0.016037740360411657,
+          "colsample_bytree": 0.8584450926155616,
+          "subsample": 0.7883213060107941,
+          "weight": "none"
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 300.0,
+        "validation_plan_id": "0eca5a18cb9cd560",
+        "feature_expressions": [],
+        "id": "tpe_3",
+        "statement": "Seeded TPE trial from measured results for this model and feature representation",
+        "parent_experiment": "exp_0006"
+      }
+    },
+    {
+      "experiment_id": "exp_0016",
+      "origin": "optuna-tpe",
+      "status": "ok",
+      "metric_value": 0.8001380738695202,
+      "accepted": false,
+      "recipe": {
+        "model_family": "lightgbm",
+        "params": {
+          "iterations": 1800,
+          "num_leaves": 87,
+          "min_child_samples": 65,
+          "reg_lambda": 15.34934159125762,
+          "learning_rate": 0.021576152837699487,
+          "colsample_bytree": 0.996520005327008,
+          "subsample": 0.8137874966118301,
+          "weight": "balanced"
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 300.0,
+        "validation_plan_id": "0eca5a18cb9cd560",
+        "feature_expressions": [],
+        "id": "tpe_4",
+        "statement": "Seeded TPE trial from measured results for this model and feature representation",
+        "parent_experiment": "exp_0002"
+      }
+    },
+    {
+      "experiment_id": "exp_0017",
+      "origin": "optuna-tpe",
+      "status": "ok",
+      "metric_value": 0.8032447359337246,
+      "accepted": false,
+      "recipe": {
+        "model_family": "xgboost",
+        "params": {
+          "iterations": 1800,
+          "max_depth": 6,
+          "min_child_weight": 18.93435603427385,
+          "reg_lambda": 29.01685280569591,
+          "learning_rate": 0.06129750565622507,
+          "colsample_bytree": 0.6730672569701571,
+          "subsample": 0.8156241037503135,
+          "weight": "sqrt"
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 300.0,
+        "validation_plan_id": "0eca5a18cb9cd560",
+        "feature_expressions": [],
+        "id": "tpe_5",
+        "statement": "Seeded TPE trial from measured results for this model and feature representation",
+        "parent_experiment": "exp_0006"
+      }
+    },
+    {
+      "experiment_id": "exp_0018",
+      "origin": "optuna-tpe",
+      "status": "ok",
+      "metric_value": 0.7980669658267173,
+      "accepted": false,
+      "recipe": {
+        "model_family": "xgboost",
+        "params": {
+          "iterations": 1800,
+          "max_depth": 4,
+          "min_child_weight": 1.0419601284823492,
+          "reg_lambda": 0.23113008566330961,
+          "learning_rate": 0.14992179076277334,
+          "colsample_bytree": 0.9401272743170974,
+          "subsample": 0.9892272318055269,
+          "weight": "none"
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 300.0,
+        "validation_plan_id": "0eca5a18cb9cd560",
+        "feature_expressions": [],
+        "id": "tpe_6",
+        "statement": "Seeded TPE trial from measured results for this model and feature representation",
+        "parent_experiment": "exp_0006"
+      }
+    },
+    {
+      "experiment_id": "exp_0019",
+      "origin": "optuna-tpe",
+      "status": "ok",
+      "metric_value": 0.8001380738695202,
+      "accepted": false,
+      "recipe": {
+        "model_family": "lightgbm",
+        "params": {
+          "iterations": 1800,
+          "num_leaves": 100,
+          "min_child_samples": 101,
+          "reg_lambda": 49.41823060401799,
+          "learning_rate": 0.015708110056795933,
+          "colsample_bytree": 0.8393733568620632,
+          "subsample": 0.6973128783510931,
+          "weight": "balanced"
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 300.0,
+        "validation_plan_id": "0eca5a18cb9cd560",
+        "feature_expressions": [],
+        "id": "tpe_7",
+        "statement": "Seeded TPE trial from measured results for this model and feature representation",
+        "parent_experiment": "exp_0016"
+      }
+    },
+    {
+      "experiment_id": "exp_0020",
+      "origin": "optuna-tpe",
+      "status": "ok",
+      "metric_value": 0.7932343803935106,
+      "accepted": false,
+      "recipe": {
+        "model_family": "xgboost",
+        "params": {
+          "iterations": 1800,
+          "max_depth": 9,
+          "min_child_weight": 1.031192389235512,
+          "reg_lambda": 0.7203945217243676,
+          "learning_rate": 0.06422968613989652,
+          "colsample_bytree": 0.9727618769918731,
+          "subsample": 0.9842075645933044,
+          "weight": "balanced"
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 300.0,
+        "validation_plan_id": "0eca5a18cb9cd560",
+        "feature_expressions": [],
+        "id": "tpe_8",
+        "statement": "Seeded TPE trial from measured results for this model and feature representation",
+        "parent_experiment": "exp_0006"
+      }
+    },
+    {
+      "experiment_id": "exp_0021",
+      "origin": "optuna-tpe",
+      "status": "ok",
+      "metric_value": 0.8063513979979289,
+      "accepted": true,
+      "recipe": {
+        "model_family": "xgboost",
+        "params": {
+          "iterations": 1800,
+          "max_depth": 3,
+          "min_child_weight": 3.5222002675483246,
+          "reg_lambda": 49.0752068373785,
+          "learning_rate": 0.034886035945697086,
+          "colsample_bytree": 0.7718715922739485,
+          "subsample": 0.9247230366314716,
+          "weight": "none"
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 300.0,
+        "validation_plan_id": "0eca5a18cb9cd560",
+        "feature_expressions": [],
+        "id": "tpe_9",
+        "statement": "Seeded TPE trial from measured results for this model and feature representation",
+        "parent_experiment": "exp_0006"
+      }
+    },
+    {
+      "experiment_id": "exp_0022",
+      "origin": "optuna-tpe",
+      "status": "ok",
+      "metric_value": 0.7966862271315154,
+      "accepted": false,
+      "recipe": {
+        "model_family": "lightgbm",
+        "params": {
+          "iterations": 1800,
+          "num_leaves": 79,
+          "min_child_samples": 63,
+          "reg_lambda": 18.981854285824323,
+          "learning_rate": 0.016816164289100738,
+          "colsample_bytree": 0.8781446227162963,
+          "subsample": 0.7533973553345414,
+          "weight": "balanced"
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 300.0,
+        "validation_plan_id": "0eca5a18cb9cd560",
+        "feature_expressions": [],
+        "id": "tpe_10",
+        "statement": "Seeded TPE trial from measured results for this model and feature representation",
+        "parent_experiment": "exp_0016"
+      }
+    },
+    {
+      "experiment_id": "exp_0023",
+      "origin": "optuna-tpe",
+      "status": "ok",
+      "metric_value": 0.803589920607525,
+      "accepted": false,
+      "recipe": {
+        "model_family": "xgboost",
+        "params": {
+          "iterations": 1800,
+          "max_depth": 3,
+          "min_child_weight": 3.7342245383694683,
+          "reg_lambda": 49.28997438883626,
+          "learning_rate": 0.026399337944304935,
+          "colsample_bytree": 0.7639069911486415,
+          "subsample": 0.9018933946583937,
+          "weight": "balanced"
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 300.0,
+        "validation_plan_id": "0eca5a18cb9cd560",
+        "feature_expressions": [],
+        "id": "tpe_11",
+        "statement": "Seeded TPE trial from measured results for this model and feature representation",
+        "parent_experiment": "exp_0021"
+      }
+    },
+    {
+      "experiment_id": "exp_0024",
+      "origin": "optuna-tpe",
+      "status": "ok",
+      "metric_value": 0.8053158439765274,
+      "accepted": false,
+      "recipe": {
+        "model_family": "xgboost",
+        "params": {
+          "iterations": 1800,
+          "max_depth": 4,
+          "min_child_weight": 4.253644808604985,
+          "reg_lambda": 45.40946995688016,
+          "learning_rate": 0.10743051115394063,
+          "colsample_bytree": 0.7718341587360762,
+          "subsample": 0.8969315829410989,
+          "weight": "none"
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 300.0,
+        "validation_plan_id": "0eca5a18cb9cd560",
+        "feature_expressions": [],
+        "id": "tpe_12",
+        "statement": "Seeded TPE trial from measured results for this model and feature representation",
+        "parent_experiment": "exp_0021"
+      }
+    },
+    {
+      "experiment_id": "exp_0025",
+      "origin": "optuna-tpe",
+      "status": "ok",
+      "metric_value": 0.7991025198481188,
+      "accepted": false,
+      "recipe": {
+        "model_family": "lightgbm",
+        "params": {
+          "iterations": 1800,
+          "num_leaves": 69,
+          "min_child_samples": 150,
+          "reg_lambda": 19.662190196169355,
+          "learning_rate": 0.031226138628213686,
+          "colsample_bytree": 0.6044336339691332,
+          "subsample": 0.8323373240774855,
+          "weight": "none"
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 300.0,
+        "validation_plan_id": "0eca5a18cb9cd560",
+        "feature_expressions": [],
+        "id": "tpe_13",
+        "statement": "Seeded TPE trial from measured results for this model and feature representation",
+        "parent_experiment": "exp_0016"
+      }
+    },
+    {
+      "experiment_id": "exp_0026",
+      "origin": "optuna-tpe",
+      "status": "ok",
+      "metric_value": 0.8001380738695202,
+      "accepted": false,
+      "recipe": {
+        "model_family": "xgboost",
+        "params": {
+          "iterations": 1800,
+          "max_depth": 3,
+          "min_child_weight": 9.074630990177255,
+          "reg_lambda": 40.17904827150204,
+          "learning_rate": 0.02849294098648166,
+          "colsample_bytree": 0.8718843781477146,
+          "subsample": 0.8943998993877337,
+          "weight": "none"
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 300.0,
+        "validation_plan_id": "0eca5a18cb9cd560",
+        "feature_expressions": [],
+        "id": "tpe_14",
+        "statement": "Seeded TPE trial from measured results for this model and feature representation",
+        "parent_experiment": "exp_0021"
+      }
+    },
+    {
+      "experiment_id": "exp_0027",
+      "origin": "optuna-tpe",
+      "status": "ok",
+      "metric_value": 0.8025543665861236,
+      "accepted": false,
+      "recipe": {
+        "model_family": "xgboost",
+        "params": {
+          "iterations": 1800,
+          "max_depth": 8,
+          "min_child_weight": 2.450190125450734,
+          "reg_lambda": 17.382504631886853,
+          "learning_rate": 0.019740893490424957,
+          "colsample_bytree": 0.7254900239160783,
+          "subsample": 0.8594549883460931,
+          "weight": "sqrt"
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 300.0,
+        "validation_plan_id": "0eca5a18cb9cd560",
+        "feature_expressions": [],
+        "id": "tpe_15",
+        "statement": "Seeded TPE trial from measured results for this model and feature representation",
+        "parent_experiment": "exp_0021"
+      }
+    },
+    {
+      "experiment_id": "exp_0028",
+      "origin": "optuna-tpe",
+      "status": "ok",
+      "metric_value": 0.7970314118053159,
+      "accepted": false,
+      "recipe": {
+        "model_family": "lightgbm",
+        "params": {
+          "iterations": 1800,
+          "num_leaves": 127,
+          "min_child_samples": 77,
+          "reg_lambda": 33.00549177412603,
+          "learning_rate": 0.10478982796298303,
+          "colsample_bytree": 0.9056053792299158,
+          "subsample": 0.8369531210453758,
+          "weight": "sqrt"
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 300.0,
+        "validation_plan_id": "0eca5a18cb9cd560",
+        "feature_expressions": [],
+        "id": "tpe_16",
+        "statement": "Seeded TPE trial from measured results for this model and feature representation",
+        "parent_experiment": "exp_0016"
+      }
+    },
+    {
+      "experiment_id": "exp_0029",
+      "origin": "optuna-tpe",
+      "status": "ok",
+      "metric_value": 0.8046254746289265,
+      "accepted": false,
+      "recipe": {
+        "model_family": "xgboost",
+        "params": {
+          "iterations": 1800,
+          "max_depth": 4,
+          "min_child_weight": 5.234677988133902,
+          "reg_lambda": 49.97644091456156,
+          "learning_rate": 0.1099031010727592,
+          "colsample_bytree": 0.8084353243856762,
+          "subsample": 0.9179918829367839,
+          "weight": "none"
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 300.0,
+        "validation_plan_id": "0eca5a18cb9cd560",
+        "feature_expressions": [],
+        "id": "tpe_17",
+        "statement": "Seeded TPE trial from measured results for this model and feature representation",
+        "parent_experiment": "exp_0021"
+      }
+    },
+    {
+      "experiment_id": "exp_0030",
+      "origin": "optuna-tpe",
+      "status": "ok",
+      "metric_value": 0.8025543665861236,
+      "accepted": false,
+      "recipe": {
+        "model_family": "xgboost",
+        "params": {
+          "iterations": 1800,
+          "max_depth": 4,
+          "min_child_weight": 2.0553770062483045,
+          "reg_lambda": 41.7163539201236,
+          "learning_rate": 0.07808550897683626,
+          "colsample_bytree": 0.7328746259623554,
+          "subsample": 0.9344358636306346,
+          "weight": "none"
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 300.0,
+        "validation_plan_id": "0eca5a18cb9cd560",
+        "feature_expressions": [],
+        "id": "tpe_18",
+        "statement": "Seeded TPE trial from measured results for this model and feature representation",
+        "parent_experiment": "exp_0021"
+      }
+    },
+    {
+      "experiment_id": "exp_0031",
+      "origin": "optuna-tpe",
+      "status": "ok",
+      "metric_value": 0.7991025198481188,
+      "accepted": false,
+      "recipe": {
+        "model_family": "lightgbm",
+        "params": {
+          "iterations": 1800,
+          "num_leaves": 51,
+          "min_child_samples": 8,
+          "reg_lambda": 10.975893800386993,
+          "learning_rate": 0.026017653968373678,
+          "colsample_bytree": 0.7661952364929002,
+          "subsample": 0.6690687230450885,
+          "weight": "balanced"
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 300.0,
+        "validation_plan_id": "0eca5a18cb9cd560",
+        "feature_expressions": [],
+        "id": "tpe_19",
+        "statement": "Seeded TPE trial from measured results for this model and feature representation",
+        "parent_experiment": "exp_0016"
+      }
+    },
+    {
+      "experiment_id": "exp_0032",
+      "origin": "optuna-tpe",
+      "status": "ok",
+      "metric_value": 0.8066965826717294,
+      "accepted": false,
+      "recipe": {
+        "model_family": "xgboost",
+        "params": {
+          "iterations": 1800,
+          "max_depth": 5,
+          "min_child_weight": 7.600499173398857,
+          "reg_lambda": 36.93828648802413,
+          "learning_rate": 0.03881599613797188,
+          "colsample_bytree": 0.8051881545295003,
+          "subsample": 0.752169648836849,
+          "weight": "none"
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 300.0,
+        "validation_plan_id": "0eca5a18cb9cd560",
+        "feature_expressions": [],
+        "id": "tpe_20",
+        "statement": "Seeded TPE trial from measured results for this model and feature representation",
+        "parent_experiment": "exp_0021"
+      }
+    },
+    {
+      "experiment_id": "exp_0033",
+      "origin": "optuna-tpe",
+      "status": "ok",
+      "metric_value": 0.8073869520193303,
+      "accepted": true,
+      "recipe": {
+        "model_family": "xgboost",
+        "params": {
+          "iterations": 1800,
+          "max_depth": 5,
+          "min_child_weight": 8.998779025036354,
+          "reg_lambda": 37.79955794952107,
+          "learning_rate": 0.03646998518729581,
+          "colsample_bytree": 0.8334705413945163,
+          "subsample": 0.746649426344205,
+          "weight": "balanced"
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 300.0,
+        "validation_plan_id": "0eca5a18cb9cd560",
+        "feature_expressions": [],
+        "id": "tpe_21",
+        "statement": "Seeded TPE trial from measured results for this model and feature representation",
+        "parent_experiment": "exp_0032"
+      }
+    },
+    {
+      "experiment_id": "exp_0034",
+      "origin": "optuna-tpe",
+      "status": "ok",
+      "metric_value": 0.8008284432171212,
+      "accepted": false,
+      "recipe": {
+        "model_family": "lightgbm",
+        "params": {
+          "iterations": 1800,
+          "num_leaves": 92,
+          "min_child_samples": 44,
+          "reg_lambda": 39.26938502436161,
+          "learning_rate": 0.07292345674433275,
+          "colsample_bytree": 0.7473527455672508,
+          "subsample": 0.7609495163305703,
+          "weight": "balanced"
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 300.0,
+        "validation_plan_id": "0eca5a18cb9cd560",
+        "feature_expressions": [],
+        "id": "tpe_22",
+        "statement": "Seeded TPE trial from measured results for this model and feature representation",
+        "parent_experiment": "exp_0016"
+      }
+    },
+    {
+      "experiment_id": "exp_0035",
+      "origin": "optuna-tpe",
+      "status": "ok",
+      "metric_value": 0.8084225060407317,
+      "accepted": true,
+      "recipe": {
+        "model_family": "xgboost",
+        "params": {
+          "iterations": 1800,
+          "max_depth": 5,
+          "min_child_weight": 9.320380792999861,
+          "reg_lambda": 35.4430287195546,
+          "learning_rate": 0.03926115517718856,
+          "colsample_bytree": 0.8572744818941345,
+          "subsample": 0.7364184083135499,
+          "weight": "balanced"
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 300.0,
+        "validation_plan_id": "0eca5a18cb9cd560",
+        "feature_expressions": [],
+        "id": "tpe_23",
+        "statement": "Seeded TPE trial from measured results for this model and feature representation",
+        "parent_experiment": "exp_0033"
+      }
+    },
+    {
+      "experiment_id": "exp_0036",
+      "origin": "optuna-tpe",
+      "status": "ok",
+      "metric_value": 0.8028995512599241,
+      "accepted": false,
+      "recipe": {
+        "model_family": "xgboost",
+        "params": {
+          "iterations": 1800,
+          "max_depth": 7,
+          "min_child_weight": 29.293697962091837,
+          "reg_lambda": 22.727255455834616,
+          "learning_rate": 0.04343204374569587,
+          "colsample_bytree": 0.8765436745346583,
+          "subsample": 0.6510817460068654,
+          "weight": "balanced"
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 300.0,
+        "validation_plan_id": "0eca5a18cb9cd560",
+        "feature_expressions": [],
+        "id": "tpe_24",
+        "statement": "Seeded TPE trial from measured results for this model and feature representation",
+        "parent_experiment": "exp_0035"
+      }
+    },
+    {
+      "experiment_id": "exp_0037",
+      "origin": "optuna-tpe",
+      "status": "ok",
+      "metric_value": 0.7970314118053159,
+      "accepted": false,
+      "recipe": {
+        "model_family": "lightgbm",
+        "params": {
+          "iterations": 1800,
+          "num_leaves": 122,
+          "min_child_samples": 35,
+          "reg_lambda": 42.8750262190647,
+          "learning_rate": 0.08059576108454101,
+          "colsample_bytree": 0.7436133564578731,
+          "subsample": 0.7367457540977642,
+          "weight": "sqrt"
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 300.0,
+        "validation_plan_id": "0eca5a18cb9cd560",
+        "feature_expressions": [],
+        "id": "tpe_25",
+        "statement": "Seeded TPE trial from measured results for this model and feature representation",
+        "parent_experiment": "exp_0034"
+      }
+    },
+    {
+      "experiment_id": "exp_0038",
+      "origin": "optuna-tpe",
+      "status": "ok",
+      "metric_value": 0.804280289955126,
+      "accepted": false,
+      "recipe": {
+        "model_family": "xgboost",
+        "params": {
+          "iterations": 1800,
+          "max_depth": 5,
+          "min_child_weight": 9.49141558863076,
+          "reg_lambda": 32.977845692359864,
+          "learning_rate": 0.02401129234295298,
+          "colsample_bytree": 0.9174769470920099,
+          "subsample": 0.7304542417807498,
+          "weight": "balanced"
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 300.0,
+        "validation_plan_id": "0eca5a18cb9cd560",
+        "feature_expressions": [],
+        "id": "tpe_26",
+        "statement": "Seeded TPE trial from measured results for this model and feature representation",
+        "parent_experiment": "exp_0035"
+      }
+    },
+    {
+      "experiment_id": "exp_0039",
+      "origin": "optuna-tpe",
+      "status": "ok",
+      "metric_value": 0.8039351052813255,
+      "accepted": false,
+      "recipe": {
+        "model_family": "xgboost",
+        "params": {
+          "iterations": 1800,
+          "max_depth": 5,
+          "min_child_weight": 11.896144329037973,
+          "reg_lambda": 9.943158214646058,
+          "learning_rate": 0.05013087228798713,
+          "colsample_bytree": 0.8525271068768231,
+          "subsample": 0.7446854054779762,
+          "weight": "balanced"
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 300.0,
+        "validation_plan_id": "0eca5a18cb9cd560",
+        "feature_expressions": [],
+        "id": "tpe_27",
+        "statement": "Seeded TPE trial from measured results for this model and feature representation",
+        "parent_experiment": "exp_0035"
+      }
+    },
+    {
+      "experiment_id": "exp_0040",
+      "origin": "optuna-tpe",
+      "status": "ok",
+      "metric_value": 0.7984121505005177,
+      "accepted": false,
+      "recipe": {
+        "model_family": "lightgbm",
+        "params": {
+          "iterations": 1800,
+          "num_leaves": 93,
+          "min_child_samples": 56,
+          "reg_lambda": 38.00643213226282,
+          "learning_rate": 0.07095369174617601,
+          "colsample_bytree": 0.6733036925685131,
+          "subsample": 0.7908816237065123,
+          "weight": "balanced"
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 300.0,
+        "validation_plan_id": "0eca5a18cb9cd560",
+        "feature_expressions": [],
+        "id": "tpe_28",
+        "statement": "Seeded TPE trial from measured results for this model and feature representation",
+        "parent_experiment": "exp_0034"
+      }
+    },
+    {
+      "experiment_id": "exp_0041",
+      "origin": "optuna-tpe",
+      "status": "ok",
+      "metric_value": 0.8039351052813255,
+      "accepted": false,
+      "recipe": {
+        "model_family": "xgboost",
+        "params": {
+          "iterations": 1800,
+          "max_depth": 7,
+          "min_child_weight": 5.655830157340069,
+          "reg_lambda": 29.923486588372427,
+          "learning_rate": 0.020881423864341893,
+          "colsample_bytree": 0.9054247623015047,
+          "subsample": 0.7843802793576905,
+          "weight": "balanced"
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 300.0,
+        "validation_plan_id": "0eca5a18cb9cd560",
+        "feature_expressions": [],
+        "id": "tpe_29",
+        "statement": "Seeded TPE trial from measured results for this model and feature representation",
+        "parent_experiment": "exp_0035"
+      }
+    },
+    {
+      "experiment_id": "exp_0042",
+      "origin": "optuna-tpe",
+      "status": "ok",
+      "metric_value": 0.8039351052813255,
+      "accepted": false,
+      "recipe": {
+        "model_family": "xgboost",
+        "params": {
+          "iterations": 1800,
+          "max_depth": 7,
+          "min_child_weight": 7.8048471477712456,
+          "reg_lambda": 37.01905414889806,
+          "learning_rate": 0.059700109946185693,
+          "colsample_bytree": 0.8274354098791041,
+          "subsample": 0.7007337230610406,
+          "weight": "balanced"
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 300.0,
+        "validation_plan_id": "0eca5a18cb9cd560",
+        "feature_expressions": [],
+        "id": "tpe_30",
+        "statement": "Seeded TPE trial from measured results for this model and feature representation",
+        "parent_experiment": "exp_0035"
+      }
+    },
+    {
+      "experiment_id": "exp_0043",
+      "origin": "optuna-tpe",
+      "status": "ok",
+      "metric_value": 0.7973765964791163,
+      "accepted": false,
+      "recipe": {
+        "model_family": "lightgbm",
+        "params": {
+          "iterations": 1800,
+          "num_leaves": 52,
+          "min_child_samples": 91,
+          "reg_lambda": 11.251705600332622,
+          "learning_rate": 0.027701926534673016,
+          "colsample_bytree": 0.8012254436075918,
+          "subsample": 0.8866855216743319,
+          "weight": "balanced"
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 300.0,
+        "validation_plan_id": "0eca5a18cb9cd560",
+        "feature_expressions": [],
+        "id": "tpe_31",
+        "statement": "Seeded TPE trial from measured results for this model and feature representation",
+        "parent_experiment": "exp_0034"
+      }
+    },
+    {
+      "experiment_id": "exp_0044",
+      "origin": "optuna-tpe",
+      "status": "ok",
+      "metric_value": 0.8060062133241284,
+      "accepted": false,
+      "recipe": {
+        "model_family": "xgboost",
+        "params": {
+          "iterations": 1800,
+          "max_depth": 5,
+          "min_child_weight": 6.585508385434557,
+          "reg_lambda": 38.49171993178475,
+          "learning_rate": 0.038090261567423296,
+          "colsample_bytree": 0.8143842278492707,
+          "subsample": 0.7522834022374522,
+          "weight": "balanced"
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 300.0,
+        "validation_plan_id": "0eca5a18cb9cd560",
+        "feature_expressions": [],
+        "id": "tpe_32",
+        "statement": "Seeded TPE trial from measured results for this model and feature representation",
+        "parent_experiment": "exp_0035"
+      }
+    },
+    {
+      "experiment_id": "exp_0045",
+      "origin": "optuna-tpe",
+      "status": "ok",
+      "metric_value": 0.8018639972385226,
+      "accepted": false,
+      "recipe": {
+        "model_family": "xgboost",
+        "params": {
+          "iterations": 1800,
+          "max_depth": 5,
+          "min_child_weight": 12.365291637394792,
+          "reg_lambda": 35.53716958395608,
+          "learning_rate": 0.03625965254247305,
+          "colsample_bytree": 0.704795313188096,
+          "subsample": 0.7069406382054356,
+          "weight": "balanced"
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 300.0,
+        "validation_plan_id": "0eca5a18cb9cd560",
+        "feature_expressions": [],
+        "id": "tpe_33",
+        "statement": "Seeded TPE trial from measured results for this model and feature representation",
+        "parent_experiment": "exp_0035"
+      }
+    },
+    {
+      "experiment_id": "exp_0046",
+      "origin": "optuna-tpe",
+      "status": "ok",
+      "metric_value": 0.7984121505005177,
+      "accepted": false,
+      "recipe": {
+        "model_family": "lightgbm",
+        "params": {
+          "iterations": 1800,
+          "num_leaves": 86,
+          "min_child_samples": 52,
+          "reg_lambda": 23.666652740046878,
+          "learning_rate": 0.06694325788862172,
+          "colsample_bytree": 0.9264632219771505,
+          "subsample": 0.7801409044576214,
+          "weight": "balanced"
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 300.0,
+        "validation_plan_id": "0eca5a18cb9cd560",
+        "feature_expressions": [],
+        "id": "tpe_34",
+        "statement": "Seeded TPE trial from measured results for this model and feature representation",
+        "parent_experiment": "exp_0034"
+      }
+    },
+    {
+      "experiment_id": "exp_0047",
+      "origin": "optuna-tpe",
+      "status": "ok",
+      "metric_value": 0.8028995512599241,
+      "accepted": false,
+      "recipe": {
+        "model_family": "xgboost",
+        "params": {
+          "iterations": 1800,
+          "max_depth": 6,
+          "min_child_weight": 11.1210181555217,
+          "reg_lambda": 29.777609211012006,
+          "learning_rate": 0.04208220075345625,
+          "colsample_bytree": 0.8444050018996221,
+          "subsample": 0.7714922996283173,
+          "weight": "balanced"
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 300.0,
+        "validation_plan_id": "0eca5a18cb9cd560",
+        "feature_expressions": [],
+        "id": "tpe_35",
+        "statement": "Seeded TPE trial from measured results for this model and feature representation",
+        "parent_experiment": "exp_0035"
+      }
+    },
+    {
+      "experiment_id": "exp_0048",
+      "origin": "optuna-tpe",
+      "status": "ok",
+      "metric_value": 0.8049706593027269,
+      "accepted": false,
+      "recipe": {
+        "model_family": "xgboost",
+        "params": {
+          "iterations": 1800,
+          "max_depth": 5,
+          "min_child_weight": 7.093180131281812,
+          "reg_lambda": 43.39067546329128,
+          "learning_rate": 0.030606393241037394,
+          "colsample_bytree": 0.7897941105454359,
+          "subsample": 0.8206836278493863,
+          "weight": "sqrt"
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 300.0,
+        "validation_plan_id": "0eca5a18cb9cd560",
+        "feature_expressions": [],
+        "id": "tpe_36",
+        "statement": "Seeded TPE trial from measured results for this model and feature representation",
+        "parent_experiment": "exp_0035"
+      }
+    },
+    {
+      "experiment_id": "exp_0049",
+      "origin": "optuna-tpe",
+      "status": "ok",
+      "metric_value": 0.7980669658267173,
+      "accepted": false,
+      "recipe": {
+        "model_family": "lightgbm",
+        "params": {
+          "iterations": 1800,
+          "num_leaves": 111,
+          "min_child_samples": 6,
+          "reg_lambda": 11.564822631939517,
+          "learning_rate": 0.052605368369764295,
+          "colsample_bytree": 0.7313018192740074,
+          "subsample": 0.8966006782996851,
+          "weight": "balanced"
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 300.0,
+        "validation_plan_id": "0eca5a18cb9cd560",
+        "feature_expressions": [],
+        "id": "tpe_37",
+        "statement": "Seeded TPE trial from measured results for this model and feature representation",
+        "parent_experiment": "exp_0034"
+      }
+    },
+    {
+      "experiment_id": "exp_0050",
+      "origin": "optuna-tpe",
+      "status": "ok",
+      "metric_value": 0.804280289955126,
+      "accepted": false,
+      "recipe": {
+        "model_family": "xgboost",
+        "params": {
+          "iterations": 1800,
+          "max_depth": 4,
+          "min_child_weight": 18.787496078225082,
+          "reg_lambda": 22.074928977521132,
+          "learning_rate": 0.05156209469607087,
+          "colsample_bytree": 0.9186502388788911,
+          "subsample": 0.6637916733355957,
+          "weight": "balanced"
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 300.0,
+        "validation_plan_id": "0eca5a18cb9cd560",
+        "feature_expressions": [],
+        "id": "tpe_38",
+        "statement": "Seeded TPE trial from measured results for this model and feature representation",
+        "parent_experiment": "exp_0035"
+      }
+    },
+    {
+      "experiment_id": "exp_0051",
+      "origin": "optuna-tpe",
+      "status": "ok",
+      "metric_value": 0.8025543665861236,
+      "accepted": false,
+      "recipe": {
+        "model_family": "xgboost",
+        "params": {
+          "iterations": 1800,
+          "max_depth": 5,
+          "min_child_weight": 14.52133795999112,
+          "reg_lambda": 25.584986609170386,
+          "learning_rate": 0.033040793468219906,
+          "colsample_bytree": 0.8921202107298815,
+          "subsample": 0.7254341687629026,
+          "weight": "balanced"
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 300.0,
+        "validation_plan_id": "0eca5a18cb9cd560",
+        "feature_expressions": [],
+        "id": "tpe_39",
+        "statement": "Seeded TPE trial from measured results for this model and feature representation",
+        "parent_experiment": "exp_0035"
+      }
+    },
+    {
+      "experiment_id": "exp_0052",
+      "origin": "optuna-tpe",
+      "status": "ok",
+      "metric_value": 0.8004832585433207,
+      "accepted": false,
+      "recipe": {
+        "model_family": "lightgbm",
+        "params": {
+          "iterations": 1800,
+          "num_leaves": 58,
+          "min_child_samples": 76,
+          "reg_lambda": 43.682865414753614,
+          "learning_rate": 0.022661414310636868,
+          "colsample_bytree": 0.8193961484627983,
+          "subsample": 0.7019843449552107,
+          "weight": "none"
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 300.0,
+        "validation_plan_id": "0eca5a18cb9cd560",
+        "feature_expressions": [],
+        "id": "tpe_40",
+        "statement": "Seeded TPE trial from measured results for this model and feature representation",
+        "parent_experiment": "exp_0034"
+      }
+    },
+    {
+      "experiment_id": "exp_0053",
+      "origin": "optuna-tpe",
+      "status": "ok",
+      "metric_value": 0.7994477045219193,
+      "accepted": false,
+      "recipe": {
+        "model_family": "xgboost",
+        "params": {
+          "iterations": 1800,
+          "max_depth": 7,
+          "min_child_weight": 28.272276616206664,
+          "reg_lambda": 35.29888898504381,
+          "learning_rate": 0.07290662746101906,
+          "colsample_bytree": 0.8357803011725136,
+          "subsample": 0.7579083890842488,
+          "weight": "balanced"
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 300.0,
+        "validation_plan_id": "0eca5a18cb9cd560",
+        "feature_expressions": [],
+        "id": "tpe_41",
+        "statement": "Seeded TPE trial from measured results for this model and feature representation",
+        "parent_experiment": "exp_0035"
+      }
+    },
+    {
+      "experiment_id": "exp_0054",
+      "phase": "confirmation",
+      "status": "ok",
+      "metric_value": 0.7857142857142857,
+      "accepted": false,
+      "recipe": {
+        "model_family": "xgboost",
+        "params": {
+          "iterations": 1800,
+          "max_depth": 5,
+          "min_child_weight": 9.320380792999861,
+          "reg_lambda": 35.4430287195546,
+          "learning_rate": 0.03926115517718856,
+          "colsample_bytree": 0.8572744818941345,
+          "subsample": 0.7364184083135499,
+          "weight": "balanced"
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 300.0,
+        "validation_plan_id": "a9e80ff59d1e95b6",
+        "feature_expressions": [],
+        "id": "tpe_23",
+        "statement": "Seeded TPE trial from measured results for this model and feature representation",
+        "parent_experiment": "exp_0033"
+      }
+    },
+    {
+      "experiment_id": "exp_0055",
+      "phase": "confirmation",
+      "status": "ok",
+      "metric_value": 0.785024154589372,
+      "accepted": false,
+      "recipe": {
+        "model_family": "xgboost",
+        "params": {
+          "iterations": 1800,
+          "max_depth": 5,
+          "min_child_weight": 8.998779025036354,
+          "reg_lambda": 37.79955794952107,
+          "learning_rate": 0.03646998518729581,
+          "colsample_bytree": 0.8334705413945163,
+          "subsample": 0.746649426344205,
+          "weight": "balanced"
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 300.0,
+        "validation_plan_id": "a9e80ff59d1e95b6",
+        "feature_expressions": [],
+        "id": "tpe_21",
+        "statement": "Seeded TPE trial from measured results for this model and feature representation",
+        "parent_experiment": "exp_0032"
+      }
+    },
+    {
+      "experiment_id": "exp_0056",
+      "phase": "confirmation",
+      "status": "ok",
+      "metric_value": 0.7881297446514838,
+      "accepted": false,
+      "recipe": {
+        "model_family": "lightgbm",
+        "params": {
+          "iterations": 1800,
+          "num_leaves": 92,
+          "min_child_samples": 44,
+          "reg_lambda": 39.26938502436161,
+          "learning_rate": 0.07292345674433275,
+          "colsample_bytree": 0.7473527455672508,
+          "subsample": 0.7609495163305703,
+          "weight": "balanced"
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 300.0,
+        "validation_plan_id": "a9e80ff59d1e95b6",
+        "feature_expressions": [],
+        "id": "tpe_22",
+        "statement": "Seeded TPE trial from measured results for this model and feature representation",
+        "parent_experiment": "exp_0016"
+      }
+    },
+    {
+      "experiment_id": "exp_0057",
+      "phase": "confirmation",
+      "status": "ok",
+      "metric_value": 0.7977915804002761,
+      "accepted": false,
+      "recipe": {
+        "model_family": "xgboost",
+        "params": {
+          "iterations": 1800,
+          "max_depth": 5,
+          "min_child_weight": 9.320380792999861,
+          "reg_lambda": 35.4430287195546,
+          "learning_rate": 0.03926115517718856,
+          "colsample_bytree": 0.8572744818941345,
+          "subsample": 0.7364184083135499,
+          "weight": "balanced"
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 300.0,
+        "validation_plan_id": "ec644214cb0f6fea",
+        "feature_expressions": [],
+        "id": "tpe_23",
+        "statement": "Seeded TPE trial from measured results for this model and feature representation",
+        "parent_experiment": "exp_0033"
+      }
+    },
+    {
+      "experiment_id": "exp_0058",
+      "phase": "confirmation",
+      "status": "ok",
+      "metric_value": 0.7971014492753623,
+      "accepted": false,
+      "recipe": {
+        "model_family": "xgboost",
+        "params": {
+          "iterations": 1800,
+          "max_depth": 5,
+          "min_child_weight": 8.998779025036354,
+          "reg_lambda": 37.79955794952107,
+          "learning_rate": 0.03646998518729581,
+          "colsample_bytree": 0.8334705413945163,
+          "subsample": 0.746649426344205,
+          "weight": "balanced"
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 300.0,
+        "validation_plan_id": "ec644214cb0f6fea",
+        "feature_expressions": [],
+        "id": "tpe_21",
+        "statement": "Seeded TPE trial from measured results for this model and feature representation",
+        "parent_experiment": "exp_0032"
+      }
+    },
+    {
+      "experiment_id": "exp_0059",
+      "phase": "confirmation",
+      "status": "ok",
+      "metric_value": 0.8008971704623878,
+      "accepted": false,
+      "recipe": {
+        "model_family": "lightgbm",
+        "params": {
+          "iterations": 1800,
+          "num_leaves": 92,
+          "min_child_samples": 44,
+          "reg_lambda": 39.26938502436161,
+          "learning_rate": 0.07292345674433275,
+          "colsample_bytree": 0.7473527455672508,
+          "subsample": 0.7609495163305703,
+          "weight": "balanced"
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 300.0,
+        "validation_plan_id": "ec644214cb0f6fea",
+        "feature_expressions": [],
+        "id": "tpe_22",
+        "statement": "Seeded TPE trial from measured results for this model and feature representation",
+        "parent_experiment": "exp_0016"
+      }
+    },
+    {
+      "experiment_id": "exp_0060",
+      "phase": "refit",
+      "status": "ok",
+      "accepted": false,
+      "recipe": {
+        "model_family": "lightgbm",
+        "params": {
+          "iterations": 1800,
+          "num_leaves": 92,
+          "min_child_samples": 44,
+          "reg_lambda": 39.26938502436161,
+          "learning_rate": 0.07292345674433275,
+          "colsample_bytree": 0.7473527455672508,
+          "subsample": 0.7609495163305703,
+          "weight": "balanced"
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 300.0,
+        "validation_plan_id": "0eca5a18cb9cd560",
+        "feature_expressions": [],
+        "id": "tpe_22",
+        "statement": "Seeded TPE trial from measured results for this model and feature representation",
+        "parent_experiment": "exp_0016"
+      }
+    }
+  ],
+  "qwen_fits": 0,
+  "final_recipe": {
+    "output_sha256": "3e3050a2315d0ce7afe3a4370bef3db140941f775ef71a7815d39eabb6712f77",
+    "full_refit": true,
+    "seed": 42,
+    "labels": [
+      false,
+      true
+    ],
+    "components": [
+      {
+        "recipe": {
+          "model_family": "lightgbm",
+          "params": {
+            "iterations": 1800,
+            "num_leaves": 92,
+            "min_child_samples": 44,
+            "reg_lambda": 39.26938502436161,
+            "learning_rate": 0.07292345674433275,
+            "colsample_bytree": 0.7473527455672508,
+            "subsample": 0.7609495163305703,
+            "weight": "balanced"
+          },
+          "feature_ops": [],
+          "target_transform": "none",
+          "max_runtime_sec": 300.0,
+          "validation_plan_id": "0eca5a18cb9cd560",
+          "feature_expressions": [],
+          "id": "tpe_22",
+          "statement": "Seeded TPE trial from measured results for this model and feature representation",
+          "parent_experiment": "exp_0016"
+        },
+        "iterations": 167,
+        "experiment_id": "exp_0034"
+      }
+    ],
+    "blend_weights": [
+      1.0
+    ],
+    "probability_multipliers": null
+  },
+  "output_validation": {
+    "rows": 4277,
+    "columns": [
+      "PassengerId",
+      "Transported"
+    ],
+    "label_counts": {
+      "True": 2282,
+      "False": 1995
+    }
+  },
+  "output_sha256": "3e3050a2315d0ce7afe3a4370bef3db140941f775ef71a7815d39eabb6712f77",
+  "credential_absent_from_artifacts": true,
+  "exported_submission": "/Users/nosovdanil/PycharmProjects/1/alfaautoresearch/spaceship_titanic_submission.csv",
+  "delivery_file": "/Users/nosovdanil/PycharmProjects/1/alfaautoresearch/spaceship_titanic_submission.csv",
+  "qwen_recipe_rejections": [
+    {
+      "status": "recipe_rejected",
+      "reason": "Forbidden formula syntax: Subscript"
+    },
+    {
+      "status": "recipe_rejected",
+      "reason": "Forbidden formula syntax: Subscript"
+    }
+  ]
+}

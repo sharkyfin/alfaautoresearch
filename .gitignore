@@ -12,7 +12,9 @@ runs/
 .env.*.local
 .secrets/
 submission.zip
+/spaceship_titanic_submission*.csv
 artifacts/release/
+artifacts/baselines/
 reports/stress/data/
 artifacts/official/render/
 reports/stress-final/data/

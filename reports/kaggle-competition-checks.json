@@ -1,0 +1,39 @@
+{
+  "status": "CSV_READY_FOR_MANUAL_KAGGLE_UPLOAD",
+  "checked_at_utc": "2026-10-21T21:08:43.974673+00:00",
+  "competition": "spaceship-titanic",
+  "runtime_code_sha256": "110869ae56302830a4d920ad4bde9d06e9c7b2ac45a3e97aa6ab96252331c507",
+  "archive_sha256": "95080f8dd3a651c6762df6933a82091f89abc708cd6d1797363b49a102a64bc9",
+  "csv": "/Users/nosovdanil/PycharmProjects/1/alfaautoresearch/spaceship_titanic_submission.csv",
+  "csv_sha256": "3e3050a2315d0ce7afe3a4370bef3db140941f775ef71a7815d39eabb6712f77",
+  "csv_bytes": 57620,
+  "output_validation": {
+    "rows": 4277,
+    "columns": [
+      "PassengerId",
+      "Transported"
+    ],
+    "label_counts": {
+      "True": 2282,
+      "False": 1995
+    }
+  },
+  "original_competition_split_preserved": true,
+  "two_public_copies_byte_identical": true,
+  "full_refit_published": true,
+  "experiments": 60,
+  "all_experiments_successful": true,
+  "wall_seconds": 109.561,
+  "qwen_requests": 2,
+  "qwen_fits": 0,
+  "qwen_rejection_reasons": [
+    "Forbidden formula syntax: Subscript"
+  ],
+  "completed_tpe_trials": 41,
+  "adapter_tests_passed": 9,
+  "adapter_and_existing_benchmark_checks_passed": 17,
+  "official_public_score": null,
+  "leaderboard_rank": null,
+  "kaggle_submissions": 0,
+  "report": "reports/kaggle-competition-spaceship-titanic.json"
+}

@@ -174,22 +174,21 @@ def test_adaptive_search_revisits_two_families_and_preserves_their_features(tmp_
     assert scheduler.hpo.completed==6
 
 
-@pytest.mark.parametrize('seconds,continues',[(900,False),(10500,True)])
-def test_long_budget_can_research_beyond_the_fast_run_cap(tmp_path,seconds,continues):
+@pytest.mark.parametrize('seconds',[900,10500])
+def test_search_plateau_requests_a_new_branch_instead_of_ending_the_run(tmp_path,seconds):
     data=load(read_inputs(create(tmp_path,n=100)))
     scheduler=SearchController(data.spec,Budget(seconds),seed=12)
     scheduler.queue=[];scheduler.research_index=48
     champion={'experiment_id':'base','recipe':validate({'model_family':'hist',
                'params':{'iterations':40}},data.spec),'runtime_sec':1.}
     proposal=scheduler.next(champion)
-    if continues:
-        assert proposal is not None
-        validate(proposal,data.spec)
-        # A longer budget must still stop when measured search stagnates.
-        scheduler.hpo.completed=12
-        assert scheduler.should_stop(18)
-    else:
-        assert proposal is None and scheduler.stop_reason
+    assert proposal is not None
+    validate(proposal,data.spec)
+    scheduler.hpo.completed=12
+    assert scheduler.should_restart(18)
+    assert not scheduler.should_stop(18)
+    scheduler.research_index=scheduler.budget.research_trial_limit
+    assert scheduler.next(champion) is None and scheduler.stop_reason
 
 
 def test_tpe_seed_and_observation_sequence_are_reproducible(tmp_path):

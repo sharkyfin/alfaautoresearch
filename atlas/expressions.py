@@ -28,9 +28,39 @@ FUNCTIONS = {
     'dayofweek': (1, 1), 'hour': (1, 1), 'days_between': (2, 2),
     'length': (1, 1), 'word_count': (1, 1), 'digit_count': (1, 1),
     'lower': (1, 1), 'concat': (2, 3),
+    'split_part': (3, 3), 'to_number': (1, 1),
     'frequency': (1, 1), 'group_count': (1, 1),
     'group_mean': (2, 2), 'group_median': (2, 2), 'group_std': (2, 2),
 }
+
+
+def _literal_position(node):
+    sign = 1
+    if isinstance(node, ast.UnaryOp) and isinstance(node.op, (ast.UAdd, ast.USub)):
+        sign = -1 if isinstance(node.op, ast.USub) else 1
+        node = node.operand
+    if not isinstance(node, ast.Constant) or type(node.value) is not int or abs(node.value) > 16:
+        raise ExpressionError('split_part position must be a literal integer from -16 to 16')
+    return sign * node.value
+
+
+def _column_access(tree, columns):
+    """Accept only the common dataframe['literal feature'] spelling, never indexing."""
+    class ColumnAccess(ast.NodeTransformer):
+        changed = False
+
+        def visit_Subscript(self, node):
+            if (isinstance(node.value, ast.Name) and node.value.id in {'df', 'data', 'X', 'x'}
+                    and isinstance(node.slice, ast.Constant) and isinstance(node.slice.value, str)
+                    and node.slice.value in columns):
+                self.changed = True
+                return ast.copy_location(ast.Call(func=ast.Name(id='col', ctx=ast.Load()),
+                                                 args=[node.slice], keywords=[]), node)
+            return node
+
+    normalizer = ColumnAccess()
+    tree = normalizer.visit(tree)
+    return tree, normalizer.changed
 
 
 def expression_references(source):
@@ -78,6 +108,11 @@ def _validate_node(node, columns, depth=0):
             if not isinstance(node.args[0], ast.Constant) or not isinstance(node.args[0].value, str) or node.args[0].value not in columns:
                 raise ExpressionError('col() requires an allowed literal column name')
             return
+        if node.func.id == 'split_part':
+            separator = node.args[1]
+            if not isinstance(separator, ast.Constant) or not isinstance(separator.value, str) or not 1 <= len(separator.value) <= 16:
+                raise ExpressionError('split_part separator must be a literal string of 1 to 16 characters')
+            _literal_position(node.args[2])
         children = node.args
     elif isinstance(node, ast.BinOp):
         if not isinstance(node.op, (ast.Add, ast.Sub, ast.Mult, ast.Div, ast.Mod, ast.Pow, ast.BitAnd, ast.BitOr)):
@@ -134,7 +169,16 @@ def validate_expressions(expressions, columns, forbidden=()):
         total_nodes += nodes
         if nodes > 96 or total_nodes > MAX_NODES:
             raise ExpressionError('Formula computation bound exceeded')
+        tree, changed = _column_access(tree, available)
         _validate_node(tree.body, available)
+        if changed:
+            normalized = ast.unparse(tree.body)
+            total_bytes += len(normalized.encode('utf-8')) - len(source.encode('utf-8'))
+            source = normalized
+            if len(source) > 768:
+                raise ExpressionError('Normalized formula exceeds 768 characters')
+            if total_bytes > 4096:
+                raise ExpressionError('Formula payload exceeds 4096 bytes')
         result.append({'name': name, 'expression': source, **({'reason': reason} if reason else {})})
         available.add(name)
         reserved.add(name)
@@ -166,10 +210,12 @@ class ExpressionFeatures:
         self.expressions = validate_expressions(expressions, columns, forbidden)
         self.trees = [(item['name'], ast.parse(item['expression'], mode='eval').body) for item in self.expressions]
         self.learned = {}
+        self.repairs = []
         self.fitted = False
 
     def fit(self, x):
         self.learned = {}
+        self.repairs = []
         self._transform(x, fitting=True)
         self.fitted = True
         return self
@@ -244,6 +290,29 @@ class ExpressionFeatures:
         if function == 'col':
             column = node.args[0].value
             return generated[column] if column in generated else x[column]
+        if function == 'split_part':
+            text = _series(evaluate(node.args[0]), index).astype('string').str.slice(0, 4096)
+            separator = node.args[1].value
+            key = ('split_separator', ast.dump(node, include_attributes=False))
+            if fitting:
+                trimmed = separator.strip()
+                # Correct illustrative separator padding only when it never
+                # occurs in training and its unpadded form has majority support.
+                # Freeze that decision for validation and test, like statistics.
+                if (trimmed and trimmed != separator
+                        and not text.str.contains(separator, regex=False, na=False).any()
+                        and text.str.contains(trimmed, regex=False, na=False).mean() >= .5):
+                    self.repairs.append({'expression': ast.unparse(node),
+                                         'original_separator': separator,
+                                         'resolved_separator': trimmed,
+                                         'reason': 'No exact separator in training; unpadded separator in at least half of training rows'})
+                    separator = trimmed
+                self.learned[key] = separator
+            separator = self.learned[key]
+            position = _literal_position(node.args[2])
+            parts = (text.str.split(separator, n=position + 1, regex=False) if position >= 0
+                     else text.str.rsplit(separator, n=abs(position)))
+            return parts.str.get(position)
         args = [evaluate(argument) for argument in node.args]
         if function in {'frequency', 'group_count', 'group_mean', 'group_median', 'group_std'}:
             key = ast.dump(node, include_attributes=False)
@@ -280,6 +349,7 @@ class ExpressionFeatures:
         if function == 'fillna': return _series(args[0], index).fillna(args[1])
         if function == 'where': return pd.Series(np.where(_boolean(args[0], index), args[1], args[2]), index=index)
         number = _number(args[0], index)
+        if function == 'to_number': return number
         if function == 'abs': return number.abs()
         if function == 'log1p': return np.log1p(number.where(number > -1))
         if function == 'signed_log1p': return np.sign(number) * np.log1p(number.abs())

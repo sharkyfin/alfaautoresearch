@@ -1,0 +1,2027 @@
+{
+  "status": "completed",
+  "title": "Spaceship Titanic",
+  "data": {
+    "competition": "spaceship-titanic",
+    "source": "https://www.kaggle.com/competitions/spaceship-titanic",
+    "metric": "accuracy",
+    "target": "Transported",
+    "id_column": "PassengerId",
+    "training_rows": 8693,
+    "test_rows": 4277,
+    "features": 12,
+    "original_split_preserved": true,
+    "test_labels_available": false,
+    "raw_sha256": {
+      "train.csv": "17336d553f49ebdf6ecb266d2b5d3746e5dd308445f7c7864141c4f28d2a88d0",
+      "test.csv": "3c02b0703423d27d51a657a111b15a37b8d03b3c1de325e3a1e6b26f6572fc88",
+      "sample_submission.csv": "c77c0a5ed1f3d2728d6add6079266a543d12755aebaf00f230ff1966b364ebed"
+    },
+    "input_sha256": {
+      "train.csv": "17336d553f49ebdf6ecb266d2b5d3746e5dd308445f7c7864141c4f28d2a88d0",
+      "test.csv": "3c02b0703423d27d51a657a111b15a37b8d03b3c1de325e3a1e6b26f6572fc88",
+      "data_dictionary.csv": "ff2d5cb6951c71fee58597f105a3c3d2603ba29680c0abe4935b0c4fddb0e31c",
+      "sample_submission.csv": "c77c0a5ed1f3d2728d6add6079266a543d12755aebaf00f230ff1966b364ebed",
+      "task.md": "b3f8c47b6dad9c7a95592abac6cd8cda8fdac66060d77f687b4e719bb47c62bf"
+    },
+    "provenance": {
+      "competition": "spaceship-titanic",
+      "competition_url": "https://www.kaggle.com/competitions/spaceship-titanic",
+      "data_license": "CC BY 4.0 as shown on the competition data page",
+      "source": "Public mirror of the original competition CSV files; no submitted predictions used",
+      "mirrors": [
+        {
+          "repository": "https://github.com/NickLitwinow/Kaggle-Spaceship-Titanic",
+          "commit": "d3a7041e9e508609f3890bae6e8abdfa3059fa40",
+          "directory": "."
+        },
+        {
+          "repository": "https://github.com/GaryTaipei/Build-Kaggle-Competition-Spaceship-Titanic",
+          "commit": "01b2bf051cfe5a25f0f40d150216b56ed4ad8e85",
+          "directory": "data"
+        }
+      ],
+      "files": {
+        "train.csv": {
+          "sha256": "17336d553f49ebdf6ecb266d2b5d3746e5dd308445f7c7864141c4f28d2a88d0",
+          "verification_sha256": "17336d553f49ebdf6ecb266d2b5d3746e5dd308445f7c7864141c4f28d2a88d0",
+          "rows": 8693,
+          "columns": [
+            "PassengerId",
+            "HomePlanet",
+            "CryoSleep",
+            "Cabin",
+            "Destination",
+            "Age",
+            "VIP",
+            "RoomService",
+            "FoodCourt",
+            "ShoppingMall",
+            "Spa",
+            "VRDeck",
+            "Name",
+            "Transported"
+          ],
+          "copies_equal": true,
+          "byte_identical": true
+        },
+        "test.csv": {
+          "sha256": "3c02b0703423d27d51a657a111b15a37b8d03b3c1de325e3a1e6b26f6572fc88",
+          "verification_sha256": "3c02b0703423d27d51a657a111b15a37b8d03b3c1de325e3a1e6b26f6572fc88",
+          "rows": 4277,
+          "columns": [
+            "PassengerId",
+            "HomePlanet",
+            "CryoSleep",
+            "Cabin",
+            "Destination",
+            "Age",
+            "VIP",
+            "RoomService",
+            "FoodCourt",
+            "ShoppingMall",
+            "Spa",
+            "VRDeck",
+            "Name"
+          ],
+          "copies_equal": true,
+          "byte_identical": true
+        },
+        "sample_submission.csv": {
+          "sha256": "c77c0a5ed1f3d2728d6add6079266a543d12755aebaf00f230ff1966b364ebed",
+          "verification_sha256": "c77c0a5ed1f3d2728d6add6079266a543d12755aebaf00f230ff1966b364ebed",
+          "rows": 4277,
+          "columns": [
+            "PassengerId",
+            "Transported"
+          ],
+          "copies_equal": true,
+          "byte_identical": true
+        }
+      },
+      "independent_public_copies_equal": true
+    }
+  },
+  "entrypoint": [
+    "python3",
+    "solution.py",
+    "task.md"
+  ],
+  "agent_default_overrides": {},
+  "archive_sha256": "b53295808c6a7c0039d6c22548b8002116332f0babaac22d93f9815b407001c1",
+  "runtime_code_sha256": "06e734185f3dd38c32d6904ae6bf5ca153e59722217eff8ddeac3f94987550c2",
+  "copied_root_files": [
+    "solution.py",
+    "_atlas_entry.py",
+    "atlas___init__.py",
+    "atlas_agent.py",
+    "atlas_budget.py",
+    "atlas_context.py",
+    "atlas_contract.py",
+    "atlas_ensemble.py",
+    "atlas_experiments.py",
+    "atlas_expressions.py",
+    "atlas_features.py",
+    "atlas_hpo.py",
+    "atlas_judge.py",
+    "atlas_metrics.py",
+    "atlas_models.py",
+    "atlas_orchestration.py",
+    "atlas_recipes.py",
+    "atlas_research.py",
+    "atlas_search.py",
+    "atlas_submit.py",
+    "atlas_task.py",
+    "atlas_utils.py",
+    "atlas_validation.py",
+    "atlas_worker.py",
+    "requirements.txt"
+  ],
+  "supervisor_seconds": 10800,
+  "run_root": "/Users/nosovdanil/PycharmProjects/1/alfaautoresearch/runs/kaggle-competition-woguvpqk",
+  "submission": "/Users/nosovdanil/PycharmProjects/1/alfaautoresearch/runs/kaggle-competition-woguvpqk/inputs/submission.csv",
+  "log": "/Users/nosovdanil/PycharmProjects/1/alfaautoresearch/runs/kaggle-competition-woguvpqk/pipeline.log",
+  "manual_submission_url": "https://www.kaggle.com/competitions/spaceship-titanic/submit",
+  "leaderboard_url": "https://www.kaggle.com/competitions/spaceship-titanic/leaderboard",
+  "official_public_score": null,
+  "leaderboard_rank": null,
+  "submission_mode": "manual",
+  "kaggle_submissions": 0,
+  "platform_submissions": 0,
+  "returncode": 0,
+  "wall_seconds": 76.009,
+  "timed_out": false,
+  "agent_summary": {
+    "runtime_code_sha256": "06e734185f3dd38c32d6904ae6bf5ca153e59722217eff8ddeac3f94987550c2",
+    "mode": "live-agent",
+    "budget_seconds": 10500.0,
+    "elapsed_seconds": 75.87006191699766,
+    "first_checkpoint_latency": 0.7639265419857111,
+    "validation": {
+      "id": "0eca5a18cb9cd560",
+      "kind": "stratified",
+      "reason": "IID classification",
+      "seed": 42,
+      "train_rows": 5796,
+      "valid_rows": 2897
+    },
+    "metric": "accuracy",
+    "dummy_utility": 0.5036244390749051,
+    "experiments": 39,
+    "successful_experiments": 39,
+    "accepted_experiments": 9,
+    "champion_metric": 0.8049706593027269,
+    "champion_recipe": {
+      "model_family": "xgboost",
+      "params": {
+        "iterations": 1800,
+        "max_depth": 6,
+        "min_child_weight": 10.020994005179451,
+        "reg_lambda": 35.357027333374994,
+        "learning_rate": 0.01708317273450722,
+        "colsample_bytree": 0.8974068468093197,
+        "subsample": 0.6956050731622049,
+        "weight": "none"
+      },
+      "feature_ops": [],
+      "target_transform": "none",
+      "max_runtime_sec": 300.0,
+      "validation_plan_id": "0eca5a18cb9cd560",
+      "feature_expressions": [
+        {
+          "name": "CryoSleep_Missing",
+          "expression": "isna(col(\"CryoSleep\"))",
+          "reason": "CryoSleep has 2.5% missingness and is the top importance feature; missingness likely correlates with transport status."
+        },
+        {
+          "name": "HomePlanet_Missing",
+          "expression": "isna(col(\"HomePlanet\"))",
+          "reason": "HomePlanet has 2.3% missingness and the highest error association (0.44); missingness may indicate a distinct passenger segment."
+        },
+        {
+          "name": "Destination_Missing",
+          "expression": "isna(col(\"Destination\"))",
+          "reason": "Destination has high error association (0.22); explicit missing indicator helps model handle the 2.3% missing rows."
+        }
+      ],
+      "id": "tpe_2",
+      "statement": "Seeded TPE trial from measured results for this model and feature representation",
+      "parent_experiment": "exp_0010"
+    },
+    "confirmation_metric": 0.7929606625258798,
+    "ensemble": {
+      "weights": [
+        0.75,
+        0.25
+      ],
+      "metric_value": 0.805661028650328,
+      "confirmation_metric": 0.7950310559006211,
+      "confirmation_metrics": [
+        {
+          "split_id": "a9e80ff59d1e95b6",
+          "metric_value": 0.7898550724637681,
+          "utility": 0.7898550724637681
+        },
+        {
+          "split_id": "ec644214cb0f6fea",
+          "metric_value": 0.8002070393374742,
+          "utility": 0.8002070393374742
+        }
+      ],
+      "robust_utility": 0.796935576664765
+    },
+    "multipliers": null,
+    "qwen_calls": 3,
+    "qwen_proposals": 4,
+    "qwen_tokens": 12711,
+    "qwen_events": [
+      {
+        "status": "api_usage",
+        "call": 1,
+        "response_model": "qwen/qwen3.8-27b",
+        "prompt_tokens": 4482,
+        "completion_tokens": 421,
+        "reasoning_tokens": 0,
+        "finish_reason": "stop",
+        "reported_cost": 0.12229309061060001,
+        "elapsed_seconds": 5.3,
+        "timeout_seconds": 40.0
+      },
+      {
+        "status": "response",
+        "call": 1,
+        "tokens": 4903,
+        "elapsed_seconds": 5.3,
+        "timeout_seconds": 40.0
+      },
+      {
+        "status": "api_usage",
+        "call": 2,
+        "response_model": "qwen/qwen3.8-27b",
+        "prompt_tokens": 3969,
+        "completion_tokens": 391,
+        "reasoning_tokens": 0,
+        "finish_reason": "stop",
+        "reported_cost": 0.1127532960242,
+        "elapsed_seconds": 4.344,
+        "timeout_seconds": 40.0
+      },
+      {
+        "status": "response",
+        "call": 2,
+        "tokens": 9263,
+        "elapsed_seconds": 4.344,
+        "timeout_seconds": 40.0
+      },
+      {
+        "status": "api_usage",
+        "call": 3,
+        "response_model": "qwen/qwen3.8-27b",
+        "prompt_tokens": 3140,
+        "completion_tokens": 308,
+        "reasoning_tokens": 0,
+        "finish_reason": "stop",
+        "reported_cost": 0.085593867424,
+        "elapsed_seconds": 6.62,
+        "timeout_seconds": 40.0
+      },
+      {
+        "status": "response",
+        "call": 3,
+        "tokens": 12711,
+        "elapsed_seconds": 6.62,
+        "timeout_seconds": 40.0
+      },
+      {
+        "status": "token_budget_exhausted"
+      }
+    ],
+    "max_live_worker_threads": 15,
+    "peak_worker_memory_mb": 242.859375,
+    "cancelled": false,
+    "output": "/Users/nosovdanil/PycharmProjects/1/alfaautoresearch/runs/kaggle-competition-woguvpqk/inputs/submission.csv",
+    "output_sha256": "dd4d68194c72f9e44ec90039a0593b5955cd767e4c6f2cd4df455b5f45694df3",
+    "full_refit_published": true,
+    "search_experiment_limit": 524,
+    "adaptive_search": {
+      "backend": "optuna-tpe",
+      "studies": 2,
+      "proposed_trials": 12,
+      "completed_trials": 12,
+      "family_proposals": {
+        "lightgbm": 4,
+        "xgboost": 8
+      },
+      "stop_reason": "TPE search stagnated after exploring multiple model families",
+      "research_steps": 20,
+      "research_trial_limit": 512
+    },
+    "cross_validation": {
+      "planned_folds": 3,
+      "completed_candidates": 3,
+      "selection_basis": "mean utility minus 0.25 standard deviation on all frozen folds",
+      "candidates": [
+        {
+          "experiment_id": "exp_0013",
+          "model_family": "xgboost",
+          "fold_metrics": [
+            0.8049706593027269,
+            0.7791580400276052,
+            0.7984817115251898
+          ],
+          "mean_metric": 0.7942034702851739,
+          "metric_std": 0.010963586382245082,
+          "robust_utility": 0.7914625736896126
+        },
+        {
+          "experiment_id": "exp_0021",
+          "model_family": "xgboost",
+          "fold_metrics": [
+            0.8049706593027269,
+            0.7884748102139406,
+            0.7974465148378191
+          ],
+          "mean_metric": 0.7969639947848289,
+          "metric_std": 0.006743039793800042,
+          "robust_utility": 0.7952782348363789
+        },
+        {
+          "experiment_id": "exp_0006",
+          "model_family": "lightgbm",
+          "fold_metrics": [
+            0.8004832585433207,
+            0.7874396135265701,
+            0.7967563837129055
+          ],
+          "mean_metric": 0.794893085260932,
+          "metric_std": 0.0054856223999102385,
+          "robust_utility": 0.7935216796609545
+        }
+      ]
+    },
+    "confirmation_plan": [
+      {
+        "id": "a9e80ff59d1e95b6",
+        "kind": "stratified",
+        "reason": "Frozen cross-validation control 1; validation disjoint from search and other controls",
+        "seed": 1052,
+        "train_rows": 5795,
+        "valid_rows": 2898
+      },
+      {
+        "id": "ec644214cb0f6fea",
+        "kind": "stratified",
+        "reason": "Frozen cross-validation control 2; validation disjoint from search and other controls",
+        "seed": 1053,
+        "train_rows": 5795,
+        "valid_rows": 2898
+      }
+    ],
+    "confirmation_metrics": [
+      {
+        "split_id": "a9e80ff59d1e95b6",
+        "metric_value": 0.7884748102139406
+      },
+      {
+        "split_id": "ec644214cb0f6fea",
+        "metric_value": 0.7974465148378191
+      }
+    ],
+    "feature_group_trials": 8,
+    "feature_ablation_checks": 6,
+    "accepted_feature_ablations": 4,
+    "researcher_provider": "organizer-qwen",
+    "researcher_model": "qwen/qwen3.8-27b",
+    "researcher_calls": 3,
+    "researcher_proposals": 4,
+    "researcher_tokens": 12711,
+    "researcher_events": [
+      {
+        "status": "api_usage",
+        "call": 1,
+        "response_model": "qwen/qwen3.8-27b",
+        "prompt_tokens": 4482,
+        "completion_tokens": 421,
+        "reasoning_tokens": 0,
+        "finish_reason": "stop",
+        "reported_cost": 0.12229309061060001,
+        "elapsed_seconds": 5.3,
+        "timeout_seconds": 40.0
+      },
+      {
+        "status": "response",
+        "call": 1,
+        "tokens": 4903,
+        "elapsed_seconds": 5.3,
+        "timeout_seconds": 40.0
+      },
+      {
+        "status": "api_usage",
+        "call": 2,
+        "response_model": "qwen/qwen3.8-27b",
+        "prompt_tokens": 3969,
+        "completion_tokens": 391,
+        "reasoning_tokens": 0,
+        "finish_reason": "stop",
+        "reported_cost": 0.1127532960242,
+        "elapsed_seconds": 4.344,
+        "timeout_seconds": 40.0
+      },
+      {
+        "status": "response",
+        "call": 2,
+        "tokens": 9263,
+        "elapsed_seconds": 4.344,
+        "timeout_seconds": 40.0
+      },
+      {
+        "status": "api_usage",
+        "call": 3,
+        "response_model": "qwen/qwen3.8-27b",
+        "prompt_tokens": 3140,
+        "completion_tokens": 308,
+        "reasoning_tokens": 0,
+        "finish_reason": "stop",
+        "reported_cost": 0.085593867424,
+        "elapsed_seconds": 6.62,
+        "timeout_seconds": 40.0
+      },
+      {
+        "status": "response",
+        "call": 3,
+        "tokens": 12711,
+        "elapsed_seconds": 6.62,
+        "timeout_seconds": 40.0
+      },
+      {
+        "status": "token_budget_exhausted"
+      }
+    ]
+  },
+  "inputs_unchanged": true,
+  "experiments": [
+    {
+      "experiment_id": "exp_0001",
+      "origin": "deterministic",
+      "status": "ok",
+      "metric_value": 0.7849499482222989,
+      "accepted": true,
+      "recipe": {
+        "model_family": "linear",
+        "params": {
+          "C": 1
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 300.0,
+        "validation_plan_id": "0eca5a18cb9cd560",
+        "feature_expressions": [],
+        "id": "candidate",
+        "statement": "Fast regularized linear baseline",
+        "parent_experiment": null
+      }
+    },
+    {
+      "experiment_id": "exp_0002",
+      "origin": "deterministic",
+      "status": "ok",
+      "metric_value": 0.7991025198481188,
+      "accepted": true,
+      "recipe": {
+        "model_family": "lightgbm",
+        "params": {
+          "iterations": 1800,
+          "num_leaves": 31,
+          "min_child_samples": 30
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 300.0,
+        "validation_plan_id": "0eca5a18cb9cd560",
+        "feature_expressions": [],
+        "id": "candidate",
+        "statement": "Fast leaf-wise booster with categorical handling",
+        "parent_experiment": null
+      }
+    },
+    {
+      "experiment_id": "exp_0003",
+      "origin": "qwen",
+      "status": "ok",
+      "metric_value": 0.8004832585433207,
+      "accepted": true,
+      "recipe": {
+        "model_family": "lightgbm",
+        "params": {
+          "iterations": 1800,
+          "num_leaves": 31,
+          "min_child_samples": 30
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 60.0,
+        "validation_plan_id": "0eca5a18cb9cd560",
+        "feature_expressions": [
+          {
+            "name": "Cabin_Deck",
+            "expression": "split_part(col(\"Cabin\"), \" / \", 0)",
+            "reason": "Extract deck letter from Cabin string to capture spatial location"
+          },
+          {
+            "name": "Cabin_Number",
+            "expression": "to_number(split_part(col(\"Cabin\"), \" / \", 1))",
+            "reason": "Extract cabin number to capture specific location within deck"
+          },
+          {
+            "name": "Cabin_Side",
+            "expression": "split_part(col(\"Cabin\"), \" / \", 2)",
+            "reason": "Extract side (P/S) from Cabin string"
+          },
+          {
+            "name": "Total_Spending",
+            "expression": "col(\"VRDeck\") + col(\"FoodCourt\") + col(\"Spa\") + col(\"RoomService\") + col(\"ShoppingMall\")",
+            "reason": "Aggregate spending across all services to capture overall wealth/behavior"
+          }
+        ],
+        "id": "candidate",
+        "statement": "Cabin deck and number features capture spatial location, which is strongly associated with transport outcomes and missingness patterns in spending columns.",
+        "parent_experiment": "exp_0002"
+      }
+    },
+    {
+      "experiment_id": "exp_0004",
+      "origin": "feature-ablation",
+      "status": "ok",
+      "metric_value": 0.7991025198481188,
+      "accepted": false,
+      "recipe": {
+        "model_family": "lightgbm",
+        "params": {
+          "iterations": 1800,
+          "num_leaves": 31,
+          "min_child_samples": 30
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 60.0,
+        "validation_plan_id": "0eca5a18cb9cd560",
+        "feature_expressions": [
+          {
+            "name": "Cabin_Deck",
+            "expression": "split_part(col(\"Cabin\"), \" / \", 0)",
+            "reason": "Extract deck letter from Cabin string to capture spatial location"
+          },
+          {
+            "name": "Cabin_Number",
+            "expression": "to_number(split_part(col(\"Cabin\"), \" / \", 1))",
+            "reason": "Extract cabin number to capture specific location within deck"
+          },
+          {
+            "name": "Cabin_Side",
+            "expression": "split_part(col(\"Cabin\"), \" / \", 2)",
+            "reason": "Extract side (P/S) from Cabin string"
+          }
+        ],
+        "id": "ablation_1",
+        "statement": "Controlled feature ablation: revert formula:Total_Spending",
+        "parent_experiment": "exp_0002"
+      }
+    },
+    {
+      "experiment_id": "exp_0005",
+      "origin": "feature-ablation",
+      "status": "ok",
+      "metric_value": 0.8004832585433207,
+      "accepted": true,
+      "recipe": {
+        "model_family": "lightgbm",
+        "params": {
+          "iterations": 1800,
+          "num_leaves": 31,
+          "min_child_samples": 30
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 60.0,
+        "validation_plan_id": "0eca5a18cb9cd560",
+        "feature_expressions": [
+          {
+            "name": "Cabin_Deck",
+            "expression": "split_part(col(\"Cabin\"), \" / \", 0)",
+            "reason": "Extract deck letter from Cabin string to capture spatial location"
+          },
+          {
+            "name": "Cabin_Number",
+            "expression": "to_number(split_part(col(\"Cabin\"), \" / \", 1))",
+            "reason": "Extract cabin number to capture specific location within deck"
+          },
+          {
+            "name": "Total_Spending",
+            "expression": "col(\"VRDeck\") + col(\"FoodCourt\") + col(\"Spa\") + col(\"RoomService\") + col(\"ShoppingMall\")",
+            "reason": "Aggregate spending across all services to capture overall wealth/behavior"
+          }
+        ],
+        "id": "ablation_1",
+        "statement": "Controlled feature ablation: revert formula:Cabin_Side",
+        "parent_experiment": "exp_0002"
+      }
+    },
+    {
+      "experiment_id": "exp_0006",
+      "origin": "feature-ablation",
+      "status": "ok",
+      "metric_value": 0.8004832585433207,
+      "accepted": true,
+      "recipe": {
+        "model_family": "lightgbm",
+        "params": {
+          "iterations": 1800,
+          "num_leaves": 31,
+          "min_child_samples": 30
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 60.0,
+        "validation_plan_id": "0eca5a18cb9cd560",
+        "feature_expressions": [
+          {
+            "name": "Cabin_Deck",
+            "expression": "split_part(col(\"Cabin\"), \" / \", 0)",
+            "reason": "Extract deck letter from Cabin string to capture spatial location"
+          },
+          {
+            "name": "Total_Spending",
+            "expression": "col(\"VRDeck\") + col(\"FoodCourt\") + col(\"Spa\") + col(\"RoomService\") + col(\"ShoppingMall\")",
+            "reason": "Aggregate spending across all services to capture overall wealth/behavior"
+          }
+        ],
+        "id": "ablation_1",
+        "statement": "Controlled feature ablation: revert formula:Cabin_Number",
+        "parent_experiment": "exp_0002"
+      }
+    },
+    {
+      "experiment_id": "exp_0007",
+      "origin": "deterministic",
+      "status": "ok",
+      "metric_value": 0.7611322057300656,
+      "accepted": false,
+      "recipe": {
+        "model_family": "hist",
+        "params": {
+          "iterations": 350
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 300.0,
+        "validation_plan_id": "0eca5a18cb9cd560",
+        "feature_expressions": [],
+        "id": "candidate",
+        "statement": "Histogram boosting diversity",
+        "parent_experiment": null
+      }
+    },
+    {
+      "experiment_id": "exp_0008",
+      "origin": "deterministic",
+      "status": "ok",
+      "metric_value": 0.7787366240938902,
+      "accepted": false,
+      "recipe": {
+        "model_family": "extra_trees",
+        "params": {
+          "iterations": 250,
+          "min_samples_leaf": 2
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 300.0,
+        "validation_plan_id": "0eca5a18cb9cd560",
+        "feature_expressions": [],
+        "id": "candidate",
+        "statement": "Randomized trees for complementary errors",
+        "parent_experiment": null
+      }
+    },
+    {
+      "experiment_id": "exp_0009",
+      "origin": "deterministic",
+      "status": "ok",
+      "metric_value": 0.8039351052813255,
+      "accepted": true,
+      "recipe": {
+        "model_family": "xgboost",
+        "params": {
+          "iterations": 1800,
+          "max_depth": 6
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 300.0,
+        "validation_plan_id": "0eca5a18cb9cd560",
+        "feature_expressions": [],
+        "id": "candidate",
+        "statement": "Regularized histogram booster diversity",
+        "parent_experiment": null
+      }
+    },
+    {
+      "experiment_id": "exp_0010",
+      "origin": "qwen",
+      "status": "ok",
+      "metric_value": 0.8049706593027269,
+      "accepted": true,
+      "recipe": {
+        "model_family": "xgboost",
+        "params": {
+          "iterations": 1800,
+          "max_depth": 6
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 300.0,
+        "validation_plan_id": "0eca5a18cb9cd560",
+        "feature_expressions": [
+          {
+            "name": "CryoSleep_Missing",
+            "expression": "isna(col(\"CryoSleep\"))",
+            "reason": "CryoSleep has 2.5% missingness and is the top importance feature; missingness likely correlates with transport status."
+          },
+          {
+            "name": "HomePlanet_Missing",
+            "expression": "isna(col(\"HomePlanet\"))",
+            "reason": "HomePlanet has 2.3% missingness and the highest error association (0.44); missingness may indicate a distinct passenger segment."
+          },
+          {
+            "name": "Destination_Missing",
+            "expression": "isna(col(\"Destination\"))",
+            "reason": "Destination has high error association (0.22); explicit missing indicator helps model handle the 2.3% missing rows."
+          }
+        ],
+        "id": "candidate",
+        "statement": "CryoSleep missingness is a strong signal for transport; explicit missing indicators for CryoSleep, HomePlanet, and Destination should help the model separate the 2.5% missing CryoSleep rows where error association is high.",
+        "parent_experiment": "exp_0009"
+      }
+    },
+    {
+      "experiment_id": "exp_0011",
+      "origin": "feature-ablation",
+      "status": "ok",
+      "metric_value": 0.8049706593027269,
+      "accepted": true,
+      "recipe": {
+        "model_family": "xgboost",
+        "params": {
+          "iterations": 1800,
+          "max_depth": 6
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 300.0,
+        "validation_plan_id": "0eca5a18cb9cd560",
+        "feature_expressions": [
+          {
+            "name": "CryoSleep_Missing",
+            "expression": "isna(col(\"CryoSleep\"))",
+            "reason": "CryoSleep has 2.5% missingness and is the top importance feature; missingness likely correlates with transport status."
+          },
+          {
+            "name": "HomePlanet_Missing",
+            "expression": "isna(col(\"HomePlanet\"))",
+            "reason": "HomePlanet has 2.3% missingness and the highest error association (0.44); missingness may indicate a distinct passenger segment."
+          }
+        ],
+        "id": "ablation_1",
+        "statement": "Controlled feature ablation: revert formula:Destination_Missing",
+        "parent_experiment": "exp_0009"
+      }
+    },
+    {
+      "experiment_id": "exp_0012",
+      "origin": "feature-ablation",
+      "status": "ok",
+      "metric_value": 0.8039351052813255,
+      "accepted": false,
+      "recipe": {
+        "model_family": "xgboost",
+        "params": {
+          "iterations": 1800,
+          "max_depth": 6
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 300.0,
+        "validation_plan_id": "0eca5a18cb9cd560",
+        "feature_expressions": [
+          {
+            "name": "CryoSleep_Missing",
+            "expression": "isna(col(\"CryoSleep\"))",
+            "reason": "CryoSleep has 2.5% missingness and is the top importance feature; missingness likely correlates with transport status."
+          }
+        ],
+        "id": "ablation_1",
+        "statement": "Controlled feature ablation: revert formula:HomePlanet_Missing",
+        "parent_experiment": "exp_0009"
+      }
+    },
+    {
+      "experiment_id": "exp_0013",
+      "origin": "feature-ablation",
+      "status": "ok",
+      "metric_value": 0.8049706593027269,
+      "accepted": true,
+      "recipe": {
+        "model_family": "xgboost",
+        "params": {
+          "iterations": 1800,
+          "max_depth": 6
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 300.0,
+        "validation_plan_id": "0eca5a18cb9cd560",
+        "feature_expressions": [
+          {
+            "name": "HomePlanet_Missing",
+            "expression": "isna(col(\"HomePlanet\"))",
+            "reason": "HomePlanet has 2.3% missingness and the highest error association (0.44); missingness may indicate a distinct passenger segment."
+          }
+        ],
+        "id": "ablation_1",
+        "statement": "Controlled feature ablation: revert formula:CryoSleep_Missing",
+        "parent_experiment": "exp_0009"
+      }
+    },
+    {
+      "experiment_id": "exp_0014",
+      "origin": "qwen",
+      "status": "ok",
+      "metric_value": 0.7977217811529168,
+      "accepted": false,
+      "recipe": {
+        "model_family": "xgboost",
+        "params": {
+          "iterations": 1800,
+          "max_depth": 6
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 300.0,
+        "validation_plan_id": "0eca5a18cb9cd560",
+        "feature_expressions": [
+          {
+            "name": "HomePlanet_Missing",
+            "expression": "isna(col(\"HomePlanet\"))",
+            "reason": "HomePlanet has 2.3% missingness and the highest error association (0.44); missingness may indicate a distinct passenger segment."
+          },
+          {
+            "name": "Cabin_Deck",
+            "expression": "split_part(col(\"Cabin\"), \" / \", 0)",
+            "reason": "Extract deck letter from Cabin string to capture spatial location patterns"
+          },
+          {
+            "name": "CryoSleep_Deck_Interaction",
+            "expression": "col(\"CryoSleep\") * col(\"Cabin_Deck\")",
+            "reason": "Interaction between CryoSleep status and deck location may reveal transport patterns"
+          },
+          {
+            "name": "HomePlanet_CryoSleep_Interaction",
+            "expression": "col(\"HomePlanet\") * col(\"CryoSleep\")",
+            "reason": "Interaction between HomePlanet and CryoSleep may capture the high error association in HomePlanet"
+          },
+          {
+            "name": "Spending_Total",
+            "expression": "col(\"VRDeck\") + col(\"Spa\") + col(\"RoomService\") + col(\"FoodCourt\") + col(\"ShoppingMall\")",
+            "reason": "Total spending across all services may indicate passenger wealth or behavior patterns"
+          }
+        ],
+        "id": "exp_0014",
+        "statement": "Cabin deck letter encodes spatial location and may interact with CryoSleep status to predict transport, given CryoSleep's dominant importance and HomePlanet's high error association.",
+        "parent_experiment": "exp_0013"
+      }
+    },
+    {
+      "experiment_id": "exp_0015",
+      "origin": "deterministic",
+      "status": "ok",
+      "metric_value": 0.7994477045219193,
+      "accepted": false,
+      "recipe": {
+        "model_family": "xgboost",
+        "params": {
+          "iterations": 1800,
+          "max_depth": 6
+        },
+        "feature_ops": [
+          {
+            "op": "ratio",
+            "columns": [
+              "Age",
+              "RoomService"
+            ]
+          }
+        ],
+        "target_transform": "none",
+        "max_runtime_sec": 300.0,
+        "validation_plan_id": "0eca5a18cb9cd560",
+        "feature_expressions": [
+          {
+            "name": "HomePlanet_Missing",
+            "expression": "isna(col(\"HomePlanet\"))",
+            "reason": "HomePlanet has 2.3% missingness and the highest error association (0.44); missingness may indicate a distinct passenger segment."
+          }
+        ],
+        "id": "local_4",
+        "statement": "Bounded numeric interaction may capture nonlinear rates",
+        "parent_experiment": "exp_0013"
+      }
+    },
+    {
+      "experiment_id": "exp_0016",
+      "origin": "deterministic",
+      "status": "ok",
+      "metric_value": 0.8015188125647221,
+      "accepted": false,
+      "recipe": {
+        "model_family": "xgboost",
+        "params": {
+          "iterations": 1800,
+          "max_depth": 6
+        },
+        "feature_ops": [
+          {
+            "op": "product",
+            "columns": [
+              "Age",
+              "RoomService"
+            ]
+          }
+        ],
+        "target_transform": "none",
+        "max_runtime_sec": 300.0,
+        "validation_plan_id": "0eca5a18cb9cd560",
+        "feature_expressions": [
+          {
+            "name": "HomePlanet_Missing",
+            "expression": "isna(col(\"HomePlanet\"))",
+            "reason": "HomePlanet has 2.3% missingness and the highest error association (0.44); missingness may indicate a distinct passenger segment."
+          }
+        ],
+        "id": "local_5",
+        "statement": "Bounded numeric interaction may capture nonlinear rates",
+        "parent_experiment": "exp_0013"
+      }
+    },
+    {
+      "experiment_id": "exp_0017",
+      "origin": "deterministic",
+      "status": "ok",
+      "metric_value": 0.802209181912323,
+      "accepted": false,
+      "recipe": {
+        "model_family": "xgboost",
+        "params": {
+          "iterations": 1800,
+          "max_depth": 6
+        },
+        "feature_ops": [
+          {
+            "op": "clip",
+            "columns": [
+              "Age",
+              "RoomService",
+              "FoodCourt",
+              "ShoppingMall",
+              "Spa",
+              "VRDeck"
+            ]
+          }
+        ],
+        "target_transform": "none",
+        "max_runtime_sec": 300.0,
+        "validation_plan_id": "0eca5a18cb9cd560",
+        "feature_expressions": [
+          {
+            "name": "HomePlanet_Missing",
+            "expression": "isna(col(\"HomePlanet\"))",
+            "reason": "HomePlanet has 2.3% missingness and the highest error association (0.44); missingness may indicate a distinct passenger segment."
+          }
+        ],
+        "id": "local_6",
+        "statement": "Fold-fitted clipped copies may reduce outlier sensitivity while retaining originals",
+        "parent_experiment": "exp_0013"
+      }
+    },
+    {
+      "experiment_id": "exp_0018",
+      "origin": "deterministic",
+      "status": "ok",
+      "metric_value": 0.8039351052813255,
+      "accepted": false,
+      "recipe": {
+        "model_family": "xgboost",
+        "params": {
+          "iterations": 1800,
+          "max_depth": 6
+        },
+        "feature_ops": [
+          {
+            "op": "combine",
+            "columns": [
+              "HomePlanet",
+              "CryoSleep"
+            ]
+          }
+        ],
+        "target_transform": "none",
+        "max_runtime_sec": 300.0,
+        "validation_plan_id": "0eca5a18cb9cd560",
+        "feature_expressions": [
+          {
+            "name": "HomePlanet_Missing",
+            "expression": "isna(col(\"HomePlanet\"))",
+            "reason": "HomePlanet has 2.3% missingness and the highest error association (0.44); missingness may indicate a distinct passenger segment."
+          }
+        ],
+        "id": "local_7",
+        "statement": "Categorical composition may expose conditional patterns",
+        "parent_experiment": "exp_0013"
+      }
+    },
+    {
+      "experiment_id": "exp_0019",
+      "origin": "deterministic",
+      "status": "ok",
+      "metric_value": 0.8011736278909216,
+      "accepted": false,
+      "recipe": {
+        "model_family": "xgboost",
+        "params": {
+          "iterations": 1800,
+          "max_depth": 6
+        },
+        "feature_ops": [
+          {
+            "op": "group_mean",
+            "columns": [
+              "HomePlanet",
+              "Age"
+            ]
+          }
+        ],
+        "target_transform": "none",
+        "max_runtime_sec": 300.0,
+        "validation_plan_id": "0eca5a18cb9cd560",
+        "feature_expressions": [
+          {
+            "name": "HomePlanet_Missing",
+            "expression": "isna(col(\"HomePlanet\"))",
+            "reason": "HomePlanet has 2.3% missingness and the highest error association (0.44); missingness may indicate a distinct passenger segment."
+          }
+        ],
+        "id": "local_8",
+        "statement": "Training-fold feature aggregate may capture group scale without target encoding",
+        "parent_experiment": "exp_0013"
+      }
+    },
+    {
+      "experiment_id": "exp_0020",
+      "origin": "optuna-tpe",
+      "status": "ok",
+      "metric_value": 0.7963410424577149,
+      "accepted": false,
+      "recipe": {
+        "model_family": "lightgbm",
+        "params": {
+          "iterations": 1800,
+          "num_leaves": 78,
+          "min_child_samples": 51,
+          "reg_lambda": 47.30666469422978,
+          "learning_rate": 0.037995584680708225,
+          "colsample_bytree": 0.9922839114629876,
+          "subsample": 0.9893279091553893,
+          "weight": "balanced"
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 60.0,
+        "validation_plan_id": "0eca5a18cb9cd560",
+        "feature_expressions": [
+          {
+            "name": "Cabin_Deck",
+            "expression": "split_part(col(\"Cabin\"), \" / \", 0)",
+            "reason": "Extract deck letter from Cabin string to capture spatial location"
+          },
+          {
+            "name": "Cabin_Number",
+            "expression": "to_number(split_part(col(\"Cabin\"), \" / \", 1))",
+            "reason": "Extract cabin number to capture specific location within deck"
+          },
+          {
+            "name": "Cabin_Side",
+            "expression": "split_part(col(\"Cabin\"), \" / \", 2)",
+            "reason": "Extract side (P/S) from Cabin string"
+          },
+          {
+            "name": "Total_Spending",
+            "expression": "col(\"VRDeck\") + col(\"FoodCourt\") + col(\"Spa\") + col(\"RoomService\") + col(\"ShoppingMall\")",
+            "reason": "Aggregate spending across all services to capture overall wealth/behavior"
+          }
+        ],
+        "id": "tpe_1",
+        "statement": "Seeded TPE trial from measured results for this model and feature representation",
+        "parent_experiment": "exp_0003"
+      }
+    },
+    {
+      "experiment_id": "exp_0021",
+      "origin": "optuna-tpe",
+      "status": "ok",
+      "metric_value": 0.8049706593027269,
+      "accepted": false,
+      "recipe": {
+        "model_family": "xgboost",
+        "params": {
+          "iterations": 1800,
+          "max_depth": 6,
+          "min_child_weight": 10.020994005179451,
+          "reg_lambda": 35.357027333374994,
+          "learning_rate": 0.01708317273450722,
+          "colsample_bytree": 0.8974068468093197,
+          "subsample": 0.6956050731622049,
+          "weight": "none"
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 300.0,
+        "validation_plan_id": "0eca5a18cb9cd560",
+        "feature_expressions": [
+          {
+            "name": "CryoSleep_Missing",
+            "expression": "isna(col(\"CryoSleep\"))",
+            "reason": "CryoSleep has 2.5% missingness and is the top importance feature; missingness likely correlates with transport status."
+          },
+          {
+            "name": "HomePlanet_Missing",
+            "expression": "isna(col(\"HomePlanet\"))",
+            "reason": "HomePlanet has 2.3% missingness and the highest error association (0.44); missingness may indicate a distinct passenger segment."
+          },
+          {
+            "name": "Destination_Missing",
+            "expression": "isna(col(\"Destination\"))",
+            "reason": "Destination has high error association (0.22); explicit missing indicator helps model handle the 2.3% missing rows."
+          }
+        ],
+        "id": "tpe_2",
+        "statement": "Seeded TPE trial from measured results for this model and feature representation",
+        "parent_experiment": "exp_0010"
+      }
+    },
+    {
+      "experiment_id": "exp_0022",
+      "origin": "optuna-tpe",
+      "status": "ok",
+      "metric_value": 0.8039351052813255,
+      "accepted": false,
+      "recipe": {
+        "model_family": "xgboost",
+        "params": {
+          "iterations": 1800,
+          "max_depth": 4,
+          "min_child_weight": 1.2160985836685632,
+          "reg_lambda": 46.25317193686381,
+          "learning_rate": 0.09321750646463761,
+          "colsample_bytree": 0.816514900086255,
+          "subsample": 0.6973235595724125,
+          "weight": "balanced"
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 300.0,
+        "validation_plan_id": "0eca5a18cb9cd560",
+        "feature_expressions": [
+          {
+            "name": "CryoSleep_Missing",
+            "expression": "isna(col(\"CryoSleep\"))",
+            "reason": "CryoSleep has 2.5% missingness and is the top importance feature; missingness likely correlates with transport status."
+          },
+          {
+            "name": "HomePlanet_Missing",
+            "expression": "isna(col(\"HomePlanet\"))",
+            "reason": "HomePlanet has 2.3% missingness and the highest error association (0.44); missingness may indicate a distinct passenger segment."
+          },
+          {
+            "name": "Destination_Missing",
+            "expression": "isna(col(\"Destination\"))",
+            "reason": "Destination has high error association (0.22); explicit missing indicator helps model handle the 2.3% missing rows."
+          }
+        ],
+        "id": "tpe_3",
+        "statement": "Seeded TPE trial from measured results for this model and feature representation",
+        "parent_experiment": "exp_0010"
+      }
+    },
+    {
+      "experiment_id": "exp_0023",
+      "origin": "optuna-tpe",
+      "status": "ok",
+      "metric_value": 0.7984121505005177,
+      "accepted": false,
+      "recipe": {
+        "model_family": "lightgbm",
+        "params": {
+          "iterations": 1800,
+          "num_leaves": 120,
+          "min_child_samples": 84,
+          "reg_lambda": 27.03753123366305,
+          "learning_rate": 0.061412604869186066,
+          "colsample_bytree": 0.9130564977702635,
+          "subsample": 0.7024476343890318,
+          "weight": "none"
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 60.0,
+        "validation_plan_id": "0eca5a18cb9cd560",
+        "feature_expressions": [
+          {
+            "name": "Cabin_Deck",
+            "expression": "split_part(col(\"Cabin\"), \" / \", 0)",
+            "reason": "Extract deck letter from Cabin string to capture spatial location"
+          },
+          {
+            "name": "Cabin_Number",
+            "expression": "to_number(split_part(col(\"Cabin\"), \" / \", 1))",
+            "reason": "Extract cabin number to capture specific location within deck"
+          },
+          {
+            "name": "Cabin_Side",
+            "expression": "split_part(col(\"Cabin\"), \" / \", 2)",
+            "reason": "Extract side (P/S) from Cabin string"
+          },
+          {
+            "name": "Total_Spending",
+            "expression": "col(\"VRDeck\") + col(\"FoodCourt\") + col(\"Spa\") + col(\"RoomService\") + col(\"ShoppingMall\")",
+            "reason": "Aggregate spending across all services to capture overall wealth/behavior"
+          }
+        ],
+        "id": "tpe_4",
+        "statement": "Seeded TPE trial from measured results for this model and feature representation",
+        "parent_experiment": "exp_0003"
+      }
+    },
+    {
+      "experiment_id": "exp_0024",
+      "origin": "optuna-tpe",
+      "status": "ok",
+      "metric_value": 0.7994477045219193,
+      "accepted": false,
+      "recipe": {
+        "model_family": "xgboost",
+        "params": {
+          "iterations": 1800,
+          "max_depth": 5,
+          "min_child_weight": 10.00442361763019,
+          "reg_lambda": 8.799414685447775,
+          "learning_rate": 0.017755467578671448,
+          "colsample_bytree": 0.733490832811224,
+          "subsample": 0.8096996453369126,
+          "weight": "balanced"
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 300.0,
+        "validation_plan_id": "0eca5a18cb9cd560",
+        "feature_expressions": [
+          {
+            "name": "CryoSleep_Missing",
+            "expression": "isna(col(\"CryoSleep\"))",
+            "reason": "CryoSleep has 2.5% missingness and is the top importance feature; missingness likely correlates with transport status."
+          },
+          {
+            "name": "HomePlanet_Missing",
+            "expression": "isna(col(\"HomePlanet\"))",
+            "reason": "HomePlanet has 2.3% missingness and the highest error association (0.44); missingness may indicate a distinct passenger segment."
+          },
+          {
+            "name": "Destination_Missing",
+            "expression": "isna(col(\"Destination\"))",
+            "reason": "Destination has high error association (0.22); explicit missing indicator helps model handle the 2.3% missing rows."
+          }
+        ],
+        "id": "tpe_5",
+        "statement": "Seeded TPE trial from measured results for this model and feature representation",
+        "parent_experiment": "exp_0010"
+      }
+    },
+    {
+      "experiment_id": "exp_0025",
+      "origin": "optuna-tpe",
+      "status": "ok",
+      "metric_value": 0.7856403175698999,
+      "accepted": false,
+      "recipe": {
+        "model_family": "xgboost",
+        "params": {
+          "iterations": 1800,
+          "max_depth": 9,
+          "min_child_weight": 1.181759637498672,
+          "reg_lambda": 1.1835731626027002,
+          "learning_rate": 0.05330140885379836,
+          "colsample_bytree": 0.9984523484803108,
+          "subsample": 0.9847095130966623,
+          "weight": "none"
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 300.0,
+        "validation_plan_id": "0eca5a18cb9cd560",
+        "feature_expressions": [
+          {
+            "name": "CryoSleep_Missing",
+            "expression": "isna(col(\"CryoSleep\"))",
+            "reason": "CryoSleep has 2.5% missingness and is the top importance feature; missingness likely correlates with transport status."
+          },
+          {
+            "name": "HomePlanet_Missing",
+            "expression": "isna(col(\"HomePlanet\"))",
+            "reason": "HomePlanet has 2.3% missingness and the highest error association (0.44); missingness may indicate a distinct passenger segment."
+          },
+          {
+            "name": "Destination_Missing",
+            "expression": "isna(col(\"Destination\"))",
+            "reason": "Destination has high error association (0.22); explicit missing indicator helps model handle the 2.3% missing rows."
+          }
+        ],
+        "id": "tpe_6",
+        "statement": "Seeded TPE trial from measured results for this model and feature representation",
+        "parent_experiment": "exp_0010"
+      }
+    },
+    {
+      "experiment_id": "exp_0026",
+      "origin": "optuna-tpe",
+      "status": "ok",
+      "metric_value": 0.7977217811529168,
+      "accepted": false,
+      "recipe": {
+        "model_family": "lightgbm",
+        "params": {
+          "iterations": 1800,
+          "num_leaves": 111,
+          "min_child_samples": 129,
+          "reg_lambda": 41.32489321995918,
+          "learning_rate": 0.020273106514935784,
+          "colsample_bytree": 0.8511866440682709,
+          "subsample": 0.8023324906488588,
+          "weight": "sqrt"
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 60.0,
+        "validation_plan_id": "0eca5a18cb9cd560",
+        "feature_expressions": [
+          {
+            "name": "Cabin_Deck",
+            "expression": "split_part(col(\"Cabin\"), \" / \", 0)",
+            "reason": "Extract deck letter from Cabin string to capture spatial location"
+          },
+          {
+            "name": "Cabin_Number",
+            "expression": "to_number(split_part(col(\"Cabin\"), \" / \", 1))",
+            "reason": "Extract cabin number to capture specific location within deck"
+          },
+          {
+            "name": "Cabin_Side",
+            "expression": "split_part(col(\"Cabin\"), \" / \", 2)",
+            "reason": "Extract side (P/S) from Cabin string"
+          },
+          {
+            "name": "Total_Spending",
+            "expression": "col(\"VRDeck\") + col(\"FoodCourt\") + col(\"Spa\") + col(\"RoomService\") + col(\"ShoppingMall\")",
+            "reason": "Aggregate spending across all services to capture overall wealth/behavior"
+          }
+        ],
+        "id": "tpe_7",
+        "statement": "Seeded TPE trial from measured results for this model and feature representation",
+        "parent_experiment": "exp_0003"
+      }
+    },
+    {
+      "experiment_id": "exp_0027",
+      "origin": "optuna-tpe",
+      "status": "ok",
+      "metric_value": 0.8039351052813255,
+      "accepted": false,
+      "recipe": {
+        "model_family": "xgboost",
+        "params": {
+          "iterations": 1800,
+          "max_depth": 8,
+          "min_child_weight": 2.9523703893822315,
+          "reg_lambda": 14.77172660487798,
+          "learning_rate": 0.04728310961229944,
+          "colsample_bytree": 0.6443031414567947,
+          "subsample": 0.9406523940114225,
+          "weight": "sqrt"
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 300.0,
+        "validation_plan_id": "0eca5a18cb9cd560",
+        "feature_expressions": [
+          {
+            "name": "CryoSleep_Missing",
+            "expression": "isna(col(\"CryoSleep\"))",
+            "reason": "CryoSleep has 2.5% missingness and is the top importance feature; missingness likely correlates with transport status."
+          },
+          {
+            "name": "HomePlanet_Missing",
+            "expression": "isna(col(\"HomePlanet\"))",
+            "reason": "HomePlanet has 2.3% missingness and the highest error association (0.44); missingness may indicate a distinct passenger segment."
+          },
+          {
+            "name": "Destination_Missing",
+            "expression": "isna(col(\"Destination\"))",
+            "reason": "Destination has high error association (0.22); explicit missing indicator helps model handle the 2.3% missing rows."
+          }
+        ],
+        "id": "tpe_8",
+        "statement": "Seeded TPE trial from measured results for this model and feature representation",
+        "parent_experiment": "exp_0010"
+      }
+    },
+    {
+      "experiment_id": "exp_0028",
+      "origin": "optuna-tpe",
+      "status": "ok",
+      "metric_value": 0.8025543665861236,
+      "accepted": false,
+      "recipe": {
+        "model_family": "xgboost",
+        "params": {
+          "iterations": 1800,
+          "max_depth": 3,
+          "min_child_weight": 29.489318496455162,
+          "reg_lambda": 26.892364282772043,
+          "learning_rate": 0.14569449303924578,
+          "colsample_bytree": 0.9981924712750396,
+          "subsample": 0.8715055070348836,
+          "weight": "none"
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 300.0,
+        "validation_plan_id": "0eca5a18cb9cd560",
+        "feature_expressions": [
+          {
+            "name": "CryoSleep_Missing",
+            "expression": "isna(col(\"CryoSleep\"))",
+            "reason": "CryoSleep has 2.5% missingness and is the top importance feature; missingness likely correlates with transport status."
+          },
+          {
+            "name": "HomePlanet_Missing",
+            "expression": "isna(col(\"HomePlanet\"))",
+            "reason": "HomePlanet has 2.3% missingness and the highest error association (0.44); missingness may indicate a distinct passenger segment."
+          },
+          {
+            "name": "Destination_Missing",
+            "expression": "isna(col(\"Destination\"))",
+            "reason": "Destination has high error association (0.22); explicit missing indicator helps model handle the 2.3% missing rows."
+          }
+        ],
+        "id": "tpe_9",
+        "statement": "Seeded TPE trial from measured results for this model and feature representation",
+        "parent_experiment": "exp_0010"
+      }
+    },
+    {
+      "experiment_id": "exp_0029",
+      "origin": "optuna-tpe",
+      "status": "ok",
+      "metric_value": 0.7994477045219193,
+      "accepted": false,
+      "recipe": {
+        "model_family": "lightgbm",
+        "params": {
+          "iterations": 1800,
+          "num_leaves": 10,
+          "min_child_samples": 7,
+          "reg_lambda": 3.5024817294469353,
+          "learning_rate": 0.10282355173922136,
+          "colsample_bytree": 0.663405025810784,
+          "subsample": 0.9844791060965281,
+          "weight": "none"
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 60.0,
+        "validation_plan_id": "0eca5a18cb9cd560",
+        "feature_expressions": [
+          {
+            "name": "Cabin_Deck",
+            "expression": "split_part(col(\"Cabin\"), \" / \", 0)",
+            "reason": "Extract deck letter from Cabin string to capture spatial location"
+          },
+          {
+            "name": "Cabin_Number",
+            "expression": "to_number(split_part(col(\"Cabin\"), \" / \", 1))",
+            "reason": "Extract cabin number to capture specific location within deck"
+          },
+          {
+            "name": "Cabin_Side",
+            "expression": "split_part(col(\"Cabin\"), \" / \", 2)",
+            "reason": "Extract side (P/S) from Cabin string"
+          },
+          {
+            "name": "Total_Spending",
+            "expression": "col(\"VRDeck\") + col(\"FoodCourt\") + col(\"Spa\") + col(\"RoomService\") + col(\"ShoppingMall\")",
+            "reason": "Aggregate spending across all services to capture overall wealth/behavior"
+          }
+        ],
+        "id": "tpe_10",
+        "statement": "Seeded TPE trial from measured results for this model and feature representation",
+        "parent_experiment": "exp_0003"
+      }
+    },
+    {
+      "experiment_id": "exp_0030",
+      "origin": "optuna-tpe",
+      "status": "ok",
+      "metric_value": 0.8025543665861236,
+      "accepted": false,
+      "recipe": {
+        "model_family": "xgboost",
+        "params": {
+          "iterations": 1800,
+          "max_depth": 7,
+          "min_child_weight": 4.302834871675845,
+          "reg_lambda": 16.906333025864576,
+          "learning_rate": 0.03702394443881723,
+          "colsample_bytree": 0.8709610373522093,
+          "subsample": 0.827104503691126,
+          "weight": "sqrt"
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 300.0,
+        "validation_plan_id": "0eca5a18cb9cd560",
+        "feature_expressions": [
+          {
+            "name": "CryoSleep_Missing",
+            "expression": "isna(col(\"CryoSleep\"))",
+            "reason": "CryoSleep has 2.5% missingness and is the top importance feature; missingness likely correlates with transport status."
+          },
+          {
+            "name": "HomePlanet_Missing",
+            "expression": "isna(col(\"HomePlanet\"))",
+            "reason": "HomePlanet has 2.3% missingness and the highest error association (0.44); missingness may indicate a distinct passenger segment."
+          },
+          {
+            "name": "Destination_Missing",
+            "expression": "isna(col(\"Destination\"))",
+            "reason": "Destination has high error association (0.22); explicit missing indicator helps model handle the 2.3% missing rows."
+          }
+        ],
+        "id": "tpe_11",
+        "statement": "Seeded TPE trial from measured results for this model and feature representation",
+        "parent_experiment": "exp_0010"
+      }
+    },
+    {
+      "experiment_id": "exp_0031",
+      "origin": "optuna-tpe",
+      "status": "ok",
+      "metric_value": 0.8008284432171212,
+      "accepted": false,
+      "recipe": {
+        "model_family": "xgboost",
+        "params": {
+          "iterations": 1800,
+          "max_depth": 6,
+          "min_child_weight": 2.390465168020766,
+          "reg_lambda": 0.5906486769849728,
+          "learning_rate": 0.030166712769786764,
+          "colsample_bytree": 0.7068008248898328,
+          "subsample": 0.9139716283701416,
+          "weight": "none"
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 300.0,
+        "validation_plan_id": "0eca5a18cb9cd560",
+        "feature_expressions": [
+          {
+            "name": "CryoSleep_Missing",
+            "expression": "isna(col(\"CryoSleep\"))",
+            "reason": "CryoSleep has 2.5% missingness and is the top importance feature; missingness likely correlates with transport status."
+          },
+          {
+            "name": "HomePlanet_Missing",
+            "expression": "isna(col(\"HomePlanet\"))",
+            "reason": "HomePlanet has 2.3% missingness and the highest error association (0.44); missingness may indicate a distinct passenger segment."
+          },
+          {
+            "name": "Destination_Missing",
+            "expression": "isna(col(\"Destination\"))",
+            "reason": "Destination has high error association (0.22); explicit missing indicator helps model handle the 2.3% missing rows."
+          }
+        ],
+        "id": "tpe_12",
+        "statement": "Seeded TPE trial from measured results for this model and feature representation",
+        "parent_experiment": "exp_0010"
+      }
+    },
+    {
+      "experiment_id": "exp_0032",
+      "phase": "confirmation",
+      "status": "ok",
+      "metric_value": 0.7791580400276052,
+      "accepted": false,
+      "recipe": {
+        "model_family": "xgboost",
+        "params": {
+          "iterations": 1800,
+          "max_depth": 6
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 300.0,
+        "validation_plan_id": "a9e80ff59d1e95b6",
+        "feature_expressions": [
+          {
+            "name": "HomePlanet_Missing",
+            "expression": "isna(col(\"HomePlanet\"))",
+            "reason": "HomePlanet has 2.3% missingness and the highest error association (0.44); missingness may indicate a distinct passenger segment."
+          }
+        ],
+        "id": "ablation_1",
+        "statement": "Controlled feature ablation: revert formula:CryoSleep_Missing",
+        "parent_experiment": "exp_0009"
+      }
+    },
+    {
+      "experiment_id": "exp_0033",
+      "phase": "confirmation",
+      "status": "ok",
+      "metric_value": 0.7884748102139406,
+      "accepted": false,
+      "recipe": {
+        "model_family": "xgboost",
+        "params": {
+          "iterations": 1800,
+          "max_depth": 6,
+          "min_child_weight": 10.020994005179451,
+          "reg_lambda": 35.357027333374994,
+          "learning_rate": 0.01708317273450722,
+          "colsample_bytree": 0.8974068468093197,
+          "subsample": 0.6956050731622049,
+          "weight": "none"
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 300.0,
+        "validation_plan_id": "a9e80ff59d1e95b6",
+        "feature_expressions": [
+          {
+            "name": "CryoSleep_Missing",
+            "expression": "isna(col(\"CryoSleep\"))",
+            "reason": "CryoSleep has 2.5% missingness and is the top importance feature; missingness likely correlates with transport status."
+          },
+          {
+            "name": "HomePlanet_Missing",
+            "expression": "isna(col(\"HomePlanet\"))",
+            "reason": "HomePlanet has 2.3% missingness and the highest error association (0.44); missingness may indicate a distinct passenger segment."
+          },
+          {
+            "name": "Destination_Missing",
+            "expression": "isna(col(\"Destination\"))",
+            "reason": "Destination has high error association (0.22); explicit missing indicator helps model handle the 2.3% missing rows."
+          }
+        ],
+        "id": "tpe_2",
+        "statement": "Seeded TPE trial from measured results for this model and feature representation",
+        "parent_experiment": "exp_0010"
+      }
+    },
+    {
+      "experiment_id": "exp_0034",
+      "phase": "confirmation",
+      "status": "ok",
+      "metric_value": 0.7874396135265701,
+      "accepted": false,
+      "recipe": {
+        "model_family": "lightgbm",
+        "params": {
+          "iterations": 1800,
+          "num_leaves": 31,
+          "min_child_samples": 30
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 60.0,
+        "validation_plan_id": "a9e80ff59d1e95b6",
+        "feature_expressions": [
+          {
+            "name": "Cabin_Deck",
+            "expression": "split_part(col(\"Cabin\"), \" / \", 0)",
+            "reason": "Extract deck letter from Cabin string to capture spatial location"
+          },
+          {
+            "name": "Total_Spending",
+            "expression": "col(\"VRDeck\") + col(\"FoodCourt\") + col(\"Spa\") + col(\"RoomService\") + col(\"ShoppingMall\")",
+            "reason": "Aggregate spending across all services to capture overall wealth/behavior"
+          }
+        ],
+        "id": "ablation_1",
+        "statement": "Controlled feature ablation: revert formula:Cabin_Number",
+        "parent_experiment": "exp_0002"
+      }
+    },
+    {
+      "experiment_id": "exp_0035",
+      "phase": "confirmation",
+      "status": "ok",
+      "metric_value": 0.7984817115251898,
+      "accepted": false,
+      "recipe": {
+        "model_family": "xgboost",
+        "params": {
+          "iterations": 1800,
+          "max_depth": 6
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 300.0,
+        "validation_plan_id": "ec644214cb0f6fea",
+        "feature_expressions": [
+          {
+            "name": "HomePlanet_Missing",
+            "expression": "isna(col(\"HomePlanet\"))",
+            "reason": "HomePlanet has 2.3% missingness and the highest error association (0.44); missingness may indicate a distinct passenger segment."
+          }
+        ],
+        "id": "ablation_1",
+        "statement": "Controlled feature ablation: revert formula:CryoSleep_Missing",
+        "parent_experiment": "exp_0009"
+      }
+    },
+    {
+      "experiment_id": "exp_0036",
+      "phase": "confirmation",
+      "status": "ok",
+      "metric_value": 0.7974465148378191,
+      "accepted": false,
+      "recipe": {
+        "model_family": "xgboost",
+        "params": {
+          "iterations": 1800,
+          "max_depth": 6,
+          "min_child_weight": 10.020994005179451,
+          "reg_lambda": 35.357027333374994,
+          "learning_rate": 0.01708317273450722,
+          "colsample_bytree": 0.8974068468093197,
+          "subsample": 0.6956050731622049,
+          "weight": "none"
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 300.0,
+        "validation_plan_id": "ec644214cb0f6fea",
+        "feature_expressions": [
+          {
+            "name": "CryoSleep_Missing",
+            "expression": "isna(col(\"CryoSleep\"))",
+            "reason": "CryoSleep has 2.5% missingness and is the top importance feature; missingness likely correlates with transport status."
+          },
+          {
+            "name": "HomePlanet_Missing",
+            "expression": "isna(col(\"HomePlanet\"))",
+            "reason": "HomePlanet has 2.3% missingness and the highest error association (0.44); missingness may indicate a distinct passenger segment."
+          },
+          {
+            "name": "Destination_Missing",
+            "expression": "isna(col(\"Destination\"))",
+            "reason": "Destination has high error association (0.22); explicit missing indicator helps model handle the 2.3% missing rows."
+          }
+        ],
+        "id": "tpe_2",
+        "statement": "Seeded TPE trial from measured results for this model and feature representation",
+        "parent_experiment": "exp_0010"
+      }
+    },
+    {
+      "experiment_id": "exp_0037",
+      "phase": "confirmation",
+      "status": "ok",
+      "metric_value": 0.7967563837129055,
+      "accepted": false,
+      "recipe": {
+        "model_family": "lightgbm",
+        "params": {
+          "iterations": 1800,
+          "num_leaves": 31,
+          "min_child_samples": 30
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 60.0,
+        "validation_plan_id": "ec644214cb0f6fea",
+        "feature_expressions": [
+          {
+            "name": "Cabin_Deck",
+            "expression": "split_part(col(\"Cabin\"), \" / \", 0)",
+            "reason": "Extract deck letter from Cabin string to capture spatial location"
+          },
+          {
+            "name": "Total_Spending",
+            "expression": "col(\"VRDeck\") + col(\"FoodCourt\") + col(\"Spa\") + col(\"RoomService\") + col(\"ShoppingMall\")",
+            "reason": "Aggregate spending across all services to capture overall wealth/behavior"
+          }
+        ],
+        "id": "ablation_1",
+        "statement": "Controlled feature ablation: revert formula:Cabin_Number",
+        "parent_experiment": "exp_0002"
+      }
+    },
+    {
+      "experiment_id": "exp_0038",
+      "phase": "refit",
+      "status": "ok",
+      "accepted": false,
+      "recipe": {
+        "model_family": "xgboost",
+        "params": {
+          "iterations": 1800,
+          "max_depth": 6,
+          "min_child_weight": 10.020994005179451,
+          "reg_lambda": 35.357027333374994,
+          "learning_rate": 0.01708317273450722,
+          "colsample_bytree": 0.8974068468093197,
+          "subsample": 0.6956050731622049,
+          "weight": "none"
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 300.0,
+        "validation_plan_id": "0eca5a18cb9cd560",
+        "feature_expressions": [
+          {
+            "name": "CryoSleep_Missing",
+            "expression": "isna(col(\"CryoSleep\"))",
+            "reason": "CryoSleep has 2.5% missingness and is the top importance feature; missingness likely correlates with transport status."
+          },
+          {
+            "name": "HomePlanet_Missing",
+            "expression": "isna(col(\"HomePlanet\"))",
+            "reason": "HomePlanet has 2.3% missingness and the highest error association (0.44); missingness may indicate a distinct passenger segment."
+          },
+          {
+            "name": "Destination_Missing",
+            "expression": "isna(col(\"Destination\"))",
+            "reason": "Destination has high error association (0.22); explicit missing indicator helps model handle the 2.3% missing rows."
+          }
+        ],
+        "id": "tpe_2",
+        "statement": "Seeded TPE trial from measured results for this model and feature representation",
+        "parent_experiment": "exp_0010"
+      }
+    },
+    {
+      "experiment_id": "exp_0039",
+      "phase": "refit",
+      "status": "ok",
+      "accepted": false,
+      "recipe": {
+        "model_family": "lightgbm",
+        "params": {
+          "iterations": 1800,
+          "num_leaves": 31,
+          "min_child_samples": 30
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 60.0,
+        "validation_plan_id": "0eca5a18cb9cd560",
+        "feature_expressions": [
+          {
+            "name": "Cabin_Deck",
+            "expression": "split_part(col(\"Cabin\"), \" / \", 0)",
+            "reason": "Extract deck letter from Cabin string to capture spatial location"
+          },
+          {
+            "name": "Total_Spending",
+            "expression": "col(\"VRDeck\") + col(\"FoodCourt\") + col(\"Spa\") + col(\"RoomService\") + col(\"ShoppingMall\")",
+            "reason": "Aggregate spending across all services to capture overall wealth/behavior"
+          }
+        ],
+        "id": "ablation_1",
+        "statement": "Controlled feature ablation: revert formula:Cabin_Number",
+        "parent_experiment": "exp_0002"
+      }
+    }
+  ],
+  "qwen_fits": 3,
+  "final_recipe": {
+    "output_sha256": "dd4d68194c72f9e44ec90039a0593b5955cd767e4c6f2cd4df455b5f45694df3",
+    "full_refit": true,
+    "seed": 42,
+    "labels": [
+      false,
+      true
+    ],
+    "components": [
+      {
+        "recipe": {
+          "model_family": "xgboost",
+          "params": {
+            "iterations": 1800,
+            "max_depth": 6,
+            "min_child_weight": 10.020994005179451,
+            "reg_lambda": 35.357027333374994,
+            "learning_rate": 0.01708317273450722,
+            "colsample_bytree": 0.8974068468093197,
+            "subsample": 0.6956050731622049,
+            "weight": "none"
+          },
+          "feature_ops": [],
+          "target_transform": "none",
+          "max_runtime_sec": 300.0,
+          "validation_plan_id": "0eca5a18cb9cd560",
+          "feature_expressions": [
+            {
+              "name": "CryoSleep_Missing",
+              "expression": "isna(col(\"CryoSleep\"))",
+              "reason": "CryoSleep has 2.5% missingness and is the top importance feature; missingness likely correlates with transport status."
+            },
+            {
+              "name": "HomePlanet_Missing",
+              "expression": "isna(col(\"HomePlanet\"))",
+              "reason": "HomePlanet has 2.3% missingness and the highest error association (0.44); missingness may indicate a distinct passenger segment."
+            },
+            {
+              "name": "Destination_Missing",
+              "expression": "isna(col(\"Destination\"))",
+              "reason": "Destination has high error association (0.22); explicit missing indicator helps model handle the 2.3% missing rows."
+            }
+          ],
+          "id": "tpe_2",
+          "statement": "Seeded TPE trial from measured results for this model and feature representation",
+          "parent_experiment": "exp_0010"
+        },
+        "iterations": 729,
+        "experiment_id": "exp_0021"
+      },
+      {
+        "recipe": {
+          "model_family": "lightgbm",
+          "params": {
+            "iterations": 1800,
+            "num_leaves": 31,
+            "min_child_samples": 30
+          },
+          "feature_ops": [],
+          "target_transform": "none",
+          "max_runtime_sec": 60.0,
+          "validation_plan_id": "0eca5a18cb9cd560",
+          "feature_expressions": [
+            {
+              "name": "Cabin_Deck",
+              "expression": "split_part(col(\"Cabin\"), \" / \", 0)",
+              "reason": "Extract deck letter from Cabin string to capture spatial location"
+            },
+            {
+              "name": "Total_Spending",
+              "expression": "col(\"VRDeck\") + col(\"FoodCourt\") + col(\"Spa\") + col(\"RoomService\") + col(\"ShoppingMall\")",
+              "reason": "Aggregate spending across all services to capture overall wealth/behavior"
+            }
+          ],
+          "id": "ablation_1",
+          "statement": "Controlled feature ablation: revert formula:Cabin_Number",
+          "parent_experiment": "exp_0002"
+        },
+        "iterations": 102,
+        "experiment_id": "exp_0006"
+      }
+    ],
+    "blend_weights": [
+      0.75,
+      0.25
+    ],
+    "probability_multipliers": null
+  },
+  "output_validation": {
+    "rows": 4277,
+    "columns": [
+      "PassengerId",
+      "Transported"
+    ],
+    "label_counts": {
+      "True": 2284,
+      "False": 1993
+    }
+  },
+  "output_sha256": "dd4d68194c72f9e44ec90039a0593b5955cd767e4c6f2cd4df455b5f45694df3",
+  "credential_absent_from_artifacts": true,
+  "exported_submission": "/Users/nosovdanil/PycharmProjects/1/alfaautoresearch/runs/kaggle-competition-woguvpqk/inputs/submission.csv"
+}

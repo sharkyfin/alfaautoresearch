@@ -1,0 +1,742 @@
+{
+  "status": "completed",
+  "benchmark_mode": "development budget override on frozen ZIP sources",
+  "competition": "spaceship_titanic",
+  "runtime_code_sha256": "47c85ff58f6c2976d6d4118d3c0e323f59d829906514fecf74428fd089e06476",
+  "archive_sha256": "2b1589e8b9b308c14912fb2d0380cdf94381cf4de240036bfa89835f4587a3ea",
+  "agent_default_overrides": {
+    "budget_seconds": 360.0
+  },
+  "data": {
+    "competition": "spaceship-titanic",
+    "source": "https://www.kaggle.com/competitions/spaceship-titanic",
+    "metric": "accuracy",
+    "target": "Transported",
+    "id_column": "PassengerId",
+    "training_rows": 8693,
+    "test_rows": 4277,
+    "features": 12,
+    "original_split_preserved": true,
+    "test_labels_available": false,
+    "raw_sha256": {
+      "train.csv": "17336d553f49ebdf6ecb266d2b5d3746e5dd308445f7c7864141c4f28d2a88d0",
+      "test.csv": "3c02b0703423d27d51a657a111b15a37b8d03b3c1de325e3a1e6b26f6572fc88",
+      "sample_submission.csv": "c77c0a5ed1f3d2728d6add6079266a543d12755aebaf00f230ff1966b364ebed"
+    },
+    "input_sha256": {
+      "train.csv": "17336d553f49ebdf6ecb266d2b5d3746e5dd308445f7c7864141c4f28d2a88d0",
+      "test.csv": "3c02b0703423d27d51a657a111b15a37b8d03b3c1de325e3a1e6b26f6572fc88",
+      "data_dictionary.csv": "ff2d5cb6951c71fee58597f105a3c3d2603ba29680c0abe4935b0c4fddb0e31c",
+      "sample_submission.csv": "c77c0a5ed1f3d2728d6add6079266a543d12755aebaf00f230ff1966b364ebed",
+      "task.md": "b3f8c47b6dad9c7a95592abac6cd8cda8fdac66060d77f687b4e719bb47c62bf"
+    },
+    "provenance": {
+      "competition": "spaceship-titanic",
+      "competition_url": "https://www.kaggle.com/competitions/spaceship-titanic",
+      "data_license": "CC BY 4.0 as shown on the competition data page",
+      "source": "Public mirror of the original competition CSV files; no submitted predictions used",
+      "mirrors": [
+        {
+          "repository": "https://github.com/NickLitwinow/Kaggle-Spaceship-Titanic",
+          "commit": "d3a7041e9e508609f3890bae6e8abdfa3059fa40",
+          "directory": "."
+        },
+        {
+          "repository": "https://github.com/GaryTaipei/Build-Kaggle-Competition-Spaceship-Titanic",
+          "commit": "01b2bf051cfe5a25f0f40d150216b56ed4ad8e85",
+          "directory": "data"
+        }
+      ],
+      "files": {
+        "train.csv": {
+          "sha256": "17336d553f49ebdf6ecb266d2b5d3746e5dd308445f7c7864141c4f28d2a88d0",
+          "verification_sha256": "17336d553f49ebdf6ecb266d2b5d3746e5dd308445f7c7864141c4f28d2a88d0",
+          "rows": 8693,
+          "columns": [
+            "PassengerId",
+            "HomePlanet",
+            "CryoSleep",
+            "Cabin",
+            "Destination",
+            "Age",
+            "VIP",
+            "RoomService",
+            "FoodCourt",
+            "ShoppingMall",
+            "Spa",
+            "VRDeck",
+            "Name",
+            "Transported"
+          ],
+          "copies_equal": true,
+          "byte_identical": true
+        },
+        "test.csv": {
+          "sha256": "3c02b0703423d27d51a657a111b15a37b8d03b3c1de325e3a1e6b26f6572fc88",
+          "verification_sha256": "3c02b0703423d27d51a657a111b15a37b8d03b3c1de325e3a1e6b26f6572fc88",
+          "rows": 4277,
+          "columns": [
+            "PassengerId",
+            "HomePlanet",
+            "CryoSleep",
+            "Cabin",
+            "Destination",
+            "Age",
+            "VIP",
+            "RoomService",
+            "FoodCourt",
+            "ShoppingMall",
+            "Spa",
+            "VRDeck",
+            "Name"
+          ],
+          "copies_equal": true,
+          "byte_identical": true
+        },
+        "sample_submission.csv": {
+          "sha256": "c77c0a5ed1f3d2728d6add6079266a543d12755aebaf00f230ff1966b364ebed",
+          "verification_sha256": "c77c0a5ed1f3d2728d6add6079266a543d12755aebaf00f230ff1966b364ebed",
+          "rows": 4277,
+          "columns": [
+            "PassengerId",
+            "Transported"
+          ],
+          "copies_equal": true,
+          "byte_identical": true
+        }
+      },
+      "independent_public_copies_equal": true
+    }
+  },
+  "run_root": "/Users/nosovdanil/PycharmProjects/1/alfaautoresearch/runs/branch-benchmark-rnvvt2aj",
+  "log": "/Users/nosovdanil/PycharmProjects/1/alfaautoresearch/runs/branch-benchmark-rnvvt2aj/pipeline.log",
+  "official_kaggle_score": null,
+  "kaggle_submissions": 0,
+  "platform_submissions": 0,
+  "wall_seconds": 302.141,
+  "returncode": 0,
+  "timed_out": false,
+  "agent_summary": {
+    "runtime_code_sha256": "47c85ff58f6c2976d6d4118d3c0e323f59d829906514fecf74428fd089e06476",
+    "mode": "live-agent",
+    "budget_seconds": 360.0,
+    "elapsed_seconds": 302.0483092079812,
+    "first_checkpoint_latency": 0.9798430409864523,
+    "validation": {
+      "id": "0eca5a18cb9cd560",
+      "kind": "stratified",
+      "reason": "IID classification",
+      "seed": 42,
+      "train_rows": 5796,
+      "valid_rows": 2897
+    },
+    "metric": "accuracy",
+    "dummy_utility": 0.5036244390749051,
+    "experiments": 119,
+    "successful_experiments": 119,
+    "accepted_experiments": 6,
+    "champion_metric": 0.8132550914739386,
+    "champion_recipe": {
+      "model_family": "lightgbm",
+      "params": {
+        "iterations": 500,
+        "num_leaves": 31,
+        "min_child_samples": 30
+      },
+      "feature_ops": [
+        {
+          "op": "ratio",
+          "columns": [
+            "Age",
+            "RoomService"
+          ]
+        }
+      ],
+      "target_transform": "none",
+      "max_runtime_sec": 54.0,
+      "validation_plan_id": "0eca5a18cb9cd560",
+      "feature_expressions": [
+        {
+          "name": "Cabin_Deck",
+          "expression": "split_part(col(\"Cabin\"), \" / \", 0)",
+          "reason": "Extract deck letter from Cabin string to capture spatial location"
+        },
+        {
+          "name": "Cabin_Pass",
+          "expression": "split_part(col(\"Cabin\"), \" / \", 2)",
+          "reason": "Extract pass type (P/S) from Cabin string"
+        }
+      ],
+      "id": "local_4",
+      "statement": "Bounded numeric interaction may capture nonlinear rates",
+      "parent_experiment": "exp_0005"
+    },
+    "confirmation_metric": 0.8045203588681848,
+    "ensemble": null,
+    "multipliers": null,
+    "qwen_calls": 8,
+    "qwen_proposals": 8,
+    "qwen_tokens": 36725,
+    "qwen_events": [
+      {
+        "status": "api_usage",
+        "call": 1,
+        "response_model": "qwen/qwen3.8-27b",
+        "prompt_tokens": 4554,
+        "completion_tokens": 348,
+        "reasoning_tokens": 0,
+        "finish_reason": "stop",
+        "reported_cost": 0.11441359539480002,
+        "elapsed_seconds": 5.955,
+        "timeout_seconds": 40.0
+      },
+      {
+        "status": "response",
+        "call": 1,
+        "tokens": 4902,
+        "elapsed_seconds": 5.955,
+        "timeout_seconds": 40.0
+      },
+      {
+        "status": "api_usage",
+        "call": 2,
+        "response_model": "qwen/qwen3.8-27b",
+        "prompt_tokens": 4290,
+        "completion_tokens": 509,
+        "reasoning_tokens": 0,
+        "finish_reason": "stop",
+        "reported_cost": 0.143043635761,
+        "elapsed_seconds": 6.012,
+        "timeout_seconds": 40.0
+      },
+      {
+        "status": "response",
+        "call": 2,
+        "tokens": 9701,
+        "elapsed_seconds": 6.012,
+        "timeout_seconds": 40.0
+      },
+      {
+        "status": "api_usage",
+        "call": 3,
+        "response_model": "qwen/qwen3.8-27b",
+        "prompt_tokens": 4357,
+        "completion_tokens": 530,
+        "reasoning_tokens": 0,
+        "finish_reason": "stop",
+        "reported_cost": 0.15770797952156002,
+        "elapsed_seconds": 7.065,
+        "timeout_seconds": 40.0
+      },
+      {
+        "status": "response",
+        "call": 3,
+        "tokens": 14588,
+        "elapsed_seconds": 7.065,
+        "timeout_seconds": 40.0
+      },
+      {
+        "status": "recipe_rejected",
+        "reason": "A controlled feature hypothesis may change at most four formulas/operations"
+      },
+      {
+        "status": "api_usage",
+        "call": 4,
+        "response_model": "qwen/qwen3.8-27b",
+        "prompt_tokens": 3832,
+        "completion_tokens": 778,
+        "reasoning_tokens": 0,
+        "finish_reason": "stop",
+        "reported_cost": 0.2070237728676,
+        "elapsed_seconds": 9.665,
+        "timeout_seconds": 40.0
+      },
+      {
+        "status": "response",
+        "call": 4,
+        "tokens": 19198,
+        "elapsed_seconds": 9.665,
+        "timeout_seconds": 40.0
+      },
+      {
+        "status": "api_usage",
+        "call": 5,
+        "response_model": "qwen/qwen3.8-27b",
+        "prompt_tokens": 3833,
+        "completion_tokens": 789,
+        "reasoning_tokens": 0,
+        "finish_reason": "stop",
+        "reported_cost": 0.2097241570814,
+        "elapsed_seconds": 7.371,
+        "timeout_seconds": 40.0
+      },
+      {
+        "status": "response",
+        "call": 5,
+        "tokens": 23820,
+        "elapsed_seconds": 7.371,
+        "timeout_seconds": 40.0
+      },
+      {
+        "status": "api_usage",
+        "call": 6,
+        "response_model": "qwen/qwen3.8-27b",
+        "prompt_tokens": 3596,
+        "completion_tokens": 677,
+        "reasoning_tokens": 0,
+        "finish_reason": "stop",
+        "reported_cost": 0.1740479681668,
+        "elapsed_seconds": 11.965,
+        "timeout_seconds": 40.0
+      },
+      {
+        "status": "response",
+        "call": 6,
+        "tokens": 28093,
+        "elapsed_seconds": 11.965,
+        "timeout_seconds": 40.0
+      },
+      {
+        "status": "api_usage",
+        "call": 7,
+        "response_model": "qwen/qwen3.8-27b",
+        "prompt_tokens": 3597,
+        "completion_tokens": 552,
+        "reasoning_tokens": 0,
+        "finish_reason": "stop",
+        "reported_cost": 0.1447465615596,
+        "elapsed_seconds": 9.614,
+        "timeout_seconds": 40.0
+      },
+      {
+        "status": "response",
+        "call": 7,
+        "tokens": 32242,
+        "elapsed_seconds": 9.614,
+        "timeout_seconds": 40.0
+      },
+      {
+        "status": "api_usage",
+        "call": 8,
+        "response_model": "qwen/qwen3.8-27b",
+        "prompt_tokens": 3695,
+        "completion_tokens": 788,
+        "reasoning_tokens": 0,
+        "finish_reason": "stop",
+        "reported_cost": 0.28868748363,
+        "elapsed_seconds": 4.101,
+        "timeout_seconds": 31.093762468751812
+      },
+      {
+        "status": "response",
+        "call": 8,
+        "tokens": 36725,
+        "elapsed_seconds": 4.101,
+        "timeout_seconds": 31.093762468751812
+      },
+      {
+        "status": "recipe_rejected",
+        "reason": "A controlled feature hypothesis may change at most four formulas/operations"
+      }
+    ],
+    "max_live_worker_threads": 15,
+    "peak_worker_memory_mb": 243.21875,
+    "cancelled": false,
+    "output": "/Users/nosovdanil/PycharmProjects/1/alfaautoresearch/runs/branch-benchmark-rnvvt2aj/inputs/submission.csv",
+    "output_sha256": "6408be96a9d58e5d4999fbe7e6b0685fbb55342b8f2d7475f1f284eb026fb481",
+    "full_refit_published": true,
+    "search_experiment_limit": 1452,
+    "adaptive_search": {
+      "backend": "optuna-tpe",
+      "studies": 4,
+      "proposed_trials": 86,
+      "completed_trials": 86,
+      "family_proposals": {
+        "xgboost": 32,
+        "lightgbm": 54
+      },
+      "stop_reason": "No untested model, preprocessing or feature-transfer branches remain",
+      "research_steps": 105,
+      "research_trial_limit": 1440,
+      "branches_started": 4,
+      "branches_completed": 4,
+      "branch_history": [
+        {
+          "id": 0,
+          "kind": "portfolio",
+          "status": "stagnated",
+          "experiments": 29,
+          "hpo_trials": 13,
+          "no_gain": 18,
+          "best_utility": 0.8132550914739386
+        },
+        {
+          "id": 1,
+          "kind": "feature_transfer",
+          "status": "stagnated",
+          "model_family": "xgboost",
+          "representation": "c070c1ebc15adda4e2fe401bade235170605cbed272ac2d6bafadc23a359aed8",
+          "experiments": 31,
+          "hpo_trials": 27,
+          "no_gain": 18,
+          "donor_experiment": "exp_0011",
+          "recipient_experiment": "exp_0009",
+          "held_constant": [
+            "model_family",
+            "params",
+            "target_transform",
+            "validation",
+            "seed"
+          ],
+          "best_utility": 0.8108387987573352
+        },
+        {
+          "id": 2,
+          "kind": "preprocessing",
+          "status": "stagnated",
+          "model_family": "lightgbm",
+          "representation": "d809ba4d67cdb17fa271017bb7bf491b0f9f4e547865f0c0fc5abb6ca984c814",
+          "experiments": 34,
+          "hpo_trials": 30,
+          "no_gain": 18,
+          "operation": "missing_indicators",
+          "parent_experiment": "exp_0011",
+          "best_utility": 0.8139454608215395
+        },
+        {
+          "id": 3,
+          "kind": "model_tuning",
+          "status": "stagnated",
+          "model_family": "lightgbm",
+          "representation": "f91286124566d252f45092eaf86e65e26b08dec2fa3017866dcf2cd48df34759",
+          "experiments": 18,
+          "hpo_trials": 16,
+          "no_gain": 18,
+          "parent_experiment": "exp_0011",
+          "best_utility": 0.8132550914739386
+        }
+      ]
+    },
+    "research_limits": {
+      "max_calls": 8,
+      "max_tokens": 40000
+    },
+    "cross_validation": {
+      "planned_folds": 3,
+      "completed_candidates": 3,
+      "selection_basis": "mean utility minus 0.25 standard deviation on all frozen folds",
+      "candidates": [
+        {
+          "experiment_id": "exp_0076",
+          "model_family": "lightgbm",
+          "fold_metrics": [
+            0.8139454608215395,
+            0.7971014492753623,
+            0.8081435472739821
+          ],
+          "mean_metric": 0.8063968191236279,
+          "metric_std": 0.006986581217608862,
+          "robust_utility": 0.8046501738192258
+        },
+        {
+          "experiment_id": "exp_0011",
+          "model_family": "lightgbm",
+          "fold_metrics": [
+            0.8132550914739386,
+            0.7988267770876466,
+            0.8102139406487232
+          ],
+          "mean_metric": 0.8074319364034362,
+          "metric_std": 0.006210138201522658,
+          "robust_utility": 0.8058794018530556
+        },
+        {
+          "experiment_id": "exp_0042",
+          "model_family": "xgboost",
+          "fold_metrics": [
+            0.8108387987573352,
+            0.7971014492753623,
+            0.8046928916494134
+          ],
+          "mean_metric": 0.8042110465607036,
+          "metric_std": 0.005618589604435183,
+          "robust_utility": 0.8028063991595948
+        }
+      ]
+    },
+    "confirmation_plan": [
+      {
+        "id": "a9e80ff59d1e95b6",
+        "kind": "stratified",
+        "reason": "Frozen cross-validation control 1; validation disjoint from search and other controls",
+        "seed": 1052,
+        "train_rows": 5795,
+        "valid_rows": 2898
+      },
+      {
+        "id": "ec644214cb0f6fea",
+        "kind": "stratified",
+        "reason": "Frozen cross-validation control 2; validation disjoint from search and other controls",
+        "seed": 1053,
+        "train_rows": 5795,
+        "valid_rows": 2898
+      }
+    ],
+    "confirmation_metrics": [
+      {
+        "split_id": "a9e80ff59d1e95b6",
+        "metric_value": 0.7988267770876466
+      },
+      {
+        "split_id": "ec644214cb0f6fea",
+        "metric_value": 0.8102139406487232
+      }
+    ],
+    "feature_group_trials": 16,
+    "feature_ablation_checks": 3,
+    "accepted_feature_ablations": 1,
+    "researcher_provider": "organizer-qwen",
+    "researcher_model": "qwen/qwen3.8-27b",
+    "researcher_calls": 8,
+    "researcher_proposals": 8,
+    "researcher_tokens": 36725,
+    "researcher_events": [
+      {
+        "status": "api_usage",
+        "call": 1,
+        "response_model": "qwen/qwen3.8-27b",
+        "prompt_tokens": 4554,
+        "completion_tokens": 348,
+        "reasoning_tokens": 0,
+        "finish_reason": "stop",
+        "reported_cost": 0.11441359539480002,
+        "elapsed_seconds": 5.955,
+        "timeout_seconds": 40.0
+      },
+      {
+        "status": "response",
+        "call": 1,
+        "tokens": 4902,
+        "elapsed_seconds": 5.955,
+        "timeout_seconds": 40.0
+      },
+      {
+        "status": "api_usage",
+        "call": 2,
+        "response_model": "qwen/qwen3.8-27b",
+        "prompt_tokens": 4290,
+        "completion_tokens": 509,
+        "reasoning_tokens": 0,
+        "finish_reason": "stop",
+        "reported_cost": 0.143043635761,
+        "elapsed_seconds": 6.012,
+        "timeout_seconds": 40.0
+      },
+      {
+        "status": "response",
+        "call": 2,
+        "tokens": 9701,
+        "elapsed_seconds": 6.012,
+        "timeout_seconds": 40.0
+      },
+      {
+        "status": "api_usage",
+        "call": 3,
+        "response_model": "qwen/qwen3.8-27b",
+        "prompt_tokens": 4357,
+        "completion_tokens": 530,
+        "reasoning_tokens": 0,
+        "finish_reason": "stop",
+        "reported_cost": 0.15770797952156002,
+        "elapsed_seconds": 7.065,
+        "timeout_seconds": 40.0
+      },
+      {
+        "status": "response",
+        "call": 3,
+        "tokens": 14588,
+        "elapsed_seconds": 7.065,
+        "timeout_seconds": 40.0
+      },
+      {
+        "status": "recipe_rejected",
+        "reason": "A controlled feature hypothesis may change at most four formulas/operations"
+      },
+      {
+        "status": "api_usage",
+        "call": 4,
+        "response_model": "qwen/qwen3.8-27b",
+        "prompt_tokens": 3832,
+        "completion_tokens": 778,
+        "reasoning_tokens": 0,
+        "finish_reason": "stop",
+        "reported_cost": 0.2070237728676,
+        "elapsed_seconds": 9.665,
+        "timeout_seconds": 40.0
+      },
+      {
+        "status": "response",
+        "call": 4,
+        "tokens": 19198,
+        "elapsed_seconds": 9.665,
+        "timeout_seconds": 40.0
+      },
+      {
+        "status": "api_usage",
+        "call": 5,
+        "response_model": "qwen/qwen3.8-27b",
+        "prompt_tokens": 3833,
+        "completion_tokens": 789,
+        "reasoning_tokens": 0,
+        "finish_reason": "stop",
+        "reported_cost": 0.2097241570814,
+        "elapsed_seconds": 7.371,
+        "timeout_seconds": 40.0
+      },
+      {
+        "status": "response",
+        "call": 5,
+        "tokens": 23820,
+        "elapsed_seconds": 7.371,
+        "timeout_seconds": 40.0
+      },
+      {
+        "status": "api_usage",
+        "call": 6,
+        "response_model": "qwen/qwen3.8-27b",
+        "prompt_tokens": 3596,
+        "completion_tokens": 677,
+        "reasoning_tokens": 0,
+        "finish_reason": "stop",
+        "reported_cost": 0.1740479681668,
+        "elapsed_seconds": 11.965,
+        "timeout_seconds": 40.0
+      },
+      {
+        "status": "response",
+        "call": 6,
+        "tokens": 28093,
+        "elapsed_seconds": 11.965,
+        "timeout_seconds": 40.0
+      },
+      {
+        "status": "api_usage",
+        "call": 7,
+        "response_model": "qwen/qwen3.8-27b",
+        "prompt_tokens": 3597,
+        "completion_tokens": 552,
+        "reasoning_tokens": 0,
+        "finish_reason": "stop",
+        "reported_cost": 0.1447465615596,
+        "elapsed_seconds": 9.614,
+        "timeout_seconds": 40.0
+      },
+      {
+        "status": "response",
+        "call": 7,
+        "tokens": 32242,
+        "elapsed_seconds": 9.614,
+        "timeout_seconds": 40.0
+      },
+      {
+        "status": "api_usage",
+        "call": 8,
+        "response_model": "qwen/qwen3.8-27b",
+        "prompt_tokens": 3695,
+        "completion_tokens": 788,
+        "reasoning_tokens": 0,
+        "finish_reason": "stop",
+        "reported_cost": 0.28868748363,
+        "elapsed_seconds": 4.101,
+        "timeout_seconds": 31.093762468751812
+      },
+      {
+        "status": "response",
+        "call": 8,
+        "tokens": 36725,
+        "elapsed_seconds": 4.101,
+        "timeout_seconds": 31.093762468751812
+      },
+      {
+        "status": "recipe_rejected",
+        "reason": "A controlled feature hypothesis may change at most four formulas/operations"
+      }
+    ]
+  },
+  "final_recipe": {
+    "output_sha256": "6408be96a9d58e5d4999fbe7e6b0685fbb55342b8f2d7475f1f284eb026fb481",
+    "full_refit": true,
+    "seed": 42,
+    "labels": [
+      false,
+      true
+    ],
+    "components": [
+      {
+        "recipe": {
+          "model_family": "lightgbm",
+          "params": {
+            "iterations": 500,
+            "num_leaves": 31,
+            "min_child_samples": 30
+          },
+          "feature_ops": [
+            {
+              "op": "ratio",
+              "columns": [
+                "Age",
+                "RoomService"
+              ]
+            }
+          ],
+          "target_transform": "none",
+          "max_runtime_sec": 54.0,
+          "validation_plan_id": "0eca5a18cb9cd560",
+          "feature_expressions": [
+            {
+              "name": "Cabin_Deck",
+              "expression": "split_part(col(\"Cabin\"), \" / \", 0)",
+              "reason": "Extract deck letter from Cabin string to capture spatial location"
+            },
+            {
+              "name": "Cabin_Pass",
+              "expression": "split_part(col(\"Cabin\"), \" / \", 2)",
+              "reason": "Extract pass type (P/S) from Cabin string"
+            }
+          ],
+          "id": "local_4",
+          "statement": "Bounded numeric interaction may capture nonlinear rates",
+          "parent_experiment": "exp_0005"
+        },
+        "iterations": 126,
+        "experiment_id": "exp_0011"
+      }
+    ],
+    "blend_weights": [
+      1.0
+    ],
+    "probability_multipliers": null
+  },
+  "inputs_unchanged": true,
+  "qwen_fits": 6,
+  "output_validation": {
+    "rows": 4277,
+    "columns": [
+      "PassengerId",
+      "Transported"
+    ],
+    "label_counts": {
+      "True": 2247,
+      "False": 2030
+    }
+  },
+  "output_sha256": "6408be96a9d58e5d4999fbe7e6b0685fbb55342b8f2d7475f1f284eb026fb481",
+  "internal_fold_accuracy": [
+    0.8132550914739386,
+    0.7988267770876466,
+    0.8102139406487232
+  ],
+  "mean_internal_accuracy": 0.8074319364034362,
+  "credential_absent_from_artifacts": true,
+  "exported_submission": "/Users/nosovdanil/PycharmProjects/1/alfaautoresearch/runs/branch-benchmark-rnvvt2aj/submission.csv"
+}

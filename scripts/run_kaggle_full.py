@@ -108,6 +108,7 @@ def write_report(path, report):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--case', default='concrete_strength')
+    parser.add_argument('--competition', help='Run original competition train/test and export a CSV for manual upload')
     parser.add_argument('--seed', type=int, default=42)
     parser.add_argument('--zip', type=Path, default=ROOT / 'submission.zip')
     parser.add_argument('--raw-dir', type=Path, default=ROOT / 'artifacts/data/kaggle/raw')
@@ -117,14 +118,17 @@ def main():
     parser.add_argument('--supervisor-seconds', type=float, default=10_800,
                         help='Outer failure guard only; does not alter the agent budget')
     args = parser.parse_args()
+    if args.supervisor_seconds < DEFAULT_BUDGET_SECONDS + 30:
+        parser.error('Allow the default agent budget plus at least 30 seconds for shutdown')
+    if args.competition:
+        from scripts.kaggle_competition import run_competition
+        return run_competition(args)
     registry = json.loads((ROOT / 'benchmarks/kaggle_cases.json').read_text())
     if args.case not in registry:
         parser.error('Unknown dataset')
     archive = args.raw_dir / (args.case + '.zip')
     if not archive.is_file():
         parser.error('Download the public dataset first with download_kaggle.py')
-    if args.supervisor_seconds < DEFAULT_BUDGET_SECONDS + 30:
-        parser.error('Allow the default agent budget plus at least 30 seconds for shutdown')
     from scripts.run_organizer import load_environment
     settings = load_environment(args.key_file)
     for name in ['OMP_NUM_THREADS', 'MKL_NUM_THREADS', 'OPENBLAS_NUM_THREADS', 'NUMEXPR_NUM_THREADS', 'VECLIB_MAXIMUM_THREADS']:

@@ -1,0 +1,67 @@
+{
+  "runtime_code_sha256": "58237b65c88b6cff67e0d5fd994413f49777ba28b9e911210b7f5e1399ec7135",
+  "archive_sha256": "26181d55748ba2c8813650fbc939b67cf2b96b274b809b1bd401f8b2748bf8f4",
+  "tests": {
+    "command": ".venv/bin/python -m pytest tests -q",
+    "passed": 291,
+    "warnings": 13,
+    "seconds": 63.81,
+    "exit_code": 0,
+    "summary_log": "reports/tests-structured-features.log"
+  },
+  "zip_verification": "reports/zip-verification.json",
+  "data_identical": true,
+  "frozen_validation_splits_identical": true,
+  "baseline": {
+    "report": "reports/kaggle-competition-spaceship-titanic.json",
+    "mean_internal_accuracy": 0.7966184527769976,
+    "fold_accuracy": [
+      0.8008284432171212,
+      0.7881297446514838,
+      0.8008971704623878
+    ],
+    "wall_seconds": 109.561,
+    "qwen_fits": 0
+  },
+  "candidate": {
+    "report": "reports/kaggle-competition-spaceship-repaired-features.json",
+    "mean_internal_accuracy": 0.8072020118064752,
+    "fold_accuracy": [
+      0.81429064549534,
+      0.7967563837129055,
+      0.8105590062111802
+    ],
+    "wall_seconds": 89.938,
+    "qwen_fits": 2,
+    "qwen_calls": 3,
+    "qwen_tokens": 12816,
+    "rejected_qwen_recipes": 1,
+    "full_refit": true
+  },
+  "delta_percentage_points": 1.0583559029477607,
+  "improved_on_all_three_folds": true,
+  "delivery": {
+    "file": "/Users/nosovdanil/PycharmProjects/1/alfaautoresearch/spaceship_titanic_submission_v2.csv",
+    "bytes": 57673,
+    "sha256": "6f339ba756bb7941b6840ce232eb47a2e6e88cdf0037d5bd16403099a77a2602",
+    "validation": {
+      "rows": 4277,
+      "columns": [
+        "PassengerId",
+        "Transported"
+      ],
+      "label_counts": {
+        "True": 2229,
+        "False": 2048
+      }
+    }
+  },
+  "official_kaggle_score": null,
+  "kaggle_submissions": 0,
+  "platform_submissions": 0,
+  "limitations": [
+    "One local run of each variant; Qwen proposals are stochastic.",
+    "Internal folds were used for model selection; they are not an independent Kaggle score.",
+    "Execution used macOS and existing dependencies, not the organizer Docker image."
+  ]
+}

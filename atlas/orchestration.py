@@ -53,11 +53,13 @@ def _run(task_path,started,budget_seconds,mode,seed,threads,max_experiments,memo
     split,control_plan=selection_splits(data,seed);data.spec.validation_plan=split.json()
     data.spec.suspicious_leakage_features=leakage_signals(data,split.train)
     qwen=research_client if research_client is not None else QwenClient('live' if mode in {'auto','live-agent'} else 'disabled')
+    if research_client is None and budget.total>=300:
+        qwen.max_calls=budget.research_call_limit;qwen.max_tokens=budget.research_token_limit
     research_origin=getattr(qwen,'origin','qwen');research_provider=getattr(qwen,'provider','organizer-qwen')
     actual_mode='live-agent' if qwen.configured and mode in {'auto','live-agent'} else 'mock-agent' if mode=='mock-agent' else 'deterministic'
     scheduler=SearchController(data.spec,budget,actual_mode,seed)
     executor=Executor(data,directory/'experiments',threads,memory_mb,lambda:stop['requested'],strict)
-    initial_utility=None;no_gain=0;stage='SAFE_BASELINE';pending_ablation=None
+    initial_utility=None;no_gain=0;stage='SAFE_BASELINE';pending_ablation=None;recipe_rejections=0
     def record(result):
         if not result.get('phase'):scheduler.observe(result)
         history.append(result);register(directory/'experiments.jsonl',result)
@@ -78,7 +80,6 @@ def _run(task_path,started,budget_seconds,mode,seed,threads,max_experiments,memo
         emit('CONFIRMATION_PLAN',windows=[s.json() for s in control_plan])
         # Search stops early enough to confirm and refit measured finalists.
         while len(history)<max_experiments and budget.search_remaining>2 and not stop['requested']:
-            if time.monotonic()-start>budget.total*.67 and champion:break
             raw=None;feature_trial=None;feature_parent=None;ablation=None
             if pending_ablation and pending_ablation['checks']<3:
                 for proposal,detail in ablation_options(champion['recipe'],pending_ablation['parent']['recipe'],pending_ablation['attempted']):
@@ -93,14 +94,19 @@ def _run(task_path,started,budget_seconds,mode,seed,threads,max_experiments,memo
             else:
                 pending_ablation=None
                 raw=scheduler.next(champion);stage=scheduler.stage
-                is_research=stage=='RESEARCH';origin='optuna-tpe' if stage=='HYPERPARAMETER_SEARCH' else 'deterministic'
+                is_research=stage=='RESEARCH';origin={'HYPERPARAMETER_SEARCH':'optuna-tpe','FEATURE_TRANSFER':'feature-transfer','PREPROCESSING':'preprocessing'}.get(stage,'deterministic')
             if raw is None:break
             remaining=budget.search_remaining
             fallback=raw
+            research_parent=scheduler.parent(champion) if champion else None
             if is_research and champion:
-                if actual_mode=='live-agent' and qwen.available:
-                    context=researcher_context(data,history,champion,remaining)
+                if actual_mode=='live-agent' and qwen.available and scheduler.request_researcher:
+                    context=researcher_context(data,history,research_parent,remaining)
                     context['recipe_rejections']=[e for e in qwen.events if e['status']=='recipe_rejected'][-3:]
+                    context['research_plan']={'branch_id':scheduler.branches[-1]['id'],
+                        'branch_kind':scheduler.branches[-1]['kind'],'branch_stagnation':scheduler.branches[-1]['no_gain'],
+                        'global_best_metric':champion['metric_value'],
+                        'previous_branch_kinds':[b['kind'] for b in scheduler.branches[-4:-1]]}
                     proposed=qwen.propose(context,timeout=max(1,min(40,remaining*.25)))
                     if proposed is not None:raw=proposed;origin=research_origin
                 elif actual_mode=='mock-agent' and scheduler.research_index<=3:
@@ -113,32 +119,44 @@ def _run(task_path,started,budget_seconds,mode,seed,threads,max_experiments,memo
                     requested=raw.get('max_runtime_sec',300)
                     if isinstance(requested,bool) or not isinstance(requested,(int,float)) or not 1<=requested<=1800:
                         raise RecipeError('Invalid time budget')
-                    timeout=min(requested,max(2,budget.total*.15),budget.search_remaining)
+                    timeout=min(requested,max(2,budget.total*.15),max(1,budget.search_remaining-1))
                     raw={**raw,'max_runtime_sec':timeout,'validation_plan_id':split.id}
                     if is_research and champion:
                         feature_trial=None;feature_parent=None
-                        r,feature_trial=controlled_hypothesis(raw,champion,data.spec,budget.search_remaining)
-                        if feature_trial:feature_parent=champion
+                        r,feature_trial=controlled_hypothesis(raw,research_parent,data.spec,budget.search_remaining)
+                        if feature_trial:feature_parent=research_parent
                     else:r=validate(raw,data.spec,remaining=budget.search_remaining)
                     r=validate(r,data.spec,remaining=budget.search_remaining,seen=scheduler.seen)
                     if scheduler.failures.get(r['model_family'],0)>=2:raise RecipeError('Model family repeatedly failed')
+                    if origin==research_origin:recipe_rejections=0
                     break
                 except RecipeError as error:
                     register(directory/'rejections.jsonl',{'reason':str(error),'origin':origin})
                     if origin==research_origin:
+                        recipe_rejections+=1
                         qwen.events.append({'status':'recipe_rejected','reason':str(error)})
-                        if sum(e['status']=='recipe_rejected' for e in qwen.events)>=3:qwen.open=True
-            else:continue
+                        if recipe_rejections>=3:qwen.open=True
+            else:
+                scheduler.reject();no_gain+=1
+                if scheduler.should_restart(no_gain):
+                    branch=scheduler.restart(champion)
+                    if branch is None:break
+                    emit('SEARCH_BRANCH_RESTART',**branch);no_gain=0
+                continue
             scheduler.seen.add(recipe_hash(r))
             # Reserve enough for a measured full-data refit before trying longer fits.
             refit_cost=champion['runtime_sec']*1.5 if champion else 0
             estimate=estimate_runtime(r,history,timeout,budget.total)
             final_work=len(control_plan)*sum(c['runtime_sec'] for c in finalists[:3])+1.5*sum(c['runtime_sec'] for c in finalists[:2])
-            if champion and not budget.can_run(estimate,finalization_estimate=final_work):break
+            if champion and not budget.can_run(estimate,finalization_estimate=final_work):
+                scheduler.stop_reason='Reserved measured confirmation and refit time';break
             timeout=min(timeout,max(1,budget.remaining-max(budget.reserve,refit_cost)))
             if ablation is not None:pending_ablation['checks']+=1
             result,predictions=executor.run(r,split,timeout,seed)
             result['origin']=origin;result['accepted']=False;result['estimated_runtime_sec']=estimate
+            result['branch_id']=scheduler.branches[-1]['id'];result['search_stage']=stage
+            if stage=='FEATURE_TRANSFER':result['feature_transfer']={k:scheduler.branches[-1][k] for k in
+                ['donor_experiment','recipient_experiment','held_constant'] if k in scheduler.branches[-1]}
             if feature_trial:result['feature_trial']=feature_trial
             if result['status']=='ok' and predictions is not None:
                 try:
@@ -173,8 +191,15 @@ def _run(task_path,started,budget_seconds,mode,seed,threads,max_experiments,memo
             if champion: keep_ids.add(champion['experiment_id'])
             for artifact in executor.root.glob('exp_*/predictions.npz'):
                 if artifact.parent.name not in keep_ids:artifact.unlink()
-            if scheduler.should_stop(no_gain):break
+            if scheduler.should_restart(no_gain):
+                branch=scheduler.restart(champion)
+                if branch is None:break
+                emit('SEARCH_BRANCH_RESTART',**branch);no_gain=0;pending_ablation=None
         scheduler.hpo.abandon()
+        if scheduler.stop_reason is None:
+            scheduler.stop_reason=('Cancelled' if stop['requested'] else 'Experiment safety limit reached'
+                                   if len(history)>=max_experiments else 'Research time budget reached')
+        if scheduler.branches[-1]['status']=='running':scheduler.branches[-1]['status']='finalized'
         if champion and not stop['requested']:
             stage='CONFIRMATION'
             ordered=[champion]+[c for c in finalists if c['experiment_id']!=champion['experiment_id']]
@@ -184,9 +209,9 @@ def _run(task_path,started,budget_seconds,mode,seed,threads,max_experiments,memo
                 for candidate in ordered:
                     if stop['requested']:break
                     estimate=max(2,candidate['runtime_sec'])
-                    if not budget.can_run(estimate,champion['runtime_sec']*1.3):break
+                    if not budget.can_finalize(estimate,champion['runtime_sec']*1.3):break
                     r=dict(candidate['recipe']);r['validation_plan_id']=second.id
-                    timeout=min(estimate*2+5,budget.search_remaining,max(2,budget.remaining*.3))
+                    timeout=max(1,min(estimate*2+5,budget.remaining-max(3,champion['runtime_sec']*1.5)))
                     result,predictions=executor.run(r,second,timeout,second.seed)
                     result['accepted']=False;result['phase']='confirmation'
                     if result['status']=='ok' and predictions is not None:
@@ -252,6 +277,7 @@ def _run(task_path,started,budget_seconds,mode,seed,threads,max_experiments,memo
         summary['full_refit_published']=refit_published
         summary['search_experiment_limit']=max_experiments
         summary['adaptive_search']=scheduler.summary()
+        summary['research_limits']={'max_calls':qwen.max_calls,'max_tokens':qwen.max_tokens}
         summary['cross_validation']=cv_selection
         summary['confirmation_plan']=[s.json() for s in control_plan]
         summary['confirmation_metrics']=champion.get('confirmation_metrics',[]) if champion else []

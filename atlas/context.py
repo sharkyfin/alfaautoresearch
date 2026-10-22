@@ -104,6 +104,34 @@ def ranked_columns(data, history=(), champion=None):
     return informed + neutral, signals
 
 
+def string_structure(series):
+    """Describe separators and numeric fields without transmitting raw values."""
+    text = series.dropna().astype('string').str.slice(0, 4096)
+    if len(text) > 512:
+        text = text.iloc[np.linspace(0, len(text)-1, 512, dtype=int)]
+    if not len(text):
+        return []
+    structures = []
+    for separator in ('/', '_', '|', ':', '-', ' '):
+        selected = text[text.str.contains(separator, regex=False)]
+        coverage = len(selected) / len(text)
+        if coverage < .5:
+            continue
+        parts = selected.str.split(separator, n=16, regex=False)
+        sizes = parts.str.len()
+        count = int(sizes.median())
+        if not 2 <= count <= 12:
+            continue
+        numeric_parts = []
+        for position in range(count):
+            values = parts.str.get(position)
+            if pd.to_numeric(values, errors='coerce').notna().mean() >= .9:
+                numeric_parts.append(position)
+        structures.append({'separator': separator, 'coverage': round(coverage, 3),
+                           'median_parts': count, 'numeric_parts': numeric_parts})
+    return structures[:3]
+
+
 def selected_profile(data, columns, signals, limit=20):
     profile = {}
     profiles = context_profiles(data)
@@ -115,6 +143,11 @@ def selected_profile(data, columns, signals, limit=20):
         if info is None:
             info = {**column_profile(train, test, data.spec, column), 'sampled': True}
         profile[column] = {**info, **signals.get(column, {})}
+        if column in data.spec.categorical_features:
+            structure = string_structure(train[column])
+            if structure:
+                profile[column]['string_structure'] = structure
+                data.spec.profile.setdefault('structured_columns', {})[column] = structure
     return profile
 
 

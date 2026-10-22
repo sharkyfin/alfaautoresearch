@@ -1,11 +1,11 @@
 {
   "status": "passed",
-  "source_sha256_before": "110869ae56302830a4d920ad4bde9d06e9c7b2ac45a3e97aa6ab96252331c507",
-  "source_sha256_after": "110869ae56302830a4d920ad4bde9d06e9c7b2ac45a3e97aa6ab96252331c507",
+  "source_sha256_before": "e8f77c4033339107029e30ede2d02be9d9509a139be1b27450b74641b0bcc086",
+  "source_sha256_after": "e8f77c4033339107029e30ede2d02be9d9509a139be1b27450b74641b0bcc086",
   "returncode": 0,
-  "passed": 259,
+  "passed": 302,
   "warnings": 13,
-  "seconds": 66.41,
+  "seconds": 63.93,
   "python": "3.12.13 (main, Mar  3 2026, 15:35:03) [Clang 21.1.4 ]",
   "platform": "macOS-26.6.2-arm64-arm-64bit",
   "command": [
@@ -16,5 +16,5 @@
     "-q",
     "--tb=short"
   ],
-  "log": "reports/tests-f66996e202.log"
+  "log": "reports/tests-96baf2ba46.log"
 }

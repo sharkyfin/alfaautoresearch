@@ -2,8 +2,10 @@
 from __future__ import annotations
 import copy
 import numpy as np
-from .recipes import PARAMS,recipe_hash,merge_hypothesis_features
-from .hpo import AdaptiveTPE
+from .recipes import PARAMS,RecipeError,recipe_hash,merge_hypothesis_features,validate
+from .hpo import AdaptiveTPE,study_key
+from .branches import preprocessing_candidates,transfer_candidates
+from .judge import meaningful_gain
 
 
 def recipe(family,params=None,ops=None,statement='',transform='none'):
@@ -44,42 +46,128 @@ class SearchController:
         self.spec=spec;self.budget=budget;self.mode=mode;self.rng=np.random.default_rng(seed);self.stage='INITIALIZE';self.seen=set();self.failures={};self.research_index=0
         self.queue=initial_portfolio(spec,budget.total)
         self.initial_attempts=0;self.family_best={};self.hpo=AdaptiveTPE(spec,seed);self.stop_reason=None
+        self.nodes={};self.closed_keys=set();self.focus_key=None;self.pending_branch=None
+        self.last_research_step=0;self.branch_research_due=False;self.request_researcher=True
+        self.branches=[{'id':0,'kind':'portfolio','status':'running','experiments':0,'hpo_trials':0,'no_gain':0}]
     def observe(self,result):
+        completed=self.hpo.completed
         self.hpo.observe(result)
-        if result.get('status')!='ok' or result.get('standardized_utility') is None:return
+        branch=self.branches[-1];branch['experiments']+=1
+        branch['hpo_trials']+=self.hpo.completed-completed
+        if result.get('status')!='ok' or result.get('standardized_utility') is None:
+            branch['no_gain']+=1;return
+        key=study_key(result['recipe']);old_node=self.nodes.get(key)
+        better=old_node is None or meaningful_gain(result['standardized_utility'],old_node['standardized_utility'])
+        record={name:copy.deepcopy(result[name]) for name in
+                ['experiment_id','recipe','standardized_utility','metric_value','runtime_sec','iterations','diagnostics'] if name in result}
+        record.setdefault('metric_value',result['standardized_utility']*self.spec.metric.direction)
+        if old_node is None or result['standardized_utility']>old_node['standardized_utility']:self.nodes[key]=record
+        focus=self.nodes.get(self.focus_key)
+        follows_feature=(self.focus_key is not None and key!=self.focus_key and
+                         result.get('search_stage') in {'RESEARCH','FEATURE_ABLATION'} and
+                         (focus is None or meaningful_gain(result['standardized_utility'],focus['standardized_utility'])))
+        if follows_feature:
+            self.focus_key=key;branch['representation']=key
+        improved=(key==self.focus_key and better) if self.focus_key is not None else result.get('accepted',False)
+        branch['no_gain']=0 if improved else branch['no_gain']+1
+        branch['best_utility']=max(branch.get('best_utility',float('-inf')),result['standardized_utility'])
         family=result['recipe']['model_family'];old=self.family_best.get(family)
         if old is None or result['standardized_utility']>old['standardized_utility']:
-            self.family_best[family]={key:copy.deepcopy(result[key]) for key in
-                ['experiment_id','recipe','standardized_utility','runtime_sec','iterations'] if key in result}
+            self.family_best[family]=record
+    def should_restart(self,no_gain):
+        branch=self.branches[-1]
+        stalled=branch['no_gain'] if self.focus_key is not None else no_gain
+        trials=branch['hpo_trials'] if self.focus_key is not None else self.hpo.completed
+        return stalled>=18 and trials>=12 if self.hpo.enabled else stalled>=10
     def should_stop(self,no_gain):
-        if no_gain>=18 and self.hpo.completed>=12:
-            self.stop_reason='TPE search stagnated after exploring multiple model families';return True
-        if not self.hpo.enabled and no_gain>=10:
-            self.stop_reason='Bounded local search stagnated';return True
-        return False
+        # A plateau ends a branch. Only exhaustion/deadline ends the search.
+        return self.stop_reason is not None
+    def parent(self,champion):
+        return self.nodes.get(self.focus_key,champion)
+    def restart(self,champion):
+        if self.focus_key is not None:self.closed_keys.add(self.focus_key)
+        self.branches[-1]['status']='stagnated'
+        self.hpo.abandon()
+        if self.budget.search_remaining<=2:
+            self.stop_reason='Research deadline reached';return None
+        ranked=sorted(self.nodes.values(),key=lambda r:-r['standardized_utility'])
+        donors=ranked[:3];recipients=sorted(self.family_best.values(),key=lambda r:-r['standardized_utility'])
+        parents=list({study_key(p['recipe']):p for p in [champion,*ranked[:3]]}.values())
+        groups={
+            'feature_transfer':((raw,detail) for raw,detail in transfer_candidates(donors,recipients)),
+            'preprocessing':((raw,{'operation':kind,'parent_experiment':parent['experiment_id']})
+                             for parent in parents for kind,raw in preprocessing_candidates(self.spec,parent)),
+            'model_tuning':((p['recipe'],{'parent_experiment':p['experiment_id']}) for p in ranked)}
+        kinds=list(groups);offset=(len(self.branches)-1)%len(kinds)
+        for kind in kinds[offset:]+kinds[:offset]:
+            for raw,detail in groups[kind]:
+                family=raw['model_family']
+                if self.failures.get(family,0)>=2:continue
+                raw=copy.deepcopy(raw)
+                available=self.budget.search_remaining
+                raw['max_runtime_sec']=min(raw.get('max_runtime_sec',300),max(1,available-1))
+                try:clean=validate(raw,self.spec,remaining=available)
+                except RecipeError:continue
+                key=study_key(clean)
+                if key in self.closed_keys:continue
+                known=self.nodes.get(key)
+                if known is None and recipe_hash(clean) in self.seen:continue
+                self.focus_key=key
+                self.pending_branch=None if known else (kind.upper(),clean)
+                self.branch_research_due=True
+                branch={'id':len(self.branches),'kind':kind,'status':'running','model_family':family,
+                        'representation':key,'experiments':0,'hpo_trials':0,'no_gain':0,**detail}
+                self.branches.append(branch)
+                return branch
+        self.stop_reason='No untested model, preprocessing or feature-transfer branches remain'
+        return None
+    def reject(self):
+        self.branches[-1]['no_gain']+=1
     def summary(self):
         return {**self.hpo.summary(),'stop_reason':self.stop_reason,'research_steps':self.research_index,
-                'research_trial_limit':self.budget.research_trial_limit}
+                'research_trial_limit':self.budget.research_trial_limit,'branches_started':len(self.branches),
+                'branches_completed':sum(b['status']=='stagnated' for b in self.branches),
+                'branch_history':copy.deepcopy(self.branches)}
     def next(self,champion):
+        if self.pending_branch is not None:
+            self.stage,raw=self.pending_branch;self.pending_branch=None
+            self.research_index+=1
+            if self.research_index>self.budget.research_trial_limit:
+                self.stop_reason='Research trial safety cap reached';return None
+            return raw
+        if self.focus_key is not None and self.focus_key not in self.nodes:
+            if not self.restart(champion):return None
+            return self.next(champion)
         early_research=self.mode=='live-agent' and champion is not None and self.initial_attempts>=2 and self.research_index==0
         if self.queue and not early_research:
             self.stage='MODEL_DIVERSITY';self.initial_attempts+=1;return self.queue.pop(0)
         self.stage='RESEARCH';self.research_index+=1
         if not champion or self.research_index>self.budget.research_trial_limit:
             self.stop_reason='No champion or bounded research trial cap reached';return None
-        spec=self.spec;base=copy.deepcopy(champion['recipe']);base.pop('validation_plan_id',None);base['parent_experiment']=champion['experiment_id'];base['id']=f'local_{self.research_index}'
+        parent=self.parent(champion)
+        spec=self.spec;base=copy.deepcopy(parent['recipe']);base.pop('validation_plan_id',None);base['parent_experiment']=parent['experiment_id'];base['id']=f'local_{self.research_index}'
         family=base['model_family'];i=self.research_index
+        self.request_researcher=(self.budget.total<300 and i<9 or i==1 or self.branch_research_due or i-self.last_research_step>=12)
+        if self.request_researcher and self.mode=='live-agent':
+            self.last_research_step=i;self.branch_research_due=False
+            if i>=9 or self.focus_key is not None:
+                for _,raw in preprocessing_candidates(spec,parent):
+                    try:validate(raw,spec,remaining=max(300,self.budget.search_remaining),seen=self.seen)
+                    except RecipeError:continue
+                    return raw
         growth=None
-        if i in {3,9,15} and family in {'hist','lightgbm','xgboost'}:
+        branch_step=self.branches[-1]['experiments']+1 if self.focus_key is not None else i
+        if branch_step in {3,9,15} and family in {'hist','lightgbm','xgboost'}:
             rounds=base['params'].get('iterations',500)
             maximum=PARAMS[family]['iterations'][1]
-            fit_cost=champion.get('runtime_sec',1.)
-            if champion.get('iterations',0)>=rounds*.95 and rounds<maximum and self.budget.can_run(fit_cost*2.4,refit_estimate=fit_cost*2.4):
+            fit_cost=parent.get('runtime_sec',1.)
+            if parent.get('iterations',0)>=rounds*.95 and rounds<maximum and self.budget.can_run(fit_cost*2.4,refit_estimate=fit_cost*2.4):
                 proposal=copy.deepcopy(base)
                 proposal['params']['iterations']=min(maximum,rounds*2)
                 if recipe_hash(proposal) not in self.seen:growth=proposal
-        if growth is None and i>=9 and self.hpo.enabled and self.family_best:
-            ranked=sorted(self.family_best.values(),key=lambda c:-c['standardized_utility'])[:2]
+        due=self.mode=='live-agent' and self.request_researcher
+        if growth is None and (i>=9 or self.focus_key is not None) and not due and self.hpo.enabled and self.family_best:
+            ranked=[parent] if self.focus_key is not None else sorted(self.family_best.values(),key=lambda c:-c['standardized_utility'])[:2]
             # Give the second family regular opportunities even after a narrow
             # early winner. Its own measured features/transform stay attached.
             index=1 if len(ranked)>1 and i%3==0 else 0
@@ -111,7 +199,7 @@ class SearchController:
             elif family=='extra_trees':base['params'].update(min_samples_leaf=int(self.rng.choice([1,3,5,10])),max_features=float(self.rng.choice([.5,.8,1.])))
             elif family=='hist':base['params'].update(max_leaf_nodes=int(self.rng.choice([15,31,63])),l2_regularization=float(self.rng.choice([0,1,10])))
             else:base['params'].update({'C':float(self.rng.choice([.01,.1,10,100]))} if spec.classification else {'alpha':float(self.rng.choice([.1,1,100,1000]))})
-        return merge_hypothesis_features(base,champion['recipe'])
+        return merge_hypothesis_features(base,parent['recipe'])
 
 
 def mock_hypothesis(spec,champion,number):

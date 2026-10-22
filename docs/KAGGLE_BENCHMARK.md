@@ -169,3 +169,46 @@ Docker-контейнер и не повторяет установку зави
 CSV остаются в новом `runs/kaggle-full-*`. Исходные данные Concrete Strength
 опубликованы [I-Cheng Yeh в UCI](https://archive.ics.uci.edu/dataset/165/concrete).
 Ни Kaggle, ни Boosters ничего не отправляется.
+
+## CSV для официального соревнования
+
+`--competition` использует исходные конкурсные `train.csv`, `test.csv` и
+`sample_submission.csv`. Дополнительного внешнего разбиения нет: ответы
+конкурсного теста неизвестны. Тот же ZIP самостоятельно строит внутреннюю
+валидацию, проводит AutoResearch и обучает финальные модели на полном train.
+
+Поддержан [Spaceship Titanic](https://www.kaggle.com/competitions/spaceship-titanic):
+8 693 обучающих пассажира, 4 277 конкурсных, метрика Accuracy. Описание полей
+передаётся через обычные task.md и словарь. Ручных признаков или настроек модели
+в адаптере нет; runtime архива не меняется.
+
+Для воспроизведения положите оригинальные три CSV в отдельную папку и запустите:
+
+```sh
+.venv/bin/python scripts/run_kaggle_full.py --competition spaceship_titanic --raw-dir /path/to/competition-csv --report reports/kaggle-competition-spaceship-titanic.json
+```
+
+Без Kaggle API использованы публичные копии CSV из
+[NickLitwinow](https://github.com/NickLitwinow/Kaggle-Spaceship-Titanic) и
+[GaryTaipei](https://github.com/GaryTaipei/Build-Kaggle-Competition-Spaceship-Titanic).
+Все три файла совпали побайтово; SHA256 и закреплённые коммиты источников
+сохраняются в отчёте. Чужие предсказания не передаются агенту.
+
+Готовый файл: `artifacts/data/kaggle/competitions/spaceship-titanic/spaceship-titanic_submission.csv`.
+Адаптер проверяет ID, число строк, отсутствие пропусков и метки `True`/`False`.
+Загрузите CSV через [Submit Predictions](https://www.kaggle.com/competitions/spaceship-titanic/submit).
+Официальные score и место появятся после отправки в Kaggle. Собственные
+валидационные Accuracy в отчёте ими не являются; автоматической отправки нет.
+
+После исправлений генерации и исполнения строковых формул новый файл для ручной
+отправки сохранён как `spaceship_titanic_submission_v2.csv`. Исходный файл
+`spaceship_titanic_submission.csv` сохранён для сравнения. Средняя внутренняя
+Accuracy на тех же трёх разбиениях изменилась с 0,79662 до 0,80720; подробности,
+промежуточный вариант и ограничения — в
+[отчёте сравнения](../reports/structured-feature-research.md).
+
+Текущая версия с исследовательскими ветками: `spaceship_titanic_submission_v3.csv`.
+Сравнение замороженных ZIP с явно переопределённым бюджетом разработки 360 секунд
+даёт среднюю внутреннюю Accuracy 0,80387 → 0,81054. Полный стандартный бюджет ZIP
+остаётся 10 500 секунд; эти шестиминутные проверки его не воспроизводят.
+[Результаты и ограничения](../reports/branch-restarts-comparison.md).

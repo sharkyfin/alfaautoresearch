@@ -17,13 +17,21 @@ class Budget:
     def remaining(self):return max(0.,self.total-(time.monotonic()-self.started))
     @property
     def reserve(self):return min(300.,max(2.,self.total*.06))
-    def can_run(self,estimate,refit_estimate=0,finalization_estimate=0):return self.remaining>estimate*1.3+max(self.reserve,refit_estimate*1.5,finalization_estimate)
+    def can_run(self,estimate,refit_estimate=0,finalization_estimate=0):return self.remaining>estimate*1.3+max(self.reserve,refit_estimate*1.5,finalization_estimate*1.3)
+    def can_finalize(self,estimate,refit_estimate=0):
+        return self.remaining>estimate*1.3+max(3.,refit_estimate*1.5)
     @property
     def search_remaining(self):return max(0.,self.remaining-self.reserve)
     @property
     def research_trial_limit(self):
-        # Preserve short-run bounds while allowing longer research on the platform.
-        return max(48,min(512,int(self.total*48/900)))
+        # A safety bound on artifacts, not a substitute for the measured deadline.
+        return max(48,min(10000,int(self.total*4)))
+    @property
+    def research_call_limit(self):
+        return max(8,min(24,int((self.total+449)//450)))
+    @property
+    def research_token_limit(self):
+        return 16000 if self.total<300 else self.research_call_limit*5000
 
 
 def stop_process(proc):

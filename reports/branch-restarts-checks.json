@@ -1,0 +1,108 @@
+{
+  "status": "passed",
+  "runtime_code_sha256": "e8f77c4033339107029e30ede2d02be9d9509a139be1b27450b74641b0bcc086",
+  "archive_sha256": "d5b5ab2fd062f1809c6156b4bab31f91d66ee188d604b92f34814c06d04b2c35",
+  "archive_bytes": 66035,
+  "root_files": 26,
+  "tests": {
+    "status": "passed",
+    "source_sha256_before": "e8f77c4033339107029e30ede2d02be9d9509a139be1b27450b74641b0bcc086",
+    "source_sha256_after": "e8f77c4033339107029e30ede2d02be9d9509a139be1b27450b74641b0bcc086",
+    "returncode": 0,
+    "passed": 302,
+    "warnings": 13,
+    "seconds": 63.93,
+    "python": "3.12.13 (main, Mar  3 2026, 15:35:03) [Clang 21.1.4 ]",
+    "platform": "macOS-26.6.2-arm64-arm-64bit",
+    "command": [
+      "/Users/nosovdanil/PycharmProjects/1/alfaautoresearch/.venv/bin/python",
+      "-m",
+      "pytest",
+      "tests",
+      "-q",
+      "--tb=short"
+    ],
+    "log": "reports/tests-96baf2ba46.log"
+  },
+  "zip_check": "reports/zip-verification.json",
+  "official_defaults": {
+    "budget_seconds": 10500,
+    "research_trial_safety_cap": 10000,
+    "qwen_max_calls": 24,
+    "qwen_max_tokens": 120000
+  },
+  "development_override": {
+    "budget_seconds": 360,
+    "same_original_data": true,
+    "same_frozen_validation_splits": true
+  },
+  "baseline": {
+    "report": "reports/branch-restarts-baseline.json",
+    "wall_seconds": 77.788,
+    "experiments": 36,
+    "branches": 1,
+    "fold_accuracy": [
+      0.8077321366931308,
+      0.7977915804002761,
+      0.8060731538992408
+    ],
+    "mean_internal_accuracy": 0.8038656236642159,
+    "qwen_calls": 3,
+    "max_tokens": 16000
+  },
+  "candidate": {
+    "report": "reports/branch-restarts-final.json",
+    "wall_seconds": 344.71,
+    "experiments": 139,
+    "branches": 5,
+    "fold_accuracy": [
+      0.812219537452537,
+      0.8064182194616977,
+      0.8129744651483782
+    ],
+    "mean_internal_accuracy": 0.8105374073542043,
+    "qwen_calls": 8,
+    "research_limits": {
+      "max_calls": 8,
+      "max_tokens": 40000
+    },
+    "stop_reason": "Reserved measured confirmation and refit time",
+    "full_refit": true
+  },
+  "improved_on_all_three_folds": true,
+  "delta_percentage_points": 0.6671783689988442,
+  "previous_v2_csv_internal_accuracy": 0.8072020118064752,
+  "late_search_proof": {
+    "observed_wall_seconds": 312.698,
+    "budget_seconds": 360,
+    "old_67_percent_threshold": 241.2,
+    "experiments": 119,
+    "last_experiment": "exp_0119",
+    "last_phase": "search"
+  },
+  "delivery": {
+    "file": "/Users/nosovdanil/PycharmProjects/1/alfaautoresearch/spaceship_titanic_submission_v3.csv",
+    "bytes": 57579,
+    "sha256": "795ba2111cc04b9e5b1c9420b080bc74a783ec5c190c12ae052720887f870d3b",
+    "validation": {
+      "rows": 4277,
+      "columns": [
+        "PassengerId",
+        "Transported"
+      ],
+      "label_counts": {
+        "True": 2323,
+        "False": 1954
+      }
+    }
+  },
+  "kaggle_submissions": 0,
+  "platform_submissions": 0,
+  "official_kaggle_score": null,
+  "limitations": [
+    "One stochastic run of each pipeline; the API token allowance changed as part of the new scheduler.",
+    "Benchmark explicitly overrides time to 360 seconds and calls run() reconstructed from the frozen ZIP.",
+    "The default 10500-second complete run was not executed; its CLI and cancellation were verified separately.",
+    "Internal cross-validation scores are not Kaggle leaderboard scores; execution used macOS, not the organizer Docker image."
+  ]
+}

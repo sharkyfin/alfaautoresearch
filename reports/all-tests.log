@@ -1,7 +1,8 @@
-........................................................................ [ 27%]
-........................................................................ [ 55%]
-........................................................................ [ 83%]
-...........................................                              [100%]
+........................................................................ [ 23%]
+........................................................................ [ 47%]
+........................................................................ [ 71%]
+........................................................................ [ 95%]
+..............                                                           [100%]
 =============================== warnings summary ===============================
 tests/test_core.py::test_real_model_apis[iid-lightgbm]
   /Users/nosovdanil/PycharmProjects/1/alfaautoresearch/.venv/lib/python3.12/site-packages/matplotlib/_fontconfig_pattern.py:64: PyparsingDeprecationWarning: 'oneOf' deprecated - use 'one_of'
@@ -26,4 +27,4 @@ tests/test_core.py::test_real_model_apis[iid-lightgbm]
     parser.resetCache()
 
 -- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
-259 passed, 13 warnings in 66.41s (0:01:06)
+302 passed, 13 warnings in 63.93s (0:01:03)

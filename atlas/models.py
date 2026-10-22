@@ -96,6 +96,7 @@ def fit_predict(data,recipe,train_idx,valid_idx,seed=42,threads=8,refit=False,it
         except AttributeError:pass
     importance=getattr(model,'feature_importances_',None)
     diagnostics={'feature_importance':dict(sorted(zip(encoded_names,map(float,importance)),key=lambda t:-t[1])[:15])} if importance is not None else {}
+    if f.expression_builder.repairs:diagnostics['formula_repairs']=f.expression_builder.repairs
     text_info={c:{'components':p.components,'vocabulary':len(p.vectorizer.vocabulary_),'fit_rows':p.fit_rows} for c,p in matrix.text_projections.items()}
     if text_info:diagnostics['text_projections']=text_info
     train_metric=None

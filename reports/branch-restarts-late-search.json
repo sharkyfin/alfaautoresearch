@@ -1,0 +1,8 @@
+{
+  "observed_wall_seconds": 312.698,
+  "budget_seconds": 360,
+  "old_67_percent_threshold": 241.2,
+  "experiments": 119,
+  "last_experiment": "exp_0119",
+  "last_phase": "search"
+}
