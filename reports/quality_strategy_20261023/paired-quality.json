@@ -1,0 +1,1793 @@
+{
+  "status": "completed",
+  "stage": "development",
+  "run_root": "/Users/mac/Documents/projects/alfaautoresearch/runs/performance-v2-mbbimkja",
+  "versions": {
+    "baseline": {
+      "source_sha": "f85b2482d45f30df8a52a3039ba84b25b2f7b72be587b51e254c7b6358e17b44",
+      "zip_sha": "ad10fe9d0d811e8f240f7fc160f34fc1876d6c5aa1fcd9b11ca3cbfb58573a42",
+      "runtime": "/Users/mac/Documents/projects/alfaautoresearch/runs/performance-v2-mbbimkja/runtime-baseline"
+    },
+    "candidate": {
+      "source_sha": "4588cb3f6b5e6c2f837ac264e35aac519d94fd3b0b78a1fc475f86af95841cdd",
+      "zip_sha": "7644890c65799a7fb673b2fc0b80760a488f438d2769c74fc7032955e3df31d9",
+      "runtime": "/Users/mac/Documents/projects/alfaautoresearch/runs/performance-v2-mbbimkja/runtime-candidate"
+    }
+  },
+  "created_at_utc": "2026-10-23T17:20:24.518093+00:00",
+  "budget_seconds": 360.0,
+  "manifest_sha256": "ae644e186cbd98c2ecd3129f2fba8668802caac5348241f5e0aece3b28070da5",
+  "runs": [
+    {
+      "case": "concrete_strength",
+      "source": "kaggle",
+      "dataset": "elikplim/concrete-compressive-strength-data-set",
+      "license": "CC BY 4.0",
+      "seed": 42,
+      "metric": "rmse",
+      "original_source_metric": null,
+      "metric_override": null,
+      "split_regime": null,
+      "split_sha256": "e39d6f9e1afd9ff31f863da7d7645a608fbbb2bc816c3e43d9639fad063918a2",
+      "input_sha256": {
+        "train.csv": "3ba99c2ebf7db42655724312c514784182ea24ca33b776e00f6375d75504fa0e",
+        "test.csv": "bdb0dcd4a1464bc89d0f43d6d34bf5afcd0d1a8450eeafed37eb081457e41e5a",
+        "data_dictionary.csv": "1ee6e0d445c66f6090cb653418b3c3dcc2bd662cd6a9266311e4d80ecef387e2",
+        "sample_submission.csv": "42ae376631eae15ed188c2d1268900d92fea2f1d71691bc55693a571b7f9b7a8",
+        "task.md": "d08915a64901e848a0a4ba84873a63217174be882f2f0df8ce168fb1ffd68efc"
+      },
+      "training_rows": 615,
+      "evaluation_rows": 205,
+      "features": 8,
+      "n_classes": 0,
+      "missingness": 0.0,
+      "imbalance_ratio": null,
+      "train_class_support": null,
+      "official_repeat": null,
+      "official_fold": null,
+      "evaluation_unit": "row",
+      "arm": "baseline",
+      "mode": "live-agent",
+      "source_sha": "f85b2482d45f30df8a52a3039ba84b25b2f7b72be587b51e254c7b6358e17b44",
+      "zip_sha": "ad10fe9d0d811e8f240f7fc160f34fc1876d6c5aa1fcd9b11ca3cbfb58573a42",
+      "budget_seconds": 360.0,
+      "intervention": {
+        "excluded_families": "",
+        "dev_worker_sha256": "142c481e7799a60aa2dbe48018581d0d3ab9f22a5c09ee7b0ffdf1939e8533f7"
+      },
+      "phase": "development",
+      "wall_seconds": 84.776,
+      "threads": 8,
+      "first_trained_checkpoint_seconds": 3.2073703770001885,
+      "memory_mb": 8192,
+      "runtime_code_sha256": "f85b2482d45f30df8a52a3039ba84b25b2f7b72be587b51e254c7b6358e17b44",
+      "raw_sha256": "e1accd70da31187a50c652c50acb4c8392f440174562f6a5510ac4fcaa437bb8",
+      "returncode": 0,
+      "log": "/Users/mac/Documents/projects/alfaautoresearch/runs/performance-v2-mbbimkja/concrete_strength-42-baseline-live-agent/live-agent.log",
+      "run_dir": "/Users/mac/Documents/projects/alfaautoresearch/runs/performance-v2-mbbimkja/concrete_strength-42-baseline-live-agent/run",
+      "qwen_calls": 2,
+      "qwen_tokens": 9908,
+      "internal_metric": 5.2292997511078125,
+      "experiments": 38,
+      "full_refit": true,
+      "champion_family": "lightgbm",
+      "decision_adjustment": null,
+      "ensemble": {
+        "weights": [
+          0.5,
+          0.5
+        ],
+        "metric_value": 5.045031841177887,
+        "confirmation_metric": 4.564918277910152,
+        "confirmation_metrics": [
+          {
+            "split_id": "1c47332d5568d195",
+            "metric_value": 4.439334787987882,
+            "utility": -4.439334787987882
+          },
+          {
+            "split_id": "d46b34c0de916b2a",
+            "metric_value": 4.690501767832423,
+            "utility": -4.690501767832423
+          }
+        ],
+        "robust_utility": -4.78707415088264,
+        "strategy": "fixed_convex",
+        "weight_selection": "primary legal holdout only; one frozen proposal checked on controls",
+        "residual_correlations": [
+          {
+            "components": [
+              0,
+              2
+            ],
+            "residual_correlation": 0.8757846702473427
+          }
+        ]
+      },
+      "adaptive_search": {
+        "backend": "optuna-tpe",
+        "studies": 2,
+        "proposed_trials": 15,
+        "completed_trials": 15,
+        "family_proposals": {
+          "lightgbm": 8,
+          "catboost": 7
+        },
+        "stop_reason": null,
+        "research_steps": 23,
+        "research_limit": 48,
+        "family_priorities": [],
+        "quarantined_families": []
+      },
+      "cross_validation": {
+        "planned_folds": 3,
+        "completed_candidates": 3,
+        "selection_basis": "mean utility minus 0.25 standard deviation on all frozen folds",
+        "candidates": [
+          {
+            "experiment_id": "exp_0028",
+            "model_family": "catboost",
+            "fold_metrics": [
+              5.189583206116661,
+              4.715829165553557,
+              4.875510267424432
+            ],
+            "mean_metric": 4.92697421303155,
+            "metric_std": 0.19680299118755995,
+            "robust_utility": -4.97617496082844
+          },
+          {
+            "experiment_id": "exp_0029",
+            "model_family": "catboost",
+            "fold_metrics": [
+              5.209487861119518,
+              4.741090463191439,
+              5.128811264876205
+            ],
+            "mean_metric": 5.026463196395721,
+            "metric_std": 0.2044592476716951,
+            "robust_utility": -5.077578008313645
+          },
+          {
+            "experiment_id": "exp_0026",
+            "model_family": "lightgbm",
+            "fold_metrics": [
+              5.2292997511078125,
+              4.546534653382881,
+              4.842589861951516
+            ],
+            "mean_metric": 4.872808088814071,
+            "metric_std": 0.2795554811885842,
+            "robust_utility": -4.942696959111217
+          }
+        ]
+      },
+      "output_sha256": "36b9cdebb5858d200193171685cb151098a88825c86b43a8f9491cd054a2b929",
+      "feature_ablation_checks": 2,
+      "accepted_feature_ablations": 0,
+      "external_metric": 4.415821488982329,
+      "evaluation_detail": {
+        "row_metric": 4.415821488982329,
+        "target_deciles": [
+          {
+            "target_range": [
+              4.57,
+              14.522000000000002
+            ],
+            "support": 21,
+            "rmse": 3.9558268200745377,
+            "mae": 2.5101269549686416,
+            "bias": 1.9750986386793195
+          },
+          {
+            "target_range": [
+              14.522000000000002,
+              20.486000000000004
+            ],
+            "support": 20,
+            "rmse": 4.3323743275621265,
+            "mae": 2.955615180949331,
+            "bias": 1.4241217841002385
+          },
+          {
+            "target_range": [
+              20.486000000000004,
+              25.184
+            ],
+            "support": 21,
+            "rmse": 4.126909723127969,
+            "mae": 2.7330323114318182,
+            "bias": 1.228650173208131
+          },
+          {
+            "target_range": [
+              25.184,
+              29.882
+            ],
+            "support": 20,
+            "rmse": 3.1633061901849517,
+            "mae": 2.7959984444282804,
+            "bias": 1.9446643666114276
+          },
+          {
+            "target_range": [
+              29.882,
+              33.12
+            ],
+            "support": 20,
+            "rmse": 3.0811151220464073,
+            "mae": 2.7319910983049644,
+            "bias": 0.7355349450331934
+          },
+          {
+            "target_range": [
+              33.12,
+              38.83800000000001
+            ],
+            "support": 21,
+            "rmse": 3.8951826160143734,
+            "mae": 3.1318240255053564,
+            "bias": 1.67643244016946
+          },
+          {
+            "target_range": [
+              38.83800000000001,
+              42.578
+            ],
+            "support": 20,
+            "rmse": 5.852418629846514,
+            "mae": 3.850750390899549,
+            "bias": 1.2449930881357223
+          },
+          {
+            "target_range": [
+              42.578,
+              47.748000000000005
+            ],
+            "support": 21,
+            "rmse": 5.746936997299739,
+            "mae": 4.614018639353992,
+            "bias": -1.6618779679600433
+          },
+          {
+            "target_range": [
+              47.748000000000005,
+              60.205999999999996
+            ],
+            "support": 20,
+            "rmse": 4.35636318341349,
+            "mae": 3.7242507172443453,
+            "bias": -2.2309306545350354
+          },
+          {
+            "target_range": [
+              60.205999999999996,
+              80.2
+            ],
+            "support": 21,
+            "rmse": 4.725619138074547,
+            "mae": 3.6203022102220794,
+            "bias": -2.5581671215568997
+          }
+        ],
+        "residual_bias": 0.37185624390365984
+      },
+      "status": "trained_success",
+      "qwen_fits": 2,
+      "qwen_accepted": 1,
+      "research_experiments": [
+        {
+          "experiment_id": "exp_0003",
+          "status": "ok",
+          "metric_value": 5.46535688727475,
+          "accepted": true,
+          "recipe": {
+            "model_family": "lightgbm",
+            "params": {
+              "iterations": 500,
+              "num_leaves": 31,
+              "min_child_samples": 30
+            },
+            "feature_ops": [],
+            "target_transform": "none",
+            "max_runtime_sec": 54.0,
+            "validation_plan_id": "14941af73849ed50",
+            "feature_expressions": [
+              {
+                "name": "water_to_binder",
+                "expression": "col(\"water\") / maximum(col(\"cement\") + col(\"blast_furnace_slag\") + col(\"fly_ash\"), 1)",
+                "reason": "Water-to-binder ratio is the primary predictor of concrete strength; high error association with water (0.2433) and cement (0.1645) suggests this interaction is underrepresented."
+              },
+              {
+                "name": "sp_to_cement",
+                "expression": "col(\"superplasticizer\") / maximum(col(\"cement\"), 1)",
+                "reason": "Superplasticizer error association is the highest (0.204); its effect is relative to cement content, so this ratio isolates the dosage effect."
+              }
+            ],
+            "id": "candidate",
+            "statement": "Adding the water-to-binder ratio and the superplasticizer-to-cement ratio captures the dominant physical drivers of concrete strength that the raw features only partially encode, reducing RMSE.",
+            "parent_experiment": "exp_0002",
+            "hypothesis": {
+              "kind": "feature_interaction",
+              "failure_mode": "If the ratios are redundant with existing features, RMSE will not improve and may slightly worsen due to added noise.",
+              "expected_effect": "RMSE reduction of 0.3-1.0 MPa by providing the model with physically meaningful interaction terms that capture non-linear relationships between water, binder, and admixture content.",
+              "uncertainty": "Moderate; the physical basis is strong, but LightGBM may already approximate these interactions via splits.",
+              "stop_condition": "If RMSE does not improve by at least 0.1 MPa over the champion, this feature set is rejected."
+            }
+          },
+          "feature_trial": {
+            "kind": "feature_group",
+            "parent_experiment": "exp_0002",
+            "parent_metric": 5.6625377528478,
+            "parent_utility": -5.6625377528478,
+            "held_constant": [
+              "model_family",
+              "params",
+              "target_transform",
+              "validation",
+              "seed"
+            ],
+            "changes": [
+              {
+                "kind": "formula",
+                "name": "water_to_binder"
+              },
+              {
+                "kind": "formula",
+                "name": "sp_to_cement"
+              }
+            ],
+            "ignored_model_overrides": [],
+            "group_experiment": "exp_0003",
+            "utility_gain_vs_parent": 0.19718086557304915
+          }
+        },
+        {
+          "experiment_id": "exp_0010",
+          "status": "ok",
+          "metric_value": 5.51784378253386,
+          "accepted": false,
+          "recipe": {
+            "model_family": "catboost",
+            "params": {
+              "iterations": 500,
+              "depth": 6,
+              "l2_leaf_reg": 3.0
+            },
+            "feature_ops": [],
+            "target_transform": "none",
+            "max_runtime_sec": 54.0,
+            "validation_plan_id": "14941af73849ed50",
+            "feature_expressions": [
+              {
+                "name": "total_binder_ratio",
+                "expression": "(col(\"cement\") + col(\"blast_furnace_slag\") + col(\"fly_ash\")) / maximum(col(\"cement\") + col(\"blast_furnace_slag\") + col(\"fly_ash\") + col(\"water\") + col(\"fine_aggregate\") + col(\"coarse_aggregate\") + col(\"superplasticizer\"), 1)",
+                "reason": "Total binder fraction of the mix; high correlation with strength in concrete physics."
+              }
+            ],
+            "id": "candidate",
+            "statement": "Adding the total binder ratio (cement + slag + fly_ash) / total mix mass captures the overall binder concentration, which is a primary driver of compressive strength not fully represented by the individual ingredient ratios already in the champion.",
+            "parent_experiment": "exp_0006",
+            "hypothesis": {
+              "kind": "feature_interaction",
+              "failure_mode": "No gain if the model already implicitly captures this via individual ingredient splits.",
+              "expected_effect": "Reduce RMSE by providing a direct, normalized measure of binder content which is a stronger predictor than individual components.",
+              "uncertainty": "Medium; the model might already approximate this, but explicit normalization often helps tree models with varying total masses.",
+              "stop_condition": "If RMSE does not improve by at least 0.05 over the champion."
+            }
+          },
+          "feature_trial": {
+            "kind": "feature_group",
+            "parent_experiment": "exp_0006",
+            "parent_metric": 5.444048520048169,
+            "parent_utility": -5.444048520048169,
+            "held_constant": [
+              "model_family",
+              "params",
+              "target_transform",
+              "validation",
+              "seed"
+            ],
+            "changes": [
+              {
+                "kind": "formula",
+                "name": "total_binder_ratio"
+              }
+            ],
+            "ignored_model_overrides": [],
+            "group_experiment": "exp_0010",
+            "utility_gain_vs_parent": -0.07379526248569057
+          }
+        }
+      ],
+      "champion_recipe": {
+        "model_family": "lightgbm",
+        "params": {
+          "iterations": 500,
+          "num_leaves": 123,
+          "min_child_samples": 38,
+          "reg_lambda": 13.47511828225477,
+          "learning_rate": 0.08570893330065686,
+          "colsample_bytree": 0.7329376907075996,
+          "subsample": 0.8891603579164662
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 54.0,
+        "validation_plan_id": "14941af73849ed50",
+        "feature_expressions": [
+          {
+            "name": "water_to_binder",
+            "expression": "col(\"water\") / maximum(col(\"cement\") + col(\"blast_furnace_slag\") + col(\"fly_ash\"), 1)",
+            "reason": "Water-to-binder ratio is the primary predictor of concrete strength; high error association with water (0.2433) and cement (0.1645) suggests this interaction is underrepresented."
+          },
+          {
+            "name": "sp_to_cement",
+            "expression": "col(\"superplasticizer\") / maximum(col(\"cement\"), 1)",
+            "reason": "Superplasticizer error association is the highest (0.204); its effect is relative to cement content, so this ratio isolates the dosage effect."
+          }
+        ],
+        "id": "tpe_11",
+        "statement": "Seeded TPE trial from measured results for this model and feature representation",
+        "parent_experiment": "exp_0019",
+        "hypothesis": {
+          "kind": "feature_interaction",
+          "failure_mode": "If the ratios are redundant with existing features, RMSE will not improve and may slightly worsen due to added noise.",
+          "expected_effect": "RMSE reduction of 0.3-1.0 MPa by providing the model with physically meaningful interaction terms that capture non-linear relationships between water, binder, and admixture content.",
+          "uncertainty": "Moderate; the physical basis is strong, but LightGBM may already approximate these interactions via splits.",
+          "stop_condition": "If RMSE does not improve by at least 0.1 MPa over the champion, this feature set is rejected."
+        }
+      },
+      "qwen_events": [
+        {
+          "status": "api_usage",
+          "call": 1,
+          "response_model": "qwen/qwen3.8-27b",
+          "prompt_tokens": 4526,
+          "completion_tokens": 537,
+          "reasoning_tokens": 0,
+          "finish_reason": "stop",
+          "reported_cost": 0.160677327551,
+          "elapsed_seconds": 6.741,
+          "timeout_seconds": 40.0
+        },
+        {
+          "status": "response",
+          "call": 1,
+          "tokens": 5063,
+          "elapsed_seconds": 6.742,
+          "timeout_seconds": 40.0
+        },
+        {
+          "status": "api_usage",
+          "call": 2,
+          "response_model": "qwen/qwen3.8-27b",
+          "prompt_tokens": 4395,
+          "completion_tokens": 450,
+          "reasoning_tokens": 0,
+          "finish_reason": "stop",
+          "reported_cost": 0.12769478202,
+          "elapsed_seconds": 3.955,
+          "timeout_seconds": 40.0
+        },
+        {
+          "status": "response",
+          "call": 2,
+          "tokens": 9908,
+          "elapsed_seconds": 3.955,
+          "timeout_seconds": 40.0
+        }
+      ],
+      "checkpoint_kind": "full_refit",
+      "fit_success": 38,
+      "terminal_status": "full_refit",
+      "llm_valid_recipes": 2,
+      "control_folds_completed": 2,
+      "fold_bagged_done": false,
+      "cpu_seconds": 207.353660364,
+      "peak_memory_mb": 399.21875,
+      "backend": null,
+      "backend_version": null,
+      "backend_wrapper_sha256": null,
+      "fallback_kind": null,
+      "isolation": "inherited macOS sandbox denies raw caches, secrets, other runs and external scores"
+    },
+    {
+      "case": "concrete_strength",
+      "source": "kaggle",
+      "dataset": "elikplim/concrete-compressive-strength-data-set",
+      "license": "CC BY 4.0",
+      "seed": 42,
+      "metric": "rmse",
+      "original_source_metric": null,
+      "metric_override": null,
+      "split_regime": null,
+      "split_sha256": "e39d6f9e1afd9ff31f863da7d7645a608fbbb2bc816c3e43d9639fad063918a2",
+      "input_sha256": {
+        "train.csv": "3ba99c2ebf7db42655724312c514784182ea24ca33b776e00f6375d75504fa0e",
+        "test.csv": "bdb0dcd4a1464bc89d0f43d6d34bf5afcd0d1a8450eeafed37eb081457e41e5a",
+        "data_dictionary.csv": "1ee6e0d445c66f6090cb653418b3c3dcc2bd662cd6a9266311e4d80ecef387e2",
+        "sample_submission.csv": "42ae376631eae15ed188c2d1268900d92fea2f1d71691bc55693a571b7f9b7a8",
+        "task.md": "d08915a64901e848a0a4ba84873a63217174be882f2f0df8ce168fb1ffd68efc"
+      },
+      "training_rows": 615,
+      "evaluation_rows": 205,
+      "features": 8,
+      "n_classes": 0,
+      "missingness": 0.0,
+      "imbalance_ratio": null,
+      "train_class_support": null,
+      "official_repeat": null,
+      "official_fold": null,
+      "evaluation_unit": "row",
+      "arm": "candidate",
+      "mode": "live-agent",
+      "source_sha": "4588cb3f6b5e6c2f837ac264e35aac519d94fd3b0b78a1fc475f86af95841cdd",
+      "zip_sha": "7644890c65799a7fb673b2fc0b80760a488f438d2769c74fc7032955e3df31d9",
+      "budget_seconds": 360.0,
+      "intervention": {
+        "excluded_families": "",
+        "dev_worker_sha256": "142c481e7799a60aa2dbe48018581d0d3ab9f22a5c09ee7b0ffdf1939e8533f7"
+      },
+      "phase": "development",
+      "wall_seconds": 77.095,
+      "threads": 8,
+      "first_trained_checkpoint_seconds": 2.6805261400004383,
+      "memory_mb": 8192,
+      "runtime_code_sha256": "4588cb3f6b5e6c2f837ac264e35aac519d94fd3b0b78a1fc475f86af95841cdd",
+      "raw_sha256": "e1accd70da31187a50c652c50acb4c8392f440174562f6a5510ac4fcaa437bb8",
+      "returncode": 0,
+      "log": "/Users/mac/Documents/projects/alfaautoresearch/runs/performance-v2-mbbimkja/concrete_strength-42-candidate-live-agent/live-agent.log",
+      "run_dir": "/Users/mac/Documents/projects/alfaautoresearch/runs/performance-v2-mbbimkja/concrete_strength-42-candidate-live-agent/run",
+      "qwen_calls": 2,
+      "qwen_tokens": 8832,
+      "internal_metric": 5.093314369565562,
+      "experiments": 38,
+      "full_refit": true,
+      "champion_family": "catboost",
+      "decision_adjustment": null,
+      "ensemble": null,
+      "adaptive_search": {
+        "backend": "optuna-tpe",
+        "studies": 2,
+        "proposed_trials": 13,
+        "completed_trials": 13,
+        "family_proposals": {
+          "catboost": 5,
+          "lightgbm": 8
+        },
+        "stop_reason": null,
+        "research_steps": 21,
+        "research_limit": 48,
+        "family_priorities": [],
+        "quarantined_families": []
+      },
+      "cross_validation": {
+        "planned_folds": 3,
+        "completed_candidates": 3,
+        "selection_basis": "mean utility minus 0.25 standard deviation on all frozen folds",
+        "candidates": [
+          {
+            "experiment_id": "exp_0030",
+            "model_family": "catboost",
+            "fold_metrics": [
+              5.093314369565562,
+              4.74441709556294,
+              4.931670423787632
+            ],
+            "mean_metric": 4.923133962972045,
+            "metric_std": 0.142564559233252,
+            "robust_utility": -4.958775102780359
+          },
+          {
+            "experiment_id": "exp_0028",
+            "model_family": "lightgbm",
+            "fold_metrics": [
+              5.1802923723196175,
+              5.437955928269833,
+              5.66592908422499
+            ],
+            "mean_metric": 5.428059128271481,
+            "metric_std": 0.19838382658409257,
+            "robust_utility": -5.477655084917504
+          },
+          {
+            "experiment_id": "exp_0031",
+            "model_family": "autogluon",
+            "fold_metrics": [
+              5.355811055688017,
+              4.871215250256884,
+              5.290750164658165
+            ],
+            "mean_metric": 5.1725921568676885,
+            "metric_std": 0.2147545261674716,
+            "robust_utility": -5.226280788409556
+          }
+        ]
+      },
+      "output_sha256": "7b1fbd109b73a310ca52bc308933b027e02af2affe720eeb25e1da941784f43f",
+      "feature_ablation_checks": 3,
+      "accepted_feature_ablations": 3,
+      "external_metric": 4.577393696274436,
+      "evaluation_detail": {
+        "row_metric": 4.577393696274436,
+        "target_deciles": [
+          {
+            "target_range": [
+              4.57,
+              14.522000000000002
+            ],
+            "support": 21,
+            "rmse": 3.816638723634371,
+            "mae": 2.4546933722351305,
+            "bias": 1.8072399196234523
+          },
+          {
+            "target_range": [
+              14.522000000000002,
+              20.486000000000004
+            ],
+            "support": 20,
+            "rmse": 4.434138770405387,
+            "mae": 3.29053659852715,
+            "bias": 1.1887658589576897
+          },
+          {
+            "target_range": [
+              20.486000000000004,
+              25.184
+            ],
+            "support": 21,
+            "rmse": 3.9871679530241724,
+            "mae": 2.9441853027798794,
+            "bias": 0.9764706217498849
+          },
+          {
+            "target_range": [
+              25.184,
+              29.882
+            ],
+            "support": 20,
+            "rmse": 2.983804145541643,
+            "mae": 2.491078626585105,
+            "bias": 1.337669172315814
+          },
+          {
+            "target_range": [
+              29.882,
+              33.12
+            ],
+            "support": 20,
+            "rmse": 3.1275056543141884,
+            "mae": 2.580203760527592,
+            "bias": 0.9420745068721622
+          },
+          {
+            "target_range": [
+              33.12,
+              38.83800000000001
+            ],
+            "support": 21,
+            "rmse": 4.3819332964711535,
+            "mae": 3.4577530983047957,
+            "bias": 2.092486683453189
+          },
+          {
+            "target_range": [
+              38.83800000000001,
+              42.578
+            ],
+            "support": 20,
+            "rmse": 6.095236873245013,
+            "mae": 3.564431121477056,
+            "bias": 1.0388564706344585
+          },
+          {
+            "target_range": [
+              42.578,
+              47.748000000000005
+            ],
+            "support": 21,
+            "rmse": 5.826029062414758,
+            "mae": 4.638181935732297,
+            "bias": -1.9209831312134664
+          },
+          {
+            "target_range": [
+              47.748000000000005,
+              60.205999999999996
+            ],
+            "support": 20,
+            "rmse": 4.676407409862948,
+            "mae": 4.034577098748828,
+            "bias": -2.5967128790021476
+          },
+          {
+            "target_range": [
+              60.205999999999996,
+              80.2
+            ],
+            "support": 21,
+            "rmse": 5.310205482198818,
+            "mae": 4.105297931640904,
+            "bias": -2.904336276053086
+          }
+        ],
+        "residual_bias": 0.1916170573869219
+      },
+      "status": "trained_success",
+      "qwen_fits": 2,
+      "qwen_accepted": 1,
+      "research_experiments": [
+        {
+          "experiment_id": "exp_0003",
+          "status": "ok",
+          "metric_value": 5.535182811063551,
+          "accepted": true,
+          "recipe": {
+            "model_family": "lightgbm",
+            "params": {
+              "iterations": 500,
+              "num_leaves": 31,
+              "min_child_samples": 30
+            },
+            "feature_ops": [],
+            "target_transform": "none",
+            "max_runtime_sec": 7.41,
+            "validation_plan_id": "14941af73849ed50",
+            "feature_expressions": [
+              {
+                "name": "water_cement_ratio",
+                "expression": "col(\"water\") / maximum(col(\"cement\"), 1)",
+                "reason": "Primary determinant of concrete strength; explicit ratio captures the inverse relationship more directly than individual columns."
+              },
+              {
+                "name": "total_binder",
+                "expression": "col(\"cement\") + col(\"blast_furnace_slag\") + col(\"fly_ash\")",
+                "reason": "Total cementitious material; helps model distinguish between high-cement and high-supplementary-cementitious-material mixes."
+              },
+              {
+                "name": "scm_fraction",
+                "expression": "(col(\"blast_furnace_slag\") + col(\"fly_ash\")) / maximum(col(\"total_binder\"), 1)",
+                "reason": "Fraction of supplementary cementitious materials; captures the trade-off between early and late strength development."
+              },
+              {
+                "name": "age_log",
+                "expression": "log1p(col(\"age\"))",
+                "reason": "Strength gain is logarithmic with age; log transform linearizes the relationship for tree splits."
+              }
+            ],
+            "id": "exp_0003",
+            "statement": "Adding domain-specific water-cement ratio and binder composition features will reduce RMSE by providing explicit chemical interaction signals that the tree model must otherwise discover through splits.",
+            "parent_experiment": "exp_0002",
+            "hypothesis": {
+              "kind": "feature_interaction",
+              "failure_mode": "No improvement if tree model already captures these interactions efficiently",
+              "expected_effect": "RMSE reduction of 0.5-1.5 MPa due to explicit domain features",
+              "uncertainty": "Medium; tree models can learn interactions but explicit features may help with small dataset (615 rows)",
+              "stop_condition": "If RMSE does not improve by at least 0.3 MPa, abandon this feature direction"
+            }
+          },
+          "feature_trial": {
+            "kind": "feature_group",
+            "parent_experiment": "exp_0002",
+            "parent_metric": 5.6625377528478,
+            "parent_utility": -5.6625377528478,
+            "held_constant": [
+              "model_family",
+              "params",
+              "target_transform",
+              "validation",
+              "seed"
+            ],
+            "changes": [
+              {
+                "kind": "formula",
+                "name": "water_cement_ratio"
+              },
+              {
+                "kind": "formula",
+                "name": "total_binder"
+              },
+              {
+                "kind": "formula",
+                "name": "scm_fraction"
+              },
+              {
+                "kind": "formula",
+                "name": "age_log"
+              }
+            ],
+            "ignored_model_overrides": [],
+            "group_experiment": "exp_0003",
+            "utility_gain_vs_parent": 0.12735494178424833
+          }
+        },
+        {
+          "experiment_id": "exp_0011",
+          "status": "ok",
+          "metric_value": 5.388985295807134,
+          "accepted": false,
+          "recipe": {
+            "model_family": "lightgbm",
+            "params": {
+              "iterations": 500,
+              "num_leaves": 31,
+              "min_child_samples": 30
+            },
+            "feature_ops": [],
+            "target_transform": "none",
+            "max_runtime_sec": 5.265000000000001,
+            "validation_plan_id": "14941af73849ed50",
+            "feature_expressions": [
+              {
+                "name": "water_cement_ratio",
+                "expression": "col(\"water\") / maximum(col(\"cement\"), 1)",
+                "reason": "Primary determinant of concrete strength; explicit ratio captures the inverse relationship more directly than individual columns."
+              },
+              {
+                "name": "age_log",
+                "expression": "log1p(col(\"age\"))",
+                "reason": "Concrete strength gain is logarithmic with respect to curing age; this feature linearizes the relationship for the tree model."
+              }
+            ],
+            "id": "exp_0007",
+            "statement": "Add a log-transformed curing age feature to capture the diminishing returns of strength gain over time, complementing the existing water-cement ratio.",
+            "parent_experiment": "exp_0006",
+            "hypothesis": {
+              "kind": "feature_interaction",
+              "failure_mode": "No improvement if age is already well-captured by splits or if the log transformation is redundant for the tree structure.",
+              "expected_effect": "Reduction in RMSE by better modeling the non-linear age-strength relationship.",
+              "uncertainty": "Medium; age is a known driver, but the specific benefit of log transformation over raw age for LightGBM is untested in this context.",
+              "stop_condition": "If RMSE does not improve by at least 0.05 over the champion."
+            }
+          },
+          "feature_trial": {
+            "kind": "feature_group",
+            "parent_experiment": "exp_0006",
+            "parent_metric": 5.388985295807134,
+            "parent_utility": -5.388985295807134,
+            "held_constant": [
+              "model_family",
+              "params",
+              "target_transform",
+              "validation",
+              "seed"
+            ],
+            "changes": [
+              {
+                "kind": "formula",
+                "name": "age_log"
+              }
+            ],
+            "ignored_model_overrides": [],
+            "group_experiment": "exp_0011",
+            "utility_gain_vs_parent": 0.0
+          }
+        }
+      ],
+      "champion_recipe": {
+        "model_family": "catboost",
+        "params": {
+          "iterations": 500,
+          "depth": 4,
+          "l2_leaf_reg": 3.4954461823682514,
+          "learning_rate": 0.08072260328363891,
+          "random_strength": 0.023603826995097332,
+          "rsm": 0.9839195461994906
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 54.0,
+        "validation_plan_id": "14941af73849ed50",
+        "feature_expressions": [],
+        "id": "tpe_13",
+        "statement": "Seeded TPE trial from measured results for this model and feature representation",
+        "parent_experiment": "exp_0007"
+      },
+      "qwen_events": [
+        {
+          "status": "api_usage",
+          "call": 1,
+          "response_model": "qwen/qwen3.8-27b",
+          "prompt_tokens": 3975,
+          "completion_tokens": 673,
+          "reasoning_tokens": 0,
+          "finish_reason": "stop",
+          "reported_cost": 0.180015050735,
+          "elapsed_seconds": 5.378,
+          "timeout_seconds": 40.0
+        },
+        {
+          "status": "response",
+          "call": 1,
+          "tokens": 4648,
+          "elapsed_seconds": 5.379,
+          "timeout_seconds": 40.0
+        },
+        {
+          "status": "api_usage",
+          "call": 2,
+          "response_model": "qwen/qwen3.8-27b",
+          "prompt_tokens": 3714,
+          "completion_tokens": 470,
+          "reasoning_tokens": 0,
+          "finish_reason": "stop",
+          "reported_cost": 0.139586806814,
+          "elapsed_seconds": 5.158,
+          "timeout_seconds": 40.0
+        },
+        {
+          "status": "response",
+          "call": 2,
+          "tokens": 8832,
+          "elapsed_seconds": 5.158,
+          "timeout_seconds": 40.0
+        }
+      ],
+      "checkpoint_kind": "full_refit",
+      "fit_success": 38,
+      "terminal_status": "full_refit",
+      "llm_valid_recipes": 2,
+      "control_folds_completed": 2,
+      "fold_bagged_done": false,
+      "cpu_seconds": 196.17807879,
+      "peak_memory_mb": 337.49609375,
+      "backend": null,
+      "backend_version": null,
+      "backend_wrapper_sha256": null,
+      "fallback_kind": null,
+      "isolation": "inherited macOS sandbox denies raw caches, secrets, other runs and external scores"
+    },
+    {
+      "case": "dry_beans",
+      "source": "kaggle",
+      "dataset": "muratkokludataset/dry-bean-dataset",
+      "license": "CC0: Public Domain",
+      "seed": 42,
+      "metric": "f1_macro",
+      "original_source_metric": null,
+      "metric_override": null,
+      "split_regime": null,
+      "split_sha256": "38d071fc53443d47a93cc22ccbd6389eaf4e29fe3b62cb5ba11db1ed2dc7cb72",
+      "input_sha256": {
+        "train.csv": "8d7988d81e6fcd299bd004b09a0ac63e7238fdccec4d7178fbb6b3f31da6f334",
+        "test.csv": "35d09ce714874f1eb48a2a0d79a548a7a94bd63aa23e3189a23c4e1fc1089743",
+        "data_dictionary.csv": "f70128bb0ef2444cc0a3c3c02d0f3f712cdf3c81045e75ca609751dab16ce5d8",
+        "sample_submission.csv": "7c570f9f757be9d97fd762015048b1f1c9b13c13550678d8f7fd71b5871d0544",
+        "task.md": "b7c182caf333b718071b6129e7fb43fd80ce0663b2a91e536ac59e7dbcdc8fdd"
+      },
+      "training_rows": 8166,
+      "evaluation_rows": 2722,
+      "features": 16,
+      "n_classes": 7,
+      "missingness": 0.0,
+      "imbalance_ratio": 6.53416149068323,
+      "train_class_support": {
+        "DERMASON": 2104,
+        "SIRA": 1593,
+        "SEKER": 1220,
+        "HOROZ": 1150,
+        "CALI": 977,
+        "BARBUNYA": 800,
+        "BOMBAY": 322
+      },
+      "official_repeat": null,
+      "official_fold": null,
+      "evaluation_unit": "row",
+      "arm": "baseline",
+      "mode": "live-agent",
+      "source_sha": "f85b2482d45f30df8a52a3039ba84b25b2f7b72be587b51e254c7b6358e17b44",
+      "zip_sha": "ad10fe9d0d811e8f240f7fc160f34fc1876d6c5aa1fcd9b11ca3cbfb58573a42",
+      "budget_seconds": 360.0,
+      "intervention": {
+        "excluded_families": "",
+        "dev_worker_sha256": "142c481e7799a60aa2dbe48018581d0d3ab9f22a5c09ee7b0ffdf1939e8533f7"
+      },
+      "phase": "development",
+      "wall_seconds": 198.423,
+      "threads": 8,
+      "first_trained_checkpoint_seconds": 8.170691850995354,
+      "memory_mb": 8192,
+      "runtime_code_sha256": "f85b2482d45f30df8a52a3039ba84b25b2f7b72be587b51e254c7b6358e17b44",
+      "raw_sha256": "173f1c77c7636622053726b85d358b11b7a7fd9eaee6ba3bac80c75dfd94a874",
+      "returncode": 0,
+      "log": "/Users/mac/Documents/projects/alfaautoresearch/runs/performance-v2-mbbimkja/dry_beans-42-baseline-live-agent/live-agent.log",
+      "run_dir": "/Users/mac/Documents/projects/alfaautoresearch/runs/performance-v2-mbbimkja/dry_beans-42-baseline-live-agent/run",
+      "qwen_calls": 2,
+      "qwen_tokens": 9698,
+      "internal_metric": 0.9423823760006701,
+      "experiments": 37,
+      "full_refit": true,
+      "champion_family": "catboost",
+      "decision_adjustment": null,
+      "ensemble": null,
+      "adaptive_search": {
+        "backend": "optuna-tpe",
+        "studies": 3,
+        "proposed_trials": 14,
+        "completed_trials": 14,
+        "family_proposals": {
+          "linear": 4,
+          "catboost": 10
+        },
+        "stop_reason": null,
+        "research_steps": 23,
+        "research_limit": 48,
+        "family_priorities": [],
+        "quarantined_families": []
+      },
+      "cross_validation": {
+        "planned_folds": 3,
+        "completed_candidates": 3,
+        "selection_basis": "mean utility minus 0.25 standard deviation on all frozen folds",
+        "candidates": [
+          {
+            "experiment_id": "exp_0022",
+            "model_family": "catboost",
+            "fold_metrics": [
+              0.9433309112681595,
+              0.9331104842717932,
+              0.9280725333390617
+            ],
+            "mean_metric": 0.9348379762930047,
+            "metric_std": 0.0063478445564515255,
+            "robust_utility": 0.9332510151538919
+          },
+          {
+            "experiment_id": "exp_0017",
+            "model_family": "catboost",
+            "fold_metrics": [
+              0.9423823760006701,
+              0.9340245327987473,
+              0.9280725333390617
+            ],
+            "mean_metric": 0.9348264807128263,
+            "metric_std": 0.005869425843167781,
+            "robust_utility": 0.9333591242520343
+          },
+          {
+            "experiment_id": "exp_0014",
+            "model_family": "linear",
+            "fold_metrics": [
+              0.9406329576390282,
+              0.928955903335246,
+              0.9186920223244073
+            ],
+            "mean_metric": 0.9294269610995606,
+            "metric_std": 0.008963540304406726,
+            "robust_utility": 0.9271860760234589
+          }
+        ]
+      },
+      "output_sha256": "557219a18ae3634a8a3d2d726a9483505fffa8c31c7572b65a6eee1c4df93d8b",
+      "feature_ablation_checks": 0,
+      "accepted_feature_ablations": 0,
+      "external_metric": 0.9495418503275522,
+      "evaluation_detail": {
+        "row_metric": 0.9495418503275522,
+        "per_class": {
+          "BARBUNYA": {
+            "precision": 0.9434628975265018,
+            "recall": 0.9501779359430605,
+            "f1-score": 0.9468085106382979,
+            "support": 281.0
+          },
+          "BOMBAY": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1-score": 1.0,
+            "support": 106.0
+          },
+          "CALI": {
+            "precision": 0.9626168224299065,
+            "recall": 0.9478527607361963,
+            "f1-score": 0.955177743431221,
+            "support": 326.0
+          },
+          "DERMASON": {
+            "precision": 0.9320809248554913,
+            "recall": 0.9334298118668596,
+            "f1-score": 0.9327548806941431,
+            "support": 691.0
+          },
+          "HOROZ": {
+            "precision": 0.9621212121212122,
+            "recall": 0.9621212121212122,
+            "f1-score": 0.9621212121212122,
+            "support": 396.0
+          },
+          "SEKER": {
+            "precision": 0.9623115577889447,
+            "recall": 0.9623115577889447,
+            "f1-score": 0.9623115577889447,
+            "support": 398.0
+          },
+          "SIRA": {
+            "precision": 0.8859315589353612,
+            "recall": 0.8893129770992366,
+            "f1-score": 0.8876190476190476,
+            "support": 524.0
+          },
+          "accuracy": 0.9393828067597355,
+          "macro avg": {
+            "precision": 0.9497892819510597,
+            "recall": 0.9493151793650727,
+            "f1-score": 0.9495418503275522,
+            "support": 2722.0
+          },
+          "weighted avg": {
+            "precision": 0.9394644431573732,
+            "recall": 0.9393828067597355,
+            "f1-score": 0.939414819750174,
+            "support": 2722.0
+          }
+        },
+        "confusion_matrix": [
+          [
+            267,
+            0,
+            7,
+            0,
+            0,
+            3,
+            4
+          ],
+          [
+            0,
+            106,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            11,
+            0,
+            309,
+            0,
+            3,
+            0,
+            3
+          ],
+          [
+            0,
+            0,
+            0,
+            645,
+            5,
+            5,
+            36
+          ],
+          [
+            3,
+            0,
+            3,
+            1,
+            381,
+            0,
+            8
+          ],
+          [
+            2,
+            0,
+            1,
+            3,
+            0,
+            383,
+            9
+          ],
+          [
+            0,
+            0,
+            1,
+            43,
+            7,
+            7,
+            466
+          ]
+        ]
+      },
+      "status": "trained_success",
+      "qwen_fits": 2,
+      "qwen_accepted": 0,
+      "research_experiments": [
+        {
+          "experiment_id": "exp_0003",
+          "status": "ok",
+          "metric_value": 0.9405461752060936,
+          "accepted": false,
+          "recipe": {
+            "model_family": "linear",
+            "params": {
+              "C": 1
+            },
+            "feature_ops": [],
+            "target_transform": "none",
+            "max_runtime_sec": 30.0,
+            "validation_plan_id": "89222c338e747579",
+            "feature_expressions": [
+              {
+                "name": "solidity_ratio",
+                "expression": "col(\"ConvexArea\") / maximum(col(\"ConvexArea\"), 1)",
+                "reason": "Solidity is already a feature, but this expression creates a normalized ratio to check if scaling helps the linear model"
+              },
+              {
+                "name": "perimeter_area_ratio",
+                "expression": "col(\"Perimeter\") / maximum(col(\"ConvexArea\"), 1)",
+                "reason": "Ratio of perimeter to area is a classic shape descriptor that is scale-invariant and may separate varieties better than raw values"
+              },
+              {
+                "name": "axis_ratio",
+                "expression": "col(\"MajorAxisLength\") / maximum(col(\"MinorAxisLength\"), 1)",
+                "reason": "Aspect ratio derived from axes, potentially more robust than the existing AspectRation feature"
+              }
+            ],
+            "id": "candidate",
+            "statement": "Adding shape compactness ratios (Area/ConvexArea and Area/Perimeter^2) will improve Macro F1 by providing scale-invariant geometric descriptors that help distinguish bean varieties with similar absolute sizes but different shapes.",
+            "parent_experiment": "exp_0001",
+            "hypothesis": {
+              "kind": "feature_interaction",
+              "failure_mode": "linear model may not benefit from non-linear shape ratios if the decision boundaries are already well-captured by existing features",
+              "expected_effect": "0.005-0.015 improvement in Macro F1 by providing better-conditioned shape descriptors",
+              "uncertainty": "Medium; the error associations show ConvexArea and Perimeter are correlated with errors, suggesting shape features are important but the linear model may already be using them effectively",
+              "stop_condition": "If F1 does not improve by at least 0.002, the shape ratios are redundant with existing features"
+            }
+          },
+          "feature_trial": {
+            "kind": "feature_group",
+            "parent_experiment": "exp_0001",
+            "parent_metric": 0.9403191219387678,
+            "parent_utility": 0.9403191219387678,
+            "held_constant": [
+              "model_family",
+              "params",
+              "target_transform",
+              "validation",
+              "seed"
+            ],
+            "changes": [
+              {
+                "kind": "formula",
+                "name": "solidity_ratio"
+              },
+              {
+                "kind": "formula",
+                "name": "perimeter_area_ratio"
+              },
+              {
+                "kind": "formula",
+                "name": "axis_ratio"
+              }
+            ],
+            "ignored_model_overrides": [],
+            "group_experiment": "exp_0003",
+            "utility_gain_vs_parent": 0.00022705326732586073
+          }
+        },
+        {
+          "experiment_id": "exp_0010",
+          "status": "ok",
+          "metric_value": 0.9403191219387678,
+          "accepted": false,
+          "recipe": {
+            "model_family": "linear",
+            "params": {
+              "C": 1
+            },
+            "feature_ops": [],
+            "target_transform": "none",
+            "max_runtime_sec": 30.0,
+            "validation_plan_id": "89222c338e747579",
+            "feature_expressions": [
+              {
+                "name": "log_area",
+                "expression": "log1p(col(\"Area\"))",
+                "reason": "Area has high error association (0.1181) and large scale; log transform normalizes distribution for linear model."
+              },
+              {
+                "name": "log_perimeter",
+                "expression": "log1p(col(\"Perimeter\"))",
+                "reason": "Perimeter has high error association (0.1073); log transform reduces skew and scale impact."
+              }
+            ],
+            "id": "candidate",
+            "statement": "Add log-scaled area and perimeter features to reduce scale dominance and improve linear model separation for small classes like BOMBAY and BARBUNYA.",
+            "parent_experiment": "exp_0001",
+            "hypothesis": {
+              "kind": "feature_group",
+              "failure_mode": "No gain if linear model already captures scale via regularization or if log transform distorts linear separability.",
+              "expected_effect": "Improve macro F1 by 0.001-0.005 by reducing scale dominance of Area/Perimeter, aiding small class separation.",
+              "uncertainty": "Medium; linear models are sensitive to feature scale, but regularization may already mitigate this.",
+              "stop_condition": "If metric does not exceed 0.9410, abandon scale-focused feature engineering for linear family."
+            }
+          },
+          "feature_trial": {
+            "kind": "feature_group",
+            "parent_experiment": "exp_0001",
+            "parent_metric": 0.9403191219387678,
+            "parent_utility": 0.9403191219387678,
+            "held_constant": [
+              "model_family",
+              "params",
+              "target_transform",
+              "validation",
+              "seed"
+            ],
+            "changes": [
+              {
+                "kind": "formula",
+                "name": "log_area"
+              },
+              {
+                "kind": "formula",
+                "name": "log_perimeter"
+              }
+            ],
+            "ignored_model_overrides": [],
+            "group_experiment": "exp_0010",
+            "utility_gain_vs_parent": 0.0
+          }
+        }
+      ],
+      "champion_recipe": {
+        "model_family": "catboost",
+        "params": {
+          "iterations": 500,
+          "depth": 6,
+          "l2_leaf_reg": 0.6535882820762987,
+          "learning_rate": 0.033997027842468205,
+          "random_strength": 4.482295997318953,
+          "rsm": 0.8863294644364255,
+          "weight": "none"
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 54.0,
+        "validation_plan_id": "89222c338e747579",
+        "feature_expressions": [],
+        "id": "tpe_2",
+        "statement": "Seeded TPE trial from measured results for this model and feature representation",
+        "parent_experiment": "exp_0005"
+      },
+      "qwen_events": [
+        {
+          "status": "api_usage",
+          "call": 1,
+          "response_model": "qwen/qwen3.8-27b",
+          "prompt_tokens": 4645,
+          "completion_tokens": 536,
+          "reasoning_tokens": 0,
+          "finish_reason": "stop",
+          "reported_cost": 0.23929588735000004,
+          "elapsed_seconds": 3.287,
+          "timeout_seconds": 40.0
+        },
+        {
+          "status": "response",
+          "call": 1,
+          "tokens": 5181,
+          "elapsed_seconds": 3.288,
+          "timeout_seconds": 40.0
+        },
+        {
+          "status": "api_usage",
+          "call": 2,
+          "response_model": "qwen/qwen3.8-27b",
+          "prompt_tokens": 4087,
+          "completion_tokens": 430,
+          "reasoning_tokens": 0,
+          "finish_reason": "stop",
+          "reported_cost": 0.121544171112,
+          "elapsed_seconds": 4.4,
+          "timeout_seconds": 40.0
+        },
+        {
+          "status": "response",
+          "call": 2,
+          "tokens": 9698,
+          "elapsed_seconds": 4.4,
+          "timeout_seconds": 40.0
+        }
+      ],
+      "checkpoint_kind": "full_refit",
+      "fit_success": 37,
+      "terminal_status": "full_refit",
+      "llm_valid_recipes": 2,
+      "control_folds_completed": 2,
+      "fold_bagged_done": false,
+      "cpu_seconds": 1027.838436758,
+      "peak_memory_mb": 495.40625,
+      "backend": null,
+      "backend_version": null,
+      "backend_wrapper_sha256": null,
+      "fallback_kind": null,
+      "isolation": "inherited macOS sandbox denies raw caches, secrets, other runs and external scores"
+    },
+    {
+      "case": "dry_beans",
+      "source": "kaggle",
+      "dataset": "muratkokludataset/dry-bean-dataset",
+      "license": "CC0: Public Domain",
+      "seed": 42,
+      "metric": "f1_macro",
+      "original_source_metric": null,
+      "metric_override": null,
+      "split_regime": null,
+      "split_sha256": "38d071fc53443d47a93cc22ccbd6389eaf4e29fe3b62cb5ba11db1ed2dc7cb72",
+      "input_sha256": {
+        "train.csv": "8d7988d81e6fcd299bd004b09a0ac63e7238fdccec4d7178fbb6b3f31da6f334",
+        "test.csv": "35d09ce714874f1eb48a2a0d79a548a7a94bd63aa23e3189a23c4e1fc1089743",
+        "data_dictionary.csv": "f70128bb0ef2444cc0a3c3c02d0f3f712cdf3c81045e75ca609751dab16ce5d8",
+        "sample_submission.csv": "7c570f9f757be9d97fd762015048b1f1c9b13c13550678d8f7fd71b5871d0544",
+        "task.md": "b7c182caf333b718071b6129e7fb43fd80ce0663b2a91e536ac59e7dbcdc8fdd"
+      },
+      "training_rows": 8166,
+      "evaluation_rows": 2722,
+      "features": 16,
+      "n_classes": 7,
+      "missingness": 0.0,
+      "imbalance_ratio": 6.53416149068323,
+      "train_class_support": {
+        "DERMASON": 2104,
+        "SIRA": 1593,
+        "SEKER": 1220,
+        "HOROZ": 1150,
+        "CALI": 977,
+        "BARBUNYA": 800,
+        "BOMBAY": 322
+      },
+      "official_repeat": null,
+      "official_fold": null,
+      "evaluation_unit": "row",
+      "arm": "candidate",
+      "mode": "live-agent",
+      "source_sha": "4588cb3f6b5e6c2f837ac264e35aac519d94fd3b0b78a1fc475f86af95841cdd",
+      "zip_sha": "7644890c65799a7fb673b2fc0b80760a488f438d2769c74fc7032955e3df31d9",
+      "budget_seconds": 360.0,
+      "intervention": {
+        "excluded_families": "",
+        "dev_worker_sha256": "142c481e7799a60aa2dbe48018581d0d3ab9f22a5c09ee7b0ffdf1939e8533f7"
+      },
+      "phase": "development",
+      "wall_seconds": 182.828,
+      "threads": 8,
+      "first_trained_checkpoint_seconds": 8.45585652099544,
+      "memory_mb": 8192,
+      "runtime_code_sha256": "4588cb3f6b5e6c2f837ac264e35aac519d94fd3b0b78a1fc475f86af95841cdd",
+      "raw_sha256": "173f1c77c7636622053726b85d358b11b7a7fd9eaee6ba3bac80c75dfd94a874",
+      "returncode": 0,
+      "log": "/Users/mac/Documents/projects/alfaautoresearch/runs/performance-v2-mbbimkja/dry_beans-42-candidate-live-agent/live-agent.log",
+      "run_dir": "/Users/mac/Documents/projects/alfaautoresearch/runs/performance-v2-mbbimkja/dry_beans-42-candidate-live-agent/run",
+      "qwen_calls": 2,
+      "qwen_tokens": 9252,
+      "internal_metric": 0.9427834930648243,
+      "experiments": 38,
+      "full_refit": false,
+      "champion_family": "autogluon",
+      "decision_adjustment": null,
+      "ensemble": null,
+      "adaptive_search": {
+        "backend": "optuna-tpe",
+        "studies": 2,
+        "proposed_trials": 15,
+        "completed_trials": 15,
+        "family_proposals": {
+          "catboost": 11,
+          "linear": 4
+        },
+        "stop_reason": "TPE search stagnated after exploring multiple model families",
+        "research_steps": 23,
+        "research_limit": 48,
+        "family_priorities": [],
+        "quarantined_families": []
+      },
+      "cross_validation": {
+        "planned_folds": 3,
+        "completed_candidates": 3,
+        "selection_basis": "mean utility minus 0.25 standard deviation on all frozen folds",
+        "candidates": [
+          {
+            "experiment_id": "exp_0012",
+            "model_family": "linear",
+            "fold_metrics": [
+              0.9419813146560899,
+              0.9291205259423035,
+              0.9183438341930067
+            ],
+            "mean_metric": 0.9298152249304668,
+            "metric_std": 0.009662455715250878,
+            "robust_utility": 0.927399611001654
+          },
+          {
+            "experiment_id": "exp_0016",
+            "model_family": "catboost",
+            "fold_metrics": [
+              0.9423823760006701,
+              0.9340245327987473,
+              0.9280725333390617
+            ],
+            "mean_metric": 0.9348264807128263,
+            "metric_std": 0.005869425843167781,
+            "robust_utility": 0.9333591242520343
+          },
+          {
+            "experiment_id": "exp_0031",
+            "model_family": "autogluon",
+            "fold_metrics": [
+              0.9427834930648243,
+              0.9362203117594569,
+              0.9300063122213623
+            ],
+            "mean_metric": 0.9363367056818812,
+            "metric_std": 0.005216911489602266,
+            "robust_utility": 0.9350324778094806
+          }
+        ]
+      },
+      "output_sha256": "68d3fdc5b6b99d2cac67ac637a94df8306b0b49074f2d47f8081ccb47cd13bba",
+      "feature_ablation_checks": 0,
+      "accepted_feature_ablations": 0,
+      "external_metric": 0.948477055147096,
+      "evaluation_detail": {
+        "row_metric": 0.948477055147096,
+        "per_class": {
+          "BARBUNYA": {
+            "precision": 0.9432624113475178,
+            "recall": 0.9466192170818505,
+            "f1-score": 0.9449378330373002,
+            "support": 281.0
+          },
+          "BOMBAY": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1-score": 1.0,
+            "support": 106.0
+          },
+          "CALI": {
+            "precision": 0.9475308641975309,
+            "recall": 0.941717791411043,
+            "f1-score": 0.9446153846153846,
+            "support": 326.0
+          },
+          "DERMASON": {
+            "precision": 0.9284692417739628,
+            "recall": 0.9392185238784371,
+            "f1-score": 0.9338129496402877,
+            "support": 691.0
+          },
+          "HOROZ": {
+            "precision": 0.9667519181585678,
+            "recall": 0.9545454545454546,
+            "f1-score": 0.9606099110546379,
+            "support": 396.0
+          },
+          "SEKER": {
+            "precision": 0.9600997506234414,
+            "recall": 0.9673366834170855,
+            "f1-score": 0.9637046307884856,
+            "support": 398.0
+          },
+          "SIRA": {
+            "precision": 0.8959537572254336,
+            "recall": 0.8874045801526718,
+            "f1-score": 0.8916586768935763,
+            "support": 524.0
+          },
+          "accuracy": 0.9390154298310066,
+          "macro avg": {
+            "precision": 0.9488668490466363,
+            "recall": 0.9481203214980773,
+            "f1-score": 0.948477055147096,
+            "support": 2722.0
+          },
+          "weighted avg": {
+            "precision": 0.9389997334709427,
+            "recall": 0.9390154298310066,
+            "f1-score": 0.9389867778079438,
+            "support": 2722.0
+          }
+        },
+        "confusion_matrix": [
+          [
+            266,
+            0,
+            10,
+            0,
+            0,
+            3,
+            2
+          ],
+          [
+            0,
+            106,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            12,
+            0,
+            307,
+            0,
+            4,
+            0,
+            3
+          ],
+          [
+            0,
+            0,
+            0,
+            649,
+            3,
+            7,
+            32
+          ],
+          [
+            3,
+            0,
+            6,
+            1,
+            378,
+            0,
+            8
+          ],
+          [
+            1,
+            0,
+            1,
+            2,
+            0,
+            385,
+            9
+          ],
+          [
+            0,
+            0,
+            0,
+            47,
+            6,
+            6,
+            465
+          ]
+        ]
+      },
+      "status": "trained_success",
+      "qwen_fits": 0,
+      "qwen_accepted": 0,
+      "research_experiments": [],
+      "champion_recipe": {
+        "model_family": "autogluon",
+        "params": {
+          "profile": "classical_frozen_v1"
+        },
+        "feature_ops": [],
+        "feature_expressions": [],
+        "target_transform": "none",
+        "max_runtime_sec": 22.5,
+        "validation_plan_id": "89222c338e747579",
+        "statement": "Independent classical AutoML portfolio; freeze selected models and weights before controls"
+      },
+      "qwen_events": [
+        {
+          "status": "api_usage",
+          "call": 1,
+          "response_model": "qwen/qwen3.8-27b",
+          "prompt_tokens": 3825,
+          "completion_tokens": 580,
+          "reasoning_tokens": 0,
+          "finish_reason": "stop",
+          "reported_cost": 0.0987135084,
+          "elapsed_seconds": 5.425,
+          "timeout_seconds": 40.0
+        },
+        {
+          "status": "response",
+          "call": 1,
+          "tokens": 4405,
+          "elapsed_seconds": 5.426,
+          "timeout_seconds": 40.0
+        },
+        {
+          "status": "recipe_rejected",
+          "reason": "Duplicate, reserved or invalid formula name"
+        },
+        {
+          "status": "api_usage",
+          "call": 2,
+          "response_model": "qwen/qwen3.8-27b",
+          "prompt_tokens": 4199,
+          "completion_tokens": 648,
+          "reasoning_tokens": 0,
+          "finish_reason": "stop",
+          "reported_cost": 0.188563893674,
+          "elapsed_seconds": 4.994,
+          "timeout_seconds": 40.0
+        },
+        {
+          "status": "response",
+          "call": 2,
+          "tokens": 9252,
+          "elapsed_seconds": 4.994,
+          "timeout_seconds": 40.0
+        },
+        {
+          "status": "recipe_rejected",
+          "reason": "Research strategy reason must be a bounded string"
+        }
+      ],
+      "checkpoint_kind": "confirmed_champion",
+      "fit_success": 37,
+      "terminal_status": "confirmed_champion",
+      "llm_valid_recipes": 0,
+      "control_folds_completed": 2,
+      "fold_bagged_done": false,
+      "cpu_seconds": 912.464176369,
+      "peak_memory_mb": 482.4453125,
+      "backend": null,
+      "backend_version": null,
+      "backend_wrapper_sha256": null,
+      "fallback_kind": "confirmed_champion",
+      "isolation": "inherited macOS sandbox denies raw caches, secrets, other runs and external scores"
+    }
+  ],
+  "platform_submissions": 0,
+  "evaluator_fingerprints": {
+    "atlas/metrics.py": "8f7a79069bf727b7b4e7159dea49b52c2c0e71167d43c8efc0c17ce82ecabdb3",
+    "scripts/benchmark_suite.py": "ffa3fb9f7f0dd4c21c294b45e9190753d97ce4ecc15a0b2a4b502afc8f673297",
+    "scripts/benchmark_data.py": "18c304acdef063f0721032ae5cbdd8c9516e8486f9ce0f6d848fc36c31b20aed",
+    "scripts/benchmark_kaggle.py": "08be2553fa369e98311f66c67853f21f17b50f21f951287d9287ce53ffc32f53",
+    "scripts/kaggle_data.py": "b20249093d69f30e707ed653e2c6b5ae93ab70fbc5772390a636a47e53f2973f",
+    "scripts/source_adapters.py": "420f0369b88ca5f3e3db4a93408cd299283293af7579cbd99f60b33a2d2f7160"
+  },
+  "summary": {
+    "pairs": [
+      {
+        "case": "concrete_strength",
+        "seed": 42,
+        "mode": "live-agent",
+        "arm": "candidate",
+        "reference_status": "trained_success",
+        "candidate_status": "trained_success",
+        "metric": "rmse",
+        "reference_score": 4.415821488982329,
+        "candidate_score": 4.577393696274436,
+        "oriented_gain": -0.16157220729210753,
+        "relative_gain": -0.03658938833810139,
+        "outcome": "loss",
+        "reference_seconds": 84.776,
+        "candidate_seconds": 77.095
+      },
+      {
+        "case": "dry_beans",
+        "seed": 42,
+        "mode": "live-agent",
+        "arm": "candidate",
+        "reference_status": "trained_success",
+        "candidate_status": "trained_success",
+        "metric": "f1_macro",
+        "reference_score": 0.9495418503275522,
+        "candidate_score": 0.948477055147096,
+        "oriented_gain": -0.0010647951804562128,
+        "relative_gain": -0.0011213778308864458,
+        "outcome": "loss",
+        "reference_seconds": 198.423,
+        "candidate_seconds": 182.828
+      }
+    ],
+    "win_tie_loss": {
+      "win": 0,
+      "tie": 0,
+      "loss": 2,
+      "failure_or_unavailable": 0
+    },
+    "median_relative_gain": -0.018855383084493915,
+    "worst_quartile_relative_gain": -0.02772238571129765,
+    "trained_success": 4,
+    "planned_rows": 4,
+    "normalization": "direction*(new-old)/abs(old), per-task; no raw metric averaging"
+  }
+}

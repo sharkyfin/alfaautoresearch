@@ -1,3 +1,5 @@
+> Active experimental branch: `research/automl-challenger-strategy-20261023`. Engineering baseline preserved at `91777bb`. See [implementation and limitations](docs/QUALITY_STRATEGY_IMPLEMENTATION.md). The separately named `submission_quality_strategy_experimental.zip` is experimental; no platform score or private-task improvement is claimed. Existing protected archives in the original workspace are unchanged.
+
 # ATLAS AutoResearch
 
 Автономный CPU-агент для табличной регрессии и классификации Alfa Hack AutoML.

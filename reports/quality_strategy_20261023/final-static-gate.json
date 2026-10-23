@@ -1,0 +1,23 @@
+{
+  "status": "passed",
+  "archive_sha256": "036f9036f14270efbe48df1a231f645ee5f8a9c649ed114697ee70abfdb07595",
+  "archive_bytes": 80980,
+  "root_file_count": 28,
+  "official_requirements_unchanged": true,
+  "third_party_imports": [
+    "autogluon",
+    "catboost",
+    "httpx",
+    "lightgbm",
+    "numpy",
+    "optuna",
+    "pandas",
+    "psutil",
+    "scipy",
+    "sklearn",
+    "xgboost"
+  ],
+  "credential_literals_absent": true,
+  "no_runtime_installer_or_alternative_llm": true,
+  "runtime_code_sha256": "a99f4f98813d4cf3c8872a150ee6110387adc2efe678d6d477fa16dec9e10796"
+}

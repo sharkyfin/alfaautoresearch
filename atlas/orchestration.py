@@ -4,6 +4,7 @@ import hashlib,json,os,signal,time,traceback,tempfile
 from pathlib import Path
 import numpy as np
 from .utils import code_digest
+from . import challenger as automl
 from .metrics import UnsupportedTask
 from .contract import read_inputs
 from .task import load,leakage_signals
@@ -13,7 +14,7 @@ from .budget import Budget
 from .experiments import Executor,register
 from .recipes import validate,RecipeError,recipe_hash
 from .research import controlled_hypothesis,ablation_options,accepts_ablation
-from .search import SearchController,mock_hypothesis,retain_finalists,estimate_runtime
+from .search import SearchController,mock_hypothesis,retain_finalists,estimate_runtime,resolve_strategy
 from .agent import QwenClient,researcher_context
 from .judge import evaluate,meaningful_gain
 from .ensemble import choose_blend,tune_multipliers,adjust_probabilities,robust_utility,store_oof
@@ -69,6 +70,7 @@ def _run(task_path,started,budget_seconds,mode,seed,threads,max_experiments,memo
     (directory/'idea_registry.json').write_text(json.dumps(idea_registry(data.spec),indent=2))
     history=[];finalists=[];family_best={};champion=None;confirmed={};blend=None;multipliers=None;refit_published=False;fold_bagged_published=False;cv_selection={}
     checkpoint_kind='valid_dummy';fatal_error=None
+    challenger_state={'eligible':False,'reason':'no_trained_champion','reserve_seconds':0.};challenger_candidate=None;challenger_planned=False
     split,control_plan=selection_splits(data,seed);data.spec.validation_plan=split.json()
     data.spec.suspicious_leakage_features=leakage_signals(data,split.train)
     qwen=research_client if research_client is not None else QwenClient('live' if mode in {'auto','live-agent'} else 'disabled')
@@ -81,6 +83,10 @@ def _run(task_path,started,budget_seconds,mode,seed,threads,max_experiments,memo
         if not result.get('phase'):scheduler.observe(result)
         history.append(result);register(directory/'experiments.jsonl',result)
         emit('experiment',id=result['experiment_id'],family=result['recipe']['model_family'],status=result['status'],score=result.get('metric_value'),accepted=result.get('accepted',False),seconds=round(result['runtime_sec'],3))
+    def run_candidate(candidate,window,timeout,candidate_seed,**kwargs):
+        if candidate['recipe']['model_family']==automl.FAMILY:
+            kwargs.update(challenger_policy=candidate['challenger_policy'],source_artifact=candidate['artifact_path'])
+        return executor.run(candidate['recipe'],window,timeout,candidate_seed,**kwargs)
     def publish(candidate):
         nonlocal checkpoint_kind
         checkpoint(data,candidate['predictions'][1]);digest=hashlib.sha256(inputs.output.read_bytes()).hexdigest()
@@ -123,7 +129,7 @@ def _run(task_path,started,budget_seconds,mode,seed,threads,max_experiments,memo
                         if event.get('status')=='api_usage' and 'elapsed_seconds' in event]
                     api_estimate=max(3.,float(np.median(measured))) if measured else 8.
                     probe_cost=max(1.,champion.get('runtime_sec',1.)*1.3)
-                    final_work=len(control_plan)*sum(c['runtime_sec'] for c in finalists[:3])+1.5*sum(c['runtime_sec'] for c in finalists[:2])
+                    final_work=len(control_plan)*sum(c['runtime_sec'] for c in finalists[:3])+1.5*sum(c['runtime_sec'] for c in finalists[:2])+challenger_state['reserve_seconds']
                     if budget.can_run(probe_cost+api_estimate,finalization_estimate=final_work):
                         context=researcher_context(data,history,champion,remaining)
                         context['recipe_rejections']=[e for e in qwen.events if e['status']=='recipe_rejected'][-3:]
@@ -136,8 +142,10 @@ def _run(task_path,started,budget_seconds,mode,seed,threads,max_experiments,memo
                     raw=mock_hypothesis(data.spec,champion,scheduler.research_index);origin='mock'
             attempts=[(raw,origin)]
             if origin==research_origin:attempts.append((fallback,'deterministic'))
+            research_strategy=None
             for raw,origin in attempts:
                 try:
+                    raw,research_strategy=resolve_strategy(raw,scheduler,champion,history,fallback,budget.search_remaining) if champion and origin==research_origin else (raw,None)
                     if not isinstance(raw,dict):raise RecipeError('Recipe must be an object')
                     requested=raw.get('max_runtime_sec',300)
                     if isinstance(requested,bool) or not isinstance(requested,(int,float)) or not 1<=requested<=1800:
@@ -162,11 +170,14 @@ def _run(task_path,started,budget_seconds,mode,seed,threads,max_experiments,memo
             # Reserve enough for a measured full-data refit before trying longer fits.
             refit_cost=champion['runtime_sec']*1.5 if champion else 0
             estimate=estimate_runtime(r,history,timeout,budget.total)
-            final_work=len(control_plan)*sum(c['runtime_sec'] for c in finalists[:3])+1.5*sum(c['runtime_sec'] for c in finalists[:2])
+            if champion and not challenger_planned:
+                challenger_state=automl.plan(data,champion,budget,control_plan);challenger_planned=True
+            final_work=len(control_plan)*sum(c['runtime_sec'] for c in finalists[:3])+1.5*sum(c['runtime_sec'] for c in finalists[:2])+challenger_state['reserve_seconds']
             if champion and not budget.can_run(estimate,finalization_estimate=final_work):break
             timeout=min(timeout,max(1,budget.remaining-max(budget.reserve,refit_cost)))
             if ablation is not None:pending_ablation['checks']+=1
             result,predictions=executor.run(r,split,timeout,seed)
+            if research_strategy:result['research_strategy']=research_strategy
             result['origin']=origin;result['accepted']=False;result['estimated_runtime_sec']=estimate
             if feature_trial:result['feature_trial']=feature_trial
             if result['status']=='ok' and predictions is not None:
@@ -205,9 +216,27 @@ def _run(task_path,started,budget_seconds,mode,seed,threads,max_experiments,memo
             if scheduler.should_stop(no_gain):break
         scheduler.hpo.abandon()
         if champion and not stop['requested']:
+            stage='AUTOML_CHALLENGER'
+            challenger_state=automl.plan(data,champion,budget,control_plan)
+            if challenger_state['eligible']:
+                timeout=challenger_state['worker_seconds']
+                r=automl.recipe(timeout,split.id)
+                result,predictions=executor.run(r,split,timeout,seed)
+                result.update(phase='challenger',origin='bounded-autogluon',accepted=False)
+                if result['status']=='ok' and predictions is not None:
+                    try:
+                        result.update(evaluate(data,split,predictions,result))
+                        challenger_candidate={**result,'predictions':predictions,'split':split}
+                        challenger_state.update(status='awaiting_independent_controls',metric_value=result['metric_value'])
+                    except (ValueError,ArithmeticError) as error:
+                        result.update(status='judge_error',message=str(error))
+                if not challenger_candidate:challenger_state.update(status='failed',failure=result.get('message',result['status']))
+                record(result)
+            else:challenger_state['status']='skipped'
+        if champion and not stop['requested']:
             stage='CONFIRMATION'
             ordered=[champion]+[c for c in finalists if c['experiment_id']!=champion['experiment_id']]
-            ordered=ordered[:3]
+            ordered=ordered[:3]+([challenger_candidate] if challenger_candidate else [])
             for second in control_plan:
                 if stop['requested']:break
                 for candidate in ordered:
@@ -216,7 +245,9 @@ def _run(task_path,started,budget_seconds,mode,seed,threads,max_experiments,memo
                     if not budget.can_run(estimate,champion['runtime_sec']*1.3):break
                     r=dict(candidate['recipe']);r['validation_plan_id']=second.id
                     timeout=min(estimate*2+5,budget.search_remaining,max(2,budget.remaining*.3))
-                    result,predictions=executor.run(r,second,timeout,second.seed)
+                    if candidate['recipe']['model_family']==automl.FAMILY:
+                        timeout=min(timeout,challenger_state['worker_seconds'])
+                    result,predictions=run_candidate({**candidate,'recipe':r},second,timeout,second.seed)
                     result['accepted']=False;result['phase']='confirmation'
                     if result['status']=='ok' and predictions is not None:
                         try:
@@ -283,7 +314,8 @@ def _run(task_path,started,budget_seconds,mode,seed,threads,max_experiments,memo
                 estimate=max(2,c['runtime_sec']*1.6)
                 if budget.remaining<max(1.5,estimate*.45):break
                 timeout=max(1,min(estimate*2+5,budget.remaining-min(5,budget.reserve*.25)))
-                result,predictions=executor.run(c['recipe'],full_split,timeout,seed,refit=True,iterations_override=c.get('refit_iterations',c.get('iterations')))
+                if c['recipe']['model_family']==automl.FAMILY:timeout=min(timeout,challenger_state['worker_seconds']*1.8)
+                result,predictions=run_candidate(c,full_split,timeout,seed,refit=True,iterations_override=c.get('refit_iterations',c.get('iterations')))
                 result['accepted']=False;result['phase']='refit'
                 record(result)
                 if result['status']!='ok' or predictions is None:break
@@ -312,6 +344,10 @@ def _run(task_path,started,budget_seconds,mode,seed,threads,max_experiments,memo
             search_fit_success=sum(r['status']=='ok' and not r.get('phase') for r in history),
             full_refit_done=refit_published,fatal_exception=fatal_error,
             platform_deadline_seconds=10800,platform_safety_margin_seconds=max(0,10800-budget.total))
+        if challenger_candidate:
+            challenger_state.update(confirmation_folds=len(confirmed.get(challenger_candidate['experiment_id'],[])),
+                selected=any(c['recipe']['model_family']==automl.FAMILY for c in (blend['components'] if blend else [champion] if champion else [])))
+        summary['automl_challenger']=challenger_state
         summary['adaptive_search']=scheduler.summary()
         summary['cross_validation']=cv_selection
         summary['confirmation_plan']=[s.json() for s in control_plan]
@@ -323,7 +359,7 @@ def _run(task_path,started,budget_seconds,mode,seed,threads,max_experiments,memo
             ensemble_strategy=ensemble_strategy,finalization_requested=finalization,fold_bagged_done=fold_bagged_published)
         if research_provider!='organizer-qwen':
             summary.update(qwen_calls=0,qwen_proposals=0,qwen_tokens=0,qwen_events=[])
-        final_recipe={'output_sha256':summary['output_sha256'],'full_refit':refit_published,'seed':seed,'labels':data.spec.labels,'components':[{'recipe':c['recipe'],'iterations':c.get('refit_iterations',c.get('iterations')),'experiment_id':c['experiment_id']} for c in (blend['components'] if blend else [champion] if champion else [])],'blend_weights':blend['weights'] if blend else [1.],'probability_multipliers':multipliers['weights'] if multipliers else None}
+        final_recipe={'output_sha256':summary['output_sha256'],'full_refit':refit_published,'seed':seed,'labels':data.spec.labels,'components':[{'recipe':c['recipe'],'iterations':c.get('refit_iterations',c.get('iterations')),'experiment_id':c['experiment_id'],**({'challenger_policy':c['challenger_policy']} if 'challenger_policy' in c else {})} for c in (blend['components'] if blend else [champion] if champion else [])],'blend_weights':blend['weights'] if blend else [1.],'probability_multipliers':multipliers['weights'] if multipliers else None}
         (directory/'final_recipe.json').write_text(json.dumps(final_recipe,ensure_ascii=False,indent=2,allow_nan=False))
         (directory/'summary.json').write_text(json.dumps(summary,ensure_ascii=False,indent=2,allow_nan=False))
         emit('DONE',summary=str(directory/'summary.json'),elapsed=round(summary['elapsed_seconds'],3),champion_metric=summary['champion_metric'])

@@ -1,0 +1,28 @@
+{
+  "created_at_utc": "2026-10-23T17:19:21.947999+00:00",
+  "scope": "Exactly four new end-to-end ML runs; no extra smoke fits or mass resumption",
+  "cases": [
+    "concrete_strength",
+    "dry_beans"
+  ],
+  "seed": 42,
+  "budget_seconds": 360,
+  "threads": 8,
+  "memory_mb": 8192,
+  "max_qwen_calls": 2,
+  "mode": "live-agent",
+  "stage": "development",
+  "archives": {
+    "baseline": "ad10fe9d0d811e8f240f7fc160f34fc1876d6c5aa1fcd9b11ca3cbfb58573a42",
+    "candidate": "7644890c65799a7fb673b2fc0b80760a488f438d2769c74fc7032955e3df31d9"
+  },
+  "scorer_sha256": "8f7a79069bf727b7b4e7159dea49b52c2c0e71167d43c8efc0c17ce82ecabdb3",
+  "manifest_sha256": "ae644e186cbd98c2ecd3129f2fba8668802caac5348241f5e0aece3b28070da5",
+  "environment_python": "/Users/mac/Documents/projects/alfaautoresearch/.bootstrap/performance_v2/backends/autogluon/bin/python",
+  "frozen_candidate_runtime_sha256": "4588cb3f6b5e6c2f837ac264e35aac519d94fd3b0b78a1fc475f86af95841cdd",
+  "limitations": [
+    "One seed and two already-used development cases; Qwen API is stochastic",
+    "Not a private-platform or full 3h image reproduction",
+    "Unit checks include mocked full orchestration and small pre-existing component fit tests; only four full benchmark runs authorized"
+  ]
+}

@@ -36,7 +36,13 @@ def execute(job_path,feature_function=None):
         start=time.monotonic()
         with warnings.catch_warnings(record=True) as caught:
             warnings.simplefilter('always')
-            pv,pt,info=fit_predict(data,job['recipe'],split['train'],split['valid'],seed=job['seed'],threads=job['threads'],refit=job.get('refit',False),iterations_override=job.get('iterations_override'),feature_function=feature_function,progress_path=root/'progress.json')
+            if job['recipe']['model_family']=='autogluon':
+                from .challenger import fit_predict as challenger_fit
+                pv,pt,info=challenger_fit(data,split['train'],split['valid'],root,
+                    job['timeout_seconds'],job['seed'],job['threads'],job['memory_mb'],
+                    policy=job.get('challenger_policy'),source_artifact=job.get('source_artifact'),refit=job.get('refit',False))
+            else:
+                pv,pt,info=fit_predict(data,job['recipe'],split['train'],split['valid'],seed=job['seed'],threads=job['threads'],refit=job.get('refit',False),iterations_override=job.get('iterations_override'),feature_function=feature_function,progress_path=root/'progress.json')
         info['resource_limits']=limits
         info['load_seconds']=load_seconds
         info['warnings']=[str(w.message)[:500] for w in caught[:20]]

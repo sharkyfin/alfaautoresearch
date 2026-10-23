@@ -11,10 +11,11 @@ class Executor:
         self.data=data;self.root=Path(root);self.root.mkdir(parents=True,exist_ok=True)
         self.threads=threads;self.memory_mb=memory_mb;self.should_stop=should_stop;self.strict=strict
         self.counter=0
-    def run(self,recipe,split,timeout,seed=42,refit=False,iterations_override=None):
+    def run(self,recipe,split,timeout,seed=42,refit=False,iterations_override=None,challenger_policy=None,source_artifact=None):
         self.counter+=1;eid=f'exp_{self.counter:04d}';directory=self.root/eid;directory.mkdir()
         job={'task_path':str(self.data.inputs.task_path),'recipe':recipe,'seed':seed,'threads':self.threads,'memory_mb':self.memory_mb,'refit':refit,'iterations_override':iterations_override,'strict':self.strict,
              'validation_metadata':self.data.spec.validation_plan,'controller_pid':os.getpid()}
+        job.update(challenger_policy=challenger_policy,source_artifact=source_artifact,timeout_seconds=float(timeout))
         job_path=directory/'job.json';job_path.write_text(json.dumps(job,ensure_ascii=False))
         np.savez(directory/'split.npz',train=split.train,valid=split.valid)
         source=compile_recipe(recipe,job_path,Path(__file__).resolve().parent.parent)

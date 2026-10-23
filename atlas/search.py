@@ -2,7 +2,7 @@
 from __future__ import annotations
 import copy
 import numpy as np
-from .recipes import PARAMS,recipe_hash,merge_hypothesis_features
+from .recipes import PARAMS,RecipeError,recipe_hash,merge_hypothesis_features
 from .hpo import AdaptiveTPE
 
 
@@ -193,3 +193,107 @@ def estimate_runtime(recipe,history,timeout,total_budget):
         key='max_depth'
         scale*=2**((new.get(key,7)-old.get(key,7))*.25)
     return min(timeout,max(1.,previous['runtime_sec']*scale*1.2))
+
+
+STRATEGIC_DIRECTIONS = {'improve_family', 'another_family', 'semantic_features', 'imbalance',
+                        'target_transform', 'complementarity', 'compute_allocation'}
+
+
+def strategic_options(spec, history, champion, remaining):
+    """Legal actions with task-local cost evidence; no extra Qwen call or labels."""
+    rows = [r for r in history if not r.get('phase')]
+    failures = {f: sum(r.get('status') != 'ok' for r in rows if r['recipe']['model_family'] == f) for f in PARAMS}
+    families = [f for f in PARAMS if failures[f] < 2 and
+                (f not in {'catboost', 'lightgbm', 'xgboost'} or f in spec.available_capabilities)]
+    current = champion['recipe']['model_family'] if champion else None
+    counts = list(spec.profile.get('target', {}).get('counts', {}).values())
+    imbalance = bool(counts and max(counts) / max(1, min(counts)) >= 1.5)
+    nonnegative = not spec.classification and min(spec.profile.get('target', {}).get('quantiles', {'0': -1}).values()) >= 0
+    directions = ['improve_family', 'semantic_features', 'compute_allocation']
+    alternatives = [f for f in families if f != current]
+    if alternatives: directions += ['another_family', 'complementarity']
+    if spec.classification and imbalance and spec.metric.name in {'f1', 'f1_macro', 'balanced_accuracy'}: directions.append('imbalance')
+    if nonnegative: directions.append('target_transform')
+    costs = []
+    for family in families:
+        observations = [r for r in rows if r['recipe']['model_family'] == family]
+        times = [r['runtime_sec'] for r in observations if r.get('status') == 'ok']
+        costs.append({'family': family, 'tested': len(observations),
+                      'accepted': sum(bool(r.get('accepted')) for r in observations),
+                      'median_seconds': round(float(np.median(times)), 2) if times else None,
+                      'failed': failures[family]})
+    return {'directions': directions, 'families': families, 'family_costs': costs,
+            'remaining_seconds': round(remaining),
+            'efforts': ['quick', 'standard', 'deep'],
+            'scope': 'One bounded experiment; no control labels, metric changes or new API calls. '
+                     'Complementarity is a hypothesis, confirmed only by existing independent ensemble selection.'}
+
+
+def resolve_strategy(raw, scheduler, champion, history, fallback, remaining):
+    """Compile a direction-only suggestion into the existing typed Recipe DSL."""
+    if not isinstance(raw, dict) or 'strategy' not in raw: return raw, None
+    action = raw['strategy']
+    if not isinstance(action, dict) or set(action) - {'direction', 'reason', 'family', 'effort'}:
+        raise RecipeError('Invalid research strategy fields')
+    if not isinstance(action.get('reason', ''), str) or len(action.get('reason', '')) > 240:
+        raise RecipeError('Research strategy reason must be a bounded string')
+    options = strategic_options(scheduler.spec, history, champion, remaining)
+    direction = action.get('direction'); effort = action.get('effort', 'standard')
+    if not isinstance(direction, str) or direction not in options['directions'] or effort not in options['efforts']:
+        raise RecipeError('Research strategy is not eligible for this task')
+    parent = champion['recipe']; current = parent['model_family']; family = action.get('family', current)
+    if not isinstance(family, str) or family not in options['families']:
+        raise RecipeError('Research strategy selected an unavailable or quarantined family')
+    provided = 'model_family' in raw
+    if provided:
+        proposal = copy.deepcopy(raw); proposal.pop('strategy')
+        family = proposal['model_family']
+        if 'family' in action and action['family'] != family: raise RecipeError('Strategy family contradicts recipe')
+    else:
+        if set(raw) != {'strategy'}: raise RecipeError('Direction-only action must contain only strategy')
+        proposal = copy.deepcopy(parent)
+        if direction in {'another_family', 'complementarity'}:
+            if 'family' not in action:
+                other = [row for row in options['family_costs'] if row['family'] != current]
+                family = min(other, key=lambda row: (row['tested'] > 0, row['failed'], row['median_seconds'] or 0))['family']
+            previous = scheduler.family_best.get(family)
+            base = previous['recipe'] if previous else next(r for r in initial_portfolio(scheduler.spec, scheduler.budget.total) if r['model_family'] == family)
+            proposal = copy.deepcopy(base)
+            proposal['feature_ops'] = copy.deepcopy(parent.get('feature_ops', []))
+            proposal['feature_expressions'] = copy.deepcopy(parent.get('feature_expressions', []))
+        elif direction == 'semantic_features':
+            raise RecipeError('Semantic direction needs an explicit bounded feature hypothesis')
+        elif direction == 'imbalance':
+            proposal['params']['weight'] = 'balanced' if parent['params'].get('weight') == 'sqrt' else 'sqrt'
+        elif direction == 'target_transform':
+            proposal['target_transform'] = 'none' if parent.get('target_transform') == 'log1p' else 'log1p'
+        else:
+            selected = champion
+            if direction == 'compute_allocation':
+                candidates = [x for f,x in scheduler.family_best.items() if f in options['families']]
+                if candidates: selected = scheduler.prioritized_family(sorted(candidates,key=lambda x:-x['standardized_utility']))
+            proposed = scheduler.hpo.propose(selected, scheduler.seen) if scheduler.hpo.enabled else None
+            proposal = proposed or copy.deepcopy(fallback)
+            family = proposal['model_family']
+    from .recipes import validate,merge_hypothesis_features
+    validate(merge_hypothesis_features(proposal,parent),scheduler.spec,remaining=max(1800.,remaining))
+    if family not in options['families']: raise RecipeError('Strategy family is unavailable or quarantined')
+    if direction in {'another_family', 'complementarity'} and family == current:
+        raise RecipeError('Diversity strategy must change model family')
+    if direction in {'improve_family', 'semantic_features', 'imbalance', 'target_transform'} and family != current:
+        raise RecipeError('Strategy must retain the current model family')
+    from .research import feature_changes
+    from .recipes import merge_hypothesis_features
+    changes = feature_changes(parent, merge_hypothesis_features(proposal, parent))
+    if direction == 'semantic_features' and not changes: raise RecipeError('Semantic strategy did not change features')
+    if direction != 'semantic_features' and changes: raise RecipeError('Model strategies must isolate model changes from features')
+    if direction == 'imbalance' and proposal.get('params', {}).get('weight', 'none') == parent['params'].get('weight', 'none'):
+        raise RecipeError('Imbalance strategy must test a different legal class weight')
+    if direction == 'target_transform' and proposal.get('target_transform', 'none') == parent.get('target_transform', 'none'):
+        raise RecipeError('Target strategy must change the target transform')
+    measured = [row['median_seconds'] for row in options['family_costs'] if row['family'] == family and row['median_seconds'] is not None]
+    estimate = measured[0] if measured else max(3., scheduler.budget.total*.03)
+    scale = {'quick': 1.5, 'standard': 3., 'deep': 6.}[effort]
+    proposal['max_runtime_sec'] = min(proposal.get('max_runtime_sec', 300), max(3., estimate*scale+3), max(1., remaining))
+    return proposal, {**action, 'resolved_family': family, 'estimated_fit_seconds': estimate,
+                      'worker_cap_seconds': proposal['max_runtime_sec']}

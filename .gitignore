@@ -16,3 +16,7 @@ artifacts/release/
 reports/stress/data/
 artifacts/official/render/
 reports/stress-final/data/
+
+.venv
+submission_challenger_strategy_experimental.zip
+submission_quality_strategy_experimental.zip
