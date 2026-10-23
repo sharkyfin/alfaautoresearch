@@ -63,6 +63,6 @@ def main():
     args.output.write_text(json.dumps(result,indent=2,allow_nan=False)+'\n')
     with args.output.with_suffix('.csv').open('w') as f:
         keys=['case','phase','arm','mode','metric','external_metric','wall_seconds','cpu_seconds','peak_memory_mb','full_refit','qwen_calls','qwen_fits','qwen_accepted','worker_errors','archive_sha256']
-        writer=csv.DictWriter(f,fieldnames=keys,extrasaction='ignore');writer.writeheader();writer.writerows(rows)
+        writer=csv.DictWriter(f,fieldnames=keys,extrasaction='ignore',lineterminator='\n');writer.writeheader();writer.writerows(rows)
     print(json.dumps({'rows':len(rows),'pairs':pairs},indent=2))
 if __name__=='__main__':main()
