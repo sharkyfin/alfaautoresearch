@@ -1,0 +1,12 @@
+{"event": "start", "stage": "initial", "case": "aps_failure", "arm": "baseline", "mode": "live-agent", "number": 1}
+{"case": "aps_failure", "arm": "baseline", "mode": "live-agent", "status": "ok", "external_metric": 0.9198069985623802, "wall_seconds": 455.793, "full_refit": true, "error": null}
+{"event": "start", "stage": "initial", "case": "aps_failure", "arm": "baseline", "mode": "autogluon", "number": 2}
+{"case": "aps_failure", "arm": "baseline", "mode": "autogluon", "status": "ok", "external_metric": 0.9161874180324906, "wall_seconds": 346.525, "full_refit": true, "error": null}
+{"event": "start", "stage": "initial", "case": "aps_failure", "arm": "baseline", "mode": "catboost", "number": 3}
+{"case": "aps_failure", "arm": "baseline", "mode": "catboost", "status": "ok", "external_metric": 0.8883919712276718, "wall_seconds": 30.82, "full_refit": true, "error": null}
+{"event": "start", "stage": "initial", "case": "bike_sharing_temporal", "arm": "baseline", "mode": "live-agent", "number": 4}
+{"case": "bike_sharing_temporal", "arm": "baseline", "mode": "live-agent", "status": "ok", "external_metric": 0.32746468758965325, "wall_seconds": 168.676, "full_refit": true, "error": null}
+{"event": "start", "stage": "initial", "case": "bike_sharing_temporal", "arm": "baseline", "mode": "autogluon", "number": 5}
+{"case": "bike_sharing_temporal", "arm": "baseline", "mode": "autogluon", "status": "ok", "external_metric": 0.306649625201812, "wall_seconds": 20.997, "full_refit": true, "error": null}
+{"event": "start", "stage": "initial", "case": "bike_sharing_temporal", "arm": "baseline", "mode": "catboost", "number": 6}
+{"case": "bike_sharing_temporal", "arm": "baseline", "mode": "catboost", "status": "ok", "external_metric": 0.3007719304826734, "wall_seconds": 11.037, "full_refit": true, "error": null}

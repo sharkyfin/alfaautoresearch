@@ -1,0 +1,13 @@
+{
+  "status": "passed",
+  "archive_sha256": "30e053296722de373df8b82cef26a976df8220a696aa1a6cd36cb173e2b61189",
+  "command": "python3 solution.py task.md",
+  "scope": "actual flat bootstrap with development import hook supplying 90s/2 experiments; no 3-hour/default-budget execution claim",
+  "full_refit": true,
+  "output_schema_ids_finite": true,
+  "tampered_source_rejected": true,
+  "runtime_code_sha256": "e81f82499cb6fc1043297065d3a5edab08f3ac0081a37502db975b1afdcd1902",
+  "rows": 60,
+  "budget_seconds": 90.0,
+  "experiments": 5
+}

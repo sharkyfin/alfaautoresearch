@@ -1,0 +1,41 @@
+{
+  "status": "passed",
+  "checks": [
+    {
+      "case": "aps_failure",
+      "phase": "development",
+      "archive_sha256": "bb8c0510e5af13b0097874e7b251e6ea3b8a98b8c94a3b74e0bc5597795f3deb",
+      "confirmation_fits": 4,
+      "confirmation_windows_per_fit": 2,
+      "control_fit_validation_rows": 0,
+      "search_pool_disjoint_from_controls": true,
+      "all_label_full_refit": true,
+      "worker_errors": 0,
+      "bounded_cpu_memory_jobs": 34
+    },
+    {
+      "case": "bike_sharing_temporal",
+      "phase": "development",
+      "archive_sha256": "bb8c0510e5af13b0097874e7b251e6ea3b8a98b8c94a3b74e0bc5597795f3deb",
+      "confirmation_fits": 4,
+      "confirmation_windows_per_fit": 2,
+      "control_fit_validation_rows": 0,
+      "search_pool_disjoint_from_controls": true,
+      "all_label_full_refit": true,
+      "worker_errors": 0,
+      "bounded_cpu_memory_jobs": 37
+    },
+    {
+      "case": "bike_sharing_temporal",
+      "phase": "final",
+      "archive_sha256": "30e053296722de373df8b82cef26a976df8220a696aa1a6cd36cb173e2b61189",
+      "confirmation_fits": 4,
+      "confirmation_windows_per_fit": 2,
+      "control_fit_validation_rows": 0,
+      "search_pool_disjoint_from_controls": true,
+      "all_label_full_refit": true,
+      "worker_errors": 0,
+      "bounded_cpu_memory_jobs": 115
+    }
+  ]
+}

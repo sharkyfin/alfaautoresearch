@@ -1,0 +1,38 @@
+.....                                                                    [100%]
+=============================== warnings summary ===============================
+tests/test_ag_actual_integration.py::test_actual_ag_search_frozen_confirmation_and_all_label_refit
+  /Users/mac/Documents/projects/alfaautoresearch/.bootstrap/performance_v2/backends/autogluon/lib/python3.12/site-packages/autogluon/common/utils/utils.py:97: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+    import pkg_resources
+
+tests/test_ag_actual_integration.py::test_actual_ag_search_frozen_confirmation_and_all_label_refit
+tests/test_ag_actual_integration.py::test_actual_ag_search_frozen_confirmation_and_all_label_refit
+tests/test_ag_actual_integration.py::test_actual_ag_search_frozen_confirmation_and_all_label_refit
+tests/test_ag_actual_integration.py::test_actual_ag_search_frozen_confirmation_and_all_label_refit
+  /Users/mac/Documents/projects/alfaautoresearch/.bootstrap/performance_v2/backends/autogluon/lib/python3.12/site-packages/pkg_resources/__init__.py:3146: DeprecationWarning: Deprecated call to `pkg_resources.declare_namespace('autogluon')`.
+  Implementing implicit namespace packages (as specified in PEP 420) is preferred to `pkg_resources.declare_namespace`. See https://setuptools.pypa.io/en/latest/references/keywords.html#keyword-namespace-packages
+    declare_namespace(pkg)
+
+tests/test_ag_actual_integration.py::test_actual_ag_search_frozen_confirmation_and_all_label_refit
+  /Users/mac/Documents/projects/alfaautoresearch/.bootstrap/performance_v2/backends/autogluon/lib/python3.12/site-packages/matplotlib/_fontconfig_pattern.py:64: PyparsingDeprecationWarning: 'oneOf' deprecated - use 'one_of'
+    prop = Group((name + Suppress("=") + comma_separated(value)) | oneOf(_CONSTANTS))
+
+tests/test_ag_actual_integration.py::test_actual_ag_search_frozen_confirmation_and_all_label_refit
+tests/test_ag_actual_integration.py::test_actual_ag_search_frozen_confirmation_and_all_label_refit
+tests/test_ag_actual_integration.py::test_actual_ag_search_frozen_confirmation_and_all_label_refit
+tests/test_ag_actual_integration.py::test_actual_ag_search_frozen_confirmation_and_all_label_refit
+tests/test_ag_actual_integration.py::test_actual_ag_search_frozen_confirmation_and_all_label_refit
+tests/test_ag_actual_integration.py::test_actual_ag_search_frozen_confirmation_and_all_label_refit
+  /Users/mac/Documents/projects/alfaautoresearch/.bootstrap/performance_v2/backends/autogluon/lib/python3.12/site-packages/matplotlib/_fontconfig_pattern.py:85: PyparsingDeprecationWarning: 'parseString' deprecated - use 'parse_string'
+    parse = parser.parseString(pattern)
+
+tests/test_ag_actual_integration.py::test_actual_ag_search_frozen_confirmation_and_all_label_refit
+tests/test_ag_actual_integration.py::test_actual_ag_search_frozen_confirmation_and_all_label_refit
+tests/test_ag_actual_integration.py::test_actual_ag_search_frozen_confirmation_and_all_label_refit
+tests/test_ag_actual_integration.py::test_actual_ag_search_frozen_confirmation_and_all_label_refit
+tests/test_ag_actual_integration.py::test_actual_ag_search_frozen_confirmation_and_all_label_refit
+tests/test_ag_actual_integration.py::test_actual_ag_search_frozen_confirmation_and_all_label_refit
+  /Users/mac/Documents/projects/alfaautoresearch/.bootstrap/performance_v2/backends/autogluon/lib/python3.12/site-packages/matplotlib/_fontconfig_pattern.py:89: PyparsingDeprecationWarning: 'resetCache' deprecated - use 'reset_cache'
+    parser.resetCache()
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+5 passed, 18 warnings in 6.66s

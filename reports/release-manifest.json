@@ -1,16 +1,16 @@
 {
-  "status": "built; execution gates recorded separately",
+  "status": "READY_WITH_RISKS",
   "layout": "root Python files and official requirements.txt only",
-  "runtime_code_sha256": "a99f4f98813d4cf3c8872a150ee6110387adc2efe678d6d477fa16dec9e10796",
-  "archive": "submission_quality_strategy_experimental.zip",
-  "bytes": 80980,
-  "sha256": "036f9036f14270efbe48df1a231f645ee5f8a9c649ed114697ee70abfdb07595",
+  "runtime_code_sha256": "e81f82499cb6fc1043297065d3a5edab08f3ac0081a37502db975b1afdcd1902",
+  "archive": "submission.zip",
+  "bytes": 85502,
+  "sha256": "30e053296722de373df8b82cef26a976df8220a696aa1a6cd36cb173e2b61189",
   "files": [
     {
       "path": "solution.py",
       "source": "generated bootstrap",
       "bytes": 3744,
-      "sha256": "45f7b4ac07da93e67b85f5cd98b7cdc36caa3983bd90963a96b8d73a582a8f04"
+      "sha256": "9e73f97f4897ea94a2cd06ae326ffac72ae4567c2d2514c37d4ae91ae621eb99"
     },
     {
       "path": "_atlas_entry.py",
@@ -27,8 +27,8 @@
     {
       "path": "atlas_agent.py",
       "source": "atlas/agent.py",
-      "bytes": 25241,
-      "sha256": "78f831ff7c81f03b3feaed5b69339d2d0e765fdbd0f9d80c7d0fbf6229070e3d"
+      "bytes": 26355,
+      "sha256": "03ac103345a7867eb6beec14f0f889e835d2fc44dde42391c6e668b2d811e413"
     },
     {
       "path": "atlas_budget.py",
@@ -39,8 +39,8 @@
     {
       "path": "atlas_challenger.py",
       "source": "atlas/challenger.py",
-      "bytes": 13311,
-      "sha256": "f4f6fd203a4e8f51be88cf07faa98168d947843de04057008de48224a8e69168"
+      "bytes": 18814,
+      "sha256": "4ceea1841a8fc3be10c6bb5074e2ac915494e27ba880b63ef027d858249e2aa1"
     },
     {
       "path": "atlas_context.py",
@@ -69,8 +69,8 @@
     {
       "path": "atlas_experiments.py",
       "source": "atlas/experiments.py",
-      "bytes": 2787,
-      "sha256": "3efc01fbb806e45111fc6b46440e555f53ea0ba2ea16d1d78db0122741a1dc3b"
+      "bytes": 2841,
+      "sha256": "67045b00fc5007087d9415a4b187ace0adb86e003004d0470ce60ae480e7c0cf"
     },
     {
       "path": "atlas_expressions.py",
@@ -111,14 +111,14 @@
     {
       "path": "atlas_models.py",
       "source": "atlas/models.py",
-      "bytes": 11236,
-      "sha256": "0378d775a1dfa3b92d1d694540e59f03bcfd28a1de0e9c89e1126b84ce9c4c35"
+      "bytes": 11692,
+      "sha256": "4aab7230554eca3eadb7f8c7aefb196f449088fd9c5b4cb84cc1bc5507c244ed"
     },
     {
       "path": "atlas_orchestration.py",
       "source": "atlas/orchestration.py",
-      "bytes": 31118,
-      "sha256": "eef21b9b3dc3be7680e7163728b56dde0bfe1a9eabdd506a49574875128d1af8"
+      "bytes": 33734,
+      "sha256": "2ea429ae9b5f3f21ea960d8418d35fb54b1fc2c96944d8630edc1a7288c8504a"
     },
     {
       "path": "atlas_recipes.py",
@@ -135,8 +135,8 @@
     {
       "path": "atlas_search.py",
       "source": "atlas/search.py",
-      "bytes": 23226,
-      "sha256": "43db94a66f09a4d56946ac9e6d5d211917ac29e1ffdfd4456462a3006c2f3882"
+      "bytes": 26479,
+      "sha256": "ca9390e24d05e60a04562a3d49a2af14ab3fc7b1c5f1233854be7a882ee7412f"
     },
     {
       "path": "atlas_submit.py",
@@ -147,8 +147,8 @@
     {
       "path": "atlas_task.py",
       "source": "atlas/task.py",
-      "bytes": 11377,
-      "sha256": "d5249d756b9da7126190575e860fcca002c529b0df9503dce757134cf3164fe2"
+      "bytes": 11623,
+      "sha256": "3531b82dfd333e8f0c5f3bfbf1461affc8d460ee25550a36720af04e8938c017"
     },
     {
       "path": "atlas_utils.py",
@@ -159,14 +159,14 @@
     {
       "path": "atlas_validation.py",
       "source": "atlas/validation.py",
-      "bytes": 11174,
-      "sha256": "8b3be3cab42fb721e0089af4b96a00890a993bc64cdcea0df1c9f0c62f53bdc9"
+      "bytes": 14727,
+      "sha256": "ea1fe60525d0fce155774fe05ca0f1ed51aede389d2e3caa672c8279090c2e88"
     },
     {
       "path": "atlas_worker.py",
       "source": "atlas/worker.py",
-      "bytes": 3258,
-      "sha256": "b2ee51da4880f241c6be24de371d6f98e0c4ac8c23872150bf1438cb01528cba"
+      "bytes": 3561,
+      "sha256": "f0e73fae92a67c512822d5a0fb8816dda6abe7afe992e00129bb4217a7803ab4"
     },
     {
       "path": "requirements.txt",
@@ -174,5 +174,10 @@
       "bytes": 748,
       "sha256": "9173b0388532fbd2a709e4f4b3029e3b9ccab685fce43a85261ffa1ba95efbe6"
     }
-  ]
+  ],
+  "source_root": "/Users/mac/Documents/projects/alfaautoresearch/.bootstrap/final_optimization/worktree",
+  "source_commit": "056da92b03abe4694f6259d4ce3b25c09e63c2c7",
+  "source_branch": "research/final-competitive-validation-20261023",
+  "validation_report": "reports/final_optimization_20261023/RESULTS.md",
+  "notes": "Source worktree is authoritative; original root checkout contains preserved prior user edits. No platform upload."
 }

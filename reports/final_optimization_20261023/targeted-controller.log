@@ -1,0 +1,4 @@
+{"event": "start", "stage": "targeted", "case": "aps_failure", "arm": "candidate", "mode": "live-agent", "number": 1}
+{"case": "aps_failure", "arm": "candidate", "mode": "live-agent", "status": "ok", "external_metric": 0.9216701521058952, "wall_seconds": 445.794, "full_refit": true, "error": null}
+{"event": "start", "stage": "targeted", "case": "bike_sharing_temporal", "arm": "candidate", "mode": "live-agent", "number": 2}
+{"case": "bike_sharing_temporal", "arm": "candidate", "mode": "live-agent", "status": "ok", "external_metric": 0.31050220103680387, "wall_seconds": 119.07, "full_refit": true, "error": null}

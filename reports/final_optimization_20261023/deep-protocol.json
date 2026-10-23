@@ -1,0 +1,21 @@
+{
+  "status": "frozen_before_final_labels",
+  "case": "bike_sharing_temporal",
+  "phase": "final",
+  "split": "first 13903 chronological rows train; last 3476 untouched final rows",
+  "metric": "RMSLE; lower is better",
+  "arms": [
+    "live-agent",
+    "catboost"
+  ],
+  "budget_seconds_per_arm": 1800,
+  "threads": 8,
+  "rss_guard_mib": 16384,
+  "qwen_calls_max": 3,
+  "archive_sha256": "30e053296722de373df8b82cef26a976df8220a696aa1a6cd36cb173e2b61189",
+  "runtime_sha256": "e81f82499cb6fc1043297065d3a5edab08f3ac0081a37502db975b1afdcd1902",
+  "reason": "Bike development shows 5.18% improvement but still trails the strongest fixed CatBoost; test longer-budget agent against this reference on unseen future",
+  "no_tuning_after_final": true,
+  "no_expensive_retries": true,
+  "no_three_hour_test": true
+}

@@ -1,0 +1,178 @@
+{
+  "status": "built; execution gates recorded separately",
+  "layout": "root Python files and official requirements.txt only",
+  "runtime_code_sha256": "860605202bd4011f95839287254dc79b92fce448e1323712cdc27d208e160862",
+  "archive": "submission_final_candidate.zip",
+  "bytes": 85461,
+  "sha256": "bb8c0510e5af13b0097874e7b251e6ea3b8a98b8c94a3b74e0bc5597795f3deb",
+  "files": [
+    {
+      "path": "solution.py",
+      "source": "generated bootstrap",
+      "bytes": 3744,
+      "sha256": "ffbbfdf3bf933bf3867526f086c40847b3ee8d911424fbd0b442f3e97cf7ee73"
+    },
+    {
+      "path": "_atlas_entry.py",
+      "source": "solution.py",
+      "bytes": 984,
+      "sha256": "d215ddab1515c76c4f8d12e4ffd12b030ab547773dcde76406ccb527a27b958a"
+    },
+    {
+      "path": "atlas___init__.py",
+      "source": "atlas/__init__.py",
+      "bytes": 100,
+      "sha256": "32652b410444c85705834dce792c30cc5dda339daf0ac2c02c7fe8444f6a0cc6"
+    },
+    {
+      "path": "atlas_agent.py",
+      "source": "atlas/agent.py",
+      "bytes": 26186,
+      "sha256": "dcb03029e4dadb1ea264461c20bcc8b9766a6a61a94ba6551578fae21205163e"
+    },
+    {
+      "path": "atlas_budget.py",
+      "source": "atlas/budget.py",
+      "bytes": 4072,
+      "sha256": "34fbab619e1076abc1948c38b15f5ad42e30654bbe1efbe2b6de76a67e2b057b"
+    },
+    {
+      "path": "atlas_challenger.py",
+      "source": "atlas/challenger.py",
+      "bytes": 18814,
+      "sha256": "4ceea1841a8fc3be10c6bb5074e2ac915494e27ba880b63ef027d858249e2aa1"
+    },
+    {
+      "path": "atlas_context.py",
+      "source": "atlas/context.py",
+      "bytes": 8965,
+      "sha256": "892918cfbf6e30658e7d79c27a0ab31a030eb8f60b9caf622656432fd0bfbb71"
+    },
+    {
+      "path": "atlas_contract.py",
+      "source": "atlas/contract.py",
+      "bytes": 2374,
+      "sha256": "0a1b4eb3cd6ee3577ab7f8d925a6068422f62ec097c3f8d64a3337cd57caa46f"
+    },
+    {
+      "path": "atlas_encoding.py",
+      "source": "atlas/encoding.py",
+      "bytes": 2799,
+      "sha256": "a6ab154997de9c05bfe8fdf94a3bbe5bcadc1784809f597310580f430f91ca31"
+    },
+    {
+      "path": "atlas_ensemble.py",
+      "source": "atlas/ensemble.py",
+      "bytes": 11661,
+      "sha256": "a15e80d72b73db273ecf1749a01095748cb0ee55fc1b44f98bd65890597f46db"
+    },
+    {
+      "path": "atlas_experiments.py",
+      "source": "atlas/experiments.py",
+      "bytes": 2841,
+      "sha256": "67045b00fc5007087d9415a4b187ace0adb86e003004d0470ce60ae480e7c0cf"
+    },
+    {
+      "path": "atlas_expressions.py",
+      "source": "atlas/expressions.py",
+      "bytes": 14415,
+      "sha256": "4c80923505ad20eefb6ad3318ee843b66e5c500795d19ac13ab3436ea27f7495"
+    },
+    {
+      "path": "atlas_features.py",
+      "source": "atlas/features.py",
+      "bytes": 12120,
+      "sha256": "397f7f17dfe1741d39a6a1f98ba0c4e61f56e1736121980c3ad2443e921ac6bf"
+    },
+    {
+      "path": "atlas_hpo.py",
+      "source": "atlas/hpo.py",
+      "bytes": 8842,
+      "sha256": "335d5e0cfa6ca9222f18513281aa7cb69cff746800f43336cdde32b8f10182b4"
+    },
+    {
+      "path": "atlas_ideas.py",
+      "source": "atlas/ideas.py",
+      "bytes": 2475,
+      "sha256": "ce9fc816c490711069c3fb148172408394ff289d2b23f9c552dc5d5467199023"
+    },
+    {
+      "path": "atlas_judge.py",
+      "source": "atlas/judge.py",
+      "bytes": 4686,
+      "sha256": "7c4ade373412aa3c436aa633887e78cb3ee5ef9b498f87b4f674bb6fb77ffd23"
+    },
+    {
+      "path": "atlas_metrics.py",
+      "source": "atlas/metrics.py",
+      "bytes": 5717,
+      "sha256": "8f7a79069bf727b7b4e7159dea49b52c2c0e71167d43c8efc0c17ce82ecabdb3"
+    },
+    {
+      "path": "atlas_models.py",
+      "source": "atlas/models.py",
+      "bytes": 11692,
+      "sha256": "4aab7230554eca3eadb7f8c7aefb196f449088fd9c5b4cb84cc1bc5507c244ed"
+    },
+    {
+      "path": "atlas_orchestration.py",
+      "source": "atlas/orchestration.py",
+      "bytes": 33734,
+      "sha256": "2ea429ae9b5f3f21ea960d8418d35fb54b1fc2c96944d8630edc1a7288c8504a"
+    },
+    {
+      "path": "atlas_recipes.py",
+      "source": "atlas/recipes.py",
+      "bytes": 10978,
+      "sha256": "e1088adcf336f3a44f43ed1c75b31a85c80d9989623552153e6219af1a169d70"
+    },
+    {
+      "path": "atlas_research.py",
+      "source": "atlas/research.py",
+      "bytes": 5718,
+      "sha256": "2a9c3bc5cd2449864a79b0a55d2f3e70f8c0987245e57204037dc27df26f37b3"
+    },
+    {
+      "path": "atlas_search.py",
+      "source": "atlas/search.py",
+      "bytes": 26479,
+      "sha256": "ca9390e24d05e60a04562a3d49a2af14ab3fc7b1c5f1233854be7a882ee7412f"
+    },
+    {
+      "path": "atlas_submit.py",
+      "source": "atlas/submit.py",
+      "bytes": 4077,
+      "sha256": "ad54b3e74ef475f7ff0e0aa128b0d684fa48a7ee1f51357c2ddf2b0fc9284e48"
+    },
+    {
+      "path": "atlas_task.py",
+      "source": "atlas/task.py",
+      "bytes": 11623,
+      "sha256": "3531b82dfd333e8f0c5f3bfbf1461affc8d460ee25550a36720af04e8938c017"
+    },
+    {
+      "path": "atlas_utils.py",
+      "source": "atlas/utils.py",
+      "bytes": 390,
+      "sha256": "6c4737b8442961f0f1cce626cf932a6c05a62026db654030146e01f8b35be737"
+    },
+    {
+      "path": "atlas_validation.py",
+      "source": "atlas/validation.py",
+      "bytes": 14727,
+      "sha256": "ea1fe60525d0fce155774fe05ca0f1ed51aede389d2e3caa672c8279090c2e88"
+    },
+    {
+      "path": "atlas_worker.py",
+      "source": "atlas/worker.py",
+      "bytes": 3561,
+      "sha256": "f0e73fae92a67c512822d5a0fb8816dda6abe7afe992e00129bb4217a7803ab4"
+    },
+    {
+      "path": "requirements.txt",
+      "source": "artifacts/official/requirements-folder.txt",
+      "bytes": 748,
+      "sha256": "9173b0388532fbd2a709e4f4b3029e3b9ccab685fce43a85261ffa1ba95efbe6"
+    }
+  ]
+}

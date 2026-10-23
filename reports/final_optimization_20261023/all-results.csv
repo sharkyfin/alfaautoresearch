@@ -1,0 +1,11 @@
+case,phase,arm,mode,metric,external_metric,wall_seconds,cpu_seconds,peak_memory_mb,full_refit,qwen_calls,qwen_fits,qwen_accepted,worker_errors,archive_sha256
+aps_failure,development,baseline,live-agent,average_precision,0.9198069985623802,455.793,2236.963628196,1133.41796875,True,2,0,0,0,036f9036f14270efbe48df1a231f645ee5f8a9c649ed114697ee70abfdb07595
+aps_failure,development,baseline,autogluon,average_precision,0.9161874180324906,346.525,2023.49958562,924.80078125,True,0,0,0,0,036f9036f14270efbe48df1a231f645ee5f8a9c649ed114697ee70abfdb07595
+aps_failure,development,baseline,catboost,average_precision,0.8883919712276718,30.82,135.933950464,749.70703125,True,0,0,0,0,036f9036f14270efbe48df1a231f645ee5f8a9c649ed114697ee70abfdb07595
+bike_sharing_temporal,development,baseline,live-agent,rmsle,0.32746468758965325,168.676,579.923038495,852.5078125,True,2,1,0,0,036f9036f14270efbe48df1a231f645ee5f8a9c649ed114697ee70abfdb07595
+bike_sharing_temporal,development,baseline,autogluon,rmsle,0.306649625201812,20.997,130.759569432,655.90234375,True,0,0,0,0,036f9036f14270efbe48df1a231f645ee5f8a9c649ed114697ee70abfdb07595
+bike_sharing_temporal,development,baseline,catboost,rmsle,0.3007719304826734,11.037,48.46322035199999,359.046875,True,0,0,0,0,036f9036f14270efbe48df1a231f645ee5f8a9c649ed114697ee70abfdb07595
+aps_failure,development,candidate,live-agent,average_precision,0.9216701521058952,445.794,2087.129962198,1064.62890625,True,2,1,1,0,bb8c0510e5af13b0097874e7b251e6ea3b8a98b8c94a3b74e0bc5597795f3deb
+bike_sharing_temporal,development,candidate,live-agent,rmsle,0.31050220103680387,119.07,461.043963145,636.66796875,True,2,0,0,0,bb8c0510e5af13b0097874e7b251e6ea3b8a98b8c94a3b74e0bc5597795f3deb
+bike_sharing_temporal,final,final,live-agent,rmsle,0.3380636698630878,318.781,1128.402484531,679.34765625,True,2,2,0,0,30e053296722de373df8b82cef26a976df8220a696aa1a6cd36cb173e2b61189
+bike_sharing_temporal,final,final,catboost,rmsle,0.34477107766495885,7.733,28.749196416000004,357.86328125,True,0,0,0,0,30e053296722de373df8b82cef26a976df8220a696aa1a6cd36cb173e2b61189

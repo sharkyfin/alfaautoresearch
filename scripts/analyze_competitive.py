@@ -41,7 +41,7 @@ def paired(a,b,samples=500):
         else:
             ix=np.concatenate([rng.choice(np.flatnonzero(y==c),size=(y==c).sum(),replace=True) for c in np.unique(y)])
         values.append(metric.direction*(metric.score(y[ix],pb[ix])-metric.score(y[ix],pa[ix])))
-    return {'before':a['arm'],'after':b['arm'],'case':a['case'],'phase':a['phase'],'oriented_metric_delta':delta,
+    return {'before':a['arm']+'/'+a['mode'],'after':b['arm']+'/'+b['mode'],'case':a['case'],'phase':a['phase'],'oriented_metric_delta':delta,
         'ci95_percentile':np.quantile(values,[.025,.975]).tolist(),'bootstrap_samples':samples,
         'bootstrap':'paired circular weekly blocks' if meta['split_regime']=='temporal' else 'paired stratified rows',
         'scope':'conditional on fitted models and this split; no seed/Qwen/search variability estimate; never used for architecture tuning'}
@@ -54,6 +54,11 @@ def main():
         for case in sorted({r['case'] for r in runs if r['phase']==phase}):
             group=[r for r in runs if r['phase']==phase and r['case']==case and r['mode']=='live-agent' and r['status']=='ok']
             if len(group)==2:pairs.append(paired(group[0],group[1]))
+            elif phase=='final':
+                cell=[r for r in runs if r['phase']==phase and r['case']==case and r['status']=='ok']
+                if len(cell)==2 and len(group)==1:
+                    reference=next(r for r in cell if r['mode']!='live-agent')
+                    pairs.append(paired(reference,group[0]))
     result={'rows':rows,'paired_uncertainty':pairs,'limits':'No universal generalization claim from two datasets/one search seed. Runtime data exclude human/tool work.'}
     args.output.write_text(json.dumps(result,indent=2,allow_nan=False)+'\n')
     with args.output.with_suffix('.csv').open('w') as f:

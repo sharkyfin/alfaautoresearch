@@ -1,0 +1,788 @@
+{
+  "status": "completed",
+  "stage": "deep",
+  "phase": "final",
+  "created_at_utc": "2026-10-23T19:41:27.374945+00:00",
+  "run_root": "/Users/mac/Documents/projects/alfaautoresearch/runs/competitive-deep-75hr6cl0",
+  "budget_seconds": 1800.0,
+  "threads": 8,
+  "memory_mb": 16384,
+  "max_qwen_calls": 3,
+  "planned_runs": 2,
+  "versions": {
+    "final": {
+      "runtime": "/Users/mac/Documents/projects/alfaautoresearch/runs/competitive-deep-75hr6cl0/runtime-final",
+      "source_sha": "e81f82499cb6fc1043297065d3a5edab08f3ac0081a37502db975b1afdcd1902",
+      "zip_sha": "30e053296722de373df8b82cef26a976df8220a696aa1a6cd36cb173e2b61189",
+      "archive": "/Users/mac/Documents/projects/alfaautoresearch/submission_final_optimized.zip"
+    }
+  },
+  "runs": [
+    {
+      "case": "bike_sharing_temporal",
+      "mode": "live-agent",
+      "seed": 42,
+      "phase": "final",
+      "metric": "rmsle",
+      "budget_seconds": 1800.0,
+      "wall_seconds": 318.781,
+      "threads": 8,
+      "first_trained_checkpoint_seconds": 3.3527521759970114,
+      "memory_mb": 16384,
+      "runtime_code_sha256": "e81f82499cb6fc1043297065d3a5edab08f3ac0081a37502db975b1afdcd1902",
+      "raw_sha256": "b70182d0d0508e9abbb79306ce5c0cec34869000f8220175ac83d11dbe845401",
+      "split_sha256": "f479099c22bca112654518465ee923ef11b169a33252448815f096cf30d42d29",
+      "returncode": 0,
+      "log": "/Users/mac/Documents/projects/alfaautoresearch/runs/competitive-deep-75hr6cl0/bike_sharing_temporal-final-live-agent/live-agent.log",
+      "run_dir": "/Users/mac/Documents/projects/alfaautoresearch/runs/competitive-deep-75hr6cl0/bike_sharing_temporal-final-live-agent/run",
+      "qwen_calls": 2,
+      "qwen_tokens": 10266,
+      "internal_metric": 0.43587215326805623,
+      "experiments": 115,
+      "full_refit": true,
+      "champion_family": "xgboost",
+      "decision_adjustment": null,
+      "ensemble": null,
+      "adaptive_search": {
+        "backend": "optuna-tpe",
+        "studies": 6,
+        "proposed_trials": 92,
+        "completed_trials": 92,
+        "family_proposals": {
+          "xgboost": 34,
+          "hist": 14,
+          "lightgbm": 14,
+          "catboost": 20,
+          "extra_trees": 5,
+          "linear": 5
+        },
+        "stop_reason": "TPE search stagnated after exploring multiple model families",
+        "research_steps": 103,
+        "research_limit": 120,
+        "family_priorities": [
+          {
+            "step": 84,
+            "family": "extra_trees",
+            "estimated_normalized_gain_per_second": 0.0005428565247962288,
+            "considered_families": 6
+          },
+          {
+            "step": 85,
+            "family": "catboost",
+            "estimated_normalized_gain_per_second": 0.0027509686386506292,
+            "considered_families": 6
+          },
+          {
+            "step": 86,
+            "family": "catboost",
+            "estimated_normalized_gain_per_second": 0.0026139347157523264,
+            "considered_families": 6
+          },
+          {
+            "step": 87,
+            "family": "catboost",
+            "estimated_normalized_gain_per_second": 0.001614378475161354,
+            "considered_families": 6
+          },
+          {
+            "step": 88,
+            "family": "catboost",
+            "estimated_normalized_gain_per_second": 0.0016339722874640606,
+            "considered_families": 6
+          },
+          {
+            "step": 89,
+            "family": "catboost",
+            "estimated_normalized_gain_per_second": 0.0016079238714203678,
+            "considered_families": 6
+          },
+          {
+            "step": 90,
+            "family": "linear",
+            "estimated_normalized_gain_per_second": 0.00028070352073918955,
+            "considered_families": 6
+          },
+          {
+            "step": 91,
+            "family": "catboost",
+            "estimated_normalized_gain_per_second": 0.0015339281510597896,
+            "considered_families": 6
+          },
+          {
+            "step": 92,
+            "family": "catboost",
+            "estimated_normalized_gain_per_second": 0.0014527189257757258,
+            "considered_families": 6
+          },
+          {
+            "step": 93,
+            "family": "catboost",
+            "estimated_normalized_gain_per_second": 0.0013788675531246513,
+            "considered_families": 6
+          },
+          {
+            "step": 94,
+            "family": "catboost",
+            "estimated_normalized_gain_per_second": 0.0013160045751290236,
+            "considered_families": 6
+          },
+          {
+            "step": 95,
+            "family": "xgboost",
+            "estimated_normalized_gain_per_second": 0.0012629737389840648,
+            "considered_families": 6
+          },
+          {
+            "step": 96,
+            "family": "extra_trees",
+            "estimated_normalized_gain_per_second": 0.0004987973825570618,
+            "considered_families": 6
+          },
+          {
+            "step": 97,
+            "family": "catboost",
+            "estimated_normalized_gain_per_second": 0.0012581457496419935,
+            "considered_families": 6
+          },
+          {
+            "step": 98,
+            "family": "catboost",
+            "estimated_normalized_gain_per_second": 0.001254445108719728,
+            "considered_families": 6
+          },
+          {
+            "step": 99,
+            "family": "xgboost",
+            "estimated_normalized_gain_per_second": 0.001240740954666499,
+            "considered_families": 6
+          },
+          {
+            "step": 100,
+            "family": "lightgbm",
+            "estimated_normalized_gain_per_second": 0.0012391222119024865,
+            "considered_families": 6
+          },
+          {
+            "step": 101,
+            "family": "xgboost",
+            "estimated_normalized_gain_per_second": 0.0012230050546499986,
+            "considered_families": 6
+          },
+          {
+            "step": 102,
+            "family": "linear",
+            "estimated_normalized_gain_per_second": 0.000251332425498319,
+            "considered_families": 6
+          },
+          {
+            "step": 103,
+            "family": "hist",
+            "estimated_normalized_gain_per_second": 0.0012197431120981221,
+            "considered_families": 6
+          }
+        ],
+        "research_requests": 3,
+        "research_focus": [],
+        "quarantined_families": []
+      },
+      "cross_validation": {
+        "planned_folds": 3,
+        "completed_candidates": 4,
+        "selection_basis": "mean utility minus 0.25 standard deviation on all frozen folds",
+        "candidates": [
+          {
+            "experiment_id": "exp_0057",
+            "model_family": "xgboost",
+            "fold_metrics": [
+              0.43587215326805623,
+              0.31537332990794187,
+              0.29477737475227045
+            ],
+            "mean_metric": 0.34867428597608946,
+            "metric_std": 0.06222887533074543,
+            "robust_utility": -0.3642315048087758
+          },
+          {
+            "experiment_id": "exp_0101",
+            "model_family": "xgboost",
+            "fold_metrics": [
+              0.4370624769739241,
+              0.32732052852200916,
+              0.3110488425428271
+            ],
+            "mean_metric": 0.3584772826795868,
+            "metric_std": 0.05596377705182961,
+            "robust_utility": -0.37246822694254417
+          },
+          {
+            "experiment_id": "exp_0018",
+            "model_family": "hist",
+            "fold_metrics": [
+              0.43900731348053573,
+              0.33608740348226424,
+              0.3151072070126048
+            ],
+            "mean_metric": 0.36340064132513494,
+            "metric_std": 0.05414375197433263,
+            "robust_utility": -0.3769365793187181
+          },
+          {
+            "experiment_id": "exp_0110",
+            "model_family": "autogluon",
+            "fold_metrics": [
+              0.4635388791358146,
+              0.33755121340469235,
+              0.32039608729044716
+            ],
+            "mean_metric": 0.373828726610318,
+            "metric_std": 0.06382010230645621,
+            "robust_utility": -0.38978375218693206
+          }
+        ]
+      },
+      "output_sha256": "66a38980dab5a5674c93ce28fe04d385877ca008c1a69018b19b8063b69e03fe",
+      "feature_ablation_checks": 0,
+      "accepted_feature_ablations": 0,
+      "external_metric": 0.3380636698630878,
+      "evaluation_detail": {
+        "row_metric": 0.3380636698630878,
+        "target_deciles": [
+          {
+            "target_range": [
+              1.0,
+              11.0
+            ],
+            "support": 317,
+            "rmse": 5.563596068760901,
+            "mae": 3.0094230378548894,
+            "bias": 1.6045115589905365
+          },
+          {
+            "target_range": [
+              11.0,
+              36.0
+            ],
+            "support": 366,
+            "rmse": 21.786593828537097,
+            "mae": 10.713169763114756,
+            "bias": 5.237857417213116
+          },
+          {
+            "target_range": [
+              36.0,
+              86.0
+            ],
+            "support": 357,
+            "rmse": 34.93707788792086,
+            "mae": 21.636727467787114,
+            "bias": 6.908821736694678
+          },
+          {
+            "target_range": [
+              86.0,
+              146.0
+            ],
+            "support": 343,
+            "rmse": 54.03446798628212,
+            "mae": 33.88378674344023,
+            "bias": 11.948101239067055
+          },
+          {
+            "target_range": [
+              146.0,
+              205.0
+            ],
+            "support": 354,
+            "rmse": 44.039276467514455,
+            "mae": 31.6223255819209,
+            "bias": -1.3686554689265542
+          },
+          {
+            "target_range": [
+              205.0,
+              261.00000000000045
+            ],
+            "support": 349,
+            "rmse": 54.45985800181211,
+            "mae": 37.28201603151862,
+            "bias": -7.9483311604584514
+          },
+          {
+            "target_range": [
+              261.00000000000045,
+              326.50000000000045
+            ],
+            "support": 347,
+            "rmse": 55.73606852256244,
+            "mae": 37.112721867435155,
+            "bias": -14.412469072046113
+          },
+          {
+            "target_range": [
+              326.50000000000045,
+              424.0
+            ],
+            "support": 346,
+            "rmse": 65.95007415460266,
+            "mae": 52.60010786127168,
+            "bias": -34.9683874566474
+          },
+          {
+            "target_range": [
+              424.0,
+              576.5
+            ],
+            "support": 349,
+            "rmse": 89.48486639999713,
+            "mae": 70.38062911174785,
+            "bias": -47.52122893982808
+          },
+          {
+            "target_range": [
+              576.5,
+              977.0
+            ],
+            "support": 348,
+            "rmse": 123.45629975839206,
+            "mae": 100.96474614942528,
+            "bias": -93.87658316091954
+          }
+        ],
+        "residual_bias": -17.440243445080554
+      },
+      "status": "ok",
+      "qwen_fits": 2,
+      "qwen_accepted": 0,
+      "research_experiments": [
+        {
+          "experiment_id": "exp_0003",
+          "status": "ok",
+          "metric_value": 0.5043555512874025,
+          "accepted": false,
+          "recipe": {
+            "model_family": "lightgbm",
+            "params": {
+              "iterations": 1800,
+              "num_leaves": 31,
+              "min_child_samples": 30
+            },
+            "feature_ops": [],
+            "target_transform": "log1p",
+            "max_runtime_sec": 60.0,
+            "validation_plan_id": "04710c2f9b9dfbe6",
+            "feature_expressions": [
+              {
+                "name": "temp_hum_interaction",
+                "expression": "col(\"temp\") * col(\"hum\")",
+                "reason": "Captures non-linear effect of humidity on temperature-driven demand; high humidity at high temps may suppress rentals."
+              },
+              {
+                "name": "hr_season_interaction",
+                "expression": "col(\"hr\") * col(\"season\")",
+                "reason": "Encodes time-of-day demand patterns that vary by season (e.g., morning commute peaks in winter vs summer)."
+              },
+              {
+                "name": "atemp_temp_diff",
+                "expression": "col(\"atemp\") - col(\"temp\")",
+                "reason": "Perceived temperature deviation from actual temp; large positive diff (feels warmer) may increase demand."
+              }
+            ],
+            "id": "exp_0003",
+            "statement": "Add temperature-humidity interaction and hour-season interaction to capture non-linear weather demand modulation and time-of-day seasonality, reducing residual bias in high-demand periods.",
+            "parent_experiment": "exp_0002",
+            "hypothesis": {
+              "kind": "feature_interaction",
+              "failure_mode": "overfitting to noise in interactions",
+              "expected_effect": "Reduce RMSLE by 0.01-0.03 by better modeling weather-time interactions",
+              "uncertainty": "Medium; interactions may not add signal if tree model already captures them",
+              "stop_condition": "If RMSLE does not improve by >0.005, reject and try different feature set"
+            }
+          },
+          "feature_trial": {
+            "kind": "feature_group",
+            "parent_experiment": "exp_0002",
+            "parent_metric": 0.49203575298995955,
+            "parent_utility": -0.49203575298995955,
+            "held_constant": [
+              "model_family",
+              "params",
+              "target_transform",
+              "validation",
+              "seed"
+            ],
+            "changes": [
+              {
+                "kind": "formula",
+                "name": "temp_hum_interaction"
+              },
+              {
+                "kind": "formula",
+                "name": "hr_season_interaction"
+              },
+              {
+                "kind": "formula",
+                "name": "atemp_temp_diff"
+              }
+            ],
+            "ignored_model_overrides": [],
+            "group_experiment": "exp_0003",
+            "utility_gain_vs_parent": -0.012319798297442952
+          }
+        },
+        {
+          "experiment_id": "exp_0008",
+          "status": "ok",
+          "metric_value": 0.4694549184705165,
+          "accepted": false,
+          "recipe": {
+            "model_family": "xgboost",
+            "params": {
+              "iterations": 1800,
+              "max_depth": 6
+            },
+            "feature_ops": [],
+            "target_transform": "log1p",
+            "max_runtime_sec": 60.0,
+            "validation_plan_id": "04710c2f9b9dfbe6",
+            "feature_expressions": [
+              {
+                "name": "hr_weathersit_interaction",
+                "expression": "col(\"hr\") * col(\"weathersit\")",
+                "reason": "Captures how weather severity modulates demand at different times of day, addressing the high error in high-count ranges where weather impact is likely non-linear."
+              },
+              {
+                "name": "hr_temp_interaction",
+                "expression": "col(\"hr\") * col(\"temp\")",
+                "reason": "Models the interaction between time of day and temperature, which is a key driver of bike rental demand and may explain residual bias in specific hourly segments."
+              },
+              {
+                "name": "hr_hum_interaction",
+                "expression": "col(\"hr\") * col(\"hum\")",
+                "reason": "Accounts for humidity's effect on demand varying by hour, potentially reducing error in mid-range counts where humidity might be a secondary but significant factor."
+              }
+            ],
+            "id": "candidate",
+            "statement": "Add hour-of-day and weather interaction features to capture non-linear demand peaks and weather sensitivity, addressing the high error in high-count ranges and the strong association of 'hr' with model error.",
+            "parent_experiment": "exp_0007",
+            "hypothesis": {
+              "kind": "feature_interaction",
+              "failure_mode": "No improvement if interactions are already captured by the tree model's depth or if the specific interactions are not informative.",
+              "expected_effect": "Reduction in RMSLE by better modeling the non-linear relationship between time, weather, and demand, particularly in high-count ranges.",
+              "uncertainty": "Medium; tree models can implicitly learn interactions, but explicit features may help if the interaction space is complex or if the model is underfitting in certain regions.",
+              "stop_condition": "If RMSLE does not improve by at least 0.01 over the champion, or if training time exceeds 60 seconds."
+            }
+          },
+          "feature_trial": {
+            "kind": "feature_group",
+            "parent_experiment": "exp_0007",
+            "parent_metric": 0.4550133455947907,
+            "parent_utility": -0.4550133455947907,
+            "held_constant": [
+              "model_family",
+              "params",
+              "target_transform",
+              "validation",
+              "seed"
+            ],
+            "changes": [
+              {
+                "kind": "formula",
+                "name": "hr_weathersit_interaction"
+              },
+              {
+                "kind": "formula",
+                "name": "hr_temp_interaction"
+              },
+              {
+                "kind": "formula",
+                "name": "hr_hum_interaction"
+              }
+            ],
+            "ignored_model_overrides": [],
+            "group_experiment": "exp_0008",
+            "utility_gain_vs_parent": -0.014441572875725839
+          }
+        }
+      ],
+      "champion_recipe": {
+        "model_family": "xgboost",
+        "params": {
+          "iterations": 1800,
+          "max_depth": 3,
+          "min_child_weight": 1.4140591793286952,
+          "reg_lambda": 44.869296868429466,
+          "learning_rate": 0.037484943067637534,
+          "colsample_bytree": 0.9509312116828014,
+          "subsample": 0.7561544885001963
+        },
+        "feature_ops": [],
+        "target_transform": "log1p",
+        "max_runtime_sec": 270.0,
+        "validation_plan_id": "04710c2f9b9dfbe6",
+        "feature_expressions": [],
+        "id": "tpe_40",
+        "statement": "Seeded TPE trial from measured results for this model and feature representation",
+        "parent_experiment": "exp_0046"
+      },
+      "qwen_events": [
+        {
+          "status": "api_usage",
+          "call": 1,
+          "response_model": "qwen/qwen3.8-27b",
+          "prompt_tokens": 4451,
+          "completion_tokens": 494,
+          "reasoning_tokens": 0,
+          "finish_reason": "stop",
+          "reported_cost": 0.138603890256,
+          "elapsed_seconds": 5.522,
+          "timeout_seconds": 40.0
+        },
+        {
+          "status": "response",
+          "call": 1,
+          "tokens": 4945,
+          "elapsed_seconds": 5.523,
+          "timeout_seconds": 40.0
+        },
+        {
+          "status": "api_usage",
+          "call": 2,
+          "response_model": "qwen/qwen3.8-27b",
+          "prompt_tokens": 4769,
+          "completion_tokens": 552,
+          "reasoning_tokens": 0,
+          "finish_reason": "stop",
+          "reported_cost": 0.154014165734,
+          "elapsed_seconds": 17.15,
+          "timeout_seconds": 40.0
+        },
+        {
+          "status": "response",
+          "call": 2,
+          "tokens": 10266,
+          "elapsed_seconds": 17.15,
+          "timeout_seconds": 40.0
+        },
+        {
+          "status": "token_budget_exhausted"
+        }
+      ],
+      "checkpoint_kind": "full_refit",
+      "fit_success": 115,
+      "terminal_status": "full_refit",
+      "llm_valid_recipes": 2,
+      "control_folds_completed": 2,
+      "fold_bagged_done": false,
+      "cpu_seconds": 1128.402484531,
+      "peak_memory_mb": 679.34765625,
+      "backend": null,
+      "backend_version": null,
+      "backend_wrapper_sha256": null,
+      "fallback_kind": null,
+      "arm": "final",
+      "archive_sha256": "30e053296722de373df8b82cef26a976df8220a696aa1a6cd36cb173e2b61189",
+      "input_sha256": {
+        "train.csv": "5d19a9d360a411e15191d52d1346509745567d97dacd413fb9ff5bebea333d3a",
+        "test.csv": "3d68b69c8c0678e72de9c1ae70eec39ebc584780819c785a6e4f69f52c422493",
+        "data_dictionary.csv": "7103323a1ccc8465d2fa440c12bbe95e66a48be0a8651c4ecb678bdc238ec7f0",
+        "sample_submission.csv": "3a535a37520936c453e95eb1e22a978a4538542a00f7534860a3b2ff10e73b17",
+        "task.md": "e30a619202ff2625cfeec3273bd2a302fc0ab86ce32bb6d4ccee586906c0b2a0"
+      },
+      "training_rows": 13903,
+      "evaluation_rows": 3476,
+      "features": 13,
+      "isolation": "inherited macOS sandbox denies raw caches, secrets, other runs and external scores"
+    },
+    {
+      "case": "bike_sharing_temporal",
+      "mode": "catboost",
+      "seed": 42,
+      "phase": "final",
+      "metric": "rmsle",
+      "budget_seconds": 1800.0,
+      "wall_seconds": 7.733,
+      "threads": 8,
+      "first_trained_checkpoint_seconds": null,
+      "memory_mb": 16384,
+      "runtime_code_sha256": "e81f82499cb6fc1043297065d3a5edab08f3ac0081a37502db975b1afdcd1902",
+      "raw_sha256": "b70182d0d0508e9abbb79306ce5c0cec34869000f8220175ac83d11dbe845401",
+      "split_sha256": "f479099c22bca112654518465ee923ef11b169a33252448815f096cf30d42d29",
+      "returncode": 0,
+      "log": "/Users/mac/Documents/projects/alfaautoresearch/runs/competitive-deep-75hr6cl0/bike_sharing_temporal-final-catboost/catboost.log",
+      "run_dir": "/Users/mac/Documents/projects/alfaautoresearch/runs/competitive-deep-75hr6cl0/bike_sharing_temporal-final-catboost/run",
+      "qwen_calls": 0,
+      "qwen_tokens": 0,
+      "internal_metric": 0.29826919843832833,
+      "experiments": 1,
+      "full_refit": true,
+      "champion_family": "catboost",
+      "decision_adjustment": null,
+      "ensemble": null,
+      "adaptive_search": null,
+      "cross_validation": null,
+      "output_sha256": "62f0d981a55740ee197f5492e616332d9875e00901f4361ff81e517a32b8b546",
+      "feature_ablation_checks": 0,
+      "accepted_feature_ablations": 0,
+      "external_metric": 0.34477107766495885,
+      "evaluation_detail": {
+        "row_metric": 0.34477107766495885,
+        "target_deciles": [
+          {
+            "target_range": [
+              1.0,
+              11.0
+            ],
+            "support": 317,
+            "rmse": 5.9282545313641135,
+            "mae": 3.2349371322865026,
+            "bias": 2.013888681700459
+          },
+          {
+            "target_range": [
+              11.0,
+              36.0
+            ],
+            "support": 366,
+            "rmse": 23.663229447708556,
+            "mae": 11.002914453886293,
+            "bias": 6.062420618991333
+          },
+          {
+            "target_range": [
+              36.0,
+              86.0
+            ],
+            "support": 357,
+            "rmse": 35.02659375692454,
+            "mae": 21.535800380232025,
+            "bias": 5.9113395641759805
+          },
+          {
+            "target_range": [
+              86.0,
+              146.0
+            ],
+            "support": 343,
+            "rmse": 49.8278839557169,
+            "mae": 31.204441930510672,
+            "bias": 11.520859553747208
+          },
+          {
+            "target_range": [
+              146.0,
+              205.0
+            ],
+            "support": 354,
+            "rmse": 41.79969952192105,
+            "mae": 30.008765134864078,
+            "bias": -6.076702967910159
+          },
+          {
+            "target_range": [
+              205.0,
+              261.00000000000045
+            ],
+            "support": 349,
+            "rmse": 52.61650317431818,
+            "mae": 37.10818681610014,
+            "bias": -17.414580616360343
+          },
+          {
+            "target_range": [
+              261.00000000000045,
+              326.50000000000045
+            ],
+            "support": 347,
+            "rmse": 58.432522971402754,
+            "mae": 41.16085831040226,
+            "bias": -25.688967327548994
+          },
+          {
+            "target_range": [
+              326.50000000000045,
+              424.0
+            ],
+            "support": 346,
+            "rmse": 72.81491154570352,
+            "mae": 60.25387618470849,
+            "bias": -51.48936994144993
+          },
+          {
+            "target_range": [
+              424.0,
+              576.5
+            ],
+            "support": 349,
+            "rmse": 101.07677867511195,
+            "mae": 84.59486175723323,
+            "bias": -77.45695216732787
+          },
+          {
+            "target_range": [
+              576.5,
+              977.0
+            ],
+            "support": 348,
+            "rmse": 154.5078661340086,
+            "mae": 137.19436090198502,
+            "bias": -135.9302337984041
+          }
+        ],
+        "residual_bias": -28.876634380436474
+      },
+      "status": "ok",
+      "qwen_fits": 0,
+      "qwen_accepted": 0,
+      "research_experiments": [],
+      "champion_recipe": {
+        "model_family": "catboost",
+        "params": {
+          "iterations": 6000,
+          "depth": 7,
+          "learning_rate": 0.05,
+          "l2_leaf_reg": 3.0
+        },
+        "feature_ops": [],
+        "feature_expressions": [],
+        "target_transform": "log1p",
+        "max_runtime_sec": 1260.0,
+        "validation_plan_id": "56ddb3230ab843f1"
+      },
+      "qwen_events": [],
+      "checkpoint_kind": "full_refit",
+      "fit_success": 2,
+      "terminal_status": "full_refit",
+      "llm_valid_recipes": 0,
+      "control_folds_completed": 0,
+      "fold_bagged_done": false,
+      "cpu_seconds": 28.749196416000004,
+      "peak_memory_mb": 357.86328125,
+      "backend": "catboost",
+      "backend_version": "1.2.8",
+      "backend_wrapper_sha256": "878909afb20bffc93b5783d98f762d3ba278d32dd40903926b50434ff87af9d8",
+      "fallback_kind": null,
+      "arm": "final",
+      "archive_sha256": "30e053296722de373df8b82cef26a976df8220a696aa1a6cd36cb173e2b61189",
+      "input_sha256": {
+        "train.csv": "5d19a9d360a411e15191d52d1346509745567d97dacd413fb9ff5bebea333d3a",
+        "test.csv": "3d68b69c8c0678e72de9c1ae70eec39ebc584780819c785a6e4f69f52c422493",
+        "data_dictionary.csv": "7103323a1ccc8465d2fa440c12bbe95e66a48be0a8651c4ecb678bdc238ec7f0",
+        "sample_submission.csv": "3a535a37520936c453e95eb1e22a978a4538542a00f7534860a3b2ff10e73b17",
+        "task.md": "e30a619202ff2625cfeec3273bd2a302fc0ab86ce32bb6d4ccee586906c0b2a0"
+      },
+      "training_rows": 13903,
+      "evaluation_rows": 3476,
+      "features": 13,
+      "isolation": "inherited macOS sandbox denies raw caches, secrets, other runs and external scores"
+    }
+  ],
+  "evaluator_sha256": {
+    "scripts/competitive_data.py": "39db624f3c93f7358e566457a2af07a03b53700efc74011bedbaddc6cbe90cca",
+    "scripts/competitive_compare.py": "72db5e80fcf1a59a93611dcd848c3e0be4d98cd025cbe2158f59c11444a6c8b0",
+    "scripts/backend_worker.py": "878909afb20bffc93b5783d98f762d3ba278d32dd40903926b50434ff87af9d8",
+    "scripts/kaggle_worker.py": "9372896b3c716cd9fc233c98db6fb10aefd6d669896c41d5d43ebb3838370a0b",
+    "atlas/metrics.py": "8f7a79069bf727b7b4e7159dea49b52c2c0e71167d43c8efc0c17ce82ecabdb3"
+  },
+  "selection_policy": "Architecture changes must use code/inner evidence; final holdout is opened once after code freeze; no automatic expensive repetitions",
+  "completed_at_utc": "2026-10-23T19:46:54.254083+00:00"
+}

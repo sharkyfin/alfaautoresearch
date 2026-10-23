@@ -1,0 +1,1225 @@
+{
+  "status": "completed",
+  "stage": "initial",
+  "phase": "development",
+  "created_at_utc": "2026-10-23T18:47:30.128024+00:00",
+  "run_root": "/Users/mac/Documents/projects/alfaautoresearch/runs/competitive-initial-37r5u9we",
+  "budget_seconds": 600.0,
+  "threads": 8,
+  "memory_mb": 16384,
+  "max_qwen_calls": 3,
+  "planned_runs": 6,
+  "versions": {
+    "baseline": {
+      "runtime": "/Users/mac/Documents/projects/alfaautoresearch/runs/competitive-initial-37r5u9we/runtime-baseline",
+      "source_sha": "a99f4f98813d4cf3c8872a150ee6110387adc2efe678d6d477fa16dec9e10796",
+      "zip_sha": "036f9036f14270efbe48df1a231f645ee5f8a9c649ed114697ee70abfdb07595",
+      "archive": "/Users/mac/Documents/projects/alfaautoresearch/submission_before_final_optimization_036f9036f142.zip"
+    }
+  },
+  "runs": [
+    {
+      "case": "aps_failure",
+      "mode": "live-agent",
+      "seed": 42,
+      "phase": "development",
+      "metric": "average_precision",
+      "budget_seconds": 600.0,
+      "wall_seconds": 455.793,
+      "threads": 8,
+      "first_trained_checkpoint_seconds": 14.26789190099953,
+      "memory_mb": 16384,
+      "runtime_code_sha256": "a99f4f98813d4cf3c8872a150ee6110387adc2efe678d6d477fa16dec9e10796",
+      "raw_sha256": "5504d0402f54faaf97ac0ca085a621645763f5cfea2eb29c592b057d43d4db89",
+      "split_sha256": "e7d220144d39aeed713665257fc60f074ab8b8bcea5429947411d58c047b2e59",
+      "returncode": 0,
+      "log": "/Users/mac/Documents/projects/alfaautoresearch/runs/competitive-initial-37r5u9we/aps_failure-baseline-live-agent/live-agent.log",
+      "run_dir": "/Users/mac/Documents/projects/alfaautoresearch/runs/competitive-initial-37r5u9we/aps_failure-baseline-live-agent/run",
+      "qwen_calls": 2,
+      "qwen_tokens": 10666,
+      "internal_metric": 0.8762484194701946,
+      "experiments": 32,
+      "full_refit": true,
+      "champion_family": "hist",
+      "decision_adjustment": null,
+      "ensemble": null,
+      "adaptive_search": {
+        "backend": "optuna-tpe",
+        "studies": 2,
+        "proposed_trials": 8,
+        "completed_trials": 7,
+        "family_proposals": {
+          "hist": 6,
+          "catboost": 2
+        },
+        "stop_reason": null,
+        "research_steps": 17,
+        "research_limit": 48,
+        "family_priorities": [],
+        "quarantined_families": []
+      },
+      "cross_validation": {
+        "planned_folds": 3,
+        "completed_candidates": 4,
+        "selection_basis": "mean utility minus 0.25 standard deviation on all frozen folds",
+        "candidates": [
+          {
+            "experiment_id": "exp_0009",
+            "model_family": "hist",
+            "fold_metrics": [
+              0.8762484194701946,
+              0.8723312880517317,
+              0.888358483927761
+            ],
+            "mean_metric": 0.8789793971498957,
+            "metric_std": 0.006822093091684887,
+            "robust_utility": 0.8772738738769745
+          },
+          {
+            "experiment_id": "exp_0010",
+            "model_family": "hist",
+            "fold_metrics": [
+              0.8762484194701946,
+              0.8714160238703715,
+              0.8877431251372593
+            ],
+            "mean_metric": 0.8784691894926085,
+            "metric_std": 0.00684798868593988,
+            "robust_utility": 0.8767571923211236
+          },
+          {
+            "experiment_id": "exp_0004",
+            "model_family": "catboost",
+            "fold_metrics": [
+              0.8726764055640778,
+              0.843041738092541,
+              0.8818803490903288
+            ],
+            "mean_metric": 0.8658661642489826,
+            "metric_std": 0.016570937735218696,
+            "robust_utility": 0.8617234298151779
+          },
+          {
+            "experiment_id": "exp_0023",
+            "model_family": "autogluon",
+            "fold_metrics": [
+              0.875319190163108,
+              0.8706860951557264,
+              0.8902472644821513
+            ],
+            "mean_metric": 0.8787508499336619,
+            "metric_std": 0.008346338635988652,
+            "robust_utility": 0.8766642652746648
+          }
+        ]
+      },
+      "output_sha256": "407ec3a41d18715d7d7691627da6ff6c48ae327afc7347dfdd274813f368e332",
+      "feature_ablation_checks": 0,
+      "accepted_feature_ablations": 0,
+      "external_metric": 0.9198069985623802,
+      "evaluation_detail": {
+        "row_metric": 0.9198069985623802,
+        "per_class": {
+          "neg": {
+            "precision": 0.9959428619727834,
+            "recall": 0.9985593220338983,
+            "f1-score": 0.9972493758198976,
+            "support": 11800.0
+          },
+          "pos": {
+            "precision": 0.8994082840236687,
+            "recall": 0.76,
+            "f1-score": 0.8238482384823849,
+            "support": 200.0
+          },
+          "accuracy": 0.9945833333333334,
+          "macro avg": {
+            "precision": 0.947675572998226,
+            "recall": 0.8792796610169491,
+            "f1-score": 0.9105488071511412,
+            "support": 12000.0
+          },
+          "weighted avg": {
+            "precision": 0.994333952340298,
+            "recall": 0.9945833333333334,
+            "f1-score": 0.9943593568642725,
+            "support": 12000.0
+          }
+        },
+        "confusion_matrix": [
+          [
+            11783,
+            17
+          ],
+          [
+            48,
+            152
+          ]
+        ]
+      },
+      "status": "ok",
+      "qwen_fits": 0,
+      "qwen_accepted": 0,
+      "research_experiments": [],
+      "champion_recipe": {
+        "model_family": "hist",
+        "params": {
+          "iterations": 700
+        },
+        "feature_ops": [],
+        "target_transform": "none",
+        "max_runtime_sec": 90.0,
+        "validation_plan_id": "7528a18d50902156",
+        "feature_expressions": [],
+        "id": "local_3",
+        "statement": "Training reached its iteration cap; test more rounds within measured fit and refit costs",
+        "parent_experiment": "exp_0005"
+      },
+      "qwen_events": [
+        {
+          "status": "api_usage",
+          "call": 1,
+          "response_model": "qwen/qwen3.8-27b",
+          "prompt_tokens": 4593,
+          "completion_tokens": 457,
+          "reasoning_tokens": 0,
+          "finish_reason": "stop",
+          "reported_cost": 0.13986733879299998,
+          "elapsed_seconds": 5.099,
+          "timeout_seconds": 40.0
+        },
+        {
+          "status": "response",
+          "call": 1,
+          "tokens": 5050,
+          "elapsed_seconds": 5.099,
+          "timeout_seconds": 40.0
+        },
+        {
+          "status": "recipe_rejected",
+          "reason": "Research strategy reason must be a bounded string"
+        },
+        {
+          "status": "api_usage",
+          "call": 2,
+          "response_model": "qwen/qwen3.8-27b",
+          "prompt_tokens": 4867,
+          "completion_tokens": 749,
+          "reasoning_tokens": 0,
+          "finish_reason": "stop",
+          "reported_cost": 0.300137578585,
+          "elapsed_seconds": 4.243,
+          "timeout_seconds": 40.0
+        },
+        {
+          "status": "response",
+          "call": 2,
+          "tokens": 10666,
+          "elapsed_seconds": 4.243,
+          "timeout_seconds": 40.0
+        },
+        {
+          "status": "recipe_rejected",
+          "reason": "Research strategy reason must be a bounded string"
+        },
+        {
+          "status": "token_budget_exhausted"
+        }
+      ],
+      "checkpoint_kind": "full_refit",
+      "fit_success": 32,
+      "terminal_status": "full_refit",
+      "llm_valid_recipes": 0,
+      "control_folds_completed": 2,
+      "fold_bagged_done": false,
+      "cpu_seconds": 2236.963628196,
+      "peak_memory_mb": 1133.41796875,
+      "backend": null,
+      "backend_version": null,
+      "backend_wrapper_sha256": null,
+      "fallback_kind": null,
+      "arm": "baseline",
+      "archive_sha256": "036f9036f14270efbe48df1a231f645ee5f8a9c649ed114697ee70abfdb07595",
+      "input_sha256": {
+        "train.csv": "c12c3722cfbc92c0cf17d3c3434aba876e5712e6824042c7cf5cd6e565f54321",
+        "test.csv": "19e7ea96e185c0ec91222eaa58c2b4fb41a953e900ba817a34cc5e3e54f69537",
+        "data_dictionary.csv": "e2f58309af020a09641d8d742c0aba62cffc6eaff1844c557d6e022a4fa17181",
+        "sample_submission.csv": "8db55f1a2fe4275b843c90e4956f97e967661bf32cd2989cce6fa2bab1caff4f",
+        "task.md": "09eb8d6ff07de47d98317da555764c0a7f37040b898dc82c6286fc64c836afa1"
+      },
+      "training_rows": 48000,
+      "evaluation_rows": 12000,
+      "features": 170,
+      "isolation": "inherited macOS sandbox denies raw caches, secrets, other runs and external scores"
+    },
+    {
+      "case": "aps_failure",
+      "mode": "autogluon",
+      "seed": 42,
+      "phase": "development",
+      "metric": "average_precision",
+      "budget_seconds": 600.0,
+      "wall_seconds": 346.525,
+      "threads": 8,
+      "first_trained_checkpoint_seconds": 294.6013571479998,
+      "memory_mb": 16384,
+      "runtime_code_sha256": "a99f4f98813d4cf3c8872a150ee6110387adc2efe678d6d477fa16dec9e10796",
+      "raw_sha256": "5504d0402f54faaf97ac0ca085a621645763f5cfea2eb29c592b057d43d4db89",
+      "split_sha256": "e7d220144d39aeed713665257fc60f074ab8b8bcea5429947411d58c047b2e59",
+      "returncode": 0,
+      "log": "/Users/mac/Documents/projects/alfaautoresearch/runs/competitive-initial-37r5u9we/aps_failure-baseline-autogluon/autogluon.log",
+      "run_dir": "/Users/mac/Documents/projects/alfaautoresearch/runs/competitive-initial-37r5u9we/aps_failure-baseline-autogluon/run",
+      "qwen_calls": 0,
+      "qwen_tokens": 0,
+      "internal_metric": 0.8782515024074732,
+      "experiments": 7,
+      "full_refit": true,
+      "champion_family": "autogluon_classical_reference",
+      "decision_adjustment": null,
+      "ensemble": null,
+      "adaptive_search": null,
+      "cross_validation": null,
+      "output_sha256": "475033498c486c3affca0bce0fb18ef874c23b2d7c30c07208b0ea31b3e1aa0e",
+      "feature_ablation_checks": 0,
+      "accepted_feature_ablations": 0,
+      "external_metric": 0.9161874180324906,
+      "evaluation_detail": {
+        "row_metric": 0.9161874180324906,
+        "per_class": {
+          "neg": {
+            "precision": 0.996195468380115,
+            "recall": 0.9985593220338983,
+            "f1-score": 0.9973759945826985,
+            "support": 11800.0
+          },
+          "pos": {
+            "precision": 0.9011627906976745,
+            "recall": 0.775,
+            "f1-score": 0.8333333333333334,
+            "support": 200.0
+          },
+          "accuracy": 0.9948333333333333,
+          "macro avg": {
+            "precision": 0.9486791295388948,
+            "recall": 0.8867796610169492,
+            "f1-score": 0.9153546639580159,
+            "support": 12000.0
+          },
+          "weighted avg": {
+            "precision": 0.9946115904187409,
+            "recall": 0.9948333333333333,
+            "f1-score": 0.9946419502285424,
+            "support": 12000.0
+          }
+        },
+        "confusion_matrix": [
+          [
+            11783,
+            17
+          ],
+          [
+            45,
+            155
+          ]
+        ]
+      },
+      "status": "ok",
+      "qwen_fits": 0,
+      "qwen_accepted": 0,
+      "research_experiments": [],
+      "champion_recipe": {
+        "model_family": "autogluon_classical_reference"
+      },
+      "qwen_events": [],
+      "checkpoint_kind": "full_refit",
+      "fit_success": 7,
+      "terminal_status": "full_refit",
+      "llm_valid_recipes": 0,
+      "control_folds_completed": 0,
+      "fold_bagged_done": false,
+      "cpu_seconds": 2023.49958562,
+      "peak_memory_mb": 924.80078125,
+      "backend": "autogluon",
+      "backend_version": "1.3.1",
+      "backend_wrapper_sha256": "878909afb20bffc93b5783d98f762d3ba278d32dd40903926b50434ff87af9d8",
+      "fallback_kind": null,
+      "arm": "baseline",
+      "archive_sha256": "036f9036f14270efbe48df1a231f645ee5f8a9c649ed114697ee70abfdb07595",
+      "input_sha256": {
+        "train.csv": "c12c3722cfbc92c0cf17d3c3434aba876e5712e6824042c7cf5cd6e565f54321",
+        "test.csv": "19e7ea96e185c0ec91222eaa58c2b4fb41a953e900ba817a34cc5e3e54f69537",
+        "data_dictionary.csv": "e2f58309af020a09641d8d742c0aba62cffc6eaff1844c557d6e022a4fa17181",
+        "sample_submission.csv": "8db55f1a2fe4275b843c90e4956f97e967661bf32cd2989cce6fa2bab1caff4f",
+        "task.md": "09eb8d6ff07de47d98317da555764c0a7f37040b898dc82c6286fc64c836afa1"
+      },
+      "training_rows": 48000,
+      "evaluation_rows": 12000,
+      "features": 170,
+      "isolation": "inherited macOS sandbox denies raw caches, secrets, other runs and external scores"
+    },
+    {
+      "case": "aps_failure",
+      "mode": "catboost",
+      "seed": 42,
+      "phase": "development",
+      "metric": "average_precision",
+      "budget_seconds": 600.0,
+      "wall_seconds": 30.82,
+      "threads": 8,
+      "first_trained_checkpoint_seconds": null,
+      "memory_mb": 16384,
+      "runtime_code_sha256": "a99f4f98813d4cf3c8872a150ee6110387adc2efe678d6d477fa16dec9e10796",
+      "raw_sha256": "5504d0402f54faaf97ac0ca085a621645763f5cfea2eb29c592b057d43d4db89",
+      "split_sha256": "e7d220144d39aeed713665257fc60f074ab8b8bcea5429947411d58c047b2e59",
+      "returncode": 0,
+      "log": "/Users/mac/Documents/projects/alfaautoresearch/runs/competitive-initial-37r5u9we/aps_failure-baseline-catboost/catboost.log",
+      "run_dir": "/Users/mac/Documents/projects/alfaautoresearch/runs/competitive-initial-37r5u9we/aps_failure-baseline-catboost/run",
+      "qwen_calls": 0,
+      "qwen_tokens": 0,
+      "internal_metric": 0.8650067245562368,
+      "experiments": 1,
+      "full_refit": true,
+      "champion_family": "catboost",
+      "decision_adjustment": null,
+      "ensemble": null,
+      "adaptive_search": null,
+      "cross_validation": null,
+      "output_sha256": "43474fb2a8250ea5e4ea362b36355c810ae339bdcf1e1d3799408729098e1821",
+      "feature_ablation_checks": 0,
+      "accepted_feature_ablations": 0,
+      "external_metric": 0.8883919712276718,
+      "evaluation_detail": {
+        "row_metric": 0.8883919712276718,
+        "per_class": {
+          "neg": {
+            "precision": 0.995521379077235,
+            "recall": 0.9983898305084746,
+            "f1-score": 0.996953541507997,
+            "support": 11800.0
+          },
+          "pos": {
+            "precision": 0.8855421686746988,
+            "recall": 0.735,
+            "f1-score": 0.8032786885245902,
+            "support": 200.0
+          },
+          "accuracy": 0.994,
+          "macro avg": {
+            "precision": 0.9405317738759669,
+            "recall": 0.8666949152542374,
+            "f1-score": 0.9001161150162935,
+            "support": 12000.0
+          },
+          "weighted avg": {
+            "precision": 0.9936883922371927,
+            "recall": 0.994,
+            "f1-score": 0.9937256272916069,
+            "support": 12000.0
+          }
+        },
+        "confusion_matrix": [
+          [
+            11781,
+            19
+          ],
+          [
+            53,
+            147
+          ]
+        ]
+      },
+      "status": "ok",
+      "qwen_fits": 0,
+      "qwen_accepted": 0,
+      "research_experiments": [],
+      "champion_recipe": {
+        "model_family": "catboost",
+        "params": {
+          "iterations": 6000,
+          "depth": 7,
+          "learning_rate": 0.05,
+          "l2_leaf_reg": 3.0
+        },
+        "feature_ops": [],
+        "feature_expressions": [],
+        "target_transform": "none",
+        "max_runtime_sec": 420.0,
+        "validation_plan_id": "7528a18d50902156"
+      },
+      "qwen_events": [],
+      "checkpoint_kind": "full_refit",
+      "fit_success": 2,
+      "terminal_status": "full_refit",
+      "llm_valid_recipes": 0,
+      "control_folds_completed": 0,
+      "fold_bagged_done": false,
+      "cpu_seconds": 135.933950464,
+      "peak_memory_mb": 749.70703125,
+      "backend": "catboost",
+      "backend_version": "1.2.8",
+      "backend_wrapper_sha256": "878909afb20bffc93b5783d98f762d3ba278d32dd40903926b50434ff87af9d8",
+      "fallback_kind": null,
+      "arm": "baseline",
+      "archive_sha256": "036f9036f14270efbe48df1a231f645ee5f8a9c649ed114697ee70abfdb07595",
+      "input_sha256": {
+        "train.csv": "c12c3722cfbc92c0cf17d3c3434aba876e5712e6824042c7cf5cd6e565f54321",
+        "test.csv": "19e7ea96e185c0ec91222eaa58c2b4fb41a953e900ba817a34cc5e3e54f69537",
+        "data_dictionary.csv": "e2f58309af020a09641d8d742c0aba62cffc6eaff1844c557d6e022a4fa17181",
+        "sample_submission.csv": "8db55f1a2fe4275b843c90e4956f97e967661bf32cd2989cce6fa2bab1caff4f",
+        "task.md": "09eb8d6ff07de47d98317da555764c0a7f37040b898dc82c6286fc64c836afa1"
+      },
+      "training_rows": 48000,
+      "evaluation_rows": 12000,
+      "features": 170,
+      "isolation": "inherited macOS sandbox denies raw caches, secrets, other runs and external scores"
+    },
+    {
+      "case": "bike_sharing_temporal",
+      "mode": "live-agent",
+      "seed": 42,
+      "phase": "development",
+      "metric": "rmsle",
+      "budget_seconds": 600.0,
+      "wall_seconds": 168.676,
+      "threads": 8,
+      "first_trained_checkpoint_seconds": 3.172031168011017,
+      "memory_mb": 16384,
+      "runtime_code_sha256": "a99f4f98813d4cf3c8872a150ee6110387adc2efe678d6d477fa16dec9e10796",
+      "raw_sha256": "b70182d0d0508e9abbb79306ce5c0cec34869000f8220175ac83d11dbe845401",
+      "split_sha256": "cd76c971505a1f570c85097fa4b5e3ff94176a8bd880a7543c9a61bbd05abce5",
+      "returncode": 0,
+      "log": "/Users/mac/Documents/projects/alfaautoresearch/runs/competitive-initial-37r5u9we/bike_sharing_temporal-baseline-live-agent/live-agent.log",
+      "run_dir": "/Users/mac/Documents/projects/alfaautoresearch/runs/competitive-initial-37r5u9we/bike_sharing_temporal-baseline-live-agent/run",
+      "qwen_calls": 2,
+      "qwen_tokens": 9968,
+      "internal_metric": 0.4045808917919066,
+      "experiments": 61,
+      "full_refit": true,
+      "champion_family": "lightgbm",
+      "decision_adjustment": null,
+      "ensemble": null,
+      "adaptive_search": {
+        "backend": "optuna-tpe",
+        "studies": 2,
+        "proposed_trials": 40,
+        "completed_trials": 40,
+        "family_proposals": {
+          "extra_trees": 14,
+          "lightgbm": 26
+        },
+        "stop_reason": "No champion or bounded research trial cap reached",
+        "research_steps": 49,
+        "research_limit": 48,
+        "family_priorities": [],
+        "quarantined_families": []
+      },
+      "cross_validation": {
+        "planned_folds": 3,
+        "completed_candidates": 3,
+        "selection_basis": "mean utility minus 0.25 standard deviation on all frozen folds",
+        "candidates": [
+          {
+            "experiment_id": "exp_0049",
+            "model_family": "lightgbm",
+            "fold_metrics": [
+              0.4045808917919066,
+              0.4365710464548493,
+              0.34280492547252345
+            ],
+            "mean_metric": 0.3946522879064264,
+            "metric_std": 0.03891832680845123,
+            "robust_utility": -0.4043818696085392
+          },
+          {
+            "experiment_id": "exp_0031",
+            "model_family": "lightgbm",
+            "fold_metrics": [
+              0.4052429274388484,
+              0.4412154145009433,
+              0.33883000431517607
+            ],
+            "mean_metric": 0.39509611541832257,
+            "metric_std": 0.04240999410800767,
+            "robust_utility": -0.40569861394532447
+          },
+          {
+            "experiment_id": "exp_0051",
+            "model_family": "extra_trees",
+            "fold_metrics": [
+              0.4223807589422037,
+              0.4647156184495926,
+              0.3911840550197511
+            ],
+            "mean_metric": 0.42609347747051585,
+            "metric_std": 0.0301337121760336,
+            "robust_utility": -0.43362690551452426
+          }
+        ]
+      },
+      "output_sha256": "3d07cfcc49864127456ad23c7c2100eacabb30fcbf85780619b319a7db4abd86",
+      "feature_ablation_checks": 0,
+      "accepted_feature_ablations": 0,
+      "external_metric": 0.32746468758965325,
+      "evaluation_detail": {
+        "row_metric": 0.32746468758965325,
+        "target_deciles": [
+          {
+            "target_range": [
+              1.0,
+              14.0
+            ],
+            "support": 267,
+            "rmse": 4.947088125595676,
+            "mae": 3.0520451162135362,
+            "bias": -0.15972392544721573
+          },
+          {
+            "target_range": [
+              14.0,
+              42.0
+            ],
+            "support": 288,
+            "rmse": 19.44764913588623,
+            "mae": 10.229880165895764,
+            "bias": 0.39178332114809045
+          },
+          {
+            "target_range": [
+              42.0,
+              110.0
+            ],
+            "support": 278,
+            "rmse": 43.78062385832503,
+            "mae": 27.745721323598435,
+            "bias": 8.023036709858955
+          },
+          {
+            "target_range": [
+              110.0,
+              181.0
+            ],
+            "support": 274,
+            "rmse": 46.759885449980594,
+            "mae": 34.24972523453286,
+            "bias": -3.425557142094477
+          },
+          {
+            "target_range": [
+              181.0,
+              237.0
+            ],
+            "support": 282,
+            "rmse": 46.64436256093373,
+            "mae": 35.597074337121256,
+            "bias": -6.192125127838946
+          },
+          {
+            "target_range": [
+              237.0,
+              287.0
+            ],
+            "support": 278,
+            "rmse": 50.78169288945182,
+            "mae": 34.95837911560608,
+            "bias": -11.577548476615295
+          },
+          {
+            "target_range": [
+              287.0,
+              360.0000000000002
+            ],
+            "support": 280,
+            "rmse": 62.53669533183142,
+            "mae": 47.86345770120844,
+            "bias": -25.23329865209152
+          },
+          {
+            "target_range": [
+              360.0000000000002,
+              463.0
+            ],
+            "support": 273,
+            "rmse": 84.70635764002266,
+            "mae": 68.70602712611851,
+            "bias": -51.361395340016585
+          },
+          {
+            "target_range": [
+              463.0,
+              591.0
+            ],
+            "support": 280,
+            "rmse": 112.31758847819776,
+            "mae": 97.57461459235303,
+            "bias": -91.46314862965494
+          },
+          {
+            "target_range": [
+              591.0,
+              913.0
+            ],
+            "support": 281,
+            "rmse": 153.6569093102861,
+            "mae": 137.4569113024548,
+            "bias": -136.41818237997225
+          }
+        ],
+        "residual_bias": -31.870882531906588
+      },
+      "status": "ok",
+      "qwen_fits": 1,
+      "qwen_accepted": 0,
+      "research_experiments": [
+        {
+          "experiment_id": "exp_0008",
+          "status": "ok",
+          "metric_value": 0.4311653660611337,
+          "accepted": false,
+          "recipe": {
+            "model_family": "lightgbm",
+            "params": {
+              "iterations": 500,
+              "num_leaves": 31,
+              "min_child_samples": 30
+            },
+            "feature_ops": [],
+            "target_transform": "log1p",
+            "max_runtime_sec": 60.0,
+            "validation_plan_id": "04710c2f9b9dfbe6",
+            "feature_expressions": [
+              {
+                "name": "temp_hr_interaction",
+                "expression": "col(\"temp\") * col(\"hr\")",
+                "reason": "Captures the interaction between temperature and time of day, which is a known driver of bike demand patterns."
+              },
+              {
+                "name": "temp_hum_interaction",
+                "expression": "col(\"temp\") * col(\"hum\")",
+                "reason": "Captures the interaction between temperature and humidity, which affects rider comfort and demand."
+              }
+            ],
+            "id": "exp_0004",
+            "statement": "The champion model exhibits a strong negative residual bias (-47.9) and significant undershoot (77% of errors), particularly in high-demand regimes (RMSE > 200 for target > 429). The current features lack explicit interaction terms between temperature and time-of-day, which are critical drivers of bike demand. Adding a temperature-hour interaction and a temperature-humidity interaction should help the model capture non-linear demand spikes and reduce the systematic under-prediction.",
+            "parent_experiment": "exp_0003",
+            "hypothesis": {
+              "kind": "feature_interaction",
+              "failure_mode": "Systematic under-prediction in high-demand regimes due to missing non-linear interactions",
+              "expected_effect": "Reduced RMSLE by better capturing demand spikes and reducing negative residual bias",
+              "uncertainty": "Medium; interactions are theoretically sound but may not fully address the bias if it is due to other factors",
+              "stop_condition": "If RMSLE does not improve by at least 0.01 over the champion"
+            }
+          },
+          "feature_trial": {
+            "kind": "feature_group",
+            "parent_experiment": "exp_0003",
+            "parent_metric": 0.42764203561332376,
+            "parent_utility": -0.42764203561332376,
+            "held_constant": [
+              "model_family",
+              "params",
+              "target_transform",
+              "validation",
+              "seed"
+            ],
+            "changes": [
+              {
+                "kind": "formula",
+                "name": "temp_hr_interaction"
+              },
+              {
+                "kind": "formula",
+                "name": "temp_hum_interaction"
+              }
+            ],
+            "ignored_model_overrides": [],
+            "group_experiment": "exp_0008",
+            "utility_gain_vs_parent": -0.003523330447809947
+          }
+        }
+      ],
+      "champion_recipe": {
+        "model_family": "lightgbm",
+        "params": {
+          "iterations": 1000,
+          "num_leaves": 74,
+          "min_child_samples": 88,
+          "reg_lambda": 27.093651200009678,
+          "learning_rate": 0.029774529345379653,
+          "colsample_bytree": 0.6718005688975046,
+          "subsample": 0.9958339239268711
+        },
+        "feature_ops": [
+          {
+            "op": "ratio",
+            "columns": [
+              "temp",
+              "atemp"
+            ]
+          },
+          {
+            "op": "product",
+            "columns": [
+              "temp",
+              "atemp"
+            ]
+          },
+          {
+            "op": "combine",
+            "columns": [
+              "season",
+              "yr"
+            ]
+          }
+        ],
+        "target_transform": "log1p",
+        "max_runtime_sec": 90.0,
+        "validation_plan_id": "04710c2f9b9dfbe6",
+        "feature_expressions": [],
+        "id": "tpe_35",
+        "statement": "Seeded TPE trial from measured results for this model and feature representation",
+        "parent_experiment": "exp_0031"
+      },
+      "qwen_events": [
+        {
+          "status": "api_usage",
+          "call": 1,
+          "response_model": "qwen/qwen3.8-27b",
+          "prompt_tokens": 4304,
+          "completion_tokens": 565,
+          "reasoning_tokens": 0,
+          "finish_reason": "stop",
+          "reported_cost": 0.167123235279,
+          "elapsed_seconds": 7.204,
+          "timeout_seconds": 40.0
+        },
+        {
+          "status": "annotations_normalized",
+          "call": 1,
+          "fields": [
+            "hypothesis.uncertainty"
+          ]
+        },
+        {
+          "status": "response",
+          "call": 1,
+          "tokens": 4869,
+          "elapsed_seconds": 7.205,
+          "timeout_seconds": 40.0
+        },
+        {
+          "status": "recipe_rejected",
+          "reason": "Research strategy reason must be a bounded string"
+        },
+        {
+          "status": "api_usage",
+          "call": 2,
+          "response_model": "qwen/qwen3.8-27b",
+          "prompt_tokens": 4677,
+          "completion_tokens": 422,
+          "reasoning_tokens": 0,
+          "finish_reason": "stop",
+          "reported_cost": 0.079812402657,
+          "elapsed_seconds": 4.859,
+          "timeout_seconds": 40.0
+        },
+        {
+          "status": "response",
+          "call": 2,
+          "tokens": 9968,
+          "elapsed_seconds": 4.86,
+          "timeout_seconds": 40.0
+        },
+        {
+          "status": "token_budget_exhausted"
+        }
+      ],
+      "checkpoint_kind": "full_refit",
+      "fit_success": 61,
+      "terminal_status": "full_refit",
+      "llm_valid_recipes": 1,
+      "control_folds_completed": 2,
+      "fold_bagged_done": false,
+      "cpu_seconds": 579.923038495,
+      "peak_memory_mb": 852.5078125,
+      "backend": null,
+      "backend_version": null,
+      "backend_wrapper_sha256": null,
+      "fallback_kind": null,
+      "arm": "baseline",
+      "archive_sha256": "036f9036f14270efbe48df1a231f645ee5f8a9c649ed114697ee70abfdb07595",
+      "input_sha256": {
+        "train.csv": "7e8bec68f70dbe601d7d598f887d200f3dbacafb64e6f779622bfec2b405d3d9",
+        "test.csv": "9c9c8e4c5a08465aa851615c8b6c9c7834532ae1d30397ee6949b54c4302d6ad",
+        "data_dictionary.csv": "7103323a1ccc8465d2fa440c12bbe95e66a48be0a8651c4ecb678bdc238ec7f0",
+        "sample_submission.csv": "b3d41c44801c1e987ddb8cffa860a545954d36fe9794efce8ebe72189b64709e",
+        "task.md": "e30a619202ff2625cfeec3273bd2a302fc0ab86ce32bb6d4ccee586906c0b2a0"
+      },
+      "training_rows": 11122,
+      "evaluation_rows": 2781,
+      "features": 13,
+      "isolation": "inherited macOS sandbox denies raw caches, secrets, other runs and external scores"
+    },
+    {
+      "case": "bike_sharing_temporal",
+      "mode": "autogluon",
+      "seed": 42,
+      "phase": "development",
+      "metric": "rmsle",
+      "budget_seconds": 600.0,
+      "wall_seconds": 20.997,
+      "threads": 8,
+      "first_trained_checkpoint_seconds": 17.088125751004554,
+      "memory_mb": 16384,
+      "runtime_code_sha256": "a99f4f98813d4cf3c8872a150ee6110387adc2efe678d6d477fa16dec9e10796",
+      "raw_sha256": "b70182d0d0508e9abbb79306ce5c0cec34869000f8220175ac83d11dbe845401",
+      "split_sha256": "cd76c971505a1f570c85097fa4b5e3ff94176a8bd880a7543c9a61bbd05abce5",
+      "returncode": 0,
+      "log": "/Users/mac/Documents/projects/alfaautoresearch/runs/competitive-initial-37r5u9we/bike_sharing_temporal-baseline-autogluon/autogluon.log",
+      "run_dir": "/Users/mac/Documents/projects/alfaautoresearch/runs/competitive-initial-37r5u9we/bike_sharing_temporal-baseline-autogluon/run",
+      "qwen_calls": 0,
+      "qwen_tokens": 0,
+      "internal_metric": 0.38670303362418057,
+      "experiments": 7,
+      "full_refit": true,
+      "champion_family": "autogluon_classical_reference",
+      "decision_adjustment": null,
+      "ensemble": null,
+      "adaptive_search": null,
+      "cross_validation": null,
+      "output_sha256": "070cc07ea73f46ea23d5a6bdd06e23c7f5e0cf00d6df42434b831c5d36d25407",
+      "feature_ablation_checks": 0,
+      "accepted_feature_ablations": 0,
+      "external_metric": 0.306649625201812,
+      "evaluation_detail": {
+        "row_metric": 0.306649625201812,
+        "target_deciles": [
+          {
+            "target_range": [
+              1.0,
+              14.0
+            ],
+            "support": 267,
+            "rmse": 5.19557870115052,
+            "mae": 2.9545189374395076,
+            "bias": -0.0072234860073761105
+          },
+          {
+            "target_range": [
+              14.0,
+              42.0
+            ],
+            "support": 288,
+            "rmse": 20.47720929979609,
+            "mae": 10.126032244828012,
+            "bias": 0.20122881895966
+          },
+          {
+            "target_range": [
+              42.0,
+              110.0
+            ],
+            "support": 278,
+            "rmse": 42.06589115384011,
+            "mae": 26.138038401981053,
+            "bias": 5.151451371556563
+          },
+          {
+            "target_range": [
+              110.0,
+              181.0
+            ],
+            "support": 274,
+            "rmse": 40.44130338922907,
+            "mae": 27.547093119934527,
+            "bias": -7.438814803631637
+          },
+          {
+            "target_range": [
+              181.0,
+              237.0
+            ],
+            "support": 282,
+            "rmse": 44.65491540648311,
+            "mae": 32.06598111416431,
+            "bias": -9.291598867862785
+          },
+          {
+            "target_range": [
+              237.0,
+              287.0
+            ],
+            "support": 278,
+            "rmse": 51.82256171621852,
+            "mae": 36.043591945291425,
+            "bias": -16.224515187654564
+          },
+          {
+            "target_range": [
+              287.0,
+              360.0000000000002
+            ],
+            "support": 280,
+            "rmse": 59.05552911389913,
+            "mae": 45.689071846008304,
+            "bias": -23.035034806387767
+          },
+          {
+            "target_range": [
+              360.0000000000002,
+              463.0
+            ],
+            "support": 273,
+            "rmse": 77.80492583954023,
+            "mae": 61.11367632967212,
+            "bias": -36.89837135063423
+          },
+          {
+            "target_range": [
+              463.0,
+              591.0
+            ],
+            "support": 280,
+            "rmse": 90.57695751400432,
+            "mae": 68.65685294015067,
+            "bias": -52.8357670375279
+          },
+          {
+            "target_range": [
+              591.0,
+              913.0
+            ],
+            "support": 281,
+            "rmse": 103.39101184228718,
+            "mae": 83.10409421004435,
+            "bias": -72.9722335109507
+          }
+        ],
+        "residual_bias": -21.3962711831384
+      },
+      "status": "ok",
+      "qwen_fits": 0,
+      "qwen_accepted": 0,
+      "research_experiments": [],
+      "champion_recipe": {
+        "model_family": "autogluon_classical_reference"
+      },
+      "qwen_events": [],
+      "checkpoint_kind": "full_refit",
+      "fit_success": 7,
+      "terminal_status": "full_refit",
+      "llm_valid_recipes": 0,
+      "control_folds_completed": 0,
+      "fold_bagged_done": false,
+      "cpu_seconds": 130.759569432,
+      "peak_memory_mb": 655.90234375,
+      "backend": "autogluon",
+      "backend_version": "1.3.1",
+      "backend_wrapper_sha256": "878909afb20bffc93b5783d98f762d3ba278d32dd40903926b50434ff87af9d8",
+      "fallback_kind": null,
+      "arm": "baseline",
+      "archive_sha256": "036f9036f14270efbe48df1a231f645ee5f8a9c649ed114697ee70abfdb07595",
+      "input_sha256": {
+        "train.csv": "7e8bec68f70dbe601d7d598f887d200f3dbacafb64e6f779622bfec2b405d3d9",
+        "test.csv": "9c9c8e4c5a08465aa851615c8b6c9c7834532ae1d30397ee6949b54c4302d6ad",
+        "data_dictionary.csv": "7103323a1ccc8465d2fa440c12bbe95e66a48be0a8651c4ecb678bdc238ec7f0",
+        "sample_submission.csv": "b3d41c44801c1e987ddb8cffa860a545954d36fe9794efce8ebe72189b64709e",
+        "task.md": "e30a619202ff2625cfeec3273bd2a302fc0ab86ce32bb6d4ccee586906c0b2a0"
+      },
+      "training_rows": 11122,
+      "evaluation_rows": 2781,
+      "features": 13,
+      "isolation": "inherited macOS sandbox denies raw caches, secrets, other runs and external scores"
+    },
+    {
+      "case": "bike_sharing_temporal",
+      "mode": "catboost",
+      "seed": 42,
+      "phase": "development",
+      "metric": "rmsle",
+      "budget_seconds": 600.0,
+      "wall_seconds": 11.037,
+      "threads": 8,
+      "first_trained_checkpoint_seconds": null,
+      "memory_mb": 16384,
+      "runtime_code_sha256": "a99f4f98813d4cf3c8872a150ee6110387adc2efe678d6d477fa16dec9e10796",
+      "raw_sha256": "b70182d0d0508e9abbb79306ce5c0cec34869000f8220175ac83d11dbe845401",
+      "split_sha256": "cd76c971505a1f570c85097fa4b5e3ff94176a8bd880a7543c9a61bbd05abce5",
+      "returncode": 0,
+      "log": "/Users/mac/Documents/projects/alfaautoresearch/runs/competitive-initial-37r5u9we/bike_sharing_temporal-baseline-catboost/catboost.log",
+      "run_dir": "/Users/mac/Documents/projects/alfaautoresearch/runs/competitive-initial-37r5u9we/bike_sharing_temporal-baseline-catboost/run",
+      "qwen_calls": 0,
+      "qwen_tokens": 0,
+      "internal_metric": 0.4249022616710468,
+      "experiments": 1,
+      "full_refit": true,
+      "champion_family": "catboost",
+      "decision_adjustment": null,
+      "ensemble": null,
+      "adaptive_search": null,
+      "cross_validation": null,
+      "output_sha256": "f55ef5f3582252509371fb191f8374416ba5550d7ebbee975ecbd84acb8b1a26",
+      "feature_ablation_checks": 0,
+      "accepted_feature_ablations": 0,
+      "external_metric": 0.3007719304826734,
+      "evaluation_detail": {
+        "row_metric": 0.3007719304826734,
+        "target_deciles": [
+          {
+            "target_range": [
+              1.0,
+              14.0
+            ],
+            "support": 267,
+            "rmse": 4.739252901005377,
+            "mae": 2.8789757558236406,
+            "bias": 0.2616087020509298
+          },
+          {
+            "target_range": [
+              14.0,
+              42.0
+            ],
+            "support": 288,
+            "rmse": 18.60289462934979,
+            "mae": 9.75794918787142,
+            "bias": -0.43703022422402227
+          },
+          {
+            "target_range": [
+              42.0,
+              110.0
+            ],
+            "support": 278,
+            "rmse": 39.719088050762096,
+            "mae": 25.37643851996857,
+            "bias": 3.6813145845873256
+          },
+          {
+            "target_range": [
+              110.0,
+              181.0
+            ],
+            "support": 274,
+            "rmse": 38.94568128555604,
+            "mae": 27.448139368015305,
+            "bias": -8.616531653152213
+          },
+          {
+            "target_range": [
+              181.0,
+              237.0
+            ],
+            "support": 282,
+            "rmse": 43.49091251727037,
+            "mae": 31.46674938699007,
+            "bias": -8.61961601129252
+          },
+          {
+            "target_range": [
+              237.0,
+              287.0
+            ],
+            "support": 278,
+            "rmse": 50.35604325414986,
+            "mae": 34.680296135835185,
+            "bias": -14.616084788384981
+          },
+          {
+            "target_range": [
+              287.0,
+              360.0000000000002
+            ],
+            "support": 280,
+            "rmse": 58.152970481058766,
+            "mae": 44.85250008124925,
+            "bias": -23.592989582584806
+          },
+          {
+            "target_range": [
+              360.0000000000002,
+              463.0
+            ],
+            "support": 273,
+            "rmse": 78.55986196091546,
+            "mae": 62.8583858560721,
+            "bias": -38.567869801102646
+          },
+          {
+            "target_range": [
+              463.0,
+              591.0
+            ],
+            "support": 280,
+            "rmse": 93.49150570757666,
+            "mae": 69.765114392285,
+            "bias": -51.50978846057702
+          },
+          {
+            "target_range": [
+              591.0,
+              913.0
+            ],
+            "support": 281,
+            "rmse": 103.63603733298075,
+            "mae": 85.34653185983821,
+            "bias": -75.58761493607389
+          }
+        ],
+        "residual_bias": -21.821455875856152
+      },
+      "status": "ok",
+      "qwen_fits": 0,
+      "qwen_accepted": 0,
+      "research_experiments": [],
+      "champion_recipe": {
+        "model_family": "catboost",
+        "params": {
+          "iterations": 6000,
+          "depth": 7,
+          "learning_rate": 0.05,
+          "l2_leaf_reg": 3.0
+        },
+        "feature_ops": [],
+        "feature_expressions": [],
+        "target_transform": "log1p",
+        "max_runtime_sec": 420.0,
+        "validation_plan_id": "04710c2f9b9dfbe6"
+      },
+      "qwen_events": [],
+      "checkpoint_kind": "full_refit",
+      "fit_success": 2,
+      "terminal_status": "full_refit",
+      "llm_valid_recipes": 0,
+      "control_folds_completed": 0,
+      "fold_bagged_done": false,
+      "cpu_seconds": 48.46322035199999,
+      "peak_memory_mb": 359.046875,
+      "backend": "catboost",
+      "backend_version": "1.2.8",
+      "backend_wrapper_sha256": "878909afb20bffc93b5783d98f762d3ba278d32dd40903926b50434ff87af9d8",
+      "fallback_kind": null,
+      "arm": "baseline",
+      "archive_sha256": "036f9036f14270efbe48df1a231f645ee5f8a9c649ed114697ee70abfdb07595",
+      "input_sha256": {
+        "train.csv": "7e8bec68f70dbe601d7d598f887d200f3dbacafb64e6f779622bfec2b405d3d9",
+        "test.csv": "9c9c8e4c5a08465aa851615c8b6c9c7834532ae1d30397ee6949b54c4302d6ad",
+        "data_dictionary.csv": "7103323a1ccc8465d2fa440c12bbe95e66a48be0a8651c4ecb678bdc238ec7f0",
+        "sample_submission.csv": "b3d41c44801c1e987ddb8cffa860a545954d36fe9794efce8ebe72189b64709e",
+        "task.md": "e30a619202ff2625cfeec3273bd2a302fc0ab86ce32bb6d4ccee586906c0b2a0"
+      },
+      "training_rows": 11122,
+      "evaluation_rows": 2781,
+      "features": 13,
+      "isolation": "inherited macOS sandbox denies raw caches, secrets, other runs and external scores"
+    }
+  ],
+  "evaluator_sha256": {
+    "scripts/competitive_data.py": "36da77256f8afa842682f72fb78eed56830d9a83b97216c8ea7957bb707f0406",
+    "scripts/competitive_compare.py": "72db5e80fcf1a59a93611dcd848c3e0be4d98cd025cbe2158f59c11444a6c8b0",
+    "scripts/backend_worker.py": "878909afb20bffc93b5783d98f762d3ba278d32dd40903926b50434ff87af9d8",
+    "scripts/kaggle_worker.py": "9372896b3c716cd9fc233c98db6fb10aefd6d669896c41d5d43ebb3838370a0b",
+    "atlas/metrics.py": "8f7a79069bf727b7b4e7159dea49b52c2c0e71167d43c8efc0c17ce82ecabdb3"
+  },
+  "selection_policy": "Architecture changes must use code/inner evidence; final holdout is opened once after code freeze; no automatic expensive repetitions",
+  "completed_at_utc": "2026-10-23T19:04:53.293113+00:00"
+}

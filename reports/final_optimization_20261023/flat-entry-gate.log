@@ -1,0 +1,11 @@
+{"event": "SAFE_BASELINE", "output": "/private/var/folders/hb/h27859y5567_h9fgk_8s6d300000gn/T/atlas-flat-gate-bkmn3qij/upload/submission.csv", "elapsed": 1.5949240110057872, "warnings": []}
+{"event": "VALIDATION", "plan": {"id": "446ce42c2528dc04", "kind": "random", "reason": "Search holdout inside training-only pool; independent controls sealed before search", "seed": 42, "train_rows": 96, "valid_rows": 32}, "metric": "rmse", "mode": "deterministic"}
+{"event": "CONFIRMATION_PLAN", "windows": [{"id": "b89f73d327213fd6", "kind": "random", "reason": "Sealed confirmation 1; fixed candidate, no tuning/early stopping on these labels", "seed": 1052, "train_rows": 128, "valid_rows": 16}, {"id": "f8968b2d7bc4c6f2", "kind": "random", "reason": "Sealed confirmation 2; fixed candidate, no tuning/early stopping on these labels", "seed": 1053, "train_rows": 128, "valid_rows": 16}]}
+{"event": "experiment", "id": "exp_0001", "family": "linear", "status": "ok", "score": 1.9391957801639215, "accepted": true, "seconds": 1.516}
+{"event": "experiment", "id": "exp_0002", "family": "lightgbm", "status": "ok", "score": 1.995950033315134, "accepted": false, "seconds": 1.788}
+{"event": "experiment", "id": "exp_0003", "family": "linear", "status": "ok", "score": null, "accepted": false, "seconds": 1.493}
+{"event": "experiment", "id": "exp_0004", "family": "lightgbm", "status": "ok", "score": null, "accepted": false, "seconds": 1.692}
+{"event": "cross_validation_selected", "champion": "exp_0002", "folds": 3, "candidates": 2}
+{"event": "experiment", "id": "exp_0005", "family": "lightgbm", "status": "ok", "score": null, "accepted": false, "seconds": 1.676}
+{"event": "full_refit_published", "components": 1}
+{"event": "DONE", "summary": "/private/var/folders/hb/h27859y5567_h9fgk_8s6d300000gn/T/atlas-flat-gate-bkmn3qij/upload/.atlas/20261023_223839_oeuh425x/summary.json", "elapsed": 9.883, "champion_metric": 1.995950033315134}

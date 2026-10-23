@@ -1,0 +1,4 @@
+{"event": "start", "stage": "deep", "case": "bike_sharing_temporal", "arm": "final", "mode": "live-agent", "number": 3}
+{"case": "bike_sharing_temporal", "arm": "final", "mode": "live-agent", "status": "ok", "external_metric": 0.3380636698630878, "wall_seconds": 318.781, "full_refit": true, "error": null}
+{"event": "start", "stage": "deep", "case": "bike_sharing_temporal", "arm": "final", "mode": "catboost", "number": 4}
+{"case": "bike_sharing_temporal", "arm": "final", "mode": "catboost", "status": "ok", "external_metric": 0.34477107766495885, "wall_seconds": 7.733, "full_refit": true, "error": null}

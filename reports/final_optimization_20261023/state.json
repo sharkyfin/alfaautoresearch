@@ -1,0 +1,273 @@
+{
+  "status": "READY_WITH_RISKS",
+  "completed": true,
+  "created_at_utc": "2026-10-23T18:38:28.040631+00:00",
+  "request": "docs/FINAL_OPTIMIZATION_REQUEST.md",
+  "request_sha256": "b689262b931cb1a6e6a885e948722381f93ca197076de6712e857cf6643b28ee",
+  "worktree": "/Users/mac/Documents/projects/alfaautoresearch/.bootstrap/final_optimization/worktree",
+  "branch": "research/final-competitive-validation-20261023",
+  "baseline_commit": "0ec0f9309398e190d3ed5cf629a69c568b3b7244",
+  "baseline_archive_sha256": "036f9036f14270efbe48df1a231f645ee5f8a9c649ed114697ee70abfdb07595",
+  "baseline_backup": "submission_before_final_optimization_036f9036f142.zip",
+  "baseline_runtime_sha256": "a99f4f98813d4cf3c8872a150ee6110387adc2efe678d6d477fa16dec9e10796",
+  "initial_full_runs_used": 6,
+  "initial_full_runs_max": 6,
+  "initial_budget_seconds": 600,
+  "initial_cases": [
+    "aps_failure",
+    "bike_sharing_temporal"
+  ],
+  "targeted_runs": [
+    {
+      "number": 1,
+      "stage": "targeted",
+      "case": "aps_failure",
+      "arm": "candidate",
+      "mode": "live-agent",
+      "budget_seconds": 600.0,
+      "started_at_utc": "2026-10-23T19:28:03.095365+00:00"
+    },
+    {
+      "number": 2,
+      "stage": "targeted",
+      "case": "bike_sharing_temporal",
+      "arm": "candidate",
+      "mode": "live-agent",
+      "budget_seconds": 600.0,
+      "started_at_utc": "2026-10-23T19:35:29.383823+00:00"
+    },
+    {
+      "number": 3,
+      "stage": "deep",
+      "case": "bike_sharing_temporal",
+      "arm": "final",
+      "mode": "live-agent",
+      "budget_seconds": 1800.0,
+      "started_at_utc": "2026-10-23T19:41:27.606746+00:00"
+    },
+    {
+      "number": 4,
+      "stage": "deep",
+      "case": "bike_sharing_temporal",
+      "arm": "final",
+      "mode": "catboost",
+      "budget_seconds": 1800.0,
+      "started_at_utc": "2026-10-23T19:46:46.487041+00:00"
+    }
+  ],
+  "deep_pair_max": 1,
+  "deep_pair_used": 1,
+  "deep_pair_seconds_per_arm_max": 2700,
+  "three_hour_test_authorized": false,
+  "automatic_quota_continuation_allowed": false,
+  "platform_upload_authorized": false,
+  "preserve_existing_archives": {
+    "submission_runtime_hardened.zip": "d6778266294a8a424c3d8df3ec7a5ba427c87aca53913458fc47d465e4cd5a22",
+    "submission_thorough.zip": "469c8c90430d4ac25c9a125ed125c110a503772a1fba496afcb8da996dff15d2",
+    "submission_quality_strategy_experimental.zip": "036f9036f14270efbe48df1a231f645ee5f8a9c649ed114697ee70abfdb07595",
+    "submission_p3j_backup.zip": "daa1087f405e21a698375e81e1960c422bd29b6363d2e7c2dc8f36e807226b8b",
+    "submission_recovery_1258.zip": "b8eaa511111a956bc2181741903a3b44a4fdca58001e890d9fd2951b10858047",
+    "submission.zip": "036f9036f14270efbe48df1a231f645ee5f8a9c649ed114697ee70abfdb07595",
+    "submission_challenger_strategy_experimental.zip": "7644890c65799a7fb673b2fc0b80760a488f438d2769c74fc7032955e3df31d9",
+    "submission_before_final_optimization_036f9036f142.zip": "036f9036f14270efbe48df1a231f645ee5f8a9c649ed114697ee70abfdb07595",
+    "submission_before_quality_strategy_ad10fe9d0d81.zip": "ad10fe9d0d811e8f240f7fc160f34fc1876d6c5aa1fcd9b11ca3cbfb58573a42"
+  },
+  "quota_check": "94% remaining at 2026-10-23T18:35:16Z",
+  "run_ledger": [
+    {
+      "stage": "initial",
+      "number": 1,
+      "case": "aps_failure",
+      "arm": "baseline",
+      "mode": "live-agent",
+      "archive_sha256": "036f9036f14270efbe48df1a231f645ee5f8a9c649ed114697ee70abfdb07595",
+      "started_at_utc": "2026-10-23T18:47:38.218225+00:00",
+      "status": "finished",
+      "result_status": "ok",
+      "external_metric": 0.9198069985623802
+    },
+    {
+      "stage": "initial",
+      "number": 2,
+      "case": "aps_failure",
+      "arm": "baseline",
+      "mode": "autogluon",
+      "archive_sha256": "036f9036f14270efbe48df1a231f645ee5f8a9c649ed114697ee70abfdb07595",
+      "started_at_utc": "2026-10-23T18:55:14.388264+00:00",
+      "status": "finished",
+      "result_status": "ok",
+      "external_metric": 0.9161874180324906
+    },
+    {
+      "stage": "initial",
+      "number": 3,
+      "case": "aps_failure",
+      "arm": "baseline",
+      "mode": "catboost",
+      "archive_sha256": "036f9036f14270efbe48df1a231f645ee5f8a9c649ed114697ee70abfdb07595",
+      "started_at_utc": "2026-10-23T19:01:01.215921+00:00",
+      "status": "finished",
+      "result_status": "ok",
+      "external_metric": 0.8883919712276718
+    },
+    {
+      "stage": "initial",
+      "number": 4,
+      "case": "bike_sharing_temporal",
+      "arm": "baseline",
+      "mode": "live-agent",
+      "archive_sha256": "036f9036f14270efbe48df1a231f645ee5f8a9c649ed114697ee70abfdb07595",
+      "started_at_utc": "2026-10-23T19:01:32.486245+00:00",
+      "status": "finished",
+      "result_status": "ok",
+      "external_metric": 0.32746468758965325
+    },
+    {
+      "stage": "initial",
+      "number": 5,
+      "case": "bike_sharing_temporal",
+      "arm": "baseline",
+      "mode": "autogluon",
+      "archive_sha256": "036f9036f14270efbe48df1a231f645ee5f8a9c649ed114697ee70abfdb07595",
+      "started_at_utc": "2026-10-23T19:04:21.191857+00:00",
+      "status": "finished",
+      "result_status": "ok",
+      "external_metric": 0.306649625201812
+    },
+    {
+      "stage": "initial",
+      "number": 6,
+      "case": "bike_sharing_temporal",
+      "arm": "baseline",
+      "mode": "catboost",
+      "archive_sha256": "036f9036f14270efbe48df1a231f645ee5f8a9c649ed114697ee70abfdb07595",
+      "started_at_utc": "2026-10-23T19:04:42.222900+00:00",
+      "status": "finished",
+      "result_status": "ok",
+      "external_metric": 0.3007719304826734
+    },
+    {
+      "stage": "targeted",
+      "number": 1,
+      "case": "aps_failure",
+      "arm": "candidate",
+      "mode": "live-agent",
+      "archive_sha256": "bb8c0510e5af13b0097874e7b251e6ea3b8a98b8c94a3b74e0bc5597795f3deb",
+      "started_at_utc": "2026-10-23T19:28:03.095384+00:00",
+      "status": "finished",
+      "result_status": "ok",
+      "external_metric": 0.9216701521058952
+    },
+    {
+      "stage": "targeted",
+      "number": 2,
+      "case": "bike_sharing_temporal",
+      "arm": "candidate",
+      "mode": "live-agent",
+      "archive_sha256": "bb8c0510e5af13b0097874e7b251e6ea3b8a98b8c94a3b74e0bc5597795f3deb",
+      "started_at_utc": "2026-10-23T19:35:29.383841+00:00",
+      "status": "finished",
+      "result_status": "ok",
+      "external_metric": 0.31050220103680387
+    },
+    {
+      "stage": "deep",
+      "number": 3,
+      "case": "bike_sharing_temporal",
+      "arm": "final",
+      "mode": "live-agent",
+      "archive_sha256": "30e053296722de373df8b82cef26a976df8220a696aa1a6cd36cb173e2b61189",
+      "started_at_utc": "2026-10-23T19:41:27.606760+00:00",
+      "status": "finished",
+      "result_status": "ok",
+      "external_metric": 0.3380636698630878
+    },
+    {
+      "stage": "deep",
+      "number": 4,
+      "case": "bike_sharing_temporal",
+      "arm": "final",
+      "mode": "catboost",
+      "archive_sha256": "30e053296722de373df8b82cef26a976df8220a696aa1a6cd36cb173e2b61189",
+      "started_at_utc": "2026-10-23T19:46:46.487083+00:00",
+      "status": "finished",
+      "result_status": "ok",
+      "external_metric": 0.34477107766495885
+    }
+  ],
+  "initial_comparison": "reports/final_optimization_20261023/initial-comparison.json",
+  "chosen_changes": [
+    "Seal controls before search; freeze early-stopping steps and batch common training pools",
+    "Align RMSLE loss; direct frozen AG models for independent controls/refit including verified time boundaries",
+    "Cost-aware all-family HPO; feedback-triggered Qwen calls and bounded three-proposal compute focus"
+  ],
+  "minor_correctness_fix": "Positive-class trailing sentence punctuation",
+  "next": [],
+  "candidate_archive": "/Users/mac/Documents/projects/alfaautoresearch/submission_final_candidate.zip",
+  "candidate_archive_sha256": "bb8c0510e5af13b0097874e7b251e6ea3b8a98b8c94a3b74e0bc5597795f3deb",
+  "candidate_runtime_sha256": "860605202bd4011f95839287254dc79b92fce448e1323712cdc27d208e160862",
+  "candidate_unit_tests": "385 passed, 8 skipped",
+  "actual_ag_integration": "5 passed",
+  "annotation_followup": {
+    "scope": "strategy.reason only; same inert annotation normalization as feature reasons",
+    "frozen_development_archive_unchanged": true,
+    "reason": "Both original APS Qwen replies rejected by bounded-reason guard; no executed Qwen recipe",
+    "requires_new_final_archive": true
+  },
+  "last_unit_gates": {
+    "runtime_base": "385 passed, 8 skipped",
+    "annotation_followup": "61 passed",
+    "real_autogluon_components": "5 passed",
+    "all_gates_have_raw_logs": true
+  },
+  "final_archive": "/Users/mac/Documents/projects/alfaautoresearch/submission_final_optimized.zip",
+  "final_archive_sha256": "30e053296722de373df8b82cef26a976df8220a696aa1a6cd36cb173e2b61189",
+  "final_runtime_sha256": "e81f82499cb6fc1043297065d3a5edab08f3ac0081a37502db975b1afdcd1902",
+  "development_candidate_sha256": "bb8c0510e5af13b0097874e7b251e6ea3b8a98b8c94a3b74e0bc5597795f3deb",
+  "final_delta_from_development": "normalize inert strategy.reason annotation and explicit character bound in Qwen prompt; no other runtime change",
+  "final_source_commit": "056da92b03abe4694f6259d4ce3b25c09e63c2c7",
+  "final_unit_tests": "386 passed, 8 skipped; 129.98 seconds",
+  "flat_entry_gate": "passed",
+  "deep_pair_registered": true,
+  "completed_at_utc": "2026-10-23T19:51:43.696905+00:00",
+  "primary_archive": "submission.zip",
+  "primary_archive_sha256": "30e053296722de373df8b82cef26a976df8220a696aa1a6cd36cb173e2b61189",
+  "archive_promoted": true,
+  "final_pair_result": {
+    "atlas_rmsle": 0.3380636698630878,
+    "catboost_rmsle": 0.34477107766495885,
+    "atlas_wall_seconds": 318.781,
+    "catboost_wall_seconds": 7.733
+  },
+  "platform_upload_performed": false,
+  "automatic_continuation_created": false,
+  "last_quota_check": {
+    "checked_at_utc": "2026-10-23T19:51:44.618936+00:00",
+    "timezone": "Europe/Moscow",
+    "utc_offset": "+03:00",
+    "windows": [
+      {
+        "limit_id": "codex",
+        "window": "primary",
+        "minutes": 300,
+        "used_percent": 56,
+        "remaining_percent": 44,
+        "resets_at_unix": 1792795618,
+        "resets_at_utc": "2026-10-23T22:46:58+00:00",
+        "resets_at_moscow": "2026-10-24T01:46:58+03:00"
+      },
+      {
+        "limit_id": "codex",
+        "window": "secondary",
+        "minutes": 10080,
+        "used_percent": 9,
+        "remaining_percent": 91,
+        "resets_at_unix": 1793382418,
+        "resets_at_utc": "2026-10-30T17:46:58+00:00",
+        "resets_at_moscow": "2026-10-30T20:46:58+03:00"
+      }
+    ],
+    "below_ten_percent": false
+  },
+  "delivery_integrity_gate": "passed; archive/source digest matches frozen tests"
+}

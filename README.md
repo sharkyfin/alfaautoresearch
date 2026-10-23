@@ -1,3 +1,13 @@
+# ATLAS — финальная исследовательская ветка
+
+**READY_WITH_RISKS.** Runtime source commit `056da92`. Финальный ZIP в основном проекте — `submission.zip`, SHA-256 `30e053296722de373df8b82cef26a976df8220a696aa1a6cd36cb173e2b61189`.
+
+[Итог и полная таблица](reports/final_optimization_20261023/RESULTS.md), [CSV](reports/final_optimization_20261023/all-results.csv), [методика](docs/final_optimization/REPRODUCE.md), [аудит](docs/final_optimization/AUDIT.md).
+
+386 тестов финального runtime и 5 actual AutoGluon component checks прошли. Все 10 публичных benchmark cells завершили full refit. Финальная будущая Bike: RMSLE 0.338064 против CatBoost 0.344771; 318.8 против 7.7 сек, CI малого выигрыша включает ноль. Полный трёхчасовой тест и отправка на платформу не выполнялись. Метрики development относятся к сборке до последней поправки аннотации Qwen; версии указаны в отчёте.
+
+## Историческое описание и предыдущие этапы
+
 > Active experimental branch: `research/automl-challenger-strategy-20261023`. Engineering baseline preserved at `91777bb`. See [implementation and limitations](docs/QUALITY_STRATEGY_IMPLEMENTATION.md). The separately named `submission_quality_strategy_experimental.zip` is experimental; no platform score or private-task improvement is claimed. Existing protected archives in the original workspace are unchanged.
 
 # ATLAS AutoResearch

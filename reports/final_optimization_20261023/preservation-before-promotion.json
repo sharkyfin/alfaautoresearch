@@ -1,0 +1,50 @@
+{
+  "status": "passed",
+  "checks": [
+    {
+      "file": "submission_runtime_hardened.zip",
+      "sha256": "d6778266294a8a424c3d8df3ec7a5ba427c87aca53913458fc47d465e4cd5a22",
+      "unchanged": true
+    },
+    {
+      "file": "submission_thorough.zip",
+      "sha256": "469c8c90430d4ac25c9a125ed125c110a503772a1fba496afcb8da996dff15d2",
+      "unchanged": true
+    },
+    {
+      "file": "submission_quality_strategy_experimental.zip",
+      "sha256": "036f9036f14270efbe48df1a231f645ee5f8a9c649ed114697ee70abfdb07595",
+      "unchanged": true
+    },
+    {
+      "file": "submission_p3j_backup.zip",
+      "sha256": "daa1087f405e21a698375e81e1960c422bd29b6363d2e7c2dc8f36e807226b8b",
+      "unchanged": true
+    },
+    {
+      "file": "submission_recovery_1258.zip",
+      "sha256": "b8eaa511111a956bc2181741903a3b44a4fdca58001e890d9fd2951b10858047",
+      "unchanged": true
+    },
+    {
+      "file": "submission.zip",
+      "sha256": "036f9036f14270efbe48df1a231f645ee5f8a9c649ed114697ee70abfdb07595",
+      "unchanged": true
+    },
+    {
+      "file": "submission_challenger_strategy_experimental.zip",
+      "sha256": "7644890c65799a7fb673b2fc0b80760a488f438d2769c74fc7032955e3df31d9",
+      "unchanged": true
+    },
+    {
+      "file": "submission_before_final_optimization_036f9036f142.zip",
+      "sha256": "036f9036f14270efbe48df1a231f645ee5f8a9c649ed114697ee70abfdb07595",
+      "unchanged": true
+    },
+    {
+      "file": "submission_before_quality_strategy_ad10fe9d0d81.zip",
+      "sha256": "ad10fe9d0d811e8f240f7fc160f34fc1876d6c5aa1fcd9b11ca3cbfb58573a42",
+      "unchanged": true
+    }
+  ]
+}
