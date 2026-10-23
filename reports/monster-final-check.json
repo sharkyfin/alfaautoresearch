@@ -1,0 +1,92 @@
+{
+  "status": "READY_WITH_RISKS",
+  "verified_at_moscow": "2026-10-23T23:46:24.180731+03:00",
+  "archive": "monster.zip",
+  "archive_sha256": "30e053296722de373df8b82cef26a976df8220a696aa1a6cd36cb173e2b61189",
+  "archive_bytes": 85502,
+  "root_file_count": 28,
+  "runtime_code_sha256": "e81f82499cb6fc1043297065d3a5edab08f3ac0081a37502db975b1afdcd1902",
+  "source_archive": "submission_final_optimized.zip",
+  "source_commit": "056da92b03abe4694f6259d4ce3b25c09e63c2c7",
+  "source_branch": "research/final-competitive-validation-20261023",
+  "selection": "Existing verified final release retained. Qwen experiment rejected for promotion after worse development comparison.",
+  "fresh_checks": {
+    "static": {
+      "status": "passed",
+      "archive_sha256": "30e053296722de373df8b82cef26a976df8220a696aa1a6cd36cb173e2b61189",
+      "archive_bytes": 85502,
+      "root_file_count": 28,
+      "official_requirements_unchanged": true,
+      "third_party_imports": [
+        "autogluon",
+        "catboost",
+        "httpx",
+        "lightgbm",
+        "numpy",
+        "optuna",
+        "pandas",
+        "psutil",
+        "scipy",
+        "sklearn",
+        "xgboost"
+      ],
+      "credential_literals_absent": true,
+      "no_runtime_installer_or_alternative_llm": true,
+      "runtime_code_sha256": "e81f82499cb6fc1043297065d3a5edab08f3ac0081a37502db975b1afdcd1902"
+    },
+    "zip_crc": "passed",
+    "tested_source_digest_matches": true,
+    "byte_identical_to_selected_release": true,
+    "prior_archives_and_submission_checksum_unchanged": true
+  },
+  "prior_verification_not_rerun": {
+    "unit_suite": "386 passed, 8 skipped",
+    "actual_autogluon_component_tests": "5 passed",
+    "public_ml_runs": 10,
+    "gates": {
+      "reports/final_optimization_20261023/final-static.json": {
+        "status": "passed",
+        "file_sha256": "19449717d1e1d799852861b76d61598b7512c139567c0b3fc4d6ba385dafd6f1"
+      },
+      "reports/final_optimization_20261023/flat-entry-gate.json": {
+        "status": "passed",
+        "file_sha256": "362a17ec205bfa9b16cd5fb9379eb5df589ebf86d653258c0971a91accec4ae1"
+      },
+      "reports/final_optimization_20261023/delivered-archive-gate.json": {
+        "status": "passed",
+        "file_sha256": "1812c88bb98164c5edfcb81ccdda921e9d9ad9eeb3721f47c3f3f31d7c03f4c7"
+      },
+      "reports/final_optimization_20261023/runtime-trace-gate.json": {
+        "status": "passed",
+        "file_sha256": "430a2aed79a756917240e405729746bc5c6a79fc14cb6fa6dfbf7dcabd59c204"
+      }
+    }
+  },
+  "new_ml_runs": 0,
+  "platform_upload_performed": false,
+  "remaining_limits": [
+    "No full 3-hour execution in the official organizer image.",
+    "Unknown private tasks were not evaluated; universal superiority and absence of any future worker failure are not established."
+  ],
+  "preserved_sha256": {
+    "submission_runtime_hardened.zip": "d6778266294a8a424c3d8df3ec7a5ba427c87aca53913458fc47d465e4cd5a22",
+    "submission_thorough.zip": "469c8c90430d4ac25c9a125ed125c110a503772a1fba496afcb8da996dff15d2",
+    "submission_quality_strategy_experimental.zip": "036f9036f14270efbe48df1a231f645ee5f8a9c649ed114697ee70abfdb07595",
+    "submission_p3j_backup.zip": "daa1087f405e21a698375e81e1960c422bd29b6363d2e7c2dc8f36e807226b8b",
+    "submission_recovery_1258.zip": "b8eaa511111a956bc2181741903a3b44a4fdca58001e890d9fd2951b10858047",
+    "submission.zip": "30e053296722de373df8b82cef26a976df8220a696aa1a6cd36cb173e2b61189",
+    "submission_challenger_strategy_experimental.zip": "7644890c65799a7fb673b2fc0b80760a488f438d2769c74fc7032955e3df31d9",
+    "submission_before_final_optimization_036f9036f142.zip": "036f9036f14270efbe48df1a231f645ee5f8a9c649ed114697ee70abfdb07595",
+    "submission_before_quality_strategy_ad10fe9d0d81.zip": "ad10fe9d0d811e8f240f7fc160f34fc1876d6c5aa1fcd9b11ca3cbfb58573a42",
+    "submission_final_optimized.zip": "30e053296722de373df8b82cef26a976df8220a696aa1a6cd36cb173e2b61189",
+    "submission_qwen_semantic_experimental.zip": "47899af43a7b1f13f1915af16744a6f26b4925c3fa4aabf9c7c995447f29c1bd",
+    "submission_final_candidate.zip": "bb8c0510e5af13b0097874e7b251e6ea3b8a98b8c94a3b74e0bc5597795f3deb",
+    "submission.zip.sha256": "dd0dfd756fa550f4a30a819ca2e604414d10507fafd025e99e3a39f4971f23cb"
+  },
+  "last_operational_recheck": {
+    "report": "reports/monster-last-check/final.json",
+    "status": "LOCAL_ZERO_INCIDENT_REGRESSION_CHECKS_PASSED",
+    "archive_sha256": "30e053296722de373df8b82cef26a976df8220a696aa1a6cd36cb173e2b61189",
+    "completed_at_moscow": "2026-10-23T23:55:56.412920+03:00"
+  }
+}

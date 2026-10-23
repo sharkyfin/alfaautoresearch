@@ -1,0 +1,45 @@
+{
+  "status": "LOCAL_ZERO_INCIDENT_REGRESSION_CHECKS_PASSED",
+  "completed_at_moscow": "2026-10-23T23:55:56.412920+03:00",
+  "archive": "monster.zip",
+  "archive_sha256": "30e053296722de373df8b82cef26a976df8220a696aa1a6cd36cb173e2b61189",
+  "archive_unchanged": true,
+  "prior_archives_and_submission_checksum_unchanged": true,
+  "targeted_unit_tests": {
+    "command": "python -m pytest tests/test_incident_runtime.py tests/test_worker_stop_race.py tests/test_performance_v2_parent_guard.py -q",
+    "result": "11 passed in 4.24s",
+    "scope": "Final worktree whose runtime digest matches archive"
+  },
+  "linux_operational_checks": {
+    "cases": 4,
+    "successful_fits": 16,
+    "worker_errors": 0,
+    "valid_outputs": 4,
+    "six_families_regression_and_classification": true,
+    "combined_pid30_inherited_as8g_regression_and_classification": true,
+    "source": "linux-results.json",
+    "diagnostic_stops_not_full_budget_runs": true
+  },
+  "flat_bootstrap_refit": {
+    "status": "passed",
+    "source": "flat-entry.json",
+    "development_hook_budget_seconds": 90,
+    "full_refit": true,
+    "schema_ids_finite": true,
+    "checksum_tamper_rejected": true
+  },
+  "new_quality_benchmarks": 0,
+  "platform_upload_performed": false,
+  "conclusion": "No recurrence of the reproduced worker startup/resource failures in these checks. A nonzero platform score is not guaranteed.",
+  "remaining_risks": [
+    "Actual organizer worker exception and full execution image remain unknown.",
+    "No full 10500-second or private-task execution was performed.",
+    "Extreme process/memory limits can still prevent fits; trained predictions can still fail to beat the private baseline."
+  ],
+  "evidence_sha256": {
+    "static.json": "19449717d1e1d799852861b76d61598b7512c139567c0b3fc4d6ba385dafd6f1",
+    "linux-results.json": "513bc83a78a138ffd8ebe7cbb0ec81fefe56d540736f25c177a26385064fe0c8",
+    "flat-entry.json": "362a17ec205bfa9b16cd5fb9379eb5df589ebf86d653258c0971a91accec4ae1",
+    "flat-entry.log": "cde16d91c3bcc5bf47d2345017e8abfc6eb67b7404db3619c0cd1bc26a4fe377"
+  }
+}

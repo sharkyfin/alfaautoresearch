@@ -1,0 +1,225 @@
+{
+  "status": "passed",
+  "archive_sha256": "30e053296722de373df8b82cef26a976df8220a696aa1a6cd36cb173e2b61189",
+  "runtime_code_sha256": "e81f82499cb6fc1043297065d3a5edab08f3ac0081a37502db975b1afdcd1902",
+  "files": {
+    "atlas_task.py": "3531b82dfd333e8f0c5f3bfbf1461affc8d460ee25550a36720af04e8938c017",
+    "atlas_metrics.py": "8f7a79069bf727b7b4e7159dea49b52c2c0e71167d43c8efc0c17ce82ecabdb3",
+    "atlas_models.py": "4aab7230554eca3eadb7f8c7aefb196f449088fd9c5b4cb84cc1bc5507c244ed",
+    "atlas_experiments.py": "67045b00fc5007087d9415a4b187ace0adb86e003004d0470ce60ae480e7c0cf",
+    "atlas_orchestration.py": "2ea429ae9b5f3f21ea960d8418d35fb54b1fc2c96944d8630edc1a7288c8504a",
+    "atlas_worker.py": "f0e73fae92a67c512822d5a0fb8816dda6abe7afe992e00129bb4217a7803ab4",
+    "atlas_hpo.py": "335d5e0cfa6ca9222f18513281aa7cb69cff746800f43336cdde32b8f10182b4",
+    "atlas_ensemble.py": "a15e80d72b73db273ecf1749a01095748cb0ee55fc1b44f98bd65890597f46db",
+    "requirements.txt": "9173b0388532fbd2a709e4f4b3029e3b9ccab685fce43a85261ffa1ba95efbe6",
+    "atlas_submit.py": "ad54b3e74ef475f7ff0e0aa128b0d684fa48a7ee1f51357c2ddf2b0fc9284e48",
+    "atlas_challenger.py": "4ceea1841a8fc3be10c6bb5074e2ac915494e27ba880b63ef027d858249e2aa1",
+    "atlas_contract.py": "0a1b4eb3cd6ee3577ab7f8d925a6068422f62ec097c3f8d64a3337cd57caa46f",
+    "solution.py": "9e73f97f4897ea94a2cd06ae326ffac72ae4567c2d2514c37d4ae91ae621eb99",
+    "_atlas_entry.py": "d215ddab1515c76c4f8d12e4ffd12b030ab547773dcde76406ccb527a27b958a",
+    "atlas_judge.py": "7c4ade373412aa3c436aa633887e78cb3ee5ef9b498f87b4f674bb6fb77ffd23",
+    "atlas_agent.py": "03ac103345a7867eb6beec14f0f889e835d2fc44dde42391c6e668b2d811e413",
+    "atlas_utils.py": "6c4737b8442961f0f1cce626cf932a6c05a62026db654030146e01f8b35be737",
+    "atlas_ideas.py": "ce9fc816c490711069c3fb148172408394ff289d2b23f9c552dc5d5467199023",
+    "atlas_budget.py": "34fbab619e1076abc1948c38b15f5ad42e30654bbe1efbe2b6de76a67e2b057b",
+    "atlas_validation.py": "ea1fe60525d0fce155774fe05ca0f1ed51aede389d2e3caa672c8279090c2e88",
+    "atlas_context.py": "892918cfbf6e30658e7d79c27a0ab31a030eb8f60b9caf622656432fd0bfbb71",
+    "atlas_search.py": "ca9390e24d05e60a04562a3d49a2af14ab3fc7b1c5f1233854be7a882ee7412f",
+    "atlas_research.py": "2a9c3bc5cd2449864a79b0a55d2f3e70f8c0987245e57204037dc27df26f37b3",
+    "atlas_recipes.py": "e1088adcf336f3a44f43ed1c75b31a85c80d9989623552153e6219af1a169d70",
+    "atlas_encoding.py": "a6ab154997de9c05bfe8fdf94a3bbe5bcadc1784809f597310580f430f91ca31",
+    "atlas_expressions.py": "4c80923505ad20eefb6ad3318ee843b66e5c500795d19ac13ab3436ea27f7495",
+    "atlas_features.py": "397f7f17dfe1741d39a6a1f98ba0c4e61f56e1736121980c3ad2443e921ac6bf",
+    "atlas___init__.py": "32652b410444c85705834dce792c30cc5dda339daf0ac2c02c7fe8444f6a0cc6"
+  },
+  "runs": [
+    {
+      "case": "regression",
+      "status": "passed",
+      "returncode": 0,
+      "successful_fits": 6,
+      "worker_errors": 0,
+      "families": [
+        "catboost",
+        "extra_trees",
+        "hist",
+        "lightgbm",
+        "linear",
+        "xgboost"
+      ],
+      "trained_output": true,
+      "valid_output_rows": 60,
+      "wall_seconds": 15.000471636,
+      "default_budget_seconds": 10500.0,
+      "pids_limit": null,
+      "inherited_rlimit_as_bytes": null,
+      "worker_resource_limits": [
+        {
+          "requested_bytes": 25769803776,
+          "applied_bytes": 25769803776,
+          "inherited_soft_bytes": -1,
+          "inherited_hard_bytes": -1
+        },
+        {
+          "requested_bytes": 25769803776,
+          "applied_bytes": 25769803776,
+          "inherited_soft_bytes": -1,
+          "inherited_hard_bytes": -1
+        },
+        {
+          "requested_bytes": 25769803776,
+          "applied_bytes": 25769803776,
+          "inherited_soft_bytes": -1,
+          "inherited_hard_bytes": -1
+        },
+        {
+          "requested_bytes": 25769803776,
+          "applied_bytes": 25769803776,
+          "inherited_soft_bytes": -1,
+          "inherited_hard_bytes": -1
+        },
+        {
+          "requested_bytes": 25769803776,
+          "applied_bytes": 25769803776,
+          "inherited_soft_bytes": -1,
+          "inherited_hard_bytes": -1
+        },
+        {
+          "requested_bytes": 25769803776,
+          "applied_bytes": 25769803776,
+          "inherited_soft_bytes": -1,
+          "inherited_hard_bytes": -1
+        }
+      ],
+      "scope": "Exact default CLI, diagnostic SIGTERM after initial portfolio; not a full-budget/refit/quality test"
+    },
+    {
+      "case": "classification",
+      "status": "passed",
+      "returncode": 0,
+      "successful_fits": 6,
+      "worker_errors": 0,
+      "families": [
+        "catboost",
+        "extra_trees",
+        "hist",
+        "lightgbm",
+        "linear",
+        "xgboost"
+      ],
+      "trained_output": true,
+      "valid_output_rows": 60,
+      "wall_seconds": 14.152537816999995,
+      "default_budget_seconds": 10500.0,
+      "pids_limit": null,
+      "inherited_rlimit_as_bytes": null,
+      "worker_resource_limits": [
+        {
+          "requested_bytes": 25769803776,
+          "applied_bytes": 25769803776,
+          "inherited_soft_bytes": -1,
+          "inherited_hard_bytes": -1
+        },
+        {
+          "requested_bytes": 25769803776,
+          "applied_bytes": 25769803776,
+          "inherited_soft_bytes": -1,
+          "inherited_hard_bytes": -1
+        },
+        {
+          "requested_bytes": 25769803776,
+          "applied_bytes": 25769803776,
+          "inherited_soft_bytes": -1,
+          "inherited_hard_bytes": -1
+        },
+        {
+          "requested_bytes": 25769803776,
+          "applied_bytes": 25769803776,
+          "inherited_soft_bytes": -1,
+          "inherited_hard_bytes": -1
+        },
+        {
+          "requested_bytes": 25769803776,
+          "applied_bytes": 25769803776,
+          "inherited_soft_bytes": -1,
+          "inherited_hard_bytes": -1
+        },
+        {
+          "requested_bytes": 25769803776,
+          "applied_bytes": 25769803776,
+          "inherited_soft_bytes": -1,
+          "inherited_hard_bytes": -1
+        }
+      ],
+      "scope": "Exact default CLI, diagnostic SIGTERM after initial portfolio; not a full-budget/refit/quality test"
+    },
+    {
+      "case": "regression_pid30_as8g",
+      "status": "passed",
+      "returncode": 0,
+      "successful_fits": 2,
+      "worker_errors": 0,
+      "families": [
+        "lightgbm",
+        "linear"
+      ],
+      "trained_output": true,
+      "valid_output_rows": 60,
+      "wall_seconds": 4.392204910000004,
+      "default_budget_seconds": 10500.0,
+      "pids_limit": 30,
+      "inherited_rlimit_as_bytes": 8589934592,
+      "worker_resource_limits": [
+        {
+          "requested_bytes": 25769803776,
+          "applied_bytes": 8589934592,
+          "inherited_soft_bytes": 8589934592,
+          "inherited_hard_bytes": 8589934592
+        },
+        {
+          "requested_bytes": 25769803776,
+          "applied_bytes": 8589934592,
+          "inherited_soft_bytes": 8589934592,
+          "inherited_hard_bytes": 8589934592
+        }
+      ],
+      "scope": "Exact default CLI, diagnostic SIGTERM after initial portfolio; not a full-budget/refit/quality test"
+    },
+    {
+      "case": "classification_pid30_as8g",
+      "status": "passed",
+      "returncode": 0,
+      "successful_fits": 2,
+      "worker_errors": 0,
+      "families": [
+        "lightgbm",
+        "linear"
+      ],
+      "trained_output": true,
+      "valid_output_rows": 60,
+      "wall_seconds": 4.354532725000013,
+      "default_budget_seconds": 10500.0,
+      "pids_limit": 30,
+      "inherited_rlimit_as_bytes": 8589934592,
+      "worker_resource_limits": [
+        {
+          "requested_bytes": 25769803776,
+          "applied_bytes": 8589934592,
+          "inherited_soft_bytes": 8589934592,
+          "inherited_hard_bytes": 8589934592
+        },
+        {
+          "requested_bytes": 25769803776,
+          "applied_bytes": 8589934592,
+          "inherited_soft_bytes": 8589934592,
+          "inherited_hard_bytes": 8589934592
+        }
+      ],
+      "scope": "Exact default CLI, diagnostic SIGTERM after initial portfolio; not a full-budget/refit/quality test"
+    }
+  ],
+  "environment": "Linux cached development image; 8 CPU, 6 GiB RAM, network none; no host filesystem mounts",
+  "harness_correction": "Docker rejected unsupported --ulimit as before agent execution; used resource.setrlimit followed by exec of unchanged entrypoint. The two normal cases were retained without repeats.",
+  "official_organizer_image": false,
+  "platform_submitted": false
+}

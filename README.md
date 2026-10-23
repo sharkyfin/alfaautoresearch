@@ -1,6 +1,8 @@
-# ATLAS — финальная исследовательская ветка
+# ATLAS — monster
 
-**READY_WITH_RISKS.** Runtime source commit `056da92`. Финальный ZIP в основном проекте — `submission.zip`, SHA-256 `30e053296722de373df8b82cef26a976df8220a696aa1a6cd36cb173e2b61189`.
+**READY_WITH_RISKS.** Ветка `monster` содержит проверенные исходники финальной версии и [monster.zip](monster.zip). Runtime source commit `056da92`; SHA-256 архива `30e053296722de373df8b82cef26a976df8220a696aa1a6cd36cb173e2b61189`.
+
+[Текущий релиз](CURRENT_RELEASE.md), [последняя проверка риска нуля](reports/monster-last-check/RESULTS.md). В четырёх коротких Linux-пробах: 16 успешных fit, 0 ошибок workers; отдельно проверен full refit. Архив побайтно сохранён, экспериментальный Qwen-кандидат с ухудшением качества не включён.
 
 [Итог и полная таблица](reports/final_optimization_20261023/RESULTS.md), [CSV](reports/final_optimization_20261023/all-results.csv), [методика](docs/final_optimization/REPRODUCE.md), [аудит](docs/final_optimization/AUDIT.md).
 

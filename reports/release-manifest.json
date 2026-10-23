@@ -2,7 +2,7 @@
   "status": "READY_WITH_RISKS",
   "layout": "root Python files and official requirements.txt only",
   "runtime_code_sha256": "e81f82499cb6fc1043297065d3a5edab08f3ac0081a37502db975b1afdcd1902",
-  "archive": "submission.zip",
+  "archive": "monster.zip",
   "bytes": 85502,
   "sha256": "30e053296722de373df8b82cef26a976df8220a696aa1a6cd36cb173e2b61189",
   "files": [
@@ -175,9 +175,11 @@
       "sha256": "9173b0388532fbd2a709e4f4b3029e3b9ccab685fce43a85261ffa1ba95efbe6"
     }
   ],
-  "source_root": "/Users/mac/Documents/projects/alfaautoresearch/.bootstrap/final_optimization/worktree",
+  "source_root": ".",
   "source_commit": "056da92b03abe4694f6259d4ce3b25c09e63c2c7",
-  "source_branch": "research/final-competitive-validation-20261023",
+  "source_branch": "monster",
   "validation_report": "reports/final_optimization_20261023/RESULTS.md",
-  "notes": "Source worktree is authoritative; original root checkout contains preserved prior user edits. No platform upload."
+  "notes": "Versioned monster.zip is byte-identical to the verified final release. Runtime code unchanged. No platform upload.",
+  "release_base_commit": "e826f9901a1623590d651e5a5b3b1a75acbfaefa",
+  "operational_validation_report": "reports/monster-last-check/final.json"
 }

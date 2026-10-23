@@ -156,3 +156,8 @@ packaging and Linux execution; no failed suite is treated as a release pass.
 Final corrected-source release gates passed: 160 tests, 13 upstream warnings, 62.97s, unchanged runtime b1fa509ddea5537172c227f44f74a6a8eb1f3b902532f535c52d02a117436e6e.
 Final live source pair (v4, two-variable environment): RMSE 0.592150 -> 0.520911, two genuine Qwen fits. Earlier two-task v3 also improved classification, but is kept as its own source snapshot. No pooled significance claim.
 Actual flat ZIP b9b4cb7a0c9309a6eab72f893b78d56b4f2ecee85ca0158a23b4b4f70e98df2b passed Linux 6.8 / Python 3.12.15, 8CPU / 6GiB, network disabled: all six families fitted on each of two task types, valid 60-row CSVs, SIGTERM recovery, RLIMIT_AS/RSS/wall-clock guards. VM stopped, zero host mounts. Image build and verification took about 714s. Physical 32GiB and the unreleased platform image/route are not reproduced. Archive size 40247 bytes, 21 root files. No platform submission made.
+
+
+## 2026-10-24 — ветка monster
+
+Ветка создана от e826f99, включены неизменённый monster.zip (SHA256 30e053296722de373df8b82cef26a976df8220a696aa1a6cd36cb173e2b61189), checksum и последние операционные проверки. Runtime совпадает с проверенной финальной версией; экспериментальный Qwen-кандидат не включён. Последняя проверка: 11 unit-тестов, 16 успешных fit и 0 ошибок workers в четырёх Linux-пробах, отдельный bounded flat-bootstrap/full-refit gate. Эти проверки уже выполнялись до этого коммита; новых ML-бенчмарков при коммите нет. Исходный пользовательский checkout и его незавершённые изменения сохранены. Отправки на платформу нет.
