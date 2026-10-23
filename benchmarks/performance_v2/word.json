@@ -1,0 +1,10 @@
+{
+  "model_family": "linear",
+  "params": {
+    "C": 1.0,
+    "text_analyzer": "word"
+  },
+  "feature_ops": [],
+  "max_runtime_sec": 300,
+  "target_transform": "none"
+}

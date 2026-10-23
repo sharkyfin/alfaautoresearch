@@ -1,0 +1,71 @@
+{
+  "started_at_utc": "2026-10-22T15:08:02.338629+00:00",
+  "jobs": [
+    {
+      "name": "p3i-linux",
+      "started_at_utc": "2026-10-22T15:08:02.339346+00:00",
+      "command": [
+        "scripts/verify_linux.py",
+        "--zip",
+        ".bootstrap/performance_v2/p3i/source/submission.zip",
+        "--report",
+        "reports/performance_v2/p3i-linux.json"
+      ],
+      "returncode": 0,
+      "finished_at_utc": "2026-10-22T15:13:07.307189+00:00",
+      "status": "completed",
+      "report": "/Users/mac/Documents/projects/alfaautoresearch/reports/performance_v2/p3i-linux.json",
+      "log": "/Users/mac/Documents/projects/alfaautoresearch/reports/performance_v2/p3i-linux.log"
+    },
+    {
+      "name": "p3i-annotation-followup",
+      "started_at_utc": "2026-10-22T15:13:07.310441+00:00",
+      "command": [
+        "scripts/benchmark_suite.py",
+        "--archives",
+        "candidate=.bootstrap/performance_v2/p3i/source/submission.zip",
+        "--cases",
+        "concrete_strength,adult_income,dry_beans",
+        "--seeds",
+        "42,53",
+        "--budget",
+        "120",
+        "--modes",
+        "deterministic,live-agent",
+        "--max-calls",
+        "2",
+        "--report",
+        "reports/performance_v2/p3i-annotation-followup.json"
+      ],
+      "returncode": 0,
+      "finished_at_utc": "2026-10-22T15:34:07.498697+00:00",
+      "status": "completed",
+      "report": "/Users/mac/Documents/projects/alfaautoresearch/reports/performance_v2/p3i-annotation-followup.json",
+      "log": "/Users/mac/Documents/projects/alfaautoresearch/reports/performance_v2/p3i-annotation-followup.log"
+    },
+    {
+      "name": "p3i-exact-cli-matrix",
+      "started_at_utc": "2026-10-22T15:34:07.499933+00:00",
+      "command": [
+        "scripts/verify_zip.py",
+        "--zip",
+        ".bootstrap/performance_v2/p3i/source/submission.zip",
+        "--scenarios",
+        "iid,integer_labels,binary_imbalance,multiclass_imbalance,group,future,text,wide,unseen,singleton,logloss,missing,negative,locale,inf,all_null,official_regression,official_classification",
+        "--abrupt",
+        "--report",
+        "reports/performance_v2/p3i-exact-cli-matrix.json"
+      ],
+      "status": "completed",
+      "returncode": null,
+      "completion_evidence": "Campaign wrote completed status with all 12 rows; queue controller cancelled after child completion"
+    }
+  ],
+  "status": "completed",
+  "superseded_pending_jobs": [
+    "p3i-exact-cli-matrix",
+    "p3i-denied-qwen",
+    "p3i-platform-compliance"
+  ],
+  "note": "Only Linux and real follow-up executed. Remaining P3i QA deliberately cancelled in favor of exact-source P3j verification after a reproduced runtime race."
+}

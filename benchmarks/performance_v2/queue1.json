@@ -1,0 +1,121 @@
+[
+  {
+    "name": "p3-frozen-full-tests",
+    "report": ".bootstrap/performance_v2/p3e/source/reports/test-state.json",
+    "command": [
+      ".bootstrap/performance_v2/p3e/source/scripts/check_all.py"
+    ]
+  },
+  {
+    "name": "p3-smoke",
+    "report": "reports/performance_v2/p3-smoke.json",
+    "command": [
+      "scripts/benchmark_suite.py",
+      "--archives",
+      "candidate=.bootstrap/performance_v2/p3e/source/submission.zip",
+      "--cases",
+      "concrete_strength,adult_income",
+      "--budget",
+      "60",
+      "--seeds",
+      "42",
+      "--report",
+      "reports/performance_v2/p3-smoke.json"
+    ]
+  },
+  {
+    "name": "regression-native-log",
+    "report": "reports/performance_v2/regression-native-log.json",
+    "command": [
+      "scripts/benchmark_suite.py",
+      "--archives",
+      "baseline=.bootstrap/performance_v2/p2a/source/submission.zip,candidate=.bootstrap/performance_v2/p2a/source/submission.zip",
+      "--cases",
+      "california_housing,concrete_strength,beyond_airfoil_self_noise,beyond_healthcare_insurance_expenses",
+      "--budget",
+      "60",
+      "--seeds",
+      "42,53",
+      "--report",
+      "reports/performance_v2/regression-native-log.json",
+      "--recipe-by-arm",
+      "baseline=benchmarks/performance_v2/native.json,candidate=benchmarks/performance_v2/log.json"
+    ]
+  },
+  {
+    "name": "text-word-char",
+    "report": "reports/performance_v2/text-word-char.json",
+    "command": [
+      "scripts/benchmark_suite.py",
+      "--archives",
+      "baseline=.bootstrap/performance_v2/p2a/source/submission.zip,candidate=.bootstrap/performance_v2/p2a/source/submission.zip",
+      "--cases",
+      "sms_spam",
+      "--budget",
+      "60",
+      "--seeds",
+      "42,53",
+      "--report",
+      "reports/performance_v2/text-word-char.json",
+      "--recipe-by-arm",
+      "baseline=benchmarks/performance_v2/word.json,candidate=benchmarks/performance_v2/char.json"
+    ]
+  },
+  {
+    "name": "text-word-combined",
+    "report": "reports/performance_v2/text-word-combined.json",
+    "command": [
+      "scripts/benchmark_suite.py",
+      "--archives",
+      "baseline=.bootstrap/performance_v2/p2a/source/submission.zip,candidate=.bootstrap/performance_v2/p2a/source/submission.zip",
+      "--cases",
+      "sms_spam",
+      "--budget",
+      "60",
+      "--seeds",
+      "42,53",
+      "--report",
+      "reports/performance_v2/text-word-combined.json",
+      "--recipe-by-arm",
+      "baseline=benchmarks/performance_v2/word.json,candidate=benchmarks/performance_v2/word_char.json"
+    ]
+  },
+  {
+    "name": "rare-class-p1-p2",
+    "report": "reports/performance_v2/rare-class-p1-p2.json",
+    "command": [
+      "scripts/benchmark_suite.py",
+      "--archives",
+      "baseline=.bootstrap/performance_v2/p1/source/submission.zip,candidate=.bootstrap/performance_v2/p2a/source/submission.zip",
+      "--cases",
+      "dry_beans,beyond_asp_potassco_classification,beyond_cardiotocography,beyond_ecoli_proteins",
+      "--budget",
+      "120",
+      "--seeds",
+      "42,53",
+      "--report",
+      "reports/performance_v2/rare-class-p1-p2.json",
+      "--manifest",
+      "benchmarks/performance_v2/macro_manifest.json"
+    ]
+  },
+  {
+    "name": "backend-classical-120",
+    "report": "reports/performance_v2/backend-classical-120.json",
+    "command": [
+      "scripts/benchmark_suite.py",
+      "--archives",
+      "reference=.bootstrap/performance_v2/p1/source/submission.zip",
+      "--cases",
+      "adult_income,concrete_strength,dry_beans",
+      "--budget",
+      "120",
+      "--seeds",
+      "42",
+      "--report",
+      "reports/performance_v2/backend-classical-120.json",
+      "--modes",
+      "deterministic,autogluon,flaml"
+    ]
+  }
+]

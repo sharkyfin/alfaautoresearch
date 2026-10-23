@@ -7,6 +7,7 @@ threadpoolctl==3.6.0
 scikit-learn==1.5.2
 lightgbm==4.6.0
 xgboost==2.1.4
+catboost==1.2.8
 optuna==4.2.1
 psutil==6.1.1
 matplotlib==3.9.4

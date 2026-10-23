@@ -1,0 +1,13 @@
+{
+  "model_family": "lightgbm",
+  "params": {
+    "iterations": 500,
+    "num_leaves": 31,
+    "min_child_samples": 20,
+    "learning_rate": 0.05,
+    "seed_bag": 2
+  },
+  "feature_ops": [],
+  "max_runtime_sec": 300,
+  "target_transform": "none"
+}

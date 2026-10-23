@@ -1,0 +1,125 @@
+[
+  {
+    "name": "budget-concrete-900",
+    "report": "reports/performance_v2/budget-concrete-900.json",
+    "command": [
+      "scripts/benchmark_suite.py",
+      "--archives",
+      "candidate=.bootstrap/performance_v2/p3h/source/submission.zip",
+      "--cases",
+      "concrete_strength",
+      "--seeds",
+      "42",
+      "--budget",
+      "900",
+      "--report",
+      "reports/performance_v2/budget-concrete-900.json"
+    ]
+  },
+  {
+    "name": "budget-concrete-1800",
+    "report": "reports/performance_v2/budget-concrete-1800.json",
+    "command": [
+      "scripts/benchmark_suite.py",
+      "--archives",
+      "candidate=.bootstrap/performance_v2/p3h/source/submission.zip",
+      "--cases",
+      "concrete_strength",
+      "--seeds",
+      "42",
+      "--budget",
+      "1800",
+      "--report",
+      "reports/performance_v2/budget-concrete-1800.json"
+    ]
+  },
+  {
+    "name": "budget-concrete-3600",
+    "report": "reports/performance_v2/budget-concrete-3600.json",
+    "command": [
+      "scripts/benchmark_suite.py",
+      "--archives",
+      "candidate=.bootstrap/performance_v2/p3h/source/submission.zip",
+      "--cases",
+      "concrete_strength",
+      "--seeds",
+      "42",
+      "--budget",
+      "3600",
+      "--report",
+      "reports/performance_v2/budget-concrete-3600.json"
+    ]
+  },
+  {
+    "name": "budget-concrete-7200",
+    "report": "reports/performance_v2/budget-concrete-7200.json",
+    "command": [
+      "scripts/benchmark_suite.py",
+      "--archives",
+      "candidate=.bootstrap/performance_v2/p3h/source/submission.zip",
+      "--cases",
+      "concrete_strength",
+      "--seeds",
+      "42",
+      "--budget",
+      "7200",
+      "--report",
+      "reports/performance_v2/budget-concrete-7200.json"
+    ]
+  },
+  {
+    "name": "budget-concrete-10500",
+    "report": "reports/performance_v2/budget-concrete-10500.json",
+    "command": [
+      "scripts/benchmark_suite.py",
+      "--archives",
+      "candidate=.bootstrap/performance_v2/p3h/source/submission.zip",
+      "--cases",
+      "concrete_strength",
+      "--seeds",
+      "42",
+      "--budget",
+      "10500",
+      "--report",
+      "reports/performance_v2/budget-concrete-10500.json"
+    ]
+  },
+  {
+    "name": "budget-official-regression-10500",
+    "report": "reports/performance_v2/budget-official-regression-10500.json",
+    "command": [
+      "scripts/benchmark_suite.py",
+      "--archives",
+      "baseline=.bootstrap/performance_v2/baseline/source/submission.zip,candidate=.bootstrap/performance_v2/p3h/source/submission.zip",
+      "--cases",
+      "official_regression",
+      "--manifest",
+      "benchmarks/performance_v2/official_manifest.json",
+      "--seeds",
+      "42",
+      "--budget",
+      "10500",
+      "--report",
+      "reports/performance_v2/budget-official-regression-10500.json"
+    ]
+  },
+  {
+    "name": "budget-official-classification-10500",
+    "report": "reports/performance_v2/budget-official-classification-10500.json",
+    "command": [
+      "scripts/benchmark_suite.py",
+      "--archives",
+      "baseline=.bootstrap/performance_v2/baseline/source/submission.zip,candidate=.bootstrap/performance_v2/p3h/source/submission.zip",
+      "--cases",
+      "official_classification",
+      "--manifest",
+      "benchmarks/performance_v2/official_manifest.json",
+      "--seeds",
+      "42",
+      "--budget",
+      "10500",
+      "--report",
+      "reports/performance_v2/budget-official-classification-10500.json"
+    ]
+  }
+]

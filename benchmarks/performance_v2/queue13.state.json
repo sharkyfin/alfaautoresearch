@@ -1,0 +1,42 @@
+{
+  "started_at_utc": "2026-10-22T21:28:44.159694+00:00",
+  "jobs": [
+    {
+      "name": "audited-final-missing-only-resume",
+      "started_at_utc": "2026-10-22T21:28:44.160191+00:00",
+      "command": [
+        "scripts/resume_frozen_final.py"
+      ],
+      "returncode": 0,
+      "finished_at_utc": "2026-10-22T22:08:04.395836+00:00",
+      "status": "completed",
+      "report": "/Users/mac/Documents/projects/alfaautoresearch/reports/performance_v2/final-lockbox-live.json",
+      "log": "/Users/mac/Documents/projects/alfaautoresearch/reports/performance_v2/final-lockbox-resume-01.log"
+    },
+    {
+      "name": "final-complete-tests",
+      "started_at_utc": "2026-10-22T22:08:04.399461+00:00",
+      "command": [
+        ".bootstrap/performance_v2/post_resume_tests.py"
+      ],
+      "returncode": 0,
+      "finished_at_utc": "2026-10-22T22:10:49.743087+00:00",
+      "status": "completed",
+      "report": "/Users/mac/Documents/projects/alfaautoresearch/reports/performance_v2/post-resume-test-gate.json",
+      "log": "/Users/mac/Documents/projects/alfaautoresearch/reports/performance_v2/post-resume-test-gate.log"
+    },
+    {
+      "name": "final-selected-source-report",
+      "started_at_utc": "2026-10-22T22:10:49.743815+00:00",
+      "command": [
+        "scripts/finalize_performance_v2.py"
+      ],
+      "returncode": 0,
+      "finished_at_utc": "2026-10-22T22:10:50.194392+00:00",
+      "status": "completed",
+      "report": "/Users/mac/Documents/projects/alfaautoresearch/reports/performance_v2/final_release_audit.json",
+      "log": "/Users/mac/Documents/projects/alfaautoresearch/reports/performance_v2/final_release_audit-resume-01.log"
+    }
+  ],
+  "status": "completed"
+}

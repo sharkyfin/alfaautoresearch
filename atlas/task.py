@@ -9,7 +9,7 @@ from sklearn.preprocessing import LabelEncoder
 from .contract import Inputs
 from .metrics import Metric,REGRESSION,CLASSIFICATION,UnsupportedTask,infer_metric
 
-APPROVED={'numpy':'1.26.4','pandas':'2.2.3','scipy':'1.12.0','scikit-learn':'1.5.2','lightgbm':'4.6.0','xgboost':'2.1.4','optuna':'4.2.1'}
+APPROVED={'numpy':'1.26.4','pandas':'2.2.3','scipy':'1.12.0','scikit-learn':'1.5.2','catboost':'1.2.8','lightgbm':'4.6.0','xgboost':'2.1.4','optuna':'4.2.1'}
 
 def capabilities(strict=False):
     result={}
@@ -58,7 +58,7 @@ class Dataset:
     y: np.ndarray
 
 
-def load(inputs: Inputs, strict=False) -> Dataset:
+def load(inputs: Inputs, strict=False, profile_data=True) -> Dataset:
     dictionary=read_csv(inputs.dictionary) if inputs.dictionary else pd.DataFrame()
     role={}
     if {'feature','role'}<=set(dictionary.columns): role={str(r.feature):str(r.role).lower() for r in dictionary.itertuples()}
@@ -83,7 +83,7 @@ def load(inputs: Inputs, strict=False) -> Dataset:
     if not len(train): raise UnsupportedTask('No known training targets')
     shared=[c for c in sample if c in test and c!=target]
     ids=[c for c in shared if c in ids_hint] if ids_hint else [c for c in shared if test[c].is_unique]
-    for c in ids:
+    for c in (column for column in ids if column not in ids_hint):
         # Re-read IDs as strings, preserving leading zeros and uint64 identifiers.
         for frame,path in ((train,inputs.train),(test,inputs.test),(sample,inputs.sample)):
             col=read_csv(path,dtype={c:'string'})[c]
@@ -128,9 +128,11 @@ def load(inputs: Inputs, strict=False) -> Dataset:
         else: raise UnsupportedTask('Ambiguous probability output schema')
     elif out!=[target]: raise UnsupportedTask('Unsupported multi-output sample schema')
     extra_targets=set(missing)-{target}
-    features=[c for c in test if c in train and c not in ids and c not in extra_targets and role.get(c) not in {'ignore','exclude','target','label'}]
+    validation_roles={str(row.feature):str(row.validation_role).lower() for row in dictionary.itertuples()} if {'feature','validation_role'}<=set(dictionary) else {}
+    metadata_groups=[c for c in test if c in train and validation_roles.get(c)=='group' and c!=target and c not in ids]
+    features=[c for c in test if c in train and c not in ids and c not in extra_targets and c not in metadata_groups and role.get(c) not in {'ignore','exclude','target','label'}]
     if not features: warnings.append('No usable features: dummy-only')
-    numeric=[];cats=[];dates=[];texts=[];groups=[]
+    numeric=[];cats=[];dates=[c for c in test if c in train and c not in features and validation_roles.get(c)=='time'];texts=[];groups=list(metadata_groups)
     for c in features:
         s=train[c];r=role.get(c,'')
         if r=='group' or (re.search(r'(^|_)(entity|patient|building|user|group|customer)(_id)?$',c.lower()) and s.nunique()<len(s)*.8): groups.append(c)
@@ -143,7 +145,9 @@ def load(inputs: Inputs, strict=False) -> Dataset:
             cats.append(c)
         if c in cats and (hinted in {'text','free_text'} or s.dropna().astype(str).str.len().median()>35): texts.append(c)
     spec=TaskSpec(target,ids,features,'binary' if len(labels)==2 else 'multiclass' if classification else 'regression',metric,labels,kind,proba_cols,numeric,cats,dates,texts,groups,capabilities(strict),warnings)
-    spec.profile=profile(train,test,spec)
+    # Workers use the frozen recipe/split, not the research profile. Computing
+    # every column's quantiles and train/test shift again cannot change a fit.
+    if profile_data:spec.profile=profile(train,test,spec)
     return Dataset(inputs,train,test,sample,dictionary,spec,np.asarray(y))
 
 

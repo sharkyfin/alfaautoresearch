@@ -71,7 +71,7 @@ def test_fold_fitted_features(tmp_path):
     assert 'unseen' not in f.counts['category']
     matrix=MatrixBuilder('linear',f.cat,f.num).fit(f.transform(a));assert np.isfinite(matrix.transform(f.transform(b)).toarray()).all() if hasattr(matrix.transform(f.transform(b)),'toarray') else True
 
-@pytest.mark.parametrize('family',['linear','hist','extra_trees','lightgbm','xgboost'])
+@pytest.mark.parametrize('family',['linear','hist','extra_trees','catboost','lightgbm','xgboost'])
 @pytest.mark.parametrize('scenario',['iid','integer_labels'])
 def test_real_model_apis(tmp_path,family,scenario):
     data=load(read_inputs(create(tmp_path,scenario)));split=design(data)
@@ -96,7 +96,7 @@ def test_path_injection(tmp_path):
 def test_unknown_primary_does_not_optimize_auxiliary():
     assert infer_metric('Primary metric: mystery(beta=2)\nAccuracy is auxiliary')[0] is None
 
-@pytest.mark.parametrize('family',['linear','hist','extra_trees','lightgbm','xgboost'])
+@pytest.mark.parametrize('family',['linear','hist','extra_trees','catboost','lightgbm','xgboost'])
 def test_binary_model_api(tmp_path,family):
     data=load(read_inputs(create(tmp_path,'binary_imbalance')));s=design(data)
     p,t,info=fit_predict(data,{'model_family':family,'params':{'iterations':25} if family!='linear' else {}},s.train,s.valid,threads=1)
@@ -152,7 +152,7 @@ def test_binary_probability_and_f1_metric_identity(positive):
     assert Metric('roc_auc',2,positive).score(y,p)==pytest.approx(sk.roc_auc_score(y==positive,p[:,positive]))
     assert Metric('average_precision',2,positive).score(y,p)==pytest.approx(sk.average_precision_score(y==positive,p[:,positive]))
 
-@pytest.mark.parametrize('family',['linear','hist','extra_trees','lightgbm','xgboost'])
+@pytest.mark.parametrize('family',['linear','hist','extra_trees','catboost','lightgbm','xgboost'])
 @pytest.mark.parametrize('scenario',['iid','integer_labels','binary_imbalance'])
 def test_full_refit_all_model_apis(tmp_path,family,scenario):
     data=load(read_inputs(create(tmp_path,scenario)))

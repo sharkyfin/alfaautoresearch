@@ -1,0 +1,7 @@
+{
+  "started_at_utc": "2026-10-22T15:22:19.909130+00:00",
+  "jobs": [],
+  "waiting_for": "benchmarks/performance_v2/queue7.state.json",
+  "status": "cancelled_before_final_opening",
+  "reason": "P3i live Adult seed53 reveals PermissionError on worker group termination; retain logs and repair before unseen data."
+}

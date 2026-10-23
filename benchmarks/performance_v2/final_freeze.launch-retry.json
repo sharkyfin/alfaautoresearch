@@ -1,0 +1,12 @@
+{
+  "recorded_at_utc": "2026-10-22T16:13:11.993075+00:00",
+  "reason": "Original controller errored on relative report path after freeze write and BEFORE factory launch/data access.",
+  "same_freeze_sha256": "139f18ffb5f817d45d85de954e554ade4586ad4756ea6bb63bd1060b9bfdcc26",
+  "opened_marker_absent": true,
+  "all_ten_parquet_absent": true,
+  "runtime_scorer_protocol_and_archives_unchanged": true,
+  "original_failed_launch_log_sha256": "72526d39be6b89ebe03c19b05eba1244b39c314659474fc0e007dd483654cf6e",
+  "original_failed_finalization_log_sha256": "419deb122dbc60c0bc0448a46b6f25415a588d7ecde7278e9d403bbc467ff662",
+  "corrected_controller_sha256": "5ddf995a129eac39a5e55110bad6d1ee8685c896d6f3a465f385300dda0a0aa0",
+  "note": "This is the first data opening, not an ordinary resume of an opened lockbox. No prior final scores exist; original freeze and failed logs remain untouched."
+}

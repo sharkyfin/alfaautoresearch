@@ -1,6 +1,6 @@
 """Launch recipe-specific code with time/memory limits; judge stays in parent."""
 from __future__ import annotations
-import hashlib,json,shutil,sys,time
+import hashlib,json,os,shutil,sys,time
 from pathlib import Path
 import numpy as np
 from .budget import run_process
@@ -13,7 +13,8 @@ class Executor:
         self.counter=0
     def run(self,recipe,split,timeout,seed=42,refit=False,iterations_override=None):
         self.counter+=1;eid=f'exp_{self.counter:04d}';directory=self.root/eid;directory.mkdir()
-        job={'task_path':str(self.data.inputs.task_path),'recipe':recipe,'seed':seed,'threads':self.threads,'memory_mb':self.memory_mb,'refit':refit,'iterations_override':iterations_override,'strict':self.strict}
+        job={'task_path':str(self.data.inputs.task_path),'recipe':recipe,'seed':seed,'threads':self.threads,'memory_mb':self.memory_mb,'refit':refit,'iterations_override':iterations_override,'strict':self.strict,
+             'validation_metadata':self.data.spec.validation_plan,'controller_pid':os.getpid()}
         job_path=directory/'job.json';job_path.write_text(json.dumps(job,ensure_ascii=False))
         np.savez(directory/'split.npz',train=split.train,valid=split.valid)
         source=compile_recipe(recipe,job_path,Path(__file__).resolve().parent.parent)

@@ -1,0 +1,40 @@
+{
+  "cases": [
+    {
+      "case": "official_regression",
+      "source": "official_public",
+      "dataset": "regression",
+      "target": "site_eui",
+      "metric": "rmse",
+      "problem_type": "regression",
+      "reserved_phase": "development",
+      "license": "Organizer-provided development data; competition usage rules",
+      "source_url": "Organizer-provided task bundle, locally retained",
+      "split_regime": "iid_with_duplicate_group_protection",
+      "id_columns": [
+        "id"
+      ],
+      "data_path": "/Users/mac/Documents/projects/alfaautoresearch/artifacts/data/regression/regression/participants/train.csv",
+      "dictionary_path": "/Users/mac/Documents/projects/alfaautoresearch/artifacts/data/regression/regression/participants/data_dictionary.csv",
+      "status": "metadata_available"
+    },
+    {
+      "case": "official_classification",
+      "source": "official_public",
+      "dataset": "classification",
+      "target": "attack_cat",
+      "metric": "f1_macro",
+      "problem_type": "multiclass",
+      "reserved_phase": "development",
+      "license": "Organizer-provided development data; competition usage rules",
+      "source_url": "Organizer-provided task bundle, locally retained",
+      "split_regime": "iid_with_duplicate_group_protection",
+      "id_columns": [
+        "id"
+      ],
+      "data_path": "/Users/mac/Documents/projects/alfaautoresearch/artifacts/data/classification/multiclass/participants/train.csv",
+      "dictionary_path": "/Users/mac/Documents/projects/alfaautoresearch/artifacts/data/classification/multiclass/participants/data_dictionary.csv",
+      "status": "metadata_available"
+    }
+  ]
+}

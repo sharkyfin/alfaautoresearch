@@ -9,6 +9,8 @@ from sklearn.preprocessing import OneHotEncoder,StandardScaler
 from sklearn.pipeline import Pipeline
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.decomposition import TruncatedSVD
+from sklearn.base import BaseEstimator,TransformerMixin
+from scipy import sparse
 from .expressions import ExpressionFeatures
 
 
@@ -22,6 +24,9 @@ class FeatureBuilder:
         self.spec=spec;self.ops=ops;self.feature_function=feature_function
         self.expression_builder=ExpressionFeatures(list(expressions),spec.features,[spec.target,*spec.ids])
     def fit(self,x):
+        self.fit_transform(x)
+        return self
+    def fit_transform(self,x):
         self.expression_builder.fit(x)
         self.counts={c:x[c].fillna('__MISSING__').astype(str).value_counts(normalize=True).to_dict() for c in self.spec.categorical_features}
         self.clip_limits={c:tuple(numeric(x[c]).quantile([.01,.99]).fillna(0)) for op in self.ops if op['op']=='clip' for c in op['columns']}
@@ -33,7 +38,7 @@ class FeatureBuilder:
         z=self.transform(x)
         self.columns=list(z.columns);self.cat=[c for c in z if not pd.api.types.is_numeric_dtype(z[c])]
         self.num=[c for c in z if c not in self.cat]
-        return self
+        return z
     def transform(self,x):
         out={}
         for c in self.spec.features:
@@ -133,17 +138,45 @@ class TextProjection:
         return out
 
 
+class SparseText(BaseEstimator,TransformerMixin):
+    """Bounded word/character signals with a legal empty-vocabulary fallback."""
+    def __init__(self,mode='word'):
+        self.mode=mode
+    @staticmethod
+    def documents(values):return pd.Series(values).fillna('').astype(str).str.slice(0,4096)
+    def fit(self,values,y=None):
+        self.vectorizers=[];documents=self.documents(values)
+        modes=['word','char'] if self.mode=='word_char' else [self.mode]
+        for mode in modes:
+            if mode not in {'word','char'}:raise ValueError('Unknown sparse text representation')
+            vectorizer=TfidfVectorizer(analyzer=mode,max_features=12000 if mode=='word' else 20000,
+                ngram_range=(1,2) if mode=='word' else (3,5),min_df=1 if mode=='word' else 2,
+                sublinear_tf=True,strip_accents='unicode',token_pattern=r'(?u)\b\w+\b' if mode=='word' else None,dtype=np.float32)
+            try:vectorizer.fit(documents)
+            except ValueError as error:
+                if not any(term in str(error) for term in ['empty vocabulary','no terms remain','max_df corresponds']):raise
+                continue
+            self.vectorizers.append(vectorizer)
+        return self
+    def transform(self,values):
+        documents=self.documents(values)
+        if not self.vectorizers:return sparse.csr_matrix((len(documents),1),dtype=np.float32)
+        blocks=[vectorizer.transform(documents) for vectorizer in self.vectorizers]
+        return blocks[0] if len(blocks)==1 else sparse.hstack(blocks,format='csr')
+
+
 class MatrixBuilder:
-    def __init__(self,kind,cat,num,text=(),text_components=64,seed=42):
+    def __init__(self,kind,cat,num,text=(),text_components=64,seed=42,text_analyzer='word'):
         self.kind=kind;self.cat=cat;self.num=num;self.text=[c for c in text if c in cat][:2]
         self.text_components=text_components;self.seed=seed;self.text_projections={}
+        self.text_analyzer=text_analyzer
     def fit(self,z):
         if self.kind=='linear':
             transformers=[]
             if self.num:transformers.append(('n',Pipeline([('impute',SimpleImputer(strategy='median',keep_empty_features=True,add_indicator=True)),('scale',StandardScaler())]),self.num))
             ordinary=[c for c in self.cat if c not in self.text]
             if ordinary:transformers.append(('c',OneHotEncoder(handle_unknown='infrequent_if_exist',min_frequency=2,max_categories=200,sparse_output=True),ordinary))
-            for i,c in enumerate(self.text):transformers.append((f'text_{i}',TfidfVectorizer(max_features=12000,ngram_range=(1,2),sublinear_tf=True,strip_accents='unicode',token_pattern=r'(?u)\b\w+\b'),c))
+            for i,c in enumerate(self.text):transformers.append((f'text_{i}',SparseText(self.text_analyzer),c))
             self.encoder=ColumnTransformer(transformers,sparse_threshold=1.0).fit(z)
         else:
             self.maps={c:{v:i for i,v in enumerate(z[c].drop_duplicates())} for c in self.cat}
@@ -157,10 +190,13 @@ class MatrixBuilder:
         z=z.copy()
         projected={c:projection.transform(z[c]) for c,projection in self.text_projections.items()}
         for c in self.cat:
+            if self.kind=='catboost':
+                z[c]=z[c].fillna('__MISSING__').astype(str)
+                continue
             codes=z[c].map(self.maps[c]).fillna(-1).astype(int)
             if self.kind=='lightgbm':z[c]=pd.Categorical.from_codes(codes.to_numpy(),categories=list(range(len(self.maps[c]))))
             else:z[c]=codes.astype(float)
-        if self.kind!='lightgbm':
+        if self.kind not in {'lightgbm','catboost'}:
             for c in self.num:z[c]=z[c].fillna(self.medians[c]).clip(-1e30,1e30)
         for c,values in projected.items():
             names=[c+'__svd_'+str(i) for i in range(values.shape[1])]

@@ -10,11 +10,16 @@ from .recipes import recipe_hash
 
 
 DEFAULTS={
+    'catboost':{'depth':6,'learning_rate':.05,'l2_leaf_reg':3.,'random_strength':1.,'rsm':1.},
     'lightgbm':{'num_leaves':31,'min_child_samples':20,'reg_lambda':0.,'learning_rate':.045,'colsample_bytree':1.,'subsample':1.},
     'xgboost':{'max_depth':6,'min_child_weight':1.,'reg_lambda':1.,'learning_rate':.05,'colsample_bytree':1.,'subsample':1.},
     'hist':{'max_leaf_nodes':31,'l2_regularization':0.,'min_samples_leaf':20,'learning_rate':.08},
     'extra_trees':{'min_samples_leaf':2,'max_features':.8},
-    'linear':{'alpha':10.,'C':1.}}
+    'linear':{'alpha':10.,'C':1.,'text_analyzer':'word'}}
+
+# Only sampled coordinates may vary inside one study. All other parameters
+# describe a different objective and must stay attached to its observations.
+TUNED_PARAMS={family:set(defaults)|{'weight','text_svd_components'} for family,defaults in DEFAULTS.items()}
 
 
 def study_key(recipe):
@@ -24,6 +29,17 @@ def study_key(recipe):
     # caps have separate studies so a longer fit is not mistaken for a better HPO point.
     core['feature_expressions']=[{key:item[key] for key in ['name','expression']} for item in core['feature_expressions']]
     core['iterations']=recipe.get('params',{}).get('iterations',500) if recipe.get('model_family')!='linear' else None
+    family=recipe['model_family'];params=recipe.get('params',{})
+    fixed={key:value for key,value in params.items() if key not in TUNED_PARAMS[family] and key!='iterations'}
+    if family=='lightgbm':
+        if fixed.get('stopping_metric')=='loss':fixed.pop('stopping_metric')
+        if fixed.get('category_encoding')=='native':fixed.pop('category_encoding')
+        if params.get('category_encoding','native')=='native':fixed.pop('target_smoothing',None)
+    if family=='extra_trees' and fixed.get('max_depth') is None:fixed.pop('max_depth',None)
+    if fixed.get('seed_bag')==1:fixed.pop('seed_bag')
+    # Preserve the previous deterministic seed for the ordinary default
+    # representation; only an actual fixed objective change gets a new key.
+    if fixed:core['fixed_params']=fixed
     return hashlib.sha256(json.dumps(core,sort_keys=True,ensure_ascii=False).encode()).hexdigest()
 
 
@@ -35,7 +51,10 @@ class AdaptiveTPE:
 
     def space(self,family):
         from optuna.distributions import CategoricalDistribution as Cat,FloatDistribution as Float,IntDistribution as Int
-        if family=='lightgbm':
+        if family=='catboost':
+            out={'depth':Int(4,8),'learning_rate':Float(.02,.15,log=True),
+                 'l2_leaf_reg':Float(.5,30.,log=True),'random_strength':Float(0,5.),'rsm':Float(.6,1.)}
+        elif family=='lightgbm':
             out={'num_leaves':Int(7,127),'min_child_samples':Int(5,150),
                  'reg_lambda':Float(0,50),'learning_rate':Float(.015,.15,log=True),
                  'colsample_bytree':Float(.6,1.),'subsample':Float(.65,1.)}
@@ -52,6 +71,7 @@ class AdaptiveTPE:
             out={'C' if self.spec.classification else 'alpha':Float(.001,1000,log=True)}
         if self.spec.classification and family!='linear':out['weight']=Cat(['none','sqrt','balanced'])
         if self.spec.text_candidates and family!='linear':out['text_svd_components']=Cat([0,32,64,128])
+        if self.spec.text_candidates and family=='linear':out['text_analyzer']=Cat(['word','char','word_char'])
         return out
 
     def values(self,recipe,space):

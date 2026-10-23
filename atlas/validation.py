@@ -1,6 +1,6 @@
 """Immutable, common split plan. Never select a split by its model score."""
 from __future__ import annotations
-from dataclasses import dataclass
+from dataclasses import dataclass,replace
 import hashlib,re
 import numpy as np
 import pandas as pd
@@ -17,6 +17,7 @@ class Split:
     time_column: str | None = None
     gap_rows: int = 0
     group_column: str | None = None
+    class_support: dict | None = None
     @property
     def id(self):
         return hashlib.sha256(self.train.tobytes()+self.valid.tobytes()+self.kind.encode()).hexdigest()[:16]
@@ -24,7 +25,42 @@ class Split:
         result={'id':self.id,'kind':self.kind,'reason':self.reason,'seed':self.seed,'train_rows':len(self.train),'valid_rows':len(self.valid)}
         if self.time_column is not None:result.update(time_column=self.time_column,gap_rows=self.gap_rows)
         if self.group_column is not None:result['group_column']=self.group_column
+        if self.class_support is not None:result['class_support']=self.class_support
         return result
+
+
+def protected_groups(data,groups):
+    """Keep an entire entity/duplicate group in train when it owns a class."""
+    protected=[]
+    if data.spec.classification:
+        for label in np.unique(data.y):
+            owners=np.unique(groups[data.y==label])
+            if len(owners)==1:protected.extend(owners.tolist())
+    return np.asarray(protected,dtype=groups.dtype)
+
+
+def grouped_holdout(data,groups,fraction,seed,kind,reason,column=None):
+    indices=np.arange(len(data.y))
+    if len(np.unique(groups))<2:
+        return Split(indices,indices[:0],kind,reason+'; no independent group for validation',seed,group_column=column)
+    if not data.spec.classification:
+        a,b=next(GroupShuffleSplit(n_splits=1,test_size=fraction,random_state=seed).split(indices,groups=groups))
+        return Split(a,b,kind,reason,seed,group_column=column)
+    fixed=protected_groups(data,groups)
+    pool=indices[~np.isin(groups,fixed)]
+    count=len(np.unique(groups[pool]))
+    if count<2:return Split(indices,indices[:0],kind,reason+'; insufficient independent class-bearing groups',seed,group_column=column)
+    folds=min(count,max(2,round(1/fraction)))
+    supports=np.unique(data.y[pool],return_counts=True)[1]
+    if len(supports) and supports.min()>=2:
+        folds=min(folds,int(supports.min()))
+        splitter=StratifiedGroupKFold(n_splits=folds,shuffle=True,random_state=seed)
+    else:splitter=GroupKFold(n_splits=folds)
+    for _,held in splitter.split(pool,data.y[pool],groups[pool]):
+        valid=pool[held];train=np.setdiff1d(indices,valid)
+        if set(data.y[train])==set(data.y):
+            return Split(train,valid,kind,reason+'; class-aware groups, protected class owners train-only',seed,group_column=column)
+    return Split(indices,indices[:0],kind,reason+'; no feasible class-preserving group holdout',seed,group_column=column)
 
 
 def _time_window(dates, lower, upper, seed, column, gap, reason):
@@ -45,20 +81,23 @@ def confirmation_splits(data: Dataset, primary: Split, seed=42, max_windows=2):
     if max_windows<1 or not len(primary.valid):return []
     if primary.kind!='time':
         indices=np.arange(len(data.y));pool=np.asarray(primary.train)
-        # Singleton classes must be trainable in every fold, never held out.
-        if data.spec.classification:
-            counts=np.bincount(data.y,minlength=len(data.spec.labels))
-            pool=pool[counts[data.y[pool]]>=2]
-        if len(pool)<4:return []
         groups=None
         if primary.kind=='group':
             if primary.group_column is None:return []
             groups=data.train[primary.group_column].fillna('__MISSING__').astype(str).to_numpy()
         elif primary.kind=='duplicate_group':
             groups=pd.util.hash_pandas_object(data.train[data.spec.features],index=False).to_numpy()
+        # Removing only a rare row would split its entity between train/valid.
+        if groups is not None:
+            pool=pool[~np.isin(groups[pool],protected_groups(data,groups))]
+        elif data.spec.classification:
+            counts=np.bincount(data.y,minlength=len(data.spec.labels))
+            pool=pool[counts[data.y[pool]]>=2]
+        if len(pool)<4:return []
         if groups is not None:
             if len(np.unique(groups[pool]))<2:return []
-            splitter=StratifiedGroupKFold(n_splits=2,shuffle=True,random_state=seed+1009) if data.spec.classification else GroupKFold(n_splits=2)
+            can_stratify=data.spec.classification and np.unique(data.y[pool],return_counts=True)[1].min()>=2
+            splitter=StratifiedGroupKFold(n_splits=2,shuffle=True,random_state=seed+1009) if can_stratify else GroupKFold(n_splits=2)
             folds=splitter.split(pool,data.y[pool],groups[pool])
         elif data.spec.classification and np.unique(data.y[pool],return_counts=True)[1].min()>=2:
             folds=StratifiedKFold(n_splits=2,shuffle=True,random_state=seed+1009).split(pool,data.y[pool])
@@ -99,7 +138,15 @@ def selection_splits(data: Dataset,seed=42):
     primary=design(data,seed)
     if primary.kind not in {'time','unsupported_tiny','unsupported_gap'}:
         primary=design(data,seed,fraction=1/3)
-    return primary,confirmation_splits(data,primary,seed)
+    controls=confirmation_splits(data,primary,seed)
+    if data.spec.classification:
+        def support(split):
+            fit=np.bincount(data.y[split.train],minlength=len(data.spec.labels))
+            held=np.bincount(data.y[split.valid],minlength=len(data.spec.labels))
+            return replace(split,class_support={'train':fit.tolist(),'valid':held.tolist(),
+                'unvalidated_class_indices':np.flatnonzero(held==0).tolist()})
+        primary=support(primary);controls=[support(split) for split in controls]
+    return primary,controls
 
 
 def design(data: Dataset,seed=42,fraction=.2) -> Split:
@@ -123,15 +170,17 @@ def design(data: Dataset,seed=42,fraction=.2) -> Split:
         groups=train[col].fillna('__MISSING__').astype(str)
         unseen=(~data.test[col].fillna('__MISSING__').astype(str).isin(groups)).mean()
         explicit=bool(re.search(r'validation\s*:\s*group|unseen (?:entities|groups)|новы[ех].*(?:групп|сущност|пациент)',desc))
-        if groups.nunique()>2 and groups.nunique()<n*.8 and (unseen>.8 or explicit):
-            a,b=next(GroupShuffleSplit(n_splits=1,test_size=fraction,random_state=seed).split(idx,groups=groups))
-            return Split(a,b,'group',f'Repeated {col}; new test entity fraction {unseen:.3f}',seed,group_column=col)
+        if groups.nunique()>=2 and groups.nunique()<n*.8 and (unseen>.8 or explicit):
+            return grouped_holdout(data,groups.to_numpy(),fraction,seed,'group',f'Repeated {col}; new test entity fraction {unseen:.3f}',col)
     # Exact duplicate feature rows cannot leak across random folds.
     if spec.features:
         fingerprints=pd.util.hash_pandas_object(train[spec.features],index=False).to_numpy()
-        if len(np.unique(fingerprints))<n and len(np.unique(fingerprints))>2:
-            a,b=next(GroupShuffleSplit(n_splits=1,test_size=fraction,random_state=seed).split(idx,groups=fingerprints))
-            return Split(a,b,'duplicate_group','Exact feature duplicates held together',seed)
+        sizes=pd.Series(fingerprints).value_counts()
+        conflicts=pd.DataFrame({'group':fingerprints,'target':data.y}).groupby('group')['target'].nunique()
+        spec.profile['duplicate_audit']={'duplicate_row_fraction':float((sizes[sizes>1].sum()/n)),
+            'duplicate_groups':int((sizes>1).sum()),'conflicting_target_groups':int((conflicts>1).sum())}
+        if len(np.unique(fingerprints))<n:
+            return grouped_holdout(data,fingerprints,fraction,seed,'duplicate_group','Exact feature duplicates held together')
     if spec.classification:
         counts=np.bincount(data.y,minlength=len(spec.labels))
         rare=counts[data.y]<2

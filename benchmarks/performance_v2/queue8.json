@@ -1,0 +1,9 @@
+[
+  {
+    "name": "final-selected-source-report",
+    "report": "reports/performance_v2/final_release_audit.json",
+    "command": [
+      "scripts/finalize_performance_v2.py"
+    ]
+  }
+]

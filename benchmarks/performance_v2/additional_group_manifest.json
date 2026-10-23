@@ -1,0 +1,139 @@
+{
+  "schema_version": 2,
+  "created_at_utc": "2026-10-22T08:47:37.317556+00:00",
+  "seeds": [
+    42,
+    53
+  ],
+  "source_policy": "Original curated group splits, training-only group metadata, parent-only equally weighted group evaluation",
+  "cases": [
+    {
+      "case": "beyond_musk",
+      "source": "beyondarena",
+      "dataset": "musk",
+      "revision": "2ecfe882ccfb814fc27c4de10a64ceefd5d7655c",
+      "container": "musk/019d738d-ae72-7a0a-a2e4-6b797ab153fd",
+      "source_url": "https://huggingface.co/datasets/TabArena/BeyondArena",
+      "original_source": "https://doi.org/10.24432/C51608",
+      "license": "CC BY 4.0",
+      "target": "class",
+      "problem_type": "binary_classification",
+      "metric": "roc_auc",
+      "split_regime": "grouped",
+      "task_metadata": {
+        "target_column_name": "class",
+        "problem_type": "binary_classification",
+        "objective_metric_name": "roc_auc",
+        "stratify_on": "class",
+        "time_on": null,
+        "group_on": "molecule_name",
+        "group_labels": "per_group",
+        "group_time_on": null,
+        "type_adapter_id": "predictive-ml-task-mold-v1"
+      },
+      "experiment_file": "experiment_metadata.predictive-ml-splits-mold-v1.json",
+      "parquet_bytes": 1503430,
+      "parquet_path": "musk/019d738d-ae72-7a0a-a2e4-6b797ab153fd/dataset.parquet",
+      "cache_directory": "/Users/mac/Documents/projects/alfaautoresearch/artifacts/data/benchmark_v2/beyondarena/musk",
+      "metadata_provenance": {
+        "container_metadata.json": {
+          "url": "https://huggingface.co/datasets/TabArena/BeyondArena/resolve/2ecfe882ccfb814fc27c4de10a64ceefd5d7655c/musk/019d738d-ae72-7a0a-a2e4-6b797ab153fd/container_metadata.json",
+          "sha256": "2e8e5463289baabdcdd6353416ee064e6b9faaa1c91e1dec7785511bcc2ec193",
+          "bytes": 162,
+          "download_seconds": 0.381
+        },
+        "dataset_metadata.dataset-mold-v1.json": {
+          "url": "https://huggingface.co/datasets/TabArena/BeyondArena/resolve/2ecfe882ccfb814fc27c4de10a64ceefd5d7655c/musk/019d738d-ae72-7a0a-a2e4-6b797ab153fd/dataset_metadata.dataset-mold-v1.json",
+          "sha256": "a869a493c69145bd0c858b4922f8831fe5e4628cdc2943f7a1b87e0f58b69e30",
+          "bytes": 1346,
+          "download_seconds": 0.382
+        },
+        "dtypes.json": {
+          "url": "https://huggingface.co/datasets/TabArena/BeyondArena/resolve/2ecfe882ccfb814fc27c4de10a64ceefd5d7655c/musk/019d738d-ae72-7a0a-a2e4-6b797ab153fd/dtypes.json",
+          "sha256": "831fd4797f5349061238ab75890019995711cebf2c4aa65acfdd65db2666d9a2",
+          "bytes": 4262,
+          "download_seconds": 0.386
+        },
+        "experiment_metadata.predictive-ml-splits-mold-v1.json": {
+          "url": "https://huggingface.co/datasets/TabArena/BeyondArena/resolve/2ecfe882ccfb814fc27c4de10a64ceefd5d7655c/musk/019d738d-ae72-7a0a-a2e4-6b797ab153fd/experiment_metadata.predictive-ml-splits-mold-v1.json",
+          "sha256": "7abfa27e16b98b86f05e407390906709db8098fcaccdbc42974708f195b3301e",
+          "bytes": 2309745,
+          "download_seconds": 0.833
+        },
+        "task_metadata.predictive-ml-task-mold-v1.json": {
+          "url": "https://huggingface.co/datasets/TabArena/BeyondArena/resolve/2ecfe882ccfb814fc27c4de10a64ceefd5d7655c/musk/019d738d-ae72-7a0a-a2e4-6b797ab153fd/task_metadata.predictive-ml-task-mold-v1.json",
+          "sha256": "8b1f71048c60849611ea3cc9085e4c44a696090f9833fdbe2da10acad87f73ae",
+          "bytes": 299,
+          "download_seconds": 0.382
+        }
+      },
+      "reserved_phase": "development",
+      "status": "metadata_available",
+      "selection_reason": "Targeted independent group-regime diagnostic after observed small-patient-group losses; selected by metadata/license, no labels read"
+    },
+    {
+      "case": "beyond_mice_protein_trisomy_discriminant",
+      "source": "beyondarena",
+      "dataset": "mice_protein_trisomy_discriminant",
+      "revision": "2ecfe882ccfb814fc27c4de10a64ceefd5d7655c",
+      "container": "mice_protein_trisomy_discriminant/019d738d-99a8-7850-b911-f244ac4ad485",
+      "source_url": "https://huggingface.co/datasets/TabArena/BeyondArena",
+      "original_source": "https://doi.org/10.24432/C50S3Z",
+      "license": "CC BY 4.0",
+      "target": "class",
+      "problem_type": "multiclass_classification",
+      "metric": "log_loss",
+      "split_regime": "grouped",
+      "task_metadata": {
+        "target_column_name": "class",
+        "problem_type": "multiclass_classification",
+        "objective_metric_name": "log_loss",
+        "stratify_on": "class",
+        "time_on": null,
+        "group_on": "MouseID",
+        "group_labels": "per_group",
+        "group_time_on": null,
+        "type_adapter_id": "predictive-ml-task-mold-v1"
+      },
+      "experiment_file": "experiment_metadata.predictive-ml-splits-mold-v1.json",
+      "parquet_bytes": 801534,
+      "parquet_path": "mice_protein_trisomy_discriminant/019d738d-99a8-7850-b911-f244ac4ad485/dataset.parquet",
+      "cache_directory": "/Users/mac/Documents/projects/alfaautoresearch/artifacts/data/benchmark_v2/beyondarena/mice_protein_trisomy_discriminant",
+      "metadata_provenance": {
+        "container_metadata.json": {
+          "url": "https://huggingface.co/datasets/TabArena/BeyondArena/resolve/2ecfe882ccfb814fc27c4de10a64ceefd5d7655c/mice_protein_trisomy_discriminant/019d738d-99a8-7850-b911-f244ac4ad485/container_metadata.json",
+          "sha256": "ab5005c0ec9355f8cc0fb72c314d5f3aefae7e641ccc86d13ce1bb55e0b242c9",
+          "bytes": 162,
+          "download_seconds": 0.475
+        },
+        "dataset_metadata.dataset-mold-v1.json": {
+          "url": "https://huggingface.co/datasets/TabArena/BeyondArena/resolve/2ecfe882ccfb814fc27c4de10a64ceefd5d7655c/mice_protein_trisomy_discriminant/019d738d-99a8-7850-b911-f244ac4ad485/dataset_metadata.dataset-mold-v1.json",
+          "sha256": "effdf8bcd5a2fc79f9ed34f235f49bec942bf94834432f8e343a61e6171149f9",
+          "bytes": 1526,
+          "download_seconds": 0.47
+        },
+        "dtypes.json": {
+          "url": "https://huggingface.co/datasets/TabArena/BeyondArena/resolve/2ecfe882ccfb814fc27c4de10a64ceefd5d7655c/mice_protein_trisomy_discriminant/019d738d-99a8-7850-b911-f244ac4ad485/dtypes.json",
+          "sha256": "03a1b89614e1784b4cce12ebfedaff5c9ae9694a5c30681a44b5e7702c61d829",
+          "bytes": 1848,
+          "download_seconds": 0.372
+        },
+        "experiment_metadata.predictive-ml-splits-mold-v1.json": {
+          "url": "https://huggingface.co/datasets/TabArena/BeyondArena/resolve/2ecfe882ccfb814fc27c4de10a64ceefd5d7655c/mice_protein_trisomy_discriminant/019d738d-99a8-7850-b911-f244ac4ad485/experiment_metadata.predictive-ml-splits-mold-v1.json",
+          "sha256": "376ee1a603fb49458c9b84d3166b80c0d415d9fe2f62b0bb0c5c49b249b6b20b",
+          "bytes": 323256,
+          "download_seconds": 0.371
+        },
+        "task_metadata.predictive-ml-task-mold-v1.json": {
+          "url": "https://huggingface.co/datasets/TabArena/BeyondArena/resolve/2ecfe882ccfb814fc27c4de10a64ceefd5d7655c/mice_protein_trisomy_discriminant/019d738d-99a8-7850-b911-f244ac4ad485/task_metadata.predictive-ml-task-mold-v1.json",
+          "sha256": "e933f70d4a59d7e2fc9e7129fd5ca694c38628f1908940b9cbed0d66c069b9c0",
+          "bytes": 298,
+          "download_seconds": 0.43
+        }
+      },
+      "reserved_phase": "development",
+      "status": "metadata_available",
+      "selection_reason": "Targeted independent group-regime diagnostic after observed small-patient-group losses; selected by metadata/license, no labels read"
+    }
+  ]
+}

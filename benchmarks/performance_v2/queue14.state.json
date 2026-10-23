@@ -1,0 +1,53 @@
+{
+  "started_at_utc": "2026-10-22T21:49:34.327706+00:00",
+  "jobs": [
+    {
+      "name": "restored-openml-six-task-external-validation",
+      "started_at_utc": "2026-10-22T22:10:54.747478+00:00",
+      "command": [
+        "scripts/benchmark_suite.py",
+        "--manifest",
+        "benchmarks/performance_v2/openml_followup_manifest.json",
+        "--archives",
+        "baseline=.bootstrap/performance_v2/baseline/source/submission.zip,candidate=.bootstrap/performance_v2/p3j/source/submission.zip",
+        "--cases",
+        "development",
+        "--modes",
+        "deterministic",
+        "--seeds",
+        "42,53",
+        "--budget",
+        "120",
+        "--threads",
+        "8",
+        "--memory-mb",
+        "8192",
+        "--max-calls",
+        "0",
+        "--report",
+        "reports/performance_v2/openml-restored-120.json"
+      ],
+      "returncode": 0,
+      "finished_at_utc": "2026-10-22T22:45:43.570811+00:00",
+      "status": "completed",
+      "report": "/Users/mac/Documents/projects/alfaautoresearch/reports/performance_v2/openml-restored-120.json",
+      "log": "/Users/mac/Documents/projects/alfaautoresearch/reports/performance_v2/openml-restored-120.log"
+    },
+    {
+      "name": "large-mixed-text-operational-headroom-qa",
+      "started_at_utc": "2026-10-22T22:45:43.572769+00:00",
+      "command": [
+        "scripts/verify_large_text_runtime.py",
+        "--budget",
+        "900"
+      ],
+      "returncode": 0,
+      "finished_at_utc": "2026-10-22T22:55:24.827509+00:00",
+      "status": "completed",
+      "report": "/Users/mac/Documents/projects/alfaautoresearch/reports/performance_v2/large_text_runtime.json",
+      "log": "/Users/mac/Documents/projects/alfaautoresearch/reports/performance_v2/large_text_runtime.log"
+    }
+  ],
+  "waiting_for": "benchmarks/performance_v2/queue13.state.json",
+  "status": "completed"
+}

@@ -1,0 +1,1613 @@
+{
+  "schema_version": 2,
+  "created_at_utc": "2026-10-21T21:36:31.921996+00:00",
+  "seeds": [
+    42,
+    53,
+    71
+  ],
+  "source_policy": "Original curated splits; parent-only external labels; no source data in release",
+  "cases": [
+    {
+      "case": "california_housing",
+      "source": "kaggle",
+      "dataset": "camnugent/california-housing-prices",
+      "dataset_key": "california_housing",
+      "license": "CC0: Public Domain",
+      "version": 1,
+      "source_url": "https://www.kaggle.com/datasets/camnugent/california-housing-prices",
+      "target": "median_house_value",
+      "metric": "rmse",
+      "reserved_phase": "development",
+      "status": "metadata_available",
+      "metadata_provenance": {
+        "url": "https://www.kaggle.com/api/v1/datasets/view/camnugent/california-housing-prices",
+        "sha256": "fe8021e789fd3d9d133dbfa6057b9d1f7ebd581010b14cf1855ca9e35d3d7159",
+        "bytes": 10923,
+        "download_seconds": 0.445
+      },
+      "historical_final_lockbox": "already used in prior development; not a new blind test"
+    },
+    {
+      "case": "adult_income",
+      "source": "kaggle",
+      "dataset": "uciml/adult-census-income",
+      "dataset_key": "adult_income",
+      "license": "CC0: Public Domain",
+      "version": 3,
+      "source_url": "https://www.kaggle.com/datasets/uciml/adult-census-income",
+      "target": "income",
+      "metric": "f1_macro",
+      "reserved_phase": "development",
+      "status": "metadata_available",
+      "metadata_provenance": {
+        "url": "https://www.kaggle.com/api/v1/datasets/view/uciml/adult-census-income",
+        "sha256": "ff0c7803ccc2fca7fa6a5bdc68b2fca730402efefe4a6f20d5c70801b6982d56",
+        "bytes": 8765,
+        "download_seconds": 0.389
+      },
+      "historical_final_lockbox": "already used in prior development; not a new blind test"
+    },
+    {
+      "case": "sms_spam",
+      "source": "kaggle",
+      "dataset": "team-ai/spam-text-message-classification",
+      "dataset_key": "sms_spam",
+      "license": "CC0: Public Domain",
+      "version": 1,
+      "source_url": "https://www.kaggle.com/datasets/team-ai/spam-text-message-classification",
+      "target": "Category",
+      "metric": "f1_macro",
+      "reserved_phase": "development",
+      "status": "metadata_available",
+      "metadata_provenance": {
+        "url": "https://www.kaggle.com/api/v1/datasets/view/team-ai/spam-text-message-classification",
+        "sha256": "b1a910eef8da7365d09d4f4d3c6dcc6c2e558bb3ee075f6f62e239dd0249b69f",
+        "bytes": 2845,
+        "download_seconds": 0.366
+      },
+      "historical_final_lockbox": "already used in prior development; not a new blind test"
+    },
+    {
+      "case": "concrete_strength",
+      "source": "kaggle",
+      "dataset": "elikplim/concrete-compressive-strength-data-set",
+      "dataset_key": "concrete_strength",
+      "license": "CC BY 4.0",
+      "version": 1,
+      "source_url": "https://www.kaggle.com/datasets/elikplim/concrete-compressive-strength-data-set",
+      "target": "concrete_compressive_strength",
+      "metric": "rmse",
+      "reserved_phase": "development",
+      "status": "metadata_available",
+      "metadata_provenance": {
+        "url": "https://www.kaggle.com/api/v1/datasets/view/elikplim/concrete-compressive-strength-data-set",
+        "sha256": "684ff0ff486bf265762bd305efdc372606212db75897f4a2bf90e73177d97d90",
+        "bytes": 10314,
+        "download_seconds": 0.407
+      },
+      "historical_final_lockbox": "already used in prior development; not a new blind test",
+      "kaggle_declared_license": "Unknown",
+      "original_license_evidence": {
+        "license": "CC BY 4.0",
+        "author": "I-Cheng Yeh",
+        "source": "https://archive.ics.uci.edu/dataset/165/concrete+compressive+strength",
+        "identity": "1030 rows, eight ingredients/age features, strength target; Kaggle mirrors UCI 165"
+      }
+    },
+    {
+      "case": "dry_beans",
+      "source": "kaggle",
+      "dataset": "muratkokludataset/dry-bean-dataset",
+      "dataset_key": "dry_beans",
+      "license": "CC0: Public Domain",
+      "version": 1,
+      "source_url": "https://www.kaggle.com/datasets/muratkokludataset/dry-bean-dataset",
+      "target": "Class",
+      "metric": "f1_macro",
+      "reserved_phase": "development",
+      "status": "metadata_available",
+      "metadata_provenance": {
+        "url": "https://www.kaggle.com/api/v1/datasets/view/muratkokludataset/dry-bean-dataset",
+        "sha256": "e1dac11dc62fd3cc9f70c73f33d3665fc6d1930495ec3fff7531ca2d8c73ccc1",
+        "bytes": 11428,
+        "download_seconds": 0.386
+      },
+      "historical_final_lockbox": "already used in prior development; not a new blind test"
+    },
+    {
+      "case": "beyond_airfoil_self_noise",
+      "source": "beyondarena",
+      "dataset": "airfoil_self_noise",
+      "revision": "2ecfe882ccfb814fc27c4de10a64ceefd5d7655c",
+      "container": "airfoil_self_noise/019d7366-4673-7d9a-9821-35604af616f6",
+      "source_url": "https://huggingface.co/datasets/TabArena/BeyondArena",
+      "original_source": "https://doi.org/10.24432/C5VW2C",
+      "license": "CC BY 4.0",
+      "target": "scaled-sound-pressure",
+      "problem_type": "regression",
+      "metric": "rmse",
+      "split_regime": "iid",
+      "task_metadata": {
+        "target_column_name": "scaled-sound-pressure",
+        "problem_type": "regression",
+        "objective_metric_name": "rmse",
+        "stratify_on": null,
+        "time_on": null,
+        "group_on": null,
+        "group_labels": null,
+        "group_time_on": null,
+        "type_adapter_id": "predictive-ml-task-mold-v1"
+      },
+      "experiment_file": "experiment_metadata.predictive-ml-splits-mold-v1.json",
+      "parquet_bytes": 19476,
+      "parquet_path": "airfoil_self_noise/019d7366-4673-7d9a-9821-35604af616f6/dataset.parquet",
+      "cache_directory": "/Users/mac/Documents/projects/alfaautoresearch/artifacts/data/benchmark_v2/beyondarena/airfoil_self_noise",
+      "metadata_provenance": {
+        "container_metadata.json": {
+          "url": "https://huggingface.co/datasets/TabArena/BeyondArena/resolve/2ecfe882ccfb814fc27c4de10a64ceefd5d7655c/airfoil_self_noise/019d7366-4673-7d9a-9821-35604af616f6/container_metadata.json",
+          "sha256": "41a9fc41711a5ea6ac67775a8d88e3166ffa048f5171099343e6d51679efba7f",
+          "bytes": 162,
+          "download_seconds": 0.323
+        },
+        "dataset_metadata.dataset-mold-v1.json": {
+          "url": "https://huggingface.co/datasets/TabArena/BeyondArena/resolve/2ecfe882ccfb814fc27c4de10a64ceefd5d7655c/airfoil_self_noise/019d7366-4673-7d9a-9821-35604af616f6/dataset_metadata.dataset-mold-v1.json",
+          "sha256": "69195987d45b051df0712e8eb1c3913c19bc2b464eb7ae201ddea9d4054d08de",
+          "bytes": 984,
+          "download_seconds": 0.336
+        },
+        "dtypes.json": {
+          "url": "https://huggingface.co/datasets/TabArena/BeyondArena/resolve/2ecfe882ccfb814fc27c4de10a64ceefd5d7655c/airfoil_self_noise/019d7366-4673-7d9a-9821-35604af616f6/dtypes.json",
+          "sha256": "ff171466ee1d63af6a9dc17d679c4462c8ce3489116283c54c65a60495684996",
+          "bytes": 212,
+          "download_seconds": 0.316
+        },
+        "experiment_metadata.predictive-ml-splits-mold-v1.json": {
+          "url": "https://huggingface.co/datasets/TabArena/BeyondArena/resolve/2ecfe882ccfb814fc27c4de10a64ceefd5d7655c/airfoil_self_noise/019d7366-4673-7d9a-9821-35604af616f6/experiment_metadata.predictive-ml-splits-mold-v1.json",
+          "sha256": "795135aa847dc7ab519c96c1bf81605bd0c14b956ff73b6f21f757670ba89a61",
+          "bytes": 237802,
+          "download_seconds": 0.378
+        },
+        "task_metadata.predictive-ml-task-mold-v1.json": {
+          "url": "https://huggingface.co/datasets/TabArena/BeyondArena/resolve/2ecfe882ccfb814fc27c4de10a64ceefd5d7655c/airfoil_self_noise/019d7366-4673-7d9a-9821-35604af616f6/task_metadata.predictive-ml-task-mold-v1.json",
+          "sha256": "aad6a618adf3801d996cf27dda195b97e37be6e7d925bc34d6480e64e2712479",
+          "bytes": 280,
+          "download_seconds": 0.339
+        }
+      },
+      "reserved_phase": "development",
+      "status": "metadata_available"
+    },
+    {
+      "case": "beyond_parkinsons_biomedical_voice_measurements",
+      "source": "beyondarena",
+      "dataset": "parkinsons_biomedical_voice_measurements",
+      "revision": "2ecfe882ccfb814fc27c4de10a64ceefd5d7655c",
+      "container": "parkinsons_biomedical_voice_measurements/019d738d-db39-7b5b-83dc-664e66da1854",
+      "source_url": "https://huggingface.co/datasets/TabArena/BeyondArena",
+      "original_source": "https://doi.org/10.24432/C59C74",
+      "license": "CC BY 4.0",
+      "target": "status",
+      "problem_type": "binary_classification",
+      "metric": "roc_auc",
+      "split_regime": "grouped",
+      "task_metadata": {
+        "target_column_name": "status",
+        "problem_type": "binary_classification",
+        "objective_metric_name": "roc_auc",
+        "stratify_on": "status",
+        "time_on": null,
+        "group_on": "patient_id",
+        "group_labels": "per_group",
+        "group_time_on": "session_number",
+        "type_adapter_id": "predictive-ml-task-mold-v1"
+      },
+      "experiment_file": "experiment_metadata.predictive-ml-splits-mold-v1.json",
+      "parquet_bytes": 49785,
+      "parquet_path": "parkinsons_biomedical_voice_measurements/019d738d-db39-7b5b-83dc-664e66da1854/dataset.parquet",
+      "cache_directory": "/Users/mac/Documents/projects/alfaautoresearch/artifacts/data/benchmark_v2/beyondarena/parkinsons_biomedical_voice_measurements",
+      "metadata_provenance": {
+        "container_metadata.json": {
+          "url": "https://huggingface.co/datasets/TabArena/BeyondArena/resolve/2ecfe882ccfb814fc27c4de10a64ceefd5d7655c/parkinsons_biomedical_voice_measurements/019d738d-db39-7b5b-83dc-664e66da1854/container_metadata.json",
+          "sha256": "8b904df57adfa881b13dd64b25f11cde40fc6d1e1d4bbd59f9b195e8dcd8494e",
+          "bytes": 162,
+          "download_seconds": 0.321
+        },
+        "dataset_metadata.dataset-mold-v1.json": {
+          "url": "https://huggingface.co/datasets/TabArena/BeyondArena/resolve/2ecfe882ccfb814fc27c4de10a64ceefd5d7655c/parkinsons_biomedical_voice_measurements/019d738d-db39-7b5b-83dc-664e66da1854/dataset_metadata.dataset-mold-v1.json",
+          "sha256": "687ad84977c62676cd7db5629f215c09797e78fb5392ffde08aa8de379fa8b9c",
+          "bytes": 1408,
+          "download_seconds": 0.336
+        },
+        "dtypes.json": {
+          "url": "https://huggingface.co/datasets/TabArena/BeyondArena/resolve/2ecfe882ccfb814fc27c4de10a64ceefd5d7655c/parkinsons_biomedical_voice_measurements/019d738d-db39-7b5b-83dc-664e66da1854/dtypes.json",
+          "sha256": "9ab05ec922a63a916fb11b39b28b962f04b60822bf7ec3e4dc29af826f95c709",
+          "bytes": 651,
+          "download_seconds": 0.343
+        },
+        "experiment_metadata.predictive-ml-splits-mold-v1.json": {
+          "url": "https://huggingface.co/datasets/TabArena/BeyondArena/resolve/2ecfe882ccfb814fc27c4de10a64ceefd5d7655c/parkinsons_biomedical_voice_measurements/019d738d-db39-7b5b-83dc-664e66da1854/experiment_metadata.predictive-ml-splits-mold-v1.json",
+          "sha256": "aa5c216546b45a53fc041d1ac59522313d21bc33a446e5851e2d1f3e5aa5aa57",
+          "bytes": 52987,
+          "download_seconds": 0.314
+        },
+        "task_metadata.predictive-ml-task-mold-v1.json": {
+          "url": "https://huggingface.co/datasets/TabArena/BeyondArena/resolve/2ecfe882ccfb814fc27c4de10a64ceefd5d7655c/parkinsons_biomedical_voice_measurements/019d738d-db39-7b5b-83dc-664e66da1854/task_metadata.predictive-ml-task-mold-v1.json",
+          "sha256": "a3e6f73f59d008fe0d6770f92c6ed87fb57dcad4579c3a40bb760a1b7ce7e37d",
+          "bytes": 310,
+          "download_seconds": 0.402
+        }
+      },
+      "reserved_phase": "development",
+      "status": "metadata_available"
+    },
+    {
+      "case": "beyond_asp_potassco_classification",
+      "source": "beyondarena",
+      "dataset": "asp_potassco_classification",
+      "revision": "2ecfe882ccfb814fc27c4de10a64ceefd5d7655c",
+      "container": "asp_potassco_classification/019d73ec-935f-7f88-8a82-af3ad2f44e9f",
+      "source_url": "https://huggingface.co/datasets/TabArena/BeyondArena",
+      "original_source": "https://github.com/coseal/aslib_data/tree/master/ASP-POTASSCO",
+      "license": "GPLv3",
+      "target": "algorithm",
+      "problem_type": "multiclass_classification",
+      "metric": "log_loss",
+      "split_regime": "grouped",
+      "task_metadata": {
+        "target_column_name": "algorithm",
+        "problem_type": "multiclass_classification",
+        "objective_metric_name": "log_loss",
+        "stratify_on": "algorithm",
+        "time_on": null,
+        "group_on": "task_id",
+        "group_labels": "per_sample",
+        "group_time_on": null,
+        "type_adapter_id": "predictive-ml-task-mold-v1"
+      },
+      "experiment_file": "experiment_metadata.predictive-ml-splits-mold-v1.json",
+      "parquet_bytes": 644618,
+      "parquet_path": "asp_potassco_classification/019d73ec-935f-7f88-8a82-af3ad2f44e9f/dataset.parquet",
+      "cache_directory": "/Users/mac/Documents/projects/alfaautoresearch/artifacts/data/benchmark_v2/beyondarena/asp_potassco_classification",
+      "metadata_provenance": {
+        "container_metadata.json": {
+          "url": "https://huggingface.co/datasets/TabArena/BeyondArena/resolve/2ecfe882ccfb814fc27c4de10a64ceefd5d7655c/asp_potassco_classification/019d73ec-935f-7f88-8a82-af3ad2f44e9f/container_metadata.json",
+          "sha256": "860c0d586f2aefac1b0f46b97d953a7b60702227cec921a35f2ba184863be6ab",
+          "bytes": 162,
+          "download_seconds": 0.428
+        },
+        "dataset_metadata.dataset-mold-v1.json": {
+          "url": "https://huggingface.co/datasets/TabArena/BeyondArena/resolve/2ecfe882ccfb814fc27c4de10a64ceefd5d7655c/asp_potassco_classification/019d73ec-935f-7f88-8a82-af3ad2f44e9f/dataset_metadata.dataset-mold-v1.json",
+          "sha256": "15f0116304bc04281a84f8bb67676dd8ce0513781812ca5dc441e42a2cd00e75",
+          "bytes": 2756,
+          "download_seconds": 1.264
+        },
+        "dtypes.json": {
+          "url": "https://huggingface.co/datasets/TabArena/BeyondArena/resolve/2ecfe882ccfb814fc27c4de10a64ceefd5d7655c/asp_potassco_classification/019d73ec-935f-7f88-8a82-af3ad2f44e9f/dtypes.json",
+          "sha256": "bec9d628e241dbd52e57b71b5ef1192daa652d30aad8b1bf515fa68501f77233",
+          "bytes": 5212,
+          "download_seconds": 0.703
+        },
+        "experiment_metadata.predictive-ml-splits-mold-v1.json": {
+          "url": "https://huggingface.co/datasets/TabArena/BeyondArena/resolve/2ecfe882ccfb814fc27c4de10a64ceefd5d7655c/asp_potassco_classification/019d73ec-935f-7f88-8a82-af3ad2f44e9f/experiment_metadata.predictive-ml-splits-mold-v1.json",
+          "sha256": "c2b5285a8fc27a26cf1112e951595ea0a64b278201c67ca05942869b6cc131cc",
+          "bytes": 185409,
+          "download_seconds": 0.63
+        },
+        "task_metadata.predictive-ml-task-mold-v1.json": {
+          "url": "https://huggingface.co/datasets/TabArena/BeyondArena/resolve/2ecfe882ccfb814fc27c4de10a64ceefd5d7655c/asp_potassco_classification/019d73ec-935f-7f88-8a82-af3ad2f44e9f/task_metadata.predictive-ml-task-mold-v1.json",
+          "sha256": "a03e1f74a8b0508a890f7fb342e94ad0829f6478c6e5d32aabe3cdae65db3133",
+          "bytes": 307,
+          "download_seconds": 0.376
+        }
+      },
+      "reserved_phase": "development",
+      "status": "metadata_available"
+    },
+    {
+      "case": "beyond_garments_worker_productivity",
+      "source": "beyondarena",
+      "dataset": "garments_worker_productivity",
+      "revision": "2ecfe882ccfb814fc27c4de10a64ceefd5d7655c",
+      "container": "garments_worker_productivity/019db501-f4c4-7de2-b626-fcb769c7d82e",
+      "source_url": "https://huggingface.co/datasets/TabArena/BeyondArena",
+      "original_source": "https://doi.org/10.24432/C51S6D",
+      "license": "CC BY 4.0",
+      "target": "actual_productivity",
+      "problem_type": "regression",
+      "metric": "rmse",
+      "split_regime": "temporal",
+      "task_metadata": {
+        "target_column_name": "actual_productivity",
+        "problem_type": "regression",
+        "objective_metric_name": "rmse",
+        "stratify_on": null,
+        "time_on": "date",
+        "group_on": null,
+        "group_labels": null,
+        "group_time_on": null,
+        "type_adapter_id": "predictive-ml-task-mold-v1"
+      },
+      "experiment_file": "experiment_metadata.predictive-ml-splits-mold-v1.json",
+      "parquet_bytes": 31047,
+      "parquet_path": "garments_worker_productivity/019db501-f4c4-7de2-b626-fcb769c7d82e/dataset.parquet",
+      "cache_directory": "/Users/mac/Documents/projects/alfaautoresearch/artifacts/data/benchmark_v2/beyondarena/garments_worker_productivity",
+      "metadata_provenance": {
+        "container_metadata.json": {
+          "url": "https://huggingface.co/datasets/TabArena/BeyondArena/resolve/2ecfe882ccfb814fc27c4de10a64ceefd5d7655c/garments_worker_productivity/019db501-f4c4-7de2-b626-fcb769c7d82e/container_metadata.json",
+          "sha256": "7550978f49aece24bb04cc286f5fa5076dcd91d6ecfedb9790d9dae7c2aa572d",
+          "bytes": 162,
+          "download_seconds": 0.326
+        },
+        "dataset_metadata.dataset-mold-v1.json": {
+          "url": "https://huggingface.co/datasets/TabArena/BeyondArena/resolve/2ecfe882ccfb814fc27c4de10a64ceefd5d7655c/garments_worker_productivity/019db501-f4c4-7de2-b626-fcb769c7d82e/dataset_metadata.dataset-mold-v1.json",
+          "sha256": "102742a4f83ee17277892795d29a6cf669d90e851b6e02a1bb1a296b31691be9",
+          "bytes": 2908,
+          "download_seconds": 0.45
+        },
+        "dtypes.json": {
+          "url": "https://huggingface.co/datasets/TabArena/BeyondArena/resolve/2ecfe882ccfb814fc27c4de10a64ceefd5d7655c/garments_worker_productivity/019db501-f4c4-7de2-b626-fcb769c7d82e/dtypes.json",
+          "sha256": "88ee9c61a4d821094f59a26057321cf06f2b804e7a1672bb8df9e0fd5d697154",
+          "bytes": 470,
+          "download_seconds": 0.411
+        },
+        "experiment_metadata.predictive-ml-splits-mold-v1.json": {
+          "url": "https://huggingface.co/datasets/TabArena/BeyondArena/resolve/2ecfe882ccfb814fc27c4de10a64ceefd5d7655c/garments_worker_productivity/019db501-f4c4-7de2-b626-fcb769c7d82e/experiment_metadata.predictive-ml-splits-mold-v1.json",
+          "sha256": "6e6558303e1789f6ead4b5803a28eda1405f263712d39612f67871c79116cfa2",
+          "bytes": 133256,
+          "download_seconds": 0.337
+        },
+        "task_metadata.predictive-ml-task-mold-v1.json": {
+          "url": "https://huggingface.co/datasets/TabArena/BeyondArena/resolve/2ecfe882ccfb814fc27c4de10a64ceefd5d7655c/garments_worker_productivity/019db501-f4c4-7de2-b626-fcb769c7d82e/task_metadata.predictive-ml-task-mold-v1.json",
+          "sha256": "90cde24d73a282a8f8c6829c68fe94e78c045d704bd593cb1a4b0115cad61622",
+          "bytes": 280,
+          "download_seconds": 0.34
+        }
+      },
+      "reserved_phase": "development",
+      "status": "metadata_available"
+    },
+    {
+      "case": "beyond_healthcare_insurance_expenses",
+      "source": "beyondarena",
+      "dataset": "healthcare_insurance_expenses",
+      "revision": "2ecfe882ccfb814fc27c4de10a64ceefd5d7655c",
+      "container": "healthcare_insurance_expenses/019d7367-f8cf-77a8-86e8-cabed951a9f6",
+      "source_url": "https://huggingface.co/datasets/TabArena/BeyondArena",
+      "original_source": "https://www.kaggle.com/datasets/arunjangir245/healthcare-insurance-expenses/",
+      "license": "Database Contents License (DbCL) v1.0",
+      "target": "charges",
+      "problem_type": "regression",
+      "metric": "rmse",
+      "split_regime": "iid",
+      "task_metadata": {
+        "target_column_name": "charges",
+        "problem_type": "regression",
+        "objective_metric_name": "rmse",
+        "stratify_on": null,
+        "time_on": null,
+        "group_on": null,
+        "group_labels": null,
+        "group_time_on": null,
+        "type_adapter_id": "predictive-ml-task-mold-v1"
+      },
+      "experiment_file": "experiment_metadata.predictive-ml-splits-mold-v1.json",
+      "parquet_bytes": 23961,
+      "parquet_path": "healthcare_insurance_expenses/019d7367-f8cf-77a8-86e8-cabed951a9f6/dataset.parquet",
+      "cache_directory": "/Users/mac/Documents/projects/alfaautoresearch/artifacts/data/benchmark_v2/beyondarena/healthcare_insurance_expenses",
+      "metadata_provenance": {
+        "container_metadata.json": {
+          "url": "https://huggingface.co/datasets/TabArena/BeyondArena/resolve/2ecfe882ccfb814fc27c4de10a64ceefd5d7655c/healthcare_insurance_expenses/019d7367-f8cf-77a8-86e8-cabed951a9f6/container_metadata.json",
+          "sha256": "bfe98e360ab6145c23de10ca7047e1e691d7a8185ca30769141353f40398f7a2",
+          "bytes": 162,
+          "download_seconds": 0.419
+        },
+        "dataset_metadata.dataset-mold-v1.json": {
+          "url": "https://huggingface.co/datasets/TabArena/BeyondArena/resolve/2ecfe882ccfb814fc27c4de10a64ceefd5d7655c/healthcare_insurance_expenses/019d7367-f8cf-77a8-86e8-cabed951a9f6/dataset_metadata.dataset-mold-v1.json",
+          "sha256": "1a3611a381c387006827f3070832b06d64821fc03864f5764a5a54f53997885c",
+          "bytes": 1197,
+          "download_seconds": 0.533
+        },
+        "dtypes.json": {
+          "url": "https://huggingface.co/datasets/TabArena/BeyondArena/resolve/2ecfe882ccfb814fc27c4de10a64ceefd5d7655c/healthcare_insurance_expenses/019d7367-f8cf-77a8-86e8-cabed951a9f6/dtypes.json",
+          "sha256": "e84853f10ee11ac240b5818a7f648adaee5506aa967aa1da0f67dc20c973928e",
+          "bytes": 156,
+          "download_seconds": 0.414
+        },
+        "experiment_metadata.predictive-ml-splits-mold-v1.json": {
+          "url": "https://huggingface.co/datasets/TabArena/BeyondArena/resolve/2ecfe882ccfb814fc27c4de10a64ceefd5d7655c/healthcare_insurance_expenses/019d7367-f8cf-77a8-86e8-cabed951a9f6/experiment_metadata.predictive-ml-splits-mold-v1.json",
+          "sha256": "c8d70aed788c02ab85c001ef5f210175e11a1613833a8a996c7180efe072b2da",
+          "bytes": 208102,
+          "download_seconds": 0.452
+        },
+        "task_metadata.predictive-ml-task-mold-v1.json": {
+          "url": "https://huggingface.co/datasets/TabArena/BeyondArena/resolve/2ecfe882ccfb814fc27c4de10a64ceefd5d7655c/healthcare_insurance_expenses/019d7367-f8cf-77a8-86e8-cabed951a9f6/task_metadata.predictive-ml-task-mold-v1.json",
+          "sha256": "18508698ff3547389fcfe94a00330520872d6d7c497b764e36b333990ffda3b7",
+          "bytes": 266,
+          "download_seconds": 0.384
+        }
+      },
+      "reserved_phase": "development",
+      "status": "metadata_available"
+    },
+    {
+      "case": "beyond_cardiotocography",
+      "source": "beyondarena",
+      "dataset": "cardiotocography",
+      "revision": "2ecfe882ccfb814fc27c4de10a64ceefd5d7655c",
+      "container": "cardiotocography/019d7392-12c2-7a87-991c-13a7246555d4",
+      "source_url": "https://huggingface.co/datasets/TabArena/BeyondArena",
+      "original_source": "10.24432/C51S4N",
+      "license": "CC BY 4.0",
+      "target": "NSP",
+      "problem_type": "multiclass_classification",
+      "metric": "log_loss",
+      "split_regime": "grouped",
+      "task_metadata": {
+        "target_column_name": "NSP",
+        "problem_type": "multiclass_classification",
+        "objective_metric_name": "log_loss",
+        "stratify_on": "NSP",
+        "time_on": null,
+        "group_on": "patient_id",
+        "group_labels": "per_sample",
+        "group_time_on": null,
+        "type_adapter_id": "predictive-ml-task-mold-v1"
+      },
+      "experiment_file": "experiment_metadata.predictive-ml-splits-mold-v1.json",
+      "parquet_bytes": 55881,
+      "parquet_path": "cardiotocography/019d7392-12c2-7a87-991c-13a7246555d4/dataset.parquet",
+      "cache_directory": "/Users/mac/Documents/projects/alfaautoresearch/artifacts/data/benchmark_v2/beyondarena/cardiotocography",
+      "metadata_provenance": {
+        "container_metadata.json": {
+          "url": "https://huggingface.co/datasets/TabArena/BeyondArena/resolve/2ecfe882ccfb814fc27c4de10a64ceefd5d7655c/cardiotocography/019d7392-12c2-7a87-991c-13a7246555d4/container_metadata.json",
+          "sha256": "14ea1910e2a723098158add58db81d084d5477f6fee0854c31d50e9882387fb5",
+          "bytes": 162,
+          "download_seconds": 0.349
+        },
+        "dataset_metadata.dataset-mold-v1.json": {
+          "url": "https://huggingface.co/datasets/TabArena/BeyondArena/resolve/2ecfe882ccfb814fc27c4de10a64ceefd5d7655c/cardiotocography/019d7392-12c2-7a87-991c-13a7246555d4/dataset_metadata.dataset-mold-v1.json",
+          "sha256": "34535bee49b586494c3d7ddfc91fd6837d230347e84682dbe93880be9dc7ac67",
+          "bytes": 1488,
+          "download_seconds": 0.416
+        },
+        "dtypes.json": {
+          "url": "https://huggingface.co/datasets/TabArena/BeyondArena/resolve/2ecfe882ccfb814fc27c4de10a64ceefd5d7655c/cardiotocography/019d7392-12c2-7a87-991c-13a7246555d4/dtypes.json",
+          "sha256": "0fabb08182e69dc114e4afe47ec57cab24ea7d1e602d5b97f875b244eaa61168",
+          "bytes": 508,
+          "download_seconds": 0.351
+        },
+        "experiment_metadata.predictive-ml-splits-mold-v1.json": {
+          "url": "https://huggingface.co/datasets/TabArena/BeyondArena/resolve/2ecfe882ccfb814fc27c4de10a64ceefd5d7655c/cardiotocography/019d7392-12c2-7a87-991c-13a7246555d4/experiment_metadata.predictive-ml-splits-mold-v1.json",
+          "sha256": "3c4cd829301cb3402f9a934499648dcbc5d341c2f342a41146efdf2acb4499a8",
+          "bytes": 349929,
+          "download_seconds": 0.389
+        },
+        "task_metadata.predictive-ml-task-mold-v1.json": {
+          "url": "https://huggingface.co/datasets/TabArena/BeyondArena/resolve/2ecfe882ccfb814fc27c4de10a64ceefd5d7655c/cardiotocography/019d7392-12c2-7a87-991c-13a7246555d4/task_metadata.predictive-ml-task-mold-v1.json",
+          "sha256": "37d4c565244ab96c005c96d9a564665b4e5b6af4e480743164fb56b953788bf4",
+          "bytes": 298,
+          "download_seconds": 0.338
+        }
+      },
+      "reserved_phase": "development",
+      "status": "metadata_available"
+    },
+    {
+      "case": "beyond_thyroid_discordant",
+      "source": "beyondarena",
+      "dataset": "thyroid_discordant",
+      "revision": "2ecfe882ccfb814fc27c4de10a64ceefd5d7655c",
+      "container": "thyroid_discordant/019d7374-1c19-79e6-986d-2afd2c16101e",
+      "source_url": "https://huggingface.co/datasets/TabArena/BeyondArena",
+      "original_source": "https://doi.org/10.24432/C5D010",
+      "license": "CC BY 4.0",
+      "target": "discordant",
+      "problem_type": "binary_classification",
+      "metric": "roc_auc",
+      "split_regime": "iid",
+      "task_metadata": {
+        "target_column_name": "discordant",
+        "problem_type": "binary_classification",
+        "objective_metric_name": "roc_auc",
+        "stratify_on": "discordant",
+        "time_on": null,
+        "group_on": null,
+        "group_labels": null,
+        "group_time_on": null,
+        "type_adapter_id": "predictive-ml-task-mold-v1"
+      },
+      "experiment_file": "experiment_metadata.predictive-ml-splits-mold-v1.json",
+      "parquet_bytes": 52030,
+      "parquet_path": "thyroid_discordant/019d7374-1c19-79e6-986d-2afd2c16101e/dataset.parquet",
+      "cache_directory": "/Users/mac/Documents/projects/alfaautoresearch/artifacts/data/benchmark_v2/beyondarena/thyroid_discordant",
+      "metadata_provenance": {
+        "container_metadata.json": {
+          "url": "https://huggingface.co/datasets/TabArena/BeyondArena/resolve/2ecfe882ccfb814fc27c4de10a64ceefd5d7655c/thyroid_discordant/019d7374-1c19-79e6-986d-2afd2c16101e/container_metadata.json",
+          "sha256": "788396416c98b4f0a9131fd284924baf55fc32eb66ebf55709342b2eac8aad8e",
+          "bytes": 162,
+          "download_seconds": 0.447
+        },
+        "dataset_metadata.dataset-mold-v1.json": {
+          "url": "https://huggingface.co/datasets/TabArena/BeyondArena/resolve/2ecfe882ccfb814fc27c4de10a64ceefd5d7655c/thyroid_discordant/019d7374-1c19-79e6-986d-2afd2c16101e/dataset_metadata.dataset-mold-v1.json",
+          "sha256": "359d455d1dce406eb6a9276d3869b6a1329d296417cddf3760c4ab3f115e582e",
+          "bytes": 1730,
+          "download_seconds": 0.415
+        },
+        "dtypes.json": {
+          "url": "https://huggingface.co/datasets/TabArena/BeyondArena/resolve/2ecfe882ccfb814fc27c4de10a64ceefd5d7655c/thyroid_discordant/019d7374-1c19-79e6-986d-2afd2c16101e/dtypes.json",
+          "sha256": "c4b040dc99d474e1028dfd72057d2dd78278e95906b82a6ad4bbc561d0f15e2f",
+          "bytes": 738,
+          "download_seconds": 0.339
+        },
+        "experiment_metadata.predictive-ml-splits-mold-v1.json": {
+          "url": "https://huggingface.co/datasets/TabArena/BeyondArena/resolve/2ecfe882ccfb814fc27c4de10a64ceefd5d7655c/thyroid_discordant/019d7374-1c19-79e6-986d-2afd2c16101e/experiment_metadata.predictive-ml-splits-mold-v1.json",
+          "sha256": "aa4c3b8eb79097f1491e93da97f60d4fa85862e2d1ae47bd125e3a2dd31d8728",
+          "bytes": 635242,
+          "download_seconds": 0.547
+        },
+        "task_metadata.predictive-ml-task-mold-v1.json": {
+          "url": "https://huggingface.co/datasets/TabArena/BeyondArena/resolve/2ecfe882ccfb814fc27c4de10a64ceefd5d7655c/thyroid_discordant/019d7374-1c19-79e6-986d-2afd2c16101e/task_metadata.predictive-ml-task-mold-v1.json",
+          "sha256": "cc04bec22a33307daf0667107dbd1b8c01157f4471fbc254cce3c67c2cd4699d",
+          "bytes": 291,
+          "download_seconds": 0.405
+        }
+      },
+      "reserved_phase": "development",
+      "status": "metadata_available"
+    },
+    {
+      "case": "beyond_ecoli_proteins",
+      "source": "beyondarena",
+      "dataset": "ecoli_proteins",
+      "revision": "2ecfe882ccfb814fc27c4de10a64ceefd5d7655c",
+      "container": "ecoli_proteins/019d736a-d6d2-7e28-aeff-7da6b7126b9d",
+      "source_url": "https://huggingface.co/datasets/TabArena/BeyondArena",
+      "original_source": "https://doi.org/10.24432/C5388M",
+      "license": "CC BY 4.0",
+      "target": "class",
+      "problem_type": "multiclass_classification",
+      "metric": "log_loss",
+      "split_regime": "iid",
+      "task_metadata": {
+        "target_column_name": "class",
+        "problem_type": "multiclass_classification",
+        "objective_metric_name": "log_loss",
+        "stratify_on": "class",
+        "time_on": null,
+        "group_on": null,
+        "group_labels": null,
+        "group_time_on": null,
+        "type_adapter_id": "predictive-ml-task-mold-v1"
+      },
+      "experiment_file": "experiment_metadata.predictive-ml-splits-mold-v1.json",
+      "parquet_bytes": 7918,
+      "parquet_path": "ecoli_proteins/019d736a-d6d2-7e28-aeff-7da6b7126b9d/dataset.parquet",
+      "cache_directory": "/Users/mac/Documents/projects/alfaautoresearch/artifacts/data/benchmark_v2/beyondarena/ecoli_proteins",
+      "metadata_provenance": {
+        "container_metadata.json": {
+          "url": "https://huggingface.co/datasets/TabArena/BeyondArena/resolve/2ecfe882ccfb814fc27c4de10a64ceefd5d7655c/ecoli_proteins/019d736a-d6d2-7e28-aeff-7da6b7126b9d/container_metadata.json",
+          "sha256": "0bf0fda163c318389dfc991c116e6c33d788a699936482da0ee6586aef045771",
+          "bytes": 162,
+          "download_seconds": 0.422
+        },
+        "dataset_metadata.dataset-mold-v1.json": {
+          "url": "https://huggingface.co/datasets/TabArena/BeyondArena/resolve/2ecfe882ccfb814fc27c4de10a64ceefd5d7655c/ecoli_proteins/019d736a-d6d2-7e28-aeff-7da6b7126b9d/dataset_metadata.dataset-mold-v1.json",
+          "sha256": "fee1db034779e6bf914058bcc986084e23a162b5d946431df24d4be14d95cd21",
+          "bytes": 1322,
+          "download_seconds": 0.322
+        },
+        "dtypes.json": {
+          "url": "https://huggingface.co/datasets/TabArena/BeyondArena/resolve/2ecfe882ccfb814fc27c4de10a64ceefd5d7655c/ecoli_proteins/019d736a-d6d2-7e28-aeff-7da6b7126b9d/dtypes.json",
+          "sha256": "a5747eaf5fe848a16732b44ce0fa8dfb3a6b0cc83375228df67bc31577ab0134",
+          "bytes": 148,
+          "download_seconds": 0.325
+        },
+        "experiment_metadata.predictive-ml-splits-mold-v1.json": {
+          "url": "https://huggingface.co/datasets/TabArena/BeyondArena/resolve/2ecfe882ccfb814fc27c4de10a64ceefd5d7655c/ecoli_proteins/019d736a-d6d2-7e28-aeff-7da6b7126b9d/experiment_metadata.predictive-ml-splits-mold-v1.json",
+          "sha256": "6141af560bde4e4c7c911bbf7ee171613dcd0cfee60818e100c351d7eeddb685",
+          "bytes": 92472,
+          "download_seconds": 0.436
+        },
+        "task_metadata.predictive-ml-task-mold-v1.json": {
+          "url": "https://huggingface.co/datasets/TabArena/BeyondArena/resolve/2ecfe882ccfb814fc27c4de10a64ceefd5d7655c/ecoli_proteins/019d736a-d6d2-7e28-aeff-7da6b7126b9d/task_metadata.predictive-ml-task-mold-v1.json",
+          "sha256": "307d8bfc74895c7a6ca3dc6439e4ce34dfc23d429f2d08d822b78b5c542ff5fd",
+          "bytes": 286,
+          "download_seconds": 0.495
+        }
+      },
+      "reserved_phase": "development",
+      "status": "metadata_available"
+    },
+    {
+      "case": "beyond_body_density_prediction",
+      "source": "beyondarena",
+      "dataset": "body_density_prediction",
+      "revision": "2ecfe882ccfb814fc27c4de10a64ceefd5d7655c",
+      "container": "body_density_prediction/019d736a-6e2b-77a5-ae25-1222ef4fe4e9",
+      "source_url": "https://huggingface.co/datasets/TabArena/BeyondArena",
+      "original_source": "https://www.kaggle.com/datasets/fedesoriano/body-fat-prediction-dataset",
+      "license": "None",
+      "target": "Density",
+      "problem_type": "regression",
+      "metric": "rmse",
+      "split_regime": "iid",
+      "task_metadata": {
+        "target_column_name": "Density",
+        "problem_type": "regression",
+        "objective_metric_name": "rmse",
+        "stratify_on": null,
+        "time_on": null,
+        "group_on": null,
+        "group_labels": null,
+        "group_time_on": null,
+        "type_adapter_id": "predictive-ml-task-mold-v1"
+      },
+      "experiment_file": "experiment_metadata.predictive-ml-splits-mold-v1.json",
+      "parquet_bytes": 19136,
+      "parquet_path": "body_density_prediction/019d736a-6e2b-77a5-ae25-1222ef4fe4e9/dataset.parquet",
+      "cache_directory": "/Users/mac/Documents/projects/alfaautoresearch/artifacts/data/benchmark_v2/beyondarena/body_density_prediction",
+      "metadata_provenance": {
+        "container_metadata.json": {
+          "url": "https://huggingface.co/datasets/TabArena/BeyondArena/resolve/2ecfe882ccfb814fc27c4de10a64ceefd5d7655c/body_density_prediction/019d736a-6e2b-77a5-ae25-1222ef4fe4e9/container_metadata.json",
+          "sha256": "5f34681b15e622d99929a3ee7e3d94d22c840ef3cc771ae678ce7c5a9e1eaa05",
+          "bytes": 162,
+          "download_seconds": 0.33
+        },
+        "dataset_metadata.dataset-mold-v1.json": {
+          "url": "https://huggingface.co/datasets/TabArena/BeyondArena/resolve/2ecfe882ccfb814fc27c4de10a64ceefd5d7655c/body_density_prediction/019d736a-6e2b-77a5-ae25-1222ef4fe4e9/dataset_metadata.dataset-mold-v1.json",
+          "sha256": "02c02191070a7f84e624a3f1240027fe1b73e3289c1ac40defd34d924e5da418",
+          "bytes": 1732,
+          "download_seconds": 0.329
+        },
+        "dtypes.json": {
+          "url": "https://huggingface.co/datasets/TabArena/BeyondArena/resolve/2ecfe882ccfb814fc27c4de10a64ceefd5d7655c/body_density_prediction/019d736a-6e2b-77a5-ae25-1222ef4fe4e9/dtypes.json",
+          "sha256": "cddec4f9da8295177579dbf6fbe2e24f69b9ee2c684bcbf7ee4ebb1262cf41f8",
+          "bytes": 311,
+          "download_seconds": 0.419
+        },
+        "experiment_metadata.predictive-ml-splits-mold-v1.json": {
+          "url": "https://huggingface.co/datasets/TabArena/BeyondArena/resolve/2ecfe882ccfb814fc27c4de10a64ceefd5d7655c/body_density_prediction/019d736a-6e2b-77a5-ae25-1222ef4fe4e9/experiment_metadata.predictive-ml-splits-mold-v1.json",
+          "sha256": "39dd5dff4ceada5b2e9a56bfd6083231c1b6d424b50a7d29b24b93b4889fccf9",
+          "bytes": 69972,
+          "download_seconds": 0.44
+        },
+        "task_metadata.predictive-ml-task-mold-v1.json": {
+          "url": "https://huggingface.co/datasets/TabArena/BeyondArena/resolve/2ecfe882ccfb814fc27c4de10a64ceefd5d7655c/body_density_prediction/019d736a-6e2b-77a5-ae25-1222ef4fe4e9/task_metadata.predictive-ml-task-mold-v1.json",
+          "sha256": "7d3f17e111a6c5bb6d6e20d502fc4ea4d0d1b9286b356f0c03fa46edcf354e4e",
+          "bytes": 266,
+          "download_seconds": 0.443
+        }
+      },
+      "reserved_phase": "excluded",
+      "status": "dataset_not_licensed",
+      "error": "Curated metadata has no declared license"
+    },
+    {
+      "case": "beyond_coffee_rating_prediction",
+      "source": "beyondarena",
+      "dataset": "coffee_rating_prediction",
+      "revision": "2ecfe882ccfb814fc27c4de10a64ceefd5d7655c",
+      "container": "coffee_rating_prediction/019d7388-dffd-7bc4-ab3d-40bf6581786e",
+      "source_url": "https://huggingface.co/datasets/TabArena/BeyondArena",
+      "original_source": "https://www.kaggle.com/datasets/hanifalirsyad/coffee-scrap-coffeereview",
+      "license": "None",
+      "target": "rating",
+      "problem_type": "regression",
+      "metric": "rmse",
+      "split_regime": "temporal",
+      "task_metadata": {
+        "target_column_name": "rating",
+        "problem_type": "regression",
+        "objective_metric_name": "rmse",
+        "stratify_on": null,
+        "time_on": "review_date",
+        "group_on": null,
+        "group_labels": null,
+        "group_time_on": null,
+        "type_adapter_id": "predictive-ml-task-mold-v1"
+      },
+      "experiment_file": "experiment_metadata.predictive-ml-splits-mold-v1.json",
+      "parquet_bytes": 502229,
+      "parquet_path": "coffee_rating_prediction/019d7388-dffd-7bc4-ab3d-40bf6581786e/dataset.parquet",
+      "cache_directory": "/Users/mac/Documents/projects/alfaautoresearch/artifacts/data/benchmark_v2/beyondarena/coffee_rating_prediction",
+      "metadata_provenance": {
+        "container_metadata.json": {
+          "url": "https://huggingface.co/datasets/TabArena/BeyondArena/resolve/2ecfe882ccfb814fc27c4de10a64ceefd5d7655c/coffee_rating_prediction/019d7388-dffd-7bc4-ab3d-40bf6581786e/container_metadata.json",
+          "sha256": "8b52ab7d3d4902d36b3d8b417f9f4bceaa24e5f82a7baf56cf56886e123d5554",
+          "bytes": 162,
+          "download_seconds": 0.345
+        },
+        "dataset_metadata.dataset-mold-v1.json": {
+          "url": "https://huggingface.co/datasets/TabArena/BeyondArena/resolve/2ecfe882ccfb814fc27c4de10a64ceefd5d7655c/coffee_rating_prediction/019d7388-dffd-7bc4-ab3d-40bf6581786e/dataset_metadata.dataset-mold-v1.json",
+          "sha256": "3f1ea25bf6b45ae44fa7a57fe8c8e61407e6e96759c0290349dd13f4a6f999d6",
+          "bytes": 2874,
+          "download_seconds": 0.417
+        },
+        "dtypes.json": {
+          "url": "https://huggingface.co/datasets/TabArena/BeyondArena/resolve/2ecfe882ccfb814fc27c4de10a64ceefd5d7655c/coffee_rating_prediction/019d7388-dffd-7bc4-ab3d-40bf6581786e/dtypes.json",
+          "sha256": "e45637273c2b02180f13c6853e9b25021a7f974fcd43155509b916a901f9896e",
+          "bytes": 336,
+          "download_seconds": 0.451
+        },
+        "experiment_metadata.predictive-ml-splits-mold-v1.json": {
+          "url": "https://huggingface.co/datasets/TabArena/BeyondArena/resolve/2ecfe882ccfb814fc27c4de10a64ceefd5d7655c/coffee_rating_prediction/019d7388-dffd-7bc4-ab3d-40bf6581786e/experiment_metadata.predictive-ml-splits-mold-v1.json",
+          "sha256": "74cc90570ad27fe09deeea0313c5d92ea4ea39baf09cbfea85317e5326a05b2e",
+          "bytes": 50437,
+          "download_seconds": 0.388
+        },
+        "task_metadata.predictive-ml-task-mold-v1.json": {
+          "url": "https://huggingface.co/datasets/TabArena/BeyondArena/resolve/2ecfe882ccfb814fc27c4de10a64ceefd5d7655c/coffee_rating_prediction/019d7388-dffd-7bc4-ab3d-40bf6581786e/task_metadata.predictive-ml-task-mold-v1.json",
+          "sha256": "c7ccb57b96b30bbeabd324fdc36d34b276aeebb38e19f94b3330e7056358784b",
+          "bytes": 274,
+          "download_seconds": 0.347
+        }
+      },
+      "reserved_phase": "excluded",
+      "status": "dataset_not_licensed",
+      "error": "Curated metadata has no declared license"
+    },
+    {
+      "case": "beyond_bank_customer_churn",
+      "source": "beyondarena",
+      "dataset": "bank_customer_churn",
+      "revision": "2ecfe882ccfb814fc27c4de10a64ceefd5d7655c",
+      "container": "bank_customer_churn/019d7366-99cc-77cc-8d41-5c3ccc8eff96",
+      "source_url": "https://huggingface.co/datasets/TabArena/BeyondArena",
+      "original_source": "https://www.kaggle.com/datasets/gauravtopre/bank-customer-churn-dataset",
+      "license": "Public Domain",
+      "target": "churn",
+      "problem_type": "binary_classification",
+      "metric": "roc_auc",
+      "split_regime": "iid",
+      "task_metadata": {
+        "target_column_name": "churn",
+        "problem_type": "binary_classification",
+        "objective_metric_name": "roc_auc",
+        "stratify_on": "churn",
+        "time_on": null,
+        "group_on": null,
+        "group_labels": null,
+        "group_time_on": null,
+        "type_adapter_id": "predictive-ml-task-mold-v1"
+      },
+      "experiment_file": "experiment_metadata.predictive-ml-splits-mold-v1.json",
+      "parquet_bytes": 173801,
+      "parquet_path": "bank_customer_churn/019d7366-99cc-77cc-8d41-5c3ccc8eff96/dataset.parquet",
+      "cache_directory": "/Users/mac/Documents/projects/alfaautoresearch/artifacts/data/benchmark_v2/beyondarena/bank_customer_churn",
+      "metadata_provenance": {
+        "container_metadata.json": {
+          "url": "https://huggingface.co/datasets/TabArena/BeyondArena/resolve/2ecfe882ccfb814fc27c4de10a64ceefd5d7655c/bank_customer_churn/019d7366-99cc-77cc-8d41-5c3ccc8eff96/container_metadata.json",
+          "sha256": "d5128d400f6c709c36ad48802a00466076f56e8d5528b01ca72d3875c2870be6",
+          "bytes": 162,
+          "download_seconds": 0.328
+        },
+        "dataset_metadata.dataset-mold-v1.json": {
+          "url": "https://huggingface.co/datasets/TabArena/BeyondArena/resolve/2ecfe882ccfb814fc27c4de10a64ceefd5d7655c/bank_customer_churn/019d7366-99cc-77cc-8d41-5c3ccc8eff96/dataset_metadata.dataset-mold-v1.json",
+          "sha256": "5648e5827a50bc4581c9fe5e6ff3e931c7f61b4ba6dfb7b8ca0e8a96b950d948",
+          "bytes": 1181,
+          "download_seconds": 0.322
+        },
+        "dtypes.json": {
+          "url": "https://huggingface.co/datasets/TabArena/BeyondArena/resolve/2ecfe882ccfb814fc27c4de10a64ceefd5d7655c/bank_customer_churn/019d7366-99cc-77cc-8d41-5c3ccc8eff96/dtypes.json",
+          "sha256": "4f4329dc54c651aa24a43a49630d61742a54edc552dc09355ab25f0485201d5e",
+          "bytes": 287,
+          "download_seconds": 0.341
+        },
+        "experiment_metadata.predictive-ml-splits-mold-v1.json": {
+          "url": "https://huggingface.co/datasets/TabArena/BeyondArena/resolve/2ecfe882ccfb814fc27c4de10a64ceefd5d7655c/bank_customer_churn/019d7366-99cc-77cc-8d41-5c3ccc8eff96/experiment_metadata.predictive-ml-splits-mold-v1.json",
+          "sha256": "93fa42046376000fb6085028d98e29b0354b0ebc83dc1de7a9b8e2f79223cc3f",
+          "bytes": 530279,
+          "download_seconds": 0.478
+        },
+        "task_metadata.predictive-ml-task-mold-v1.json": {
+          "url": "https://huggingface.co/datasets/TabArena/BeyondArena/resolve/2ecfe882ccfb814fc27c4de10a64ceefd5d7655c/bank_customer_churn/019d7366-99cc-77cc-8d41-5c3ccc8eff96/task_metadata.predictive-ml-task-mold-v1.json",
+          "sha256": "c36597069927867b106b321c595b89e520b60341a4a432f1312c47a7623eedb1",
+          "bytes": 281,
+          "download_seconds": 0.34
+        }
+      },
+      "reserved_phase": "final_lockbox",
+      "status": "metadata_available"
+    },
+    {
+      "case": "beyond_online_shoppers_purchasing_intention_dataset",
+      "source": "beyondarena",
+      "dataset": "online_shoppers_purchasing_intention_dataset",
+      "revision": "2ecfe882ccfb814fc27c4de10a64ceefd5d7655c",
+      "container": "online_shoppers_purchasing_intention_dataset/019d7445-801c-7a91-831e-5f6725779505",
+      "source_url": "https://huggingface.co/datasets/TabArena/BeyondArena",
+      "original_source": "https://doi.org/10.24432/C5F88Q",
+      "license": "CC BY 4.0",
+      "target": "Revenue",
+      "problem_type": "binary_classification",
+      "metric": "roc_auc",
+      "split_regime": "iid",
+      "task_metadata": {
+        "target_column_name": "Revenue",
+        "problem_type": "binary_classification",
+        "objective_metric_name": "roc_auc",
+        "stratify_on": "Revenue",
+        "time_on": null,
+        "group_on": null,
+        "group_labels": null,
+        "group_time_on": null,
+        "type_adapter_id": "predictive-ml-task-mold-v1"
+      },
+      "experiment_file": "experiment_metadata.predictive-ml-splits-mold-v1.json",
+      "parquet_bytes": 328222,
+      "parquet_path": "online_shoppers_purchasing_intention_dataset/019d7445-801c-7a91-831e-5f6725779505/dataset.parquet",
+      "cache_directory": "/Users/mac/Documents/projects/alfaautoresearch/artifacts/data/benchmark_v2/beyondarena/online_shoppers_purchasing_intention_dataset",
+      "metadata_provenance": {
+        "container_metadata.json": {
+          "url": "https://huggingface.co/datasets/TabArena/BeyondArena/resolve/2ecfe882ccfb814fc27c4de10a64ceefd5d7655c/online_shoppers_purchasing_intention_dataset/019d7445-801c-7a91-831e-5f6725779505/container_metadata.json",
+          "sha256": "c4eb63a569960dc7eabd9181484be8dbd51f9e858751c7c70045371d2bcf91a7",
+          "bytes": 162,
+          "download_seconds": 0.336
+        },
+        "dataset_metadata.dataset-mold-v1.json": {
+          "url": "https://huggingface.co/datasets/TabArena/BeyondArena/resolve/2ecfe882ccfb814fc27c4de10a64ceefd5d7655c/online_shoppers_purchasing_intention_dataset/019d7445-801c-7a91-831e-5f6725779505/dataset_metadata.dataset-mold-v1.json",
+          "sha256": "634e0a52dfffba966b0bd2c491dee22bc74005dd55177f35065f843454c93962",
+          "bytes": 1711,
+          "download_seconds": 0.43
+        },
+        "dtypes.json": {
+          "url": "https://huggingface.co/datasets/TabArena/BeyondArena/resolve/2ecfe882ccfb814fc27c4de10a64ceefd5d7655c/online_shoppers_purchasing_intention_dataset/019d7445-801c-7a91-831e-5f6725779505/dtypes.json",
+          "sha256": "01ed9ae63f7853065062da1ead5b4b8bc0eab8dc204b05813b0c32b0e54b0ae7",
+          "bytes": 529,
+          "download_seconds": 0.369
+        },
+        "experiment_metadata.predictive-ml-splits-mold-v1.json": {
+          "url": "https://huggingface.co/datasets/TabArena/BeyondArena/resolve/2ecfe882ccfb814fc27c4de10a64ceefd5d7655c/online_shoppers_purchasing_intention_dataset/019d7445-801c-7a91-831e-5f6725779505/experiment_metadata.predictive-ml-splits-mold-v1.json",
+          "sha256": "d837783133c153bdb9a8ff5fefe3e3648a3a22cd6791f7ee6a88a631d2378974",
+          "bytes": 677082,
+          "download_seconds": 0.601
+        },
+        "task_metadata.predictive-ml-task-mold-v1.json": {
+          "url": "https://huggingface.co/datasets/TabArena/BeyondArena/resolve/2ecfe882ccfb814fc27c4de10a64ceefd5d7655c/online_shoppers_purchasing_intention_dataset/019d7445-801c-7a91-831e-5f6725779505/task_metadata.predictive-ml-task-mold-v1.json",
+          "sha256": "c10edc04d4657e7af510e89ca67acf47d121d2e1d672d5d4b76e46e774b2bc20",
+          "bytes": 285,
+          "download_seconds": 0.538
+        }
+      },
+      "reserved_phase": "final_lockbox",
+      "status": "metadata_available"
+    },
+    {
+      "case": "beyond_predict_students_dropout_and_academic_success",
+      "source": "beyondarena",
+      "dataset": "predict_students_dropout_and_academic_success",
+      "revision": "2ecfe882ccfb814fc27c4de10a64ceefd5d7655c",
+      "container": "predict_students_dropout_and_academic_success/019d7369-3ffd-7889-91d3-46e5b502f4ec",
+      "source_url": "https://huggingface.co/datasets/TabArena/BeyondArena",
+      "original_source": "https://doi.org/10.24432/C5MC89",
+      "license": "CC BY 4.0",
+      "target": "AcademicOutcome",
+      "problem_type": "multiclass_classification",
+      "metric": "log_loss",
+      "split_regime": "iid",
+      "task_metadata": {
+        "target_column_name": "AcademicOutcome",
+        "problem_type": "multiclass_classification",
+        "objective_metric_name": "log_loss",
+        "stratify_on": "AcademicOutcome",
+        "time_on": null,
+        "group_on": null,
+        "group_labels": null,
+        "group_time_on": null,
+        "type_adapter_id": "predictive-ml-task-mold-v1"
+      },
+      "experiment_file": "experiment_metadata.predictive-ml-splits-mold-v1.json",
+      "parquet_bytes": 125053,
+      "parquet_path": "predict_students_dropout_and_academic_success/019d7369-3ffd-7889-91d3-46e5b502f4ec/dataset.parquet",
+      "cache_directory": "/Users/mac/Documents/projects/alfaautoresearch/artifacts/data/benchmark_v2/beyondarena/predict_students_dropout_and_academic_success",
+      "metadata_provenance": {
+        "container_metadata.json": {
+          "url": "https://huggingface.co/datasets/TabArena/BeyondArena/resolve/2ecfe882ccfb814fc27c4de10a64ceefd5d7655c/predict_students_dropout_and_academic_success/019d7369-3ffd-7889-91d3-46e5b502f4ec/container_metadata.json",
+          "sha256": "f6442b2c465d60b976ffd238c3b804db66054daf4014519bdb241f675ca741cd",
+          "bytes": 162,
+          "download_seconds": 0.416
+        },
+        "dataset_metadata.dataset-mold-v1.json": {
+          "url": "https://huggingface.co/datasets/TabArena/BeyondArena/resolve/2ecfe882ccfb814fc27c4de10a64ceefd5d7655c/predict_students_dropout_and_academic_success/019d7369-3ffd-7889-91d3-46e5b502f4ec/dataset_metadata.dataset-mold-v1.json",
+          "sha256": "31051e589e68e0afd46e53a53dfee4039aef1bfef58e164c7f6eba88d1c019b8",
+          "bytes": 1827,
+          "download_seconds": 0.429
+        },
+        "dtypes.json": {
+          "url": "https://huggingface.co/datasets/TabArena/BeyondArena/resolve/2ecfe882ccfb814fc27c4de10a64ceefd5d7655c/predict_students_dropout_and_academic_success/019d7369-3ffd-7889-91d3-46e5b502f4ec/dtypes.json",
+          "sha256": "a92ce7fc82a63973c0558c87f66e3c099f5abd77b47773420754c132f4391b80",
+          "bytes": 1441,
+          "download_seconds": 0.417
+        },
+        "experiment_metadata.predictive-ml-splits-mold-v1.json": {
+          "url": "https://huggingface.co/datasets/TabArena/BeyondArena/resolve/2ecfe882ccfb814fc27c4de10a64ceefd5d7655c/predict_students_dropout_and_academic_success/019d7369-3ffd-7889-91d3-46e5b502f4ec/experiment_metadata.predictive-ml-splits-mold-v1.json",
+          "sha256": "373ccd35b5613d918e093b422e9f8f1efc9ba8a045e2fd739d11697428611726",
+          "bytes": 229175,
+          "download_seconds": 0.498
+        },
+        "task_metadata.predictive-ml-task-mold-v1.json": {
+          "url": "https://huggingface.co/datasets/TabArena/BeyondArena/resolve/2ecfe882ccfb814fc27c4de10a64ceefd5d7655c/predict_students_dropout_and_academic_success/019d7369-3ffd-7889-91d3-46e5b502f4ec/task_metadata.predictive-ml-task-mold-v1.json",
+          "sha256": "6554de97b7ca1986d81be2ec3fda1d1479168f5f8ea9f52904044a0929714a4e",
+          "bytes": 306,
+          "download_seconds": 0.48
+        }
+      },
+      "reserved_phase": "final_lockbox",
+      "status": "metadata_available"
+    },
+    {
+      "case": "beyond_telemonitoring_parkinsons_biomedical_voice_measurements",
+      "source": "beyondarena",
+      "dataset": "telemonitoring_parkinsons_biomedical_voice_measurements",
+      "revision": "2ecfe882ccfb814fc27c4de10a64ceefd5d7655c",
+      "container": "telemonitoring_parkinsons_biomedical_voice_measurements/019d7391-4b65-7d0e-a950-684a098c3df9",
+      "source_url": "https://huggingface.co/datasets/TabArena/BeyondArena",
+      "original_source": "https://doi.org/10.24432/C59C74",
+      "license": "CC BY 4.0",
+      "target": "total_UPDRS",
+      "problem_type": "regression",
+      "metric": "rmse",
+      "split_regime": "grouped",
+      "task_metadata": {
+        "target_column_name": "total_UPDRS",
+        "problem_type": "regression",
+        "objective_metric_name": "rmse",
+        "stratify_on": null,
+        "time_on": null,
+        "group_on": "subject#",
+        "group_labels": "per_sample",
+        "group_time_on": "test_time",
+        "type_adapter_id": "predictive-ml-task-mold-v1"
+      },
+      "experiment_file": "experiment_metadata.predictive-ml-splits-mold-v1.json",
+      "parquet_bytes": 78345,
+      "parquet_path": "telemonitoring_parkinsons_biomedical_voice_measurements/019d7391-4b65-7d0e-a950-684a098c3df9/dataset.parquet",
+      "cache_directory": "/Users/mac/Documents/projects/alfaautoresearch/artifacts/data/benchmark_v2/beyondarena/telemonitoring_parkinsons_biomedical_voice_measurements",
+      "metadata_provenance": {
+        "container_metadata.json": {
+          "url": "https://huggingface.co/datasets/TabArena/BeyondArena/resolve/2ecfe882ccfb814fc27c4de10a64ceefd5d7655c/telemonitoring_parkinsons_biomedical_voice_measurements/019d7391-4b65-7d0e-a950-684a098c3df9/container_metadata.json",
+          "sha256": "bd7325bec517355440001c2e7d29a32c0ee136a26a31ab2b7d2f4bfddf9c8630",
+          "bytes": 162,
+          "download_seconds": 0.422
+        },
+        "dataset_metadata.dataset-mold-v1.json": {
+          "url": "https://huggingface.co/datasets/TabArena/BeyondArena/resolve/2ecfe882ccfb814fc27c4de10a64ceefd5d7655c/telemonitoring_parkinsons_biomedical_voice_measurements/019d7391-4b65-7d0e-a950-684a098c3df9/dataset_metadata.dataset-mold-v1.json",
+          "sha256": "b1ba9656bfb65a905b9ebe951af545dc9218d7bebf61b2adf29f2b9d0e693f0e",
+          "bytes": 2448,
+          "download_seconds": 0.453
+        },
+        "dtypes.json": {
+          "url": "https://huggingface.co/datasets/TabArena/BeyondArena/resolve/2ecfe882ccfb814fc27c4de10a64ceefd5d7655c/telemonitoring_parkinsons_biomedical_voice_measurements/019d7391-4b65-7d0e-a950-684a098c3df9/dtypes.json",
+          "sha256": "4c07dc92fc180e20a519aebc6ca0c89672e2aa8eb69fd218824bc0f66ab3b4c0",
+          "bytes": 526,
+          "download_seconds": 0.348
+        },
+        "experiment_metadata.predictive-ml-splits-mold-v1.json": {
+          "url": "https://huggingface.co/datasets/TabArena/BeyondArena/resolve/2ecfe882ccfb814fc27c4de10a64ceefd5d7655c/telemonitoring_parkinsons_biomedical_voice_measurements/019d7391-4b65-7d0e-a950-684a098c3df9/experiment_metadata.predictive-ml-splits-mold-v1.json",
+          "sha256": "d86882e9048aa0aa71c394230fb6c24c11bfffa38dff63c202bff2ac13381629",
+          "bytes": 145327,
+          "download_seconds": 0.332
+        },
+        "task_metadata.predictive-ml-task-mold-v1.json": {
+          "url": "https://huggingface.co/datasets/TabArena/BeyondArena/resolve/2ecfe882ccfb814fc27c4de10a64ceefd5d7655c/telemonitoring_parkinsons_biomedical_voice_measurements/019d7391-4b65-7d0e-a950-684a098c3df9/task_metadata.predictive-ml-task-mold-v1.json",
+          "sha256": "c2b4e5e5c674e6565a9f0e5db7f9c456be654888450f83ba781d977fcf8ff866",
+          "bytes": 291,
+          "download_seconds": 0.464
+        }
+      },
+      "reserved_phase": "final_lockbox",
+      "status": "metadata_available"
+    },
+    {
+      "case": "beyond_forest_fires",
+      "source": "beyondarena",
+      "dataset": "forest_fires",
+      "revision": "2ecfe882ccfb814fc27c4de10a64ceefd5d7655c",
+      "container": "forest_fires/019d736b-2610-7f4f-ae46-3f6a4c98962e",
+      "source_url": "https://huggingface.co/datasets/TabArena/BeyondArena",
+      "original_source": "https://doi.org/10.24432/C5D88D",
+      "license": "CC BY 4.0",
+      "target": "area",
+      "problem_type": "regression",
+      "metric": "rmse",
+      "split_regime": "iid",
+      "task_metadata": {
+        "target_column_name": "area",
+        "problem_type": "regression",
+        "objective_metric_name": "rmse",
+        "stratify_on": null,
+        "time_on": null,
+        "group_on": null,
+        "group_labels": null,
+        "group_time_on": null,
+        "type_adapter_id": "predictive-ml-task-mold-v1"
+      },
+      "experiment_file": "experiment_metadata.predictive-ml-splits-mold-v1.json",
+      "parquet_bytes": 18748,
+      "parquet_path": "forest_fires/019d736b-2610-7f4f-ae46-3f6a4c98962e/dataset.parquet",
+      "cache_directory": "/Users/mac/Documents/projects/alfaautoresearch/artifacts/data/benchmark_v2/beyondarena/forest_fires",
+      "metadata_provenance": {
+        "container_metadata.json": {
+          "url": "https://huggingface.co/datasets/TabArena/BeyondArena/resolve/2ecfe882ccfb814fc27c4de10a64ceefd5d7655c/forest_fires/019d736b-2610-7f4f-ae46-3f6a4c98962e/container_metadata.json",
+          "sha256": "9c4075b2adcd1c3100839d65e0086ed16a843e2cabd5b3b0b883eb9fdb6d0d2d",
+          "bytes": 162,
+          "download_seconds": 0.55
+        },
+        "dataset_metadata.dataset-mold-v1.json": {
+          "url": "https://huggingface.co/datasets/TabArena/BeyondArena/resolve/2ecfe882ccfb814fc27c4de10a64ceefd5d7655c/forest_fires/019d736b-2610-7f4f-ae46-3f6a4c98962e/dataset_metadata.dataset-mold-v1.json",
+          "sha256": "5f5cf37b3bb37a0f5bdd5b3cfab64e50c676c80f1a181ad7782166e7517be8d6",
+          "bytes": 1827,
+          "download_seconds": 0.416
+        },
+        "dtypes.json": {
+          "url": "https://huggingface.co/datasets/TabArena/BeyondArena/resolve/2ecfe882ccfb814fc27c4de10a64ceefd5d7655c/forest_fires/019d736b-2610-7f4f-ae46-3f6a4c98962e/dtypes.json",
+          "sha256": "83c75d65948b158460aa668c259d6f811c091fd9f5e4f2b82d70626eb997bad0",
+          "bytes": 259,
+          "download_seconds": 0.437
+        },
+        "experiment_metadata.predictive-ml-splits-mold-v1.json": {
+          "url": "https://huggingface.co/datasets/TabArena/BeyondArena/resolve/2ecfe882ccfb814fc27c4de10a64ceefd5d7655c/forest_fires/019d736b-2610-7f4f-ae46-3f6a4c98962e/experiment_metadata.predictive-ml-splits-mold-v1.json",
+          "sha256": "377da64d8a7bc79fa24dfa1a2946f491d6405798839a7e27ebfb5155947803c6",
+          "bytes": 149472,
+          "download_seconds": 0.347
+        },
+        "task_metadata.predictive-ml-task-mold-v1.json": {
+          "url": "https://huggingface.co/datasets/TabArena/BeyondArena/resolve/2ecfe882ccfb814fc27c4de10a64ceefd5d7655c/forest_fires/019d736b-2610-7f4f-ae46-3f6a4c98962e/task_metadata.predictive-ml-task-mold-v1.json",
+          "sha256": "1a0236bb8c90b90020f63f740980de5868aa105767a9e923edb946f4a837a366",
+          "bytes": 263,
+          "download_seconds": 0.474
+        }
+      },
+      "reserved_phase": "final_lockbox",
+      "status": "metadata_available"
+    },
+    {
+      "dataset": "climate_model_weather_forecasting",
+      "source": "beyondarena",
+      "status": "download_blocked",
+      "error": "ValueError: Source download exceeded its size/time bound",
+      "case": "beyond_climate_model_weather_forecasting",
+      "reserved_phase": "excluded"
+    },
+    {
+      "case": "beyond_qsar_fish_toxicity",
+      "source": "beyondarena",
+      "dataset": "qsar_fish_toxicity",
+      "revision": "2ecfe882ccfb814fc27c4de10a64ceefd5d7655c",
+      "container": "qsar_fish_toxicity/019d7369-62fc-7ea1-9c58-8ac89144f820",
+      "source_url": "https://huggingface.co/datasets/TabArena/BeyondArena",
+      "original_source": "https://doi.org/10.24432/C5JG7B",
+      "license": "CC BY 4.0",
+      "target": "LC50",
+      "problem_type": "regression",
+      "metric": "rmse",
+      "split_regime": "iid",
+      "task_metadata": {
+        "target_column_name": "LC50",
+        "problem_type": "regression",
+        "objective_metric_name": "rmse",
+        "stratify_on": null,
+        "time_on": null,
+        "group_on": null,
+        "group_labels": null,
+        "group_time_on": null,
+        "type_adapter_id": "predictive-ml-task-mold-v1"
+      },
+      "experiment_file": "experiment_metadata.predictive-ml-splits-mold-v1.json",
+      "parquet_bytes": 23693,
+      "parquet_path": "qsar_fish_toxicity/019d7369-62fc-7ea1-9c58-8ac89144f820/dataset.parquet",
+      "cache_directory": "/Users/mac/Documents/projects/alfaautoresearch/artifacts/data/benchmark_v2/beyondarena/qsar_fish_toxicity",
+      "metadata_provenance": {
+        "container_metadata.json": {
+          "url": "https://huggingface.co/datasets/TabArena/BeyondArena/resolve/2ecfe882ccfb814fc27c4de10a64ceefd5d7655c/qsar_fish_toxicity/019d7369-62fc-7ea1-9c58-8ac89144f820/container_metadata.json",
+          "sha256": "3d6681ad7b912e670c16fc02716437fd328a4a7aa418d91fdd187c5599b04cdd",
+          "bytes": 162,
+          "download_seconds": 0.426
+        },
+        "dataset_metadata.dataset-mold-v1.json": {
+          "url": "https://huggingface.co/datasets/TabArena/BeyondArena/resolve/2ecfe882ccfb814fc27c4de10a64ceefd5d7655c/qsar_fish_toxicity/019d7369-62fc-7ea1-9c58-8ac89144f820/dataset_metadata.dataset-mold-v1.json",
+          "sha256": "74853ac956d97379284354746f1aca7f47933967ce2316f88a26d0fe29868eed",
+          "bytes": 1493,
+          "download_seconds": 0.427
+        },
+        "dtypes.json": {
+          "url": "https://huggingface.co/datasets/TabArena/BeyondArena/resolve/2ecfe882ccfb814fc27c4de10a64ceefd5d7655c/qsar_fish_toxicity/019d7369-62fc-7ea1-9c58-8ac89144f820/dtypes.json",
+          "sha256": "d01cc1ccffac7e37834e831089d9f904e7649f04abdf5b3164f361e578066726",
+          "bytes": 155,
+          "download_seconds": 0.416
+        },
+        "experiment_metadata.predictive-ml-splits-mold-v1.json": {
+          "url": "https://huggingface.co/datasets/TabArena/BeyondArena/resolve/2ecfe882ccfb814fc27c4de10a64ceefd5d7655c/qsar_fish_toxicity/019d7369-62fc-7ea1-9c58-8ac89144f820/experiment_metadata.predictive-ml-splits-mold-v1.json",
+          "sha256": "cc912743458199ff4f1ffb7053103de046870e1cb66adae59ebfda9739c05588",
+          "bytes": 133462,
+          "download_seconds": 0.436
+        },
+        "task_metadata.predictive-ml-task-mold-v1.json": {
+          "url": "https://huggingface.co/datasets/TabArena/BeyondArena/resolve/2ecfe882ccfb814fc27c4de10a64ceefd5d7655c/qsar_fish_toxicity/019d7369-62fc-7ea1-9c58-8ac89144f820/task_metadata.predictive-ml-task-mold-v1.json",
+          "sha256": "083365a01eb2cbf708372ee7aeb9fae60954792c95afcc514a4f9fb1fbb29071",
+          "bytes": 263,
+          "download_seconds": 0.4
+        }
+      },
+      "reserved_phase": "final_lockbox",
+      "status": "metadata_available"
+    },
+    {
+      "case": "beyond_student_portuguese_performance",
+      "source": "beyondarena",
+      "dataset": "student_portuguese_performance",
+      "revision": "2ecfe882ccfb814fc27c4de10a64ceefd5d7655c",
+      "container": "student_portuguese_performance/019d7374-09f4-79ea-a27f-1ad571967f90",
+      "source_url": "https://huggingface.co/datasets/TabArena/BeyondArena",
+      "original_source": "https://doi.org/10.24432/C5TG7T",
+      "license": "CC BY 4.0",
+      "target": "G3",
+      "problem_type": "regression",
+      "metric": "rmse",
+      "split_regime": "iid",
+      "task_metadata": {
+        "target_column_name": "G3",
+        "problem_type": "regression",
+        "objective_metric_name": "rmse",
+        "stratify_on": null,
+        "time_on": null,
+        "group_on": null,
+        "group_labels": null,
+        "group_time_on": null,
+        "type_adapter_id": "predictive-ml-task-mold-v1"
+      },
+      "experiment_file": "experiment_metadata.predictive-ml-splits-mold-v1.json",
+      "parquet_bytes": 25166,
+      "parquet_path": "student_portuguese_performance/019d7374-09f4-79ea-a27f-1ad571967f90/dataset.parquet",
+      "cache_directory": "/Users/mac/Documents/projects/alfaautoresearch/artifacts/data/benchmark_v2/beyondarena/student_portuguese_performance",
+      "metadata_provenance": {
+        "container_metadata.json": {
+          "url": "https://huggingface.co/datasets/TabArena/BeyondArena/resolve/2ecfe882ccfb814fc27c4de10a64ceefd5d7655c/student_portuguese_performance/019d7374-09f4-79ea-a27f-1ad571967f90/container_metadata.json",
+          "sha256": "1260a941dc6bf1b78c053e660839aa83bd80156b7ebe73e37e9fb7752263f1c8",
+          "bytes": 162,
+          "download_seconds": 0.411
+        },
+        "dataset_metadata.dataset-mold-v1.json": {
+          "url": "https://huggingface.co/datasets/TabArena/BeyondArena/resolve/2ecfe882ccfb814fc27c4de10a64ceefd5d7655c/student_portuguese_performance/019d7374-09f4-79ea-a27f-1ad571967f90/dataset_metadata.dataset-mold-v1.json",
+          "sha256": "37589e2c19774190add8054cfc0c3a49561f0f7046226aae8a114d2963c346d9",
+          "bytes": 1247,
+          "download_seconds": 0.427
+        },
+        "dtypes.json": {
+          "url": "https://huggingface.co/datasets/TabArena/BeyondArena/resolve/2ecfe882ccfb814fc27c4de10a64ceefd5d7655c/student_portuguese_performance/019d7374-09f4-79ea-a27f-1ad571967f90/dtypes.json",
+          "sha256": "a97b2611b2b1eff9dd081c540d3e07bd885097b989ce3a22e1ef4ced688d7567",
+          "bytes": 709,
+          "download_seconds": 0.327
+        },
+        "experiment_metadata.predictive-ml-splits-mold-v1.json": {
+          "url": "https://huggingface.co/datasets/TabArena/BeyondArena/resolve/2ecfe882ccfb814fc27c4de10a64ceefd5d7655c/student_portuguese_performance/019d7374-09f4-79ea-a27f-1ad571967f90/experiment_metadata.predictive-ml-splits-mold-v1.json",
+          "sha256": "19d8b5aca3883c9a740488942a19c2434c428dbb23ab92e8cea0261a07ece224",
+          "bytes": 189072,
+          "download_seconds": 0.342
+        },
+        "task_metadata.predictive-ml-task-mold-v1.json": {
+          "url": "https://huggingface.co/datasets/TabArena/BeyondArena/resolve/2ecfe882ccfb814fc27c4de10a64ceefd5d7655c/student_portuguese_performance/019d7374-09f4-79ea-a27f-1ad571967f90/task_metadata.predictive-ml-task-mold-v1.json",
+          "sha256": "7b02bf5562eccbc7cab8382835aa241fe9a4fcc5ded5efaef7b4bcde85aabc74",
+          "bytes": 261,
+          "download_seconds": 0.408
+        }
+      },
+      "reserved_phase": "final_lockbox",
+      "status": "metadata_available"
+    },
+    {
+      "case": "beyond_fiat_500",
+      "source": "beyondarena",
+      "dataset": "fiat_500",
+      "revision": "2ecfe882ccfb814fc27c4de10a64ceefd5d7655c",
+      "container": "fiat_500/019d7367-9b82-78a9-a53a-570038a28d0a",
+      "source_url": "https://huggingface.co/datasets/TabArena/BeyondArena",
+      "original_source": "https://www.kaggle.com/datasets/paolocons/another-fiat-500-dataset-1538-rows",
+      "license": "CC0: Public Domain",
+      "target": "price",
+      "problem_type": "regression",
+      "metric": "rmse",
+      "split_regime": "iid",
+      "task_metadata": {
+        "target_column_name": "price",
+        "problem_type": "regression",
+        "objective_metric_name": "rmse",
+        "stratify_on": null,
+        "time_on": null,
+        "group_on": null,
+        "group_labels": null,
+        "group_time_on": null,
+        "type_adapter_id": "predictive-ml-task-mold-v1"
+      },
+      "experiment_file": "experiment_metadata.predictive-ml-splits-mold-v1.json",
+      "parquet_bytes": 26059,
+      "parquet_path": "fiat_500/019d7367-9b82-78a9-a53a-570038a28d0a/dataset.parquet",
+      "cache_directory": "/Users/mac/Documents/projects/alfaautoresearch/artifacts/data/benchmark_v2/beyondarena/fiat_500",
+      "metadata_provenance": {
+        "container_metadata.json": {
+          "url": "https://huggingface.co/datasets/TabArena/BeyondArena/resolve/2ecfe882ccfb814fc27c4de10a64ceefd5d7655c/fiat_500/019d7367-9b82-78a9-a53a-570038a28d0a/container_metadata.json",
+          "sha256": "12336874fd3f240e9d8083b1660ce533c83487df3c6702e522bd472c077883a1",
+          "bytes": 162,
+          "download_seconds": 0.431
+        },
+        "dataset_metadata.dataset-mold-v1.json": {
+          "url": "https://huggingface.co/datasets/TabArena/BeyondArena/resolve/2ecfe882ccfb814fc27c4de10a64ceefd5d7655c/fiat_500/019d7367-9b82-78a9-a53a-570038a28d0a/dataset_metadata.dataset-mold-v1.json",
+          "sha256": "d4d161975d4c54605775c7bfbec1e66e2480f411db3601fb8aa2d63d87c01da8",
+          "bytes": 1172,
+          "download_seconds": 0.322
+        },
+        "dtypes.json": {
+          "url": "https://huggingface.co/datasets/TabArena/BeyondArena/resolve/2ecfe882ccfb814fc27c4de10a64ceefd5d7655c/fiat_500/019d7367-9b82-78a9-a53a-570038a28d0a/dtypes.json",
+          "sha256": "ab12846e303f5f2cf40cc41b115460f2481b85f56f1a8f8659d4ae0733c60c10",
+          "bytes": 185,
+          "download_seconds": 0.431
+        },
+        "experiment_metadata.predictive-ml-splits-mold-v1.json": {
+          "url": "https://huggingface.co/datasets/TabArena/BeyondArena/resolve/2ecfe882ccfb814fc27c4de10a64ceefd5d7655c/fiat_500/019d7367-9b82-78a9-a53a-570038a28d0a/experiment_metadata.predictive-ml-splits-mold-v1.json",
+          "sha256": "9ac03b57d28f63a32595716dc3ceec569f6d28326e55d7c71a8df837a27b19e9",
+          "bytes": 244102,
+          "download_seconds": 0.472
+        },
+        "task_metadata.predictive-ml-task-mold-v1.json": {
+          "url": "https://huggingface.co/datasets/TabArena/BeyondArena/resolve/2ecfe882ccfb814fc27c4de10a64ceefd5d7655c/fiat_500/019d7367-9b82-78a9-a53a-570038a28d0a/task_metadata.predictive-ml-task-mold-v1.json",
+          "sha256": "6362b66c25fef37db9e484b0dbea18f4064f04cc35c3278e2f5a0f9344eb7c43",
+          "bytes": 264,
+          "download_seconds": 0.518
+        }
+      },
+      "reserved_phase": "excluded",
+      "status": "metadata_available"
+    },
+    {
+      "case": "beyond_biomechanical_orthopaedic_prediction",
+      "source": "beyondarena",
+      "dataset": "biomechanical_orthopaedic_prediction",
+      "revision": "2ecfe882ccfb814fc27c4de10a64ceefd5d7655c",
+      "container": "biomechanical_orthopaedic_prediction/019d736a-4c2d-74b6-95a3-c63bd4b8fff7",
+      "source_url": "https://huggingface.co/datasets/TabArena/BeyondArena",
+      "original_source": "https://doi.org/10.24432/C5K89B",
+      "license": "CC BY 4.0",
+      "target": "class",
+      "problem_type": "multiclass_classification",
+      "metric": "log_loss",
+      "split_regime": "iid",
+      "task_metadata": {
+        "target_column_name": "class",
+        "problem_type": "multiclass_classification",
+        "objective_metric_name": "log_loss",
+        "stratify_on": "class",
+        "time_on": null,
+        "group_on": null,
+        "group_labels": null,
+        "group_time_on": null,
+        "type_adapter_id": "predictive-ml-task-mold-v1"
+      },
+      "experiment_file": "experiment_metadata.predictive-ml-splits-mold-v1.json",
+      "parquet_bytes": 21658,
+      "parquet_path": "biomechanical_orthopaedic_prediction/019d736a-4c2d-74b6-95a3-c63bd4b8fff7/dataset.parquet",
+      "cache_directory": "/Users/mac/Documents/projects/alfaautoresearch/artifacts/data/benchmark_v2/beyondarena/biomechanical_orthopaedic_prediction",
+      "metadata_provenance": {
+        "container_metadata.json": {
+          "url": "https://huggingface.co/datasets/TabArena/BeyondArena/resolve/2ecfe882ccfb814fc27c4de10a64ceefd5d7655c/biomechanical_orthopaedic_prediction/019d736a-4c2d-74b6-95a3-c63bd4b8fff7/container_metadata.json",
+          "sha256": "0d1374427a476d35e3fc7f282ad9fcc89e889ad3d013038e93c2e3b98de5fb09",
+          "bytes": 162,
+          "download_seconds": 0.419
+        },
+        "dataset_metadata.dataset-mold-v1.json": {
+          "url": "https://huggingface.co/datasets/TabArena/BeyondArena/resolve/2ecfe882ccfb814fc27c4de10a64ceefd5d7655c/biomechanical_orthopaedic_prediction/019d736a-4c2d-74b6-95a3-c63bd4b8fff7/dataset_metadata.dataset-mold-v1.json",
+          "sha256": "820ca6cc680d2a16d2e01ca57264cc2f88d5ccbce4af117a65cd407195ace879",
+          "bytes": 1219,
+          "download_seconds": 0.441
+        },
+        "dtypes.json": {
+          "url": "https://huggingface.co/datasets/TabArena/BeyondArena/resolve/2ecfe882ccfb814fc27c4de10a64ceefd5d7655c/biomechanical_orthopaedic_prediction/019d736a-4c2d-74b6-95a3-c63bd4b8fff7/dtypes.json",
+          "sha256": "43b24919cfd1bb51da924f90a2867a1daef6392038265907044a6c59b863dc46",
+          "bytes": 224,
+          "download_seconds": 0.439
+        },
+        "experiment_metadata.predictive-ml-splits-mold-v1.json": {
+          "url": "https://huggingface.co/datasets/TabArena/BeyondArena/resolve/2ecfe882ccfb814fc27c4de10a64ceefd5d7655c/biomechanical_orthopaedic_prediction/019d736a-4c2d-74b6-95a3-c63bd4b8fff7/experiment_metadata.predictive-ml-splits-mold-v1.json",
+          "sha256": "6bcdec910a21299844fbdbf9d912ad44312eeef8373a04f442f1f3f4f1a7f3dd",
+          "bytes": 87372,
+          "download_seconds": 0.434
+        },
+        "task_metadata.predictive-ml-task-mold-v1.json": {
+          "url": "https://huggingface.co/datasets/TabArena/BeyondArena/resolve/2ecfe882ccfb814fc27c4de10a64ceefd5d7655c/biomechanical_orthopaedic_prediction/019d736a-4c2d-74b6-95a3-c63bd4b8fff7/task_metadata.predictive-ml-task-mold-v1.json",
+          "sha256": "307d8bfc74895c7a6ca3dc6439e4ce34dfc23d429f2d08d822b78b5c542ff5fd",
+          "bytes": 286,
+          "download_seconds": 0.428
+        }
+      },
+      "reserved_phase": "final_lockbox",
+      "status": "metadata_available"
+    },
+    {
+      "case": "beyond_emscad",
+      "source": "beyondarena",
+      "dataset": "emscad",
+      "revision": "2ecfe882ccfb814fc27c4de10a64ceefd5d7655c",
+      "container": "emscad/019d736a-ed4a-7aaa-89df-d52558565db9",
+      "source_url": "https://huggingface.co/datasets/TabArena/BeyondArena",
+      "original_source": "https://www.kaggle.com/datasets/shivamb/real-or-fake-fake-jobposting-prediction/data",
+      "license": "CC0: Public Domain",
+      "target": "fraudulent",
+      "problem_type": "binary_classification",
+      "metric": "roc_auc",
+      "split_regime": "iid",
+      "task_metadata": {
+        "target_column_name": "fraudulent",
+        "problem_type": "binary_classification",
+        "objective_metric_name": "roc_auc",
+        "stratify_on": "fraudulent",
+        "time_on": null,
+        "group_on": null,
+        "group_labels": null,
+        "group_time_on": null,
+        "type_adapter_id": "predictive-ml-task-mold-v1"
+      },
+      "experiment_file": "experiment_metadata.predictive-ml-splits-mold-v1.json",
+      "parquet_bytes": 22280166,
+      "parquet_path": "emscad/019d736a-ed4a-7aaa-89df-d52558565db9/dataset.parquet",
+      "cache_directory": "/Users/mac/Documents/projects/alfaautoresearch/artifacts/data/benchmark_v2/beyondarena/emscad",
+      "metadata_provenance": {
+        "container_metadata.json": {
+          "url": "https://huggingface.co/datasets/TabArena/BeyondArena/resolve/2ecfe882ccfb814fc27c4de10a64ceefd5d7655c/emscad/019d736a-ed4a-7aaa-89df-d52558565db9/container_metadata.json",
+          "sha256": "6aaf0403e25f5de7e65d44c3683af16685ff42c7aff030be018ebcb97924c59a",
+          "bytes": 162,
+          "download_seconds": 0.344
+        },
+        "dataset_metadata.dataset-mold-v1.json": {
+          "url": "https://huggingface.co/datasets/TabArena/BeyondArena/resolve/2ecfe882ccfb814fc27c4de10a64ceefd5d7655c/emscad/019d736a-ed4a-7aaa-89df-d52558565db9/dataset_metadata.dataset-mold-v1.json",
+          "sha256": "b3ac62f97296ed7e137428c4201628d182a75ddbe8d864c1e974d3f08ca44575",
+          "bytes": 3491,
+          "download_seconds": 0.347
+        },
+        "dtypes.json": {
+          "url": "https://huggingface.co/datasets/TabArena/BeyondArena/resolve/2ecfe882ccfb814fc27c4de10a64ceefd5d7655c/emscad/019d736a-ed4a-7aaa-89df-d52558565db9/dtypes.json",
+          "sha256": "9bd295895bdebb70eb3ae919d9fe56786ae565bc475fb63e8303e1d73fd2c36e",
+          "bytes": 526,
+          "download_seconds": 0.319
+        },
+        "experiment_metadata.predictive-ml-splits-mold-v1.json": {
+          "url": "https://huggingface.co/datasets/TabArena/BeyondArena/resolve/2ecfe882ccfb814fc27c4de10a64ceefd5d7655c/emscad/019d736a-ed4a-7aaa-89df-d52558565db9/experiment_metadata.predictive-ml-splits-mold-v1.json",
+          "sha256": "8f535201454f13182f08021307f41ad4c82e21b9ac777aa1f4054d11e0a6347c",
+          "bytes": 1000340,
+          "download_seconds": 0.982
+        },
+        "task_metadata.predictive-ml-task-mold-v1.json": {
+          "url": "https://huggingface.co/datasets/TabArena/BeyondArena/resolve/2ecfe882ccfb814fc27c4de10a64ceefd5d7655c/emscad/019d736a-ed4a-7aaa-89df-d52558565db9/task_metadata.predictive-ml-task-mold-v1.json",
+          "sha256": "fa28635f631c320235f48fe1c4e3eb299acd8fb8a35d15ca1585ceb1a4dcd7ac",
+          "bytes": 291,
+          "download_seconds": 0.67
+        }
+      },
+      "reserved_phase": "final_lockbox",
+      "status": "metadata_available"
+    },
+    {
+      "case": "beyond_5g_energy_consumption",
+      "source": "beyondarena",
+      "dataset": "5g_energy_consumption",
+      "revision": "2ecfe882ccfb814fc27c4de10a64ceefd5d7655c",
+      "container": "5g_energy_consumption/019db4c5-d45f-7c07-80c9-bdd75ea01338",
+      "source_url": "https://huggingface.co/datasets/TabArena/BeyondArena",
+      "original_source": "https://huggingface.co/datasets/netop/5G-Network-Energy-Consumption",
+      "license": "MIT",
+      "target": "Energy",
+      "problem_type": "regression",
+      "metric": "MAPE",
+      "split_regime": "grouped",
+      "task_metadata": {
+        "target_column_name": "Energy",
+        "problem_type": "regression",
+        "objective_metric_name": "MAPE",
+        "stratify_on": null,
+        "time_on": null,
+        "group_on": "BS",
+        "group_labels": "per_sample",
+        "group_time_on": null,
+        "type_adapter_id": "predictive-ml-task-mold-v1"
+      },
+      "experiment_file": "experiment_metadata.predictive-ml-splits-mold-v1.json",
+      "parquet_bytes": 1384420,
+      "parquet_path": "5g_energy_consumption/019db4c5-d45f-7c07-80c9-bdd75ea01338/dataset.parquet",
+      "cache_directory": "/Users/mac/Documents/projects/alfaautoresearch/artifacts/data/benchmark_v2/beyondarena/5g_energy_consumption",
+      "metadata_provenance": {
+        "container_metadata.json": {
+          "url": "https://huggingface.co/datasets/TabArena/BeyondArena/resolve/2ecfe882ccfb814fc27c4de10a64ceefd5d7655c/5g_energy_consumption/019db4c5-d45f-7c07-80c9-bdd75ea01338/container_metadata.json",
+          "sha256": "68cf7fe3766aa2fe60d25a8f06d8c9192855e45408a789e9215ed855efae4012",
+          "bytes": 162,
+          "download_seconds": 0.528
+        },
+        "dataset_metadata.dataset-mold-v1.json": {
+          "url": "https://huggingface.co/datasets/TabArena/BeyondArena/resolve/2ecfe882ccfb814fc27c4de10a64ceefd5d7655c/5g_energy_consumption/019db4c5-d45f-7c07-80c9-bdd75ea01338/dataset_metadata.dataset-mold-v1.json",
+          "sha256": "39699add5bc78849bc3b72fbbe74fcdeae863d2bf4a0beeed075295cc838c895",
+          "bytes": 2994,
+          "download_seconds": 0.767
+        },
+        "dtypes.json": {
+          "url": "https://huggingface.co/datasets/TabArena/BeyondArena/resolve/2ecfe882ccfb814fc27c4de10a64ceefd5d7655c/5g_energy_consumption/019db4c5-d45f-7c07-80c9-bdd75ea01338/dtypes.json",
+          "sha256": "64e5630fdf018ea0ed5ec115a7b464927e4f549162c696f0e36578ca16159ead",
+          "bytes": 542,
+          "download_seconds": 0.948
+        },
+        "experiment_metadata.predictive-ml-splits-mold-v1.json": {
+          "url": "https://huggingface.co/datasets/TabArena/BeyondArena/resolve/2ecfe882ccfb814fc27c4de10a64ceefd5d7655c/5g_energy_consumption/019db4c5-d45f-7c07-80c9-bdd75ea01338/experiment_metadata.predictive-ml-splits-mold-v1.json",
+          "sha256": "dedb1a8df2669b72e19618b6b30b633a273d211516ed2f4ca3341c84ea4b8c19",
+          "bytes": 5735923,
+          "download_seconds": 3.231
+        },
+        "task_metadata.predictive-ml-task-mold-v1.json": {
+          "url": "https://huggingface.co/datasets/TabArena/BeyondArena/resolve/2ecfe882ccfb814fc27c4de10a64ceefd5d7655c/5g_energy_consumption/019db4c5-d45f-7c07-80c9-bdd75ea01338/task_metadata.predictive-ml-task-mold-v1.json",
+          "sha256": "e0089220145f48fad235b1f41f6e1c2ba9ee1f83511945f4ec943e8149996e05",
+          "bytes": 273,
+          "download_seconds": 0.948
+        }
+      },
+      "reserved_phase": "final_lockbox",
+      "status": "metadata_available"
+    },
+    {
+      "case": "beyond_miami_housing",
+      "source": "beyondarena",
+      "dataset": "miami_housing",
+      "revision": "2ecfe882ccfb814fc27c4de10a64ceefd5d7655c",
+      "container": "miami_housing/019d7368-cda5-7177-b500-4986a5e77a82",
+      "source_url": "https://huggingface.co/datasets/TabArena/BeyondArena",
+      "original_source": "https://www.openml.org/d/43093",
+      "license": "CC BY-NC-SA",
+      "target": "SALE_PRC",
+      "problem_type": "regression",
+      "metric": "rmse",
+      "split_regime": "iid",
+      "task_metadata": {
+        "target_column_name": "SALE_PRC",
+        "problem_type": "regression",
+        "objective_metric_name": "rmse",
+        "stratify_on": null,
+        "time_on": null,
+        "group_on": null,
+        "group_labels": null,
+        "group_time_on": null,
+        "type_adapter_id": "predictive-ml-task-mold-v1"
+      },
+      "experiment_file": "experiment_metadata.predictive-ml-splits-mold-v1.json",
+      "parquet_bytes": 1044625,
+      "parquet_path": "miami_housing/019d7368-cda5-7177-b500-4986a5e77a82/dataset.parquet",
+      "cache_directory": "/Users/mac/Documents/projects/alfaautoresearch/artifacts/data/benchmark_v2/beyondarena/miami_housing",
+      "metadata_provenance": {
+        "container_metadata.json": {
+          "url": "https://huggingface.co/datasets/TabArena/BeyondArena/resolve/2ecfe882ccfb814fc27c4de10a64ceefd5d7655c/miami_housing/019d7368-cda5-7177-b500-4986a5e77a82/container_metadata.json",
+          "sha256": "0f9d234f2e07655f1b1ee3d33ad680a39ff659b366ed4aa50b6259af89cb5b30",
+          "bytes": 162,
+          "download_seconds": 0.45
+        },
+        "dataset_metadata.dataset-mold-v1.json": {
+          "url": "https://huggingface.co/datasets/TabArena/BeyondArena/resolve/2ecfe882ccfb814fc27c4de10a64ceefd5d7655c/miami_housing/019d7368-cda5-7177-b500-4986a5e77a82/dataset_metadata.dataset-mold-v1.json",
+          "sha256": "81c62f14f5ccc60bf8ed132fbea1ed45ac0d6a4ac0ad904f170107c0dcae7fc3",
+          "bytes": 1287,
+          "download_seconds": 0.418
+        },
+        "dtypes.json": {
+          "url": "https://huggingface.co/datasets/TabArena/BeyondArena/resolve/2ecfe882ccfb814fc27c4de10a64ceefd5d7655c/miami_housing/019d7368-cda5-7177-b500-4986a5e77a82/dtypes.json",
+          "sha256": "fa2ac78d529f8a3fe65b055ef6b5048fddf80b1c62bec8c9ac74c441069f3991",
+          "bytes": 431,
+          "download_seconds": 0.338
+        },
+        "experiment_metadata.predictive-ml-splits-mold-v1.json": {
+          "url": "https://huggingface.co/datasets/TabArena/BeyondArena/resolve/2ecfe882ccfb814fc27c4de10a64ceefd5d7655c/miami_housing/019d7368-cda5-7177-b500-4986a5e77a82/experiment_metadata.predictive-ml-splits-mold-v1.json",
+          "sha256": "9c9e5119e4d6bb5bb8b72aa21192f7359c65dd407efbf8ad1496202bcbe6c6ca",
+          "bytes": 768180,
+          "download_seconds": 0.578
+        },
+        "task_metadata.predictive-ml-task-mold-v1.json": {
+          "url": "https://huggingface.co/datasets/TabArena/BeyondArena/resolve/2ecfe882ccfb814fc27c4de10a64ceefd5d7655c/miami_housing/019d7368-cda5-7177-b500-4986a5e77a82/task_metadata.predictive-ml-task-mold-v1.json",
+          "sha256": "533303480c7ce50dd6e64a263ec05e2061c598702ad24e455b214714b81d46b7",
+          "bytes": 267,
+          "download_seconds": 0.532
+        }
+      },
+      "reserved_phase": "excluded",
+      "status": "metadata_available"
+    },
+    {
+      "case": "openml_3",
+      "source": "openml",
+      "task_id": 3,
+      "dataset": "OpenML task 3 (metadata unavailable)",
+      "reserved_phase": "development",
+      "status": "download_blocked",
+      "metric": "f1_macro",
+      "metric_policy": "Planned Macro F1 study variant on original task splits",
+      "source_url": "https://www.openml.org/t/3",
+      "license": null,
+      "metadata_request_attempted": true,
+      "error": "OpenML API timed out in direct requests; API also inaccessible through web tool. Source/split/labels not retrieved."
+    },
+    {
+      "case": "openml_6",
+      "source": "openml",
+      "task_id": 6,
+      "dataset": "OpenML task 6 (metadata unavailable)",
+      "reserved_phase": "development",
+      "status": "download_blocked",
+      "metric": "f1_macro",
+      "metric_policy": "Planned Macro F1 study variant on original task splits",
+      "source_url": "https://www.openml.org/t/6",
+      "license": null,
+      "metadata_request_attempted": false,
+      "error": "OpenML API timed out in direct requests; API also inaccessible through web tool. Source/split/labels not retrieved."
+    },
+    {
+      "case": "openml_12",
+      "source": "openml",
+      "task_id": 12,
+      "dataset": "OpenML task 12 (metadata unavailable)",
+      "reserved_phase": "development",
+      "status": "download_blocked",
+      "metric": "f1_macro",
+      "metric_policy": "Planned Macro F1 study variant on original task splits",
+      "source_url": "https://www.openml.org/t/12",
+      "license": null,
+      "metadata_request_attempted": false,
+      "error": "OpenML API timed out in direct requests; API also inaccessible through web tool. Source/split/labels not retrieved."
+    },
+    {
+      "case": "openml_31",
+      "source": "openml",
+      "task_id": 31,
+      "dataset": "OpenML task 31 (metadata unavailable)",
+      "reserved_phase": "development",
+      "status": "download_blocked",
+      "metric": "f1_macro",
+      "metric_policy": "Planned Macro F1 study variant on original task splits",
+      "source_url": "https://www.openml.org/t/31",
+      "license": null,
+      "metadata_request_attempted": true,
+      "error": "OpenML API timed out in direct requests; API also inaccessible through web tool. Source/split/labels not retrieved."
+    },
+    {
+      "case": "openml_37",
+      "source": "openml",
+      "task_id": 37,
+      "dataset": "OpenML task 37 (metadata unavailable)",
+      "reserved_phase": "development",
+      "status": "download_blocked",
+      "metric": "f1_macro",
+      "metric_policy": "Planned Macro F1 study variant on original task splits",
+      "source_url": "https://www.openml.org/t/37",
+      "license": null,
+      "metadata_request_attempted": true,
+      "error": "OpenML API timed out in direct requests; API also inaccessible through web tool. Source/split/labels not retrieved."
+    },
+    {
+      "case": "openml_54",
+      "source": "openml",
+      "task_id": 54,
+      "dataset": "OpenML task 54 (metadata unavailable)",
+      "reserved_phase": "development",
+      "status": "download_blocked",
+      "metric": "f1_macro",
+      "metric_policy": "Planned Macro F1 study variant on original task splits",
+      "source_url": "https://www.openml.org/t/54",
+      "license": null,
+      "metadata_request_attempted": false,
+      "error": "OpenML API timed out in direct requests; API also inaccessible through web tool. Source/split/labels not retrieved."
+    }
+  ],
+  "reserved_final_cases": [
+    "beyond_bank_customer_churn",
+    "beyond_online_shoppers_purchasing_intention_dataset",
+    "beyond_predict_students_dropout_and_academic_success",
+    "beyond_telemonitoring_parkinsons_biomedical_voice_measurements",
+    "beyond_forest_fires",
+    "beyond_qsar_fish_toxicity",
+    "beyond_student_portuguese_performance",
+    "beyond_biomechanical_orthopaedic_prediction",
+    "beyond_emscad",
+    "beyond_5g_energy_consumption"
+  ],
+  "lockbox_policy": "Reserved datasets not loaded/evaluated before final code freeze; one joint baseline/candidate opening",
+  "promotion_policy": "Paired development results, failure-aware; final metrics never tune the frozen code"
+}

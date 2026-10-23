@@ -1,0 +1,115 @@
+{
+  "started_at_utc": "2026-10-22T15:35:00.236221+00:00",
+  "jobs": [
+    {
+      "name": "stop-race-fixed-stress",
+      "started_at_utc": "2026-10-22T15:35:00.237124+00:00",
+      "command": [
+        ".bootstrap/performance_v2/stop-race/run_fixed.py"
+      ],
+      "returncode": 0,
+      "finished_at_utc": "2026-10-22T15:35:05.783229+00:00",
+      "status": "completed",
+      "report": "/Users/mac/Documents/projects/alfaautoresearch/reports/performance_v2/stop-race-probe-fixed.json",
+      "log": "/Users/mac/Documents/projects/alfaautoresearch/reports/performance_v2/stop-race-probe-fixed.log"
+    },
+    {
+      "name": "p3j-annotation-followup",
+      "started_at_utc": "2026-10-22T15:35:05.783798+00:00",
+      "command": [
+        "scripts/benchmark_suite.py",
+        "--archives",
+        "candidate=.bootstrap/performance_v2/p3j/source/submission.zip",
+        "--cases",
+        "adult_income,concrete_strength,dry_beans",
+        "--seeds",
+        "42,53",
+        "--budget",
+        "120",
+        "--modes",
+        "deterministic,live-agent",
+        "--max-calls",
+        "2",
+        "--report",
+        "reports/performance_v2/p3j-annotation-followup.json"
+      ],
+      "returncode": 0,
+      "finished_at_utc": "2026-10-22T15:55:40.308618+00:00",
+      "status": "completed",
+      "report": "/Users/mac/Documents/projects/alfaautoresearch/reports/performance_v2/p3j-annotation-followup.json",
+      "log": "/Users/mac/Documents/projects/alfaautoresearch/reports/performance_v2/p3j-annotation-followup.log"
+    },
+    {
+      "name": "p3j-linux",
+      "started_at_utc": "2026-10-22T15:55:40.309379+00:00",
+      "command": [
+        "scripts/verify_linux.py",
+        "--zip",
+        ".bootstrap/performance_v2/p3j/source/submission.zip",
+        "--report",
+        "reports/performance_v2/p3j-linux.json"
+      ],
+      "returncode": 0,
+      "finished_at_utc": "2026-10-22T15:56:44.986609+00:00",
+      "status": "completed",
+      "report": "/Users/mac/Documents/projects/alfaautoresearch/reports/performance_v2/p3j-linux.json",
+      "log": "/Users/mac/Documents/projects/alfaautoresearch/reports/performance_v2/p3j-linux.log"
+    },
+    {
+      "name": "p3j-exact-cli-matrix",
+      "started_at_utc": "2026-10-22T15:56:44.988724+00:00",
+      "command": [
+        "scripts/verify_zip.py",
+        "--zip",
+        ".bootstrap/performance_v2/p3j/source/submission.zip",
+        "--scenarios",
+        "iid,integer_labels,binary_imbalance,multiclass_imbalance,group,future,text,wide,unseen,singleton,logloss,missing,negative,locale,inf,all_null,official_regression,official_classification",
+        "--abrupt",
+        "--report",
+        "reports/performance_v2/p3j-exact-cli-matrix.json"
+      ],
+      "returncode": 0,
+      "finished_at_utc": "2026-10-22T15:59:37.750779+00:00",
+      "status": "completed",
+      "report": "/Users/mac/Documents/projects/alfaautoresearch/reports/performance_v2/p3j-exact-cli-matrix.json",
+      "log": "/Users/mac/Documents/projects/alfaautoresearch/reports/performance_v2/p3j-exact-cli-matrix.log"
+    },
+    {
+      "name": "p3j-denied-qwen",
+      "started_at_utc": "2026-10-22T15:59:37.751585+00:00",
+      "command": [
+        "scripts/verify_zip.py",
+        "--zip",
+        ".bootstrap/performance_v2/p3j/source/submission.zip",
+        "--scenarios",
+        "iid",
+        "--deny-qwen",
+        "--report",
+        "reports/performance_v2/p3j-denied-qwen.json"
+      ],
+      "returncode": 0,
+      "finished_at_utc": "2026-10-22T15:59:45.621232+00:00",
+      "status": "completed",
+      "report": "/Users/mac/Documents/projects/alfaautoresearch/reports/performance_v2/p3j-denied-qwen.json",
+      "log": "/Users/mac/Documents/projects/alfaautoresearch/reports/performance_v2/p3j-denied-qwen.log"
+    },
+    {
+      "name": "p3j-platform-compliance",
+      "started_at_utc": "2026-10-22T15:59:45.622051+00:00",
+      "command": [
+        "scripts/audit_platform.py",
+        "--zip",
+        ".bootstrap/performance_v2/p3j/source/submission.zip",
+        "--report",
+        "reports/performance_v2/p3j-platform-compliance.json"
+      ],
+      "returncode": 0,
+      "finished_at_utc": "2026-10-22T16:08:23.376332+00:00",
+      "status": "completed",
+      "report": "/Users/mac/Documents/projects/alfaautoresearch/reports/performance_v2/p3j-platform-compliance.json",
+      "log": "/Users/mac/Documents/projects/alfaautoresearch/reports/performance_v2/p3j-platform-compliance.log"
+    }
+  ],
+  "waiting_for": "benchmarks/performance_v2/queue6.state.json",
+  "status": "completed"
+}

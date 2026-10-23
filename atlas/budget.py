@@ -5,6 +5,19 @@ import os,signal,subprocess,time
 from pathlib import Path
 import psutil
 
+
+def watch_parent(expected_pid):
+    """Stop an isolated worker group if its controller is killed abruptly."""
+    if not expected_pid or os.getpgrp()!=os.getpid():return
+    import threading
+    def monitor():
+        while True:
+            if os.getppid()!=expected_pid:
+                os.killpg(os.getpgrp(),signal.SIGKILL)
+                return
+            time.sleep(.25)
+    threading.Thread(target=monitor,name='controller-watch',daemon=True).start()
+
 @dataclass
 class Budget:
     total: float=10800
@@ -20,14 +33,23 @@ class Budget:
     def search_remaining(self):return max(0.,self.remaining-self.reserve)
 
 
+def _signal_group(proc, sig):
+    try:os.killpg(proc.pid,sig)
+    except ProcessLookupError:return
+    except PermissionError as error:
+        # Darwin sandbox may report EPERM instead of ESRCH when the worker exits
+        # between poll() and killpg(). Reap only a genuinely exited child; never
+        # hide a permission failure while the owned process is still alive.
+        try:proc.wait(timeout=.2)
+        except subprocess.TimeoutExpired:raise error from None
+
+
 def stop_process(proc):
     if proc.poll() is not None:return
-    try:os.killpg(proc.pid,signal.SIGTERM)
-    except ProcessLookupError:return
+    _signal_group(proc,signal.SIGTERM)
     try:proc.wait(timeout=1)
     except subprocess.TimeoutExpired:
-        try:os.killpg(proc.pid,signal.SIGKILL)
-        except ProcessLookupError:pass
+        _signal_group(proc,signal.SIGKILL)
         proc.wait(timeout=3)
 
 
@@ -36,7 +58,7 @@ def run_process(command,cwd: Path,timeout: float,memory_mb=24576,threads=8,shoul
     env={'PATH':os.defpath,'PYTHONIOENCODING':'utf-8','PYTHONHASHSEED':'0','PYTHONUNBUFFERED':'1'}
     env['MPLCONFIGDIR']=str(cwd/'mpl-cache')
     for key in ['OMP_NUM_THREADS','MKL_NUM_THREADS','OPENBLAS_NUM_THREADS','NUMEXPR_NUM_THREADS','VECLIB_MAXIMUM_THREADS']:env[key]=str(threads)
-    log_path=cwd/'worker.log';start=time.monotonic();peak=0.;cpu=0.;max_threads=0;reason=None
+    log_path=cwd/'worker.log';start=time.monotonic();peak=0.;cpu=0.;max_threads=0;reason=None;cpu_by_pid={}
     with log_path.open('w') as log:
         proc=subprocess.Popen(command,cwd=cwd,env=env,stdout=log,stderr=subprocess.STDOUT,start_new_session=True)
         (cwd/'worker.pid').write_text(str(proc.pid))
@@ -49,7 +71,9 @@ def run_process(command,cwd: Path,timeout: float,memory_mb=24576,threads=8,shoul
                     mem=sum(p.memory_info().rss for p in processes if p.is_running())/2**20
                     peak=max(peak,mem)
                     max_threads=max(max_threads,sum(p.num_threads() for p in processes if p.is_running()))
-                    cpu=max(cpu,sum(sum(p.cpu_times()[:2]) for p in processes if p.is_running()))
+                    for member in processes:
+                        if member.is_running():cpu_by_pid[(member.pid,member.create_time())]=sum(member.cpu_times()[:2])
+                    cpu=sum(cpu_by_pid.values())
                     if mem>memory_mb:reason='memory_limit';break
                 except (psutil.NoSuchProcess,psutil.AccessDenied):pass
                 time.sleep(.05)

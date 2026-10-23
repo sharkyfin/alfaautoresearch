@@ -28,7 +28,7 @@ def diagnostics(data,idx,pred):
         return {'per_class':report,'confusion_matrix':confusion,'mean_max_probability':float(confidence.mean()),'calibration_bins':calibration,'expected_calibration_error':ece,'brier_score':max(0.,brier)}
     residual=np.asarray(pred)-y
     bins=[]
-    edges=np.unique(np.quantile(y,[0,.25,.5,.75,1]))
+    edges=np.unique(np.quantile(y,np.linspace(0,1,11)))
     for i in range(len(edges)-1):
         mask=(y>=edges[i])&(y<=edges[i+1] if i==len(edges)-2 else y<edges[i+1])
         if mask.any():bins.append({'target_range':[float(edges[i]),float(edges[i+1])],'n':int(mask.sum()),'rmse':float(np.sqrt(np.mean(residual[mask]**2))),'mae':float(np.mean(abs(residual[mask]))),'bias':float(np.mean(residual[mask]))})
@@ -53,7 +53,13 @@ def evaluate(data,split,predictions,model_info=None):
     detail['error_associations']=error_associations(data,split.valid,pv,importance)
     train_metric=(model_info or {}).get('train_sample_metric')
     if train_metric is not None:detail['train_validation_utility_gap']=metric.utility(train_metric)-metric.utility(score)
-    return {'metric_name':metric.name,'metric_value':score,'metric_direction':metric.direction,'standardized_utility':metric.utility(score),'diagnostics':detail}
+    result={'metric_name':metric.name,'metric_value':score,'metric_direction':metric.direction,'standardized_utility':metric.utility(score),'diagnostics':detail}
+    if data.spec.classification:
+        missing=np.setdiff1d(np.arange(len(data.spec.labels)),np.unique(data.y[split.valid])).astype(int).tolist()
+        result['metric_feasibility']={'unvalidated_class_indices':missing,
+            'all_classes_validated':not missing,
+            'macro_fold_aggregation_allowed':not missing or metric.name not in {'f1_macro','balanced_accuracy'}}
+    return result
 
 
 def meaningful_gain(new,old):return new>old+max(1e-5,abs(old)*.0005)

@@ -10,6 +10,7 @@ import hashlib
 import importlib.metadata
 import json
 import os
+import signal
 from pathlib import Path
 import shutil
 import subprocess
@@ -24,43 +25,90 @@ MODES = ('lightgbm', 'deterministic', 'live-agent')
 
 def stop_child(process):
     if process.poll() is not None:return
+    import psutil
+    try:children=psutil.Process(process.pid).children(recursive=True)
+    except psutil.NoSuchProcess:children=[]
     process.terminate()
     try:
         process.wait(timeout=8)
     except subprocess.TimeoutExpired:
-        import psutil
-        try: children = psutil.Process(process.pid).children(recursive=True)
-        except psutil.NoSuchProcess: children = []
         for child in reversed(children):
             try:child.kill()
             except psutil.NoSuchProcess:pass
         process.kill(); process.wait(timeout=5)
+    for child in reversed(children):
+        try:
+            if child.is_running():child.kill()
+        except psutil.NoSuchProcess:pass
+    try:os.killpg(process.pid,signal.SIGKILL)
+    except ProcessLookupError:pass
 
 
-def run_one(snapshot, task, run_dir, mode, args, settings, metadata, source_digest):
+def run_one(snapshot, task, run_dir, mode, args, settings, metadata, source_digest, evaluation_truth=None):
     from scripts.kaggle_data import evaluate_output, INPUT_FILES
     env = {'PATH': os.defpath, 'PYTHONIOENCODING': 'utf-8', 'PYTHONUNBUFFERED': '1',
            'MPLCONFIGDIR': str(task.parent/'mpl-cache')}
     if mode == 'live-agent':env.update(settings)
-    command = [sys.executable, str(snapshot/'scripts/kaggle_worker.py'), str(task),
+    command = [getattr(args,'worker_python',sys.executable), str(snapshot/'scripts/kaggle_worker.py'), str(task),
                '--mode', mode, '--budget', str(args.budget), '--threads', str(args.threads),
                '--memory-mb', str(args.memory_mb), '--max-calls', str(args.max_calls),
                '--seed', str(metadata['seed']), '--run-dir', str(run_dir)]
+    if getattr(args,'exclude_families',''):
+        command += ['--exclude-families',args.exclude_families]
+    if getattr(args,'fixed_recipe',None):
+        command += ['--fixed-recipe',str(args.fixed_recipe)]
+    for key in ['ensemble_strategy','finalization']:
+        if getattr(args,key,None):command += ['--'+key.replace('_','-'),getattr(args,key)]
+    command = list(getattr(args,'sandbox_prefix',[])) + command
     log_path = task.parent.parent/(mode+'.log')
-    started = time.monotonic(); timed_out = False
+    started = time.monotonic(); timed_out = False;memory_limited=False;peak_memory=0.;cpu_seconds=0.;cpu_by_pid={};first_trained=None
     with log_path.open('w') as log:
         process = subprocess.Popen(command, cwd=task.parent, env=env, stdout=log, stderr=log, start_new_session=True)
         try:
-            process.wait(timeout=args.budget+30)
+            import psutil
+            deadline=started+args.budget+(0 if getattr(args,'hard_deadline',False) else 30)
+            while process.poll() is None:
+                if first_trained is None:
+                    if '"accepted": true' in log_path.read_text(errors='replace'):
+                        first_trained=time.monotonic()-started
+                    elif mode in {'autogluon','flaml'} and (run_dir/'summary.json').exists():
+                        try:
+                            interim=json.loads((run_dir/'summary.json').read_text())
+                            if interim.get('checkpoint_kind') not in {None,'valid_dummy'}:first_trained=time.monotonic()-started
+                        except (OSError,ValueError):pass
+                if time.monotonic()>deadline:
+                    timed_out=True;stop_child(process);break
+                try:
+                    parent=psutil.Process(process.pid);tree=[parent,*parent.children(recursive=True)]
+                    rss=sum(p.memory_info().rss for p in tree if p.is_running())/2**20
+                    peak_memory=max(peak_memory,rss)
+                    for member in tree:
+                        if member.is_running():cpu_by_pid[(member.pid,member.create_time())]=sum(member.cpu_times()[:2])
+                    cpu_seconds=sum(cpu_by_pid.values())
+                    if rss>args.memory_mb:
+                        memory_limited=True;stop_child(process);break
+                except (psutil.NoSuchProcess,psutil.AccessDenied):pass
+                time.sleep(.1)
         except subprocess.TimeoutExpired:
             timed_out = True; stop_child(process)
         finally:
             if process.poll() is None:stop_child(process)
     summary_path = run_dir/'summary.json'
-    summary = json.loads(summary_path.read_text()) if summary_path.exists() else {}
+    try:summary = json.loads(summary_path.read_text()) if summary_path.exists() else {}
+    except (ValueError,OSError):summary = {'summary_read_error':True}
+    unsupported_reason=None
+    if summary.get('status')=='unsupported_task':
+        unsupported_reason=summary.get('fatal_exception',{}).get('message','Unsupported task contract')
+    if not summary:
+        for line in log_path.read_text(errors='replace').splitlines():
+            try:event=json.loads(line)
+            except ValueError:continue
+            if isinstance(event,dict) and event.get('status')=='unsupported_task':
+                unsupported_reason=str(event.get('reason','Unsupported task contract'))[:500]
     record = {'case': metadata['case'], 'mode': mode, 'seed': metadata['seed'], 'phase': metadata['phase'],
               'metric': metadata['metric'], 'budget_seconds': args.budget,
               'wall_seconds': round(time.monotonic()-started, 3), 'threads': args.threads,
+              'first_trained_checkpoint_seconds':first_trained,
               'memory_mb': args.memory_mb, 'runtime_code_sha256': source_digest,
               'raw_sha256': metadata['raw_sha256'], 'split_sha256': metadata['split_sha256'],
               'returncode': process.returncode, 'log': str(log_path), 'run_dir': str(run_dir),
@@ -77,14 +125,25 @@ def run_one(snapshot, task, run_dir, mode, args, settings, metadata, source_dige
               'output_sha256': summary.get('output_sha256'),
               'feature_ablation_checks': summary.get('feature_ablation_checks', 0),
               'accepted_feature_ablations': summary.get('accepted_feature_ablations', 0)}
+    if unsupported_reason is not None:
+        record.update(status='unsupported_metric',error=unsupported_reason,
+            source_identity='frozen archive integrity verified; task failed before a trained runtime summary')
+        return record
     try:
+        if not summary:
+            raise ValueError('Worker exited without a runtime summary; inspect retained log')
         if summary.get('runtime_code_sha256') != source_digest:
             raise ValueError('Worker source fingerprint differs from the frozen uploaded runtime')
         if any(hashlib.sha256((task.parent/name).read_bytes()).hexdigest() != metadata['input_sha256'][name] for name in INPUT_FILES):
             raise ValueError('Agent modified benchmark input material')
         # No evaluation labels are read until the child has completed.
-        record['external_metric'] = evaluate_output(task.parent, Path(metadata['sealed_labels']), metadata)
-        if timed_out:record['status'] = 'timeout'
+        if evaluation_truth is None:
+            record['external_metric'] = evaluate_output(task.parent, Path(metadata['sealed_labels']), metadata)
+        else:
+            from scripts.benchmark_data import evaluate_memory
+            record['external_metric'],record['evaluation_detail']=evaluate_memory(task.parent,evaluation_truth,metadata)
+        if memory_limited:record['status']='memory_limit'
+        elif timed_out:record['status'] = 'timeout'
         elif process.returncode or (run_dir/'error.txt').exists():record['status'] = 'agent_error'
         elif not summary.get('champion_recipe'):record['status'] = 'constant_fallback'
         else:record['status'] = 'ok'
@@ -95,8 +154,17 @@ def run_one(snapshot, task, run_dir, mode, args, settings, metadata, source_dige
         record['research_experiments'] = [{key: row[key] for key in ['experiment_id','status','metric_value','accepted','recipe','feature_trial'] if key in row} for row in research]
         record['champion_recipe'] = summary.get('champion_recipe')
         record['qwen_events'] = summary.get('qwen_events', [])
+        record.update(checkpoint_kind=summary.get('checkpoint_kind','full_refit' if summary.get('full_refit_published') else 'trained_checkpoint' if summary.get('champion_recipe') else 'valid_dummy'),
+                      fit_success=summary.get('fit_success',sum(row.get('status')=='ok' for row in history)),
+                      terminal_status=summary.get('status'),llm_valid_recipes=len(research),
+                      control_folds_completed=len(summary.get('confirmation_metrics',[])),
+                      fold_bagged_done=summary.get('fold_bagged_done',False),
+                      cpu_seconds=cpu_seconds or sum(row.get('cpu_seconds',0) for row in history),
+                      peak_memory_mb=max(peak_memory,summary.get('peak_worker_memory_mb') or 0),
+                      backend=summary.get('backend'),backend_version=summary.get('backend_version'),backend_wrapper_sha256=summary.get('backend_wrapper_sha256'),
+                      fallback_kind=(summary.get('checkpoint_kind') or ('trained_checkpoint' if summary.get('champion_recipe') else 'valid_dummy')) if not summary.get('full_refit_published') else None)
     except (ValueError, OSError, KeyError, TypeError) as error:
-        record.update(status='evaluation_error', error=str(error))
+        record.update(status='memory_limit' if memory_limited else 'timeout' if timed_out else 'runtime_failed' if process.returncode else 'evaluation_error', error=str(error))
     return record
 
 

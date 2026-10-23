@@ -1,0 +1,161 @@
+{
+  "started_at_utc": "2026-10-21T22:16:18.363901+00:00",
+  "jobs": [
+    {
+      "name": "p3-frozen-full-tests",
+      "started_at_utc": "2026-10-21T22:46:09.618504+00:00",
+      "command": [
+        ".bootstrap/performance_v2/p3e/source/scripts/check_all.py"
+      ],
+      "returncode": 1,
+      "finished_at_utc": "2026-10-21T22:48:43.175781+00:00",
+      "status": "failed",
+      "report": "/Users/mac/Documents/projects/alfaautoresearch/.bootstrap/performance_v2/p3e/source/reports/test-state.json",
+      "log": "/Users/mac/Documents/projects/alfaautoresearch/.bootstrap/performance_v2/p3e/source/reports/test-state.log"
+    },
+    {
+      "name": "p3-smoke",
+      "started_at_utc": "2026-10-21T22:48:43.176438+00:00",
+      "command": [
+        "scripts/benchmark_suite.py",
+        "--archives",
+        "candidate=.bootstrap/performance_v2/p3e/source/submission.zip",
+        "--cases",
+        "concrete_strength,adult_income",
+        "--budget",
+        "60",
+        "--seeds",
+        "42",
+        "--report",
+        "reports/performance_v2/p3-smoke.json"
+      ],
+      "returncode": 0,
+      "finished_at_utc": "2026-10-21T22:50:54.181545+00:00",
+      "status": "completed",
+      "report": "/Users/mac/Documents/projects/alfaautoresearch/reports/performance_v2/p3-smoke.json",
+      "log": "/Users/mac/Documents/projects/alfaautoresearch/reports/performance_v2/p3-smoke.log"
+    },
+    {
+      "name": "regression-native-log",
+      "started_at_utc": "2026-10-21T22:50:54.182359+00:00",
+      "command": [
+        "scripts/benchmark_suite.py",
+        "--archives",
+        "baseline=.bootstrap/performance_v2/p2a/source/submission.zip,candidate=.bootstrap/performance_v2/p2a/source/submission.zip",
+        "--cases",
+        "california_housing,concrete_strength,beyond_airfoil_self_noise,beyond_healthcare_insurance_expenses",
+        "--budget",
+        "60",
+        "--seeds",
+        "42,53",
+        "--report",
+        "reports/performance_v2/regression-native-log.json",
+        "--recipe-by-arm",
+        "baseline=benchmarks/performance_v2/native.json,candidate=benchmarks/performance_v2/log.json"
+      ],
+      "returncode": 0,
+      "finished_at_utc": "2026-10-21T22:53:15.318054+00:00",
+      "status": "completed",
+      "report": "/Users/mac/Documents/projects/alfaautoresearch/reports/performance_v2/regression-native-log.json",
+      "log": "/Users/mac/Documents/projects/alfaautoresearch/reports/performance_v2/regression-native-log.log"
+    },
+    {
+      "name": "text-word-char",
+      "started_at_utc": "2026-10-21T22:53:15.318832+00:00",
+      "command": [
+        "scripts/benchmark_suite.py",
+        "--archives",
+        "baseline=.bootstrap/performance_v2/p2a/source/submission.zip,candidate=.bootstrap/performance_v2/p2a/source/submission.zip",
+        "--cases",
+        "sms_spam",
+        "--budget",
+        "60",
+        "--seeds",
+        "42,53",
+        "--report",
+        "reports/performance_v2/text-word-char.json",
+        "--recipe-by-arm",
+        "baseline=benchmarks/performance_v2/word.json,candidate=benchmarks/performance_v2/char.json"
+      ],
+      "returncode": 0,
+      "finished_at_utc": "2026-10-21T22:54:12.603213+00:00",
+      "status": "completed",
+      "report": "/Users/mac/Documents/projects/alfaautoresearch/reports/performance_v2/text-word-char.json",
+      "log": "/Users/mac/Documents/projects/alfaautoresearch/reports/performance_v2/text-word-char.log"
+    },
+    {
+      "name": "text-word-combined",
+      "started_at_utc": "2026-10-21T22:54:12.603964+00:00",
+      "command": [
+        "scripts/benchmark_suite.py",
+        "--archives",
+        "baseline=.bootstrap/performance_v2/p2a/source/submission.zip,candidate=.bootstrap/performance_v2/p2a/source/submission.zip",
+        "--cases",
+        "sms_spam",
+        "--budget",
+        "60",
+        "--seeds",
+        "42,53",
+        "--report",
+        "reports/performance_v2/text-word-combined.json",
+        "--recipe-by-arm",
+        "baseline=benchmarks/performance_v2/word.json,candidate=benchmarks/performance_v2/word_char.json"
+      ],
+      "returncode": 0,
+      "finished_at_utc": "2026-10-21T22:55:11.792343+00:00",
+      "status": "completed",
+      "report": "/Users/mac/Documents/projects/alfaautoresearch/reports/performance_v2/text-word-combined.json",
+      "log": "/Users/mac/Documents/projects/alfaautoresearch/reports/performance_v2/text-word-combined.log"
+    },
+    {
+      "name": "rare-class-p1-p2",
+      "started_at_utc": "2026-10-21T22:55:11.836347+00:00",
+      "command": [
+        "scripts/benchmark_suite.py",
+        "--archives",
+        "baseline=.bootstrap/performance_v2/p1/source/submission.zip,candidate=.bootstrap/performance_v2/p2a/source/submission.zip",
+        "--cases",
+        "dry_beans,beyond_asp_potassco_classification,beyond_cardiotocography,beyond_ecoli_proteins",
+        "--budget",
+        "120",
+        "--seeds",
+        "42,53",
+        "--report",
+        "reports/performance_v2/rare-class-p1-p2.json",
+        "--manifest",
+        "benchmarks/performance_v2/macro_manifest.json"
+      ],
+      "returncode": 0,
+      "finished_at_utc": "2026-10-21T23:18:43.685080+00:00",
+      "status": "completed",
+      "report": "/Users/mac/Documents/projects/alfaautoresearch/reports/performance_v2/rare-class-p1-p2.json",
+      "log": "/Users/mac/Documents/projects/alfaautoresearch/reports/performance_v2/rare-class-p1-p2.log"
+    },
+    {
+      "name": "backend-classical-120",
+      "started_at_utc": "2026-10-21T23:18:43.686754+00:00",
+      "command": [
+        "scripts/benchmark_suite.py",
+        "--archives",
+        "reference=.bootstrap/performance_v2/p1/source/submission.zip",
+        "--cases",
+        "adult_income,concrete_strength,dry_beans",
+        "--budget",
+        "120",
+        "--seeds",
+        "42",
+        "--report",
+        "reports/performance_v2/backend-classical-120.json",
+        "--modes",
+        "deterministic,autogluon,flaml"
+      ],
+      "returncode": 0,
+      "finished_at_utc": "2026-10-21T23:30:40.876280+00:00",
+      "status": "completed",
+      "report": "/Users/mac/Documents/projects/alfaautoresearch/reports/performance_v2/backend-classical-120.json",
+      "log": "/Users/mac/Documents/projects/alfaautoresearch/reports/performance_v2/backend-classical-120.log"
+    }
+  ],
+  "waiting_for": "reports/performance_v2/p1-broad-120.json",
+  "status": "completed"
+}

@@ -1,0 +1,143 @@
+{
+  "schema_version": 2,
+  "candidate_version": "p3j",
+  "frozen_at_utc": "2026-10-22T16:11:10.292875+00:00",
+  "frozen_at_moscow": "2026-10-22T19:11:10.292875+03:00",
+  "cases": [
+    "beyond_bank_customer_churn",
+    "beyond_online_shoppers_purchasing_intention_dataset",
+    "beyond_predict_students_dropout_and_academic_success",
+    "beyond_telemonitoring_parkinsons_biomedical_voice_measurements",
+    "beyond_forest_fires",
+    "beyond_qsar_fish_toxicity",
+    "beyond_student_portuguese_performance",
+    "beyond_biomechanical_orthopaedic_prediction",
+    "beyond_emscad",
+    "beyond_5g_energy_consumption"
+  ],
+  "archives": {
+    "baseline": "228593d0ddc7a82c21d0201b61c63ab3f163d913bb8644272fb8b9e5e29b14b5",
+    "candidate": "daa1087f405e21a698375e81e1960c422bd29b6363d2e7c2dc8f36e807226b8b"
+  },
+  "sources": {
+    "baseline": "e2f776a1bdeb35a2010a1cba434733fd6edf6d97566cd045a832c1ee27dbb7d9",
+    "candidate": "cb82433fb9700c62be8a95d60bbb939dc8bf9100a2e8577ccb8cb5ddec7d11ad"
+  },
+  "protocol": {
+    "seeds": [
+      42,
+      53
+    ],
+    "modes": [
+      "live-agent"
+    ],
+    "budget_seconds": 120.0,
+    "threads": 8,
+    "memory_mb": 8192,
+    "max_qwen_calls": 2,
+    "exclude_families": "",
+    "exclude_by_arm": "",
+    "recipe_by_arm": "",
+    "blend_by_arm": "",
+    "finalization_by_arm": ""
+  },
+  "manifest_sha256": "ae644e186cbd98c2ecd3129f2fba8668802caac5348241f5e0aece3b28070da5",
+  "evaluator_fingerprints": {
+    "atlas/metrics.py": "8f7a79069bf727b7b4e7159dea49b52c2c0e71167d43c8efc0c17ce82ecabdb3",
+    "scripts/benchmark_suite.py": "ffa3fb9f7f0dd4c21c294b45e9190753d97ce4ecc15a0b2a4b502afc8f673297",
+    "scripts/benchmark_data.py": "18c304acdef063f0721032ae5cbdd8c9516e8486f9ce0f6d848fc36c31b20aed",
+    "scripts/benchmark_kaggle.py": "08be2553fa369e98311f66c67853f21f17b50f21f951287d9287ce53ffc32f53",
+    "scripts/kaggle_data.py": "b20249093d69f30e707ed653e2c6b5ae93ab70fbc5772390a636a47e53f2973f",
+    "scripts/source_adapters.py": "420f0369b88ca5f3e3db4a93408cd299283293af7579cbd99f60b33a2d2f7160"
+  },
+  "case_records_sha256": "1a483e20d9c17d536ab4fd7fb507d0d995ef601721dc8454c7aaa9037ee1af80",
+  "unopened_data_checks": [
+    {
+      "case": "beyond_bank_customer_churn",
+      "data_path": "/Users/mac/Documents/projects/alfaautoresearch/artifacts/data/benchmark_v2/beyondarena/bank_customer_churn/dataset.parquet",
+      "data_absent": true,
+      "license": "Public Domain",
+      "source_revision": "2ecfe882ccfb814fc27c4de10a64ceefd5d7655c"
+    },
+    {
+      "case": "beyond_online_shoppers_purchasing_intention_dataset",
+      "data_path": "/Users/mac/Documents/projects/alfaautoresearch/artifacts/data/benchmark_v2/beyondarena/online_shoppers_purchasing_intention_dataset/dataset.parquet",
+      "data_absent": true,
+      "license": "CC BY 4.0",
+      "source_revision": "2ecfe882ccfb814fc27c4de10a64ceefd5d7655c"
+    },
+    {
+      "case": "beyond_predict_students_dropout_and_academic_success",
+      "data_path": "/Users/mac/Documents/projects/alfaautoresearch/artifacts/data/benchmark_v2/beyondarena/predict_students_dropout_and_academic_success/dataset.parquet",
+      "data_absent": true,
+      "license": "CC BY 4.0",
+      "source_revision": "2ecfe882ccfb814fc27c4de10a64ceefd5d7655c"
+    },
+    {
+      "case": "beyond_telemonitoring_parkinsons_biomedical_voice_measurements",
+      "data_path": "/Users/mac/Documents/projects/alfaautoresearch/artifacts/data/benchmark_v2/beyondarena/telemonitoring_parkinsons_biomedical_voice_measurements/dataset.parquet",
+      "data_absent": true,
+      "license": "CC BY 4.0",
+      "source_revision": "2ecfe882ccfb814fc27c4de10a64ceefd5d7655c"
+    },
+    {
+      "case": "beyond_forest_fires",
+      "data_path": "/Users/mac/Documents/projects/alfaautoresearch/artifacts/data/benchmark_v2/beyondarena/forest_fires/dataset.parquet",
+      "data_absent": true,
+      "license": "CC BY 4.0",
+      "source_revision": "2ecfe882ccfb814fc27c4de10a64ceefd5d7655c"
+    },
+    {
+      "case": "beyond_qsar_fish_toxicity",
+      "data_path": "/Users/mac/Documents/projects/alfaautoresearch/artifacts/data/benchmark_v2/beyondarena/qsar_fish_toxicity/dataset.parquet",
+      "data_absent": true,
+      "license": "CC BY 4.0",
+      "source_revision": "2ecfe882ccfb814fc27c4de10a64ceefd5d7655c"
+    },
+    {
+      "case": "beyond_student_portuguese_performance",
+      "data_path": "/Users/mac/Documents/projects/alfaautoresearch/artifacts/data/benchmark_v2/beyondarena/student_portuguese_performance/dataset.parquet",
+      "data_absent": true,
+      "license": "CC BY 4.0",
+      "source_revision": "2ecfe882ccfb814fc27c4de10a64ceefd5d7655c"
+    },
+    {
+      "case": "beyond_biomechanical_orthopaedic_prediction",
+      "data_path": "/Users/mac/Documents/projects/alfaautoresearch/artifacts/data/benchmark_v2/beyondarena/biomechanical_orthopaedic_prediction/dataset.parquet",
+      "data_absent": true,
+      "license": "CC BY 4.0",
+      "source_revision": "2ecfe882ccfb814fc27c4de10a64ceefd5d7655c"
+    },
+    {
+      "case": "beyond_emscad",
+      "data_path": "/Users/mac/Documents/projects/alfaautoresearch/artifacts/data/benchmark_v2/beyondarena/emscad/dataset.parquet",
+      "data_absent": true,
+      "license": "CC0: Public Domain",
+      "source_revision": "2ecfe882ccfb814fc27c4de10a64ceefd5d7655c"
+    },
+    {
+      "case": "beyond_5g_energy_consumption",
+      "data_path": "/Users/mac/Documents/projects/alfaautoresearch/artifacts/data/benchmark_v2/beyondarena/5g_energy_consumption/dataset.parquet",
+      "data_absent": true,
+      "license": "MIT",
+      "source_revision": "2ecfe882ccfb814fc27c4de10a64ceefd5d7655c"
+    }
+  ],
+  "gates": {
+    "reports/performance_v2/stop-race-probe-fixed.json": "fe6189acdc243f74bbd8f7be99122aa5cd97a279caea43f6495c86f492e1eb4e",
+    "reports/performance_v2/p3j-linux.json": "e67cf2643de55c499c60aa9f8bdeb6e0311718ece8da51267f0a52873d970a1e",
+    "reports/performance_v2/p3j-exact-cli-matrix.json": "fc53bb70ce7d09effe3c92cae47f7f76fd3568416cedd3657d9f53c42b03abf4",
+    "reports/performance_v2/p3j-denied-qwen.json": "88dede7a3216c73f8a0a98d6427fc67b297410d942ba4718249485f4238f0e34",
+    "reports/performance_v2/p3j-platform-compliance.json": "cf0434a0a2f6ea6dcdc5a6cda9708c339a6508b5ff4be6cbea5fe823c46d363c",
+    "reports/performance_v2/p3j-annotation-followup.json": "f07415c9f2e5968d5c1bb6178b517d67b1e42ec1ebaf252496d148f51e8458c2",
+    "reports/performance_v2/p3j-final-test-gate.json": "1d7b4e1d101227cd6356130a97d766547f449e88ce4411b7c96b48ea04b2b4cf"
+  },
+  "selection_review": "reports/performance_v2/development_regressions.md",
+  "selection_review_sha256": "e184f6c9ef5d75a5b60d745ef1da4739789837e04b389c16e75bfca36954a1ae",
+  "promotion_policy_sha256": "a759d405ee461d5e28d39b9e1442290ea3a10741aa59f299b475d21dbba78291",
+  "opening_controller_sha256": "65cc5f22684cba0061aa97b38c69561e235e697585fcf235f0c5b91bc5806f1f",
+  "selection_scope": "Chosen before final data; no runtime adaptation after opening. P3h development measurements retain P3h identity; P3i adds inert-annotation normalization; P3j only repairs the reproduced exiting-worker signal race and receives its own live and execution gates. The failed P3i live run remains a failure.",
+  "evaluation": "Original curated outer repeats 0/1 (seeds42/53), parent-only truth; no platform submission.",
+  "baseline_capability_exception": "Original HEAD has no MAPE; retain its unsupported row, no zero score; candidate MAPE is an unpaired capability test.",
+  "stop_policy": "Report all final outcomes including losses. No reuse/tuning on these answers."
+}

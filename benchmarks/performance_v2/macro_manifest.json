@@ -1,0 +1,239 @@
+{
+  "schema_version": 2,
+  "created_at_utc": "2026-10-21T21:36:31.921996+00:00",
+  "seeds": [
+    42,
+    53,
+    71
+  ],
+  "source_policy": "Original curated splits; parent-only external labels; no source data in release",
+  "cases": [
+    {
+      "case": "dry_beans",
+      "source": "kaggle",
+      "dataset": "muratkokludataset/dry-bean-dataset",
+      "dataset_key": "dry_beans",
+      "license": "CC0: Public Domain",
+      "version": 1,
+      "source_url": "https://www.kaggle.com/datasets/muratkokludataset/dry-bean-dataset",
+      "target": "Class",
+      "metric": "f1_macro",
+      "reserved_phase": "development",
+      "status": "metadata_available",
+      "metadata_provenance": {
+        "url": "https://www.kaggle.com/api/v1/datasets/view/muratkokludataset/dry-bean-dataset",
+        "sha256": "e1dac11dc62fd3cc9f70c73f33d3665fc6d1930495ec3fff7531ca2d8c73ccc1",
+        "bytes": 11428,
+        "download_seconds": 0.386
+      },
+      "historical_final_lockbox": "already used in prior development; not a new blind test",
+      "metric_override": "f1_macro"
+    },
+    {
+      "case": "beyond_asp_potassco_classification",
+      "source": "beyondarena",
+      "dataset": "asp_potassco_classification",
+      "revision": "2ecfe882ccfb814fc27c4de10a64ceefd5d7655c",
+      "container": "asp_potassco_classification/019d73ec-935f-7f88-8a82-af3ad2f44e9f",
+      "source_url": "https://huggingface.co/datasets/TabArena/BeyondArena",
+      "original_source": "https://github.com/coseal/aslib_data/tree/master/ASP-POTASSCO",
+      "license": "GPLv3",
+      "target": "algorithm",
+      "problem_type": "multiclass_classification",
+      "metric": "log_loss",
+      "split_regime": "grouped",
+      "task_metadata": {
+        "target_column_name": "algorithm",
+        "problem_type": "multiclass_classification",
+        "objective_metric_name": "log_loss",
+        "stratify_on": "algorithm",
+        "time_on": null,
+        "group_on": "task_id",
+        "group_labels": "per_sample",
+        "group_time_on": null,
+        "type_adapter_id": "predictive-ml-task-mold-v1"
+      },
+      "experiment_file": "experiment_metadata.predictive-ml-splits-mold-v1.json",
+      "parquet_bytes": 644618,
+      "parquet_path": "asp_potassco_classification/019d73ec-935f-7f88-8a82-af3ad2f44e9f/dataset.parquet",
+      "cache_directory": "/Users/mac/Documents/projects/alfaautoresearch/artifacts/data/benchmark_v2/beyondarena/asp_potassco_classification",
+      "metadata_provenance": {
+        "container_metadata.json": {
+          "url": "https://huggingface.co/datasets/TabArena/BeyondArena/resolve/2ecfe882ccfb814fc27c4de10a64ceefd5d7655c/asp_potassco_classification/019d73ec-935f-7f88-8a82-af3ad2f44e9f/container_metadata.json",
+          "sha256": "860c0d586f2aefac1b0f46b97d953a7b60702227cec921a35f2ba184863be6ab",
+          "bytes": 162,
+          "download_seconds": 0.428
+        },
+        "dataset_metadata.dataset-mold-v1.json": {
+          "url": "https://huggingface.co/datasets/TabArena/BeyondArena/resolve/2ecfe882ccfb814fc27c4de10a64ceefd5d7655c/asp_potassco_classification/019d73ec-935f-7f88-8a82-af3ad2f44e9f/dataset_metadata.dataset-mold-v1.json",
+          "sha256": "15f0116304bc04281a84f8bb67676dd8ce0513781812ca5dc441e42a2cd00e75",
+          "bytes": 2756,
+          "download_seconds": 1.264
+        },
+        "dtypes.json": {
+          "url": "https://huggingface.co/datasets/TabArena/BeyondArena/resolve/2ecfe882ccfb814fc27c4de10a64ceefd5d7655c/asp_potassco_classification/019d73ec-935f-7f88-8a82-af3ad2f44e9f/dtypes.json",
+          "sha256": "bec9d628e241dbd52e57b71b5ef1192daa652d30aad8b1bf515fa68501f77233",
+          "bytes": 5212,
+          "download_seconds": 0.703
+        },
+        "experiment_metadata.predictive-ml-splits-mold-v1.json": {
+          "url": "https://huggingface.co/datasets/TabArena/BeyondArena/resolve/2ecfe882ccfb814fc27c4de10a64ceefd5d7655c/asp_potassco_classification/019d73ec-935f-7f88-8a82-af3ad2f44e9f/experiment_metadata.predictive-ml-splits-mold-v1.json",
+          "sha256": "c2b5285a8fc27a26cf1112e951595ea0a64b278201c67ca05942869b6cc131cc",
+          "bytes": 185409,
+          "download_seconds": 0.63
+        },
+        "task_metadata.predictive-ml-task-mold-v1.json": {
+          "url": "https://huggingface.co/datasets/TabArena/BeyondArena/resolve/2ecfe882ccfb814fc27c4de10a64ceefd5d7655c/asp_potassco_classification/019d73ec-935f-7f88-8a82-af3ad2f44e9f/task_metadata.predictive-ml-task-mold-v1.json",
+          "sha256": "a03e1f74a8b0508a890f7fb342e94ad0829f6478c6e5d32aabe3cdae65db3133",
+          "bytes": 307,
+          "download_seconds": 0.376
+        }
+      },
+      "reserved_phase": "development",
+      "status": "metadata_available",
+      "metric_override": "f1_macro"
+    },
+    {
+      "case": "beyond_cardiotocography",
+      "source": "beyondarena",
+      "dataset": "cardiotocography",
+      "revision": "2ecfe882ccfb814fc27c4de10a64ceefd5d7655c",
+      "container": "cardiotocography/019d7392-12c2-7a87-991c-13a7246555d4",
+      "source_url": "https://huggingface.co/datasets/TabArena/BeyondArena",
+      "original_source": "10.24432/C51S4N",
+      "license": "CC BY 4.0",
+      "target": "NSP",
+      "problem_type": "multiclass_classification",
+      "metric": "log_loss",
+      "split_regime": "grouped",
+      "task_metadata": {
+        "target_column_name": "NSP",
+        "problem_type": "multiclass_classification",
+        "objective_metric_name": "log_loss",
+        "stratify_on": "NSP",
+        "time_on": null,
+        "group_on": "patient_id",
+        "group_labels": "per_sample",
+        "group_time_on": null,
+        "type_adapter_id": "predictive-ml-task-mold-v1"
+      },
+      "experiment_file": "experiment_metadata.predictive-ml-splits-mold-v1.json",
+      "parquet_bytes": 55881,
+      "parquet_path": "cardiotocography/019d7392-12c2-7a87-991c-13a7246555d4/dataset.parquet",
+      "cache_directory": "/Users/mac/Documents/projects/alfaautoresearch/artifacts/data/benchmark_v2/beyondarena/cardiotocography",
+      "metadata_provenance": {
+        "container_metadata.json": {
+          "url": "https://huggingface.co/datasets/TabArena/BeyondArena/resolve/2ecfe882ccfb814fc27c4de10a64ceefd5d7655c/cardiotocography/019d7392-12c2-7a87-991c-13a7246555d4/container_metadata.json",
+          "sha256": "14ea1910e2a723098158add58db81d084d5477f6fee0854c31d50e9882387fb5",
+          "bytes": 162,
+          "download_seconds": 0.349
+        },
+        "dataset_metadata.dataset-mold-v1.json": {
+          "url": "https://huggingface.co/datasets/TabArena/BeyondArena/resolve/2ecfe882ccfb814fc27c4de10a64ceefd5d7655c/cardiotocography/019d7392-12c2-7a87-991c-13a7246555d4/dataset_metadata.dataset-mold-v1.json",
+          "sha256": "34535bee49b586494c3d7ddfc91fd6837d230347e84682dbe93880be9dc7ac67",
+          "bytes": 1488,
+          "download_seconds": 0.416
+        },
+        "dtypes.json": {
+          "url": "https://huggingface.co/datasets/TabArena/BeyondArena/resolve/2ecfe882ccfb814fc27c4de10a64ceefd5d7655c/cardiotocography/019d7392-12c2-7a87-991c-13a7246555d4/dtypes.json",
+          "sha256": "0fabb08182e69dc114e4afe47ec57cab24ea7d1e602d5b97f875b244eaa61168",
+          "bytes": 508,
+          "download_seconds": 0.351
+        },
+        "experiment_metadata.predictive-ml-splits-mold-v1.json": {
+          "url": "https://huggingface.co/datasets/TabArena/BeyondArena/resolve/2ecfe882ccfb814fc27c4de10a64ceefd5d7655c/cardiotocography/019d7392-12c2-7a87-991c-13a7246555d4/experiment_metadata.predictive-ml-splits-mold-v1.json",
+          "sha256": "3c4cd829301cb3402f9a934499648dcbc5d341c2f342a41146efdf2acb4499a8",
+          "bytes": 349929,
+          "download_seconds": 0.389
+        },
+        "task_metadata.predictive-ml-task-mold-v1.json": {
+          "url": "https://huggingface.co/datasets/TabArena/BeyondArena/resolve/2ecfe882ccfb814fc27c4de10a64ceefd5d7655c/cardiotocography/019d7392-12c2-7a87-991c-13a7246555d4/task_metadata.predictive-ml-task-mold-v1.json",
+          "sha256": "37d4c565244ab96c005c96d9a564665b4e5b6af4e480743164fb56b953788bf4",
+          "bytes": 298,
+          "download_seconds": 0.338
+        }
+      },
+      "reserved_phase": "development",
+      "status": "metadata_available",
+      "metric_override": "f1_macro"
+    },
+    {
+      "case": "beyond_ecoli_proteins",
+      "source": "beyondarena",
+      "dataset": "ecoli_proteins",
+      "revision": "2ecfe882ccfb814fc27c4de10a64ceefd5d7655c",
+      "container": "ecoli_proteins/019d736a-d6d2-7e28-aeff-7da6b7126b9d",
+      "source_url": "https://huggingface.co/datasets/TabArena/BeyondArena",
+      "original_source": "https://doi.org/10.24432/C5388M",
+      "license": "CC BY 4.0",
+      "target": "class",
+      "problem_type": "multiclass_classification",
+      "metric": "log_loss",
+      "split_regime": "iid",
+      "task_metadata": {
+        "target_column_name": "class",
+        "problem_type": "multiclass_classification",
+        "objective_metric_name": "log_loss",
+        "stratify_on": "class",
+        "time_on": null,
+        "group_on": null,
+        "group_labels": null,
+        "group_time_on": null,
+        "type_adapter_id": "predictive-ml-task-mold-v1"
+      },
+      "experiment_file": "experiment_metadata.predictive-ml-splits-mold-v1.json",
+      "parquet_bytes": 7918,
+      "parquet_path": "ecoli_proteins/019d736a-d6d2-7e28-aeff-7da6b7126b9d/dataset.parquet",
+      "cache_directory": "/Users/mac/Documents/projects/alfaautoresearch/artifacts/data/benchmark_v2/beyondarena/ecoli_proteins",
+      "metadata_provenance": {
+        "container_metadata.json": {
+          "url": "https://huggingface.co/datasets/TabArena/BeyondArena/resolve/2ecfe882ccfb814fc27c4de10a64ceefd5d7655c/ecoli_proteins/019d736a-d6d2-7e28-aeff-7da6b7126b9d/container_metadata.json",
+          "sha256": "0bf0fda163c318389dfc991c116e6c33d788a699936482da0ee6586aef045771",
+          "bytes": 162,
+          "download_seconds": 0.422
+        },
+        "dataset_metadata.dataset-mold-v1.json": {
+          "url": "https://huggingface.co/datasets/TabArena/BeyondArena/resolve/2ecfe882ccfb814fc27c4de10a64ceefd5d7655c/ecoli_proteins/019d736a-d6d2-7e28-aeff-7da6b7126b9d/dataset_metadata.dataset-mold-v1.json",
+          "sha256": "fee1db034779e6bf914058bcc986084e23a162b5d946431df24d4be14d95cd21",
+          "bytes": 1322,
+          "download_seconds": 0.322
+        },
+        "dtypes.json": {
+          "url": "https://huggingface.co/datasets/TabArena/BeyondArena/resolve/2ecfe882ccfb814fc27c4de10a64ceefd5d7655c/ecoli_proteins/019d736a-d6d2-7e28-aeff-7da6b7126b9d/dtypes.json",
+          "sha256": "a5747eaf5fe848a16732b44ce0fa8dfb3a6b0cc83375228df67bc31577ab0134",
+          "bytes": 148,
+          "download_seconds": 0.325
+        },
+        "experiment_metadata.predictive-ml-splits-mold-v1.json": {
+          "url": "https://huggingface.co/datasets/TabArena/BeyondArena/resolve/2ecfe882ccfb814fc27c4de10a64ceefd5d7655c/ecoli_proteins/019d736a-d6d2-7e28-aeff-7da6b7126b9d/experiment_metadata.predictive-ml-splits-mold-v1.json",
+          "sha256": "6141af560bde4e4c7c911bbf7ee171613dcd0cfee60818e100c351d7eeddb685",
+          "bytes": 92472,
+          "download_seconds": 0.436
+        },
+        "task_metadata.predictive-ml-task-mold-v1.json": {
+          "url": "https://huggingface.co/datasets/TabArena/BeyondArena/resolve/2ecfe882ccfb814fc27c4de10a64ceefd5d7655c/ecoli_proteins/019d736a-d6d2-7e28-aeff-7da6b7126b9d/task_metadata.predictive-ml-task-mold-v1.json",
+          "sha256": "307d8bfc74895c7a6ca3dc6439e4ce34dfc23d429f2d08d822b78b5c542ff5fd",
+          "bytes": 286,
+          "download_seconds": 0.495
+        }
+      },
+      "reserved_phase": "development",
+      "status": "metadata_available",
+      "metric_override": "f1_macro"
+    }
+  ],
+  "reserved_final_cases": [
+    "beyond_bank_customer_churn",
+    "beyond_online_shoppers_purchasing_intention_dataset",
+    "beyond_predict_students_dropout_and_academic_success",
+    "beyond_telemonitoring_parkinsons_biomedical_voice_measurements",
+    "beyond_forest_fires",
+    "beyond_qsar_fish_toxicity",
+    "beyond_student_portuguese_performance",
+    "beyond_biomechanical_orthopaedic_prediction",
+    "beyond_emscad",
+    "beyond_5g_energy_consumption"
+  ],
+  "lockbox_policy": "Reserved datasets not loaded/evaluated before final code freeze; one joint baseline/candidate opening",
+  "promotion_policy": "Paired development results, failure-aware; final metrics never tune the frozen code"
+}

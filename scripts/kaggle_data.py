@@ -157,6 +157,7 @@ def snapshot_archive(archive, destination):
         digest.update(source.name.encode()); digest.update(source.read_bytes())
     (destination/'scripts').mkdir()
     shutil.copy2(ROOT/'scripts/kaggle_worker.py', destination/'scripts/kaggle_worker.py')
+    if (ROOT/'scripts/backend_worker.py').exists():shutil.copy2(ROOT/'scripts/backend_worker.py', destination/'scripts/backend_worker.py')
     return digest.hexdigest()
 
 

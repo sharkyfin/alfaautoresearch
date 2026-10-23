@@ -5,9 +5,9 @@ import re
 import numpy as np
 from sklearn import metrics as sk
 
-REGRESSION = {'rmse','mse','mae','r2','rmsle'}
-CLASSIFICATION = {'accuracy','balanced_accuracy','f1','f1_macro','f1_micro','f1_weighted','roc_auc','logloss','average_precision'}
-PROBABILITY = {'roc_auc','logloss','average_precision'}
+REGRESSION = {'rmse','mse','mae','mape','r2','rmsle'}
+CLASSIFICATION = {'accuracy','balanced_accuracy','f1','f1_macro','f1_micro','f1_weighted','roc_auc','logloss','average_precision','pr_auc'}
+PROBABILITY = {'roc_auc','logloss','average_precision','pr_auc'}
 
 class UnsupportedTask(ValueError):
     """Task contract does not describe a supported unambiguous prediction problem."""
@@ -23,9 +23,10 @@ class Metric:
         if self.name not in REGRESSION | CLASSIFICATION: raise UnsupportedTask(f'Unknown metric: {self.name}')
         if self.name=='f1' and self.n_classes!=2: raise UnsupportedTask('Binary F1 requires two classes')
         if self.name=='average_precision' and self.n_classes!=2: raise UnsupportedTask('Average precision: binary only')
+        if self.name=='pr_auc' and self.n_classes!=2:raise UnsupportedTask('PR AUC: binary only')
 
     @property
-    def direction(self): return -1 if self.name in {'rmse','mse','mae','rmsle','logloss'} else 1
+    def direction(self): return -1 if self.name in {'rmse','mse','mae','mape','rmsle','logloss'} else 1
     @property
     def needs_proba(self): return self.name in PROBABILITY
     def utility(self, value): return self.direction * float(value)
@@ -48,6 +49,10 @@ class Metric:
             elif self.name=='average_precision':
                 if len(np.unique(y))<2: raise ValueError('AP undefined: one class')
                 value=sk.average_precision_score(y==self.positive_index,p[:,self.positive_index])
+            elif self.name=='pr_auc':
+                if len(np.unique(y))<2:raise ValueError('PR AUC undefined: one class')
+                precision,recall,_=sk.precision_recall_curve(y==self.positive_index,p[:,self.positive_index])
+                value=sk.auc(recall,precision)
             else: raise UnsupportedTask(f'Classification metric {self.name}')
         else:
             p=p.reshape(-1)
@@ -55,6 +60,7 @@ class Metric:
             if self.name=='rmse': value=np.sqrt(sk.mean_squared_error(y,p))
             elif self.name=='mse': value=sk.mean_squared_error(y,p)
             elif self.name=='mae': value=sk.mean_absolute_error(y,p)
+            elif self.name=='mape':value=sk.mean_absolute_percentage_error(y,p)
             elif self.name=='r2': value=sk.r2_score(y,p)
             elif self.name=='rmsle':
                 if (y<0).any() or (p<0).any(): raise ValueError('RMSLE requires nonnegative values')
@@ -66,7 +72,7 @@ class Metric:
 def infer_metric(description: str) -> tuple[str | None,dict]:
     # Look at primary-metric sentences first; auxiliary metrics do not override them.
     text=description.lower().replace('ё','е')
-    patterns=[('rmsle',r'\brmsle\b'),('rmse',r'\brmse\b'),('mae',r'\bmae\b'),('mse',r'\bmse\b'),('r2',r'\br2\b|r²'),('f1_macro',r'macro[ _-]*f1|f1[ _-]*macro|average\s*=\s*["\x27]macro|макро.?f1'),('f1_weighted',r'weighted[ _-]*f1|f1[ _-]*weighted'),('f1_micro',r'micro[ _-]*f1|f1[ _-]*micro'),('logloss',r'log[ _-]*loss|cross[ _-]*entropy'),('roc_auc',r'roc[ _-]*auc|\bauc\b'),('average_precision',r'average[ _-]*precision|\bpr[ _-]*auc\b'),('balanced_accuracy',r'balanced[ _-]*accuracy'),('accuracy',r'\baccuracy\b'),('f1',r'\bf1\b')]
+    patterns=[('rmsle',r'\brmsle\b'),('rmse',r'\brmse\b'),('mape',r'\bmape\b|mean absolute percentage error'),('mae',r'\bmae\b'),('mse',r'\bmse\b'),('r2',r'\br2\b|r²'),('f1_macro',r'macro[ _-]*f1|f1[ _-]*macro|average\s*=\s*["\x27]macro|макро.?f1'),('f1_weighted',r'weighted[ _-]*f1|f1[ _-]*weighted'),('f1_micro',r'micro[ _-]*f1|f1[ _-]*micro'),('logloss',r'log[ _-]*loss|cross[ _-]*entropy'),('average_precision',r'average[ _-]*precision|\bap\b'),('pr_auc',r'\bpr[ _-]*auc\b|\bauprc\b|\bauc[ _-]*pr\b'),('roc_auc',r'roc[ _-]*auc|\bauc\b'),('balanced_accuracy',r'balanced[ _-]*accuracy'),('accuracy',r'\baccuracy\b'),('f1',r'\bf1\b')]
     lines=text.splitlines()
     primary=[l for l in lines if re.search(r'основн.*метрик|primary.*metric|^metric\s*:|^метрика\s*:',l)]
     sections=primary if primary else [text]

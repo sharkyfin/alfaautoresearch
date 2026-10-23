@@ -1,0 +1,45 @@
+[
+  {
+    "name": "p3h-frozen-full-tests",
+    "report": ".bootstrap/performance_v2/p3h/source/reports/test-state.json",
+    "command": [
+      ".bootstrap/performance_v2/p3h/source/scripts/check_all.py"
+    ]
+  },
+  {
+    "name": "p3h-broad-two-seeds",
+    "report": "reports/performance_v2/p3h-broad-120.json",
+    "command": [
+      "scripts/benchmark_suite.py",
+      "--archives",
+      "baseline=.bootstrap/performance_v2/baseline/source/submission.zip,candidate=.bootstrap/performance_v2/p3h/source/submission.zip",
+      "--cases",
+      "development",
+      "--budget",
+      "120",
+      "--seeds",
+      "42,53",
+      "--report",
+      "reports/performance_v2/p3h-broad-120.json"
+    ]
+  },
+  {
+    "name": "api-admission-live",
+    "report": "reports/performance_v2/api-admission-live.json",
+    "command": [
+      "scripts/benchmark_suite.py",
+      "--archives",
+      "candidate=.bootstrap/performance_v2/p3h/source/submission.zip",
+      "--cases",
+      "concrete_strength,adult_income,dry_beans",
+      "--seeds",
+      "42,53",
+      "--budget",
+      "120",
+      "--modes",
+      "live-agent,fixed-allocation",
+      "--report",
+      "reports/performance_v2/api-admission-live.json"
+    ]
+  }
+]

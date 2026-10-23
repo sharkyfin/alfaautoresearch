@@ -1,0 +1,73 @@
+[
+  {
+    "name": "p3i-linux",
+    "report": "reports/performance_v2/p3i-linux.json",
+    "command": [
+      "scripts/verify_linux.py",
+      "--zip",
+      ".bootstrap/performance_v2/p3i/source/submission.zip",
+      "--report",
+      "reports/performance_v2/p3i-linux.json"
+    ]
+  },
+  {
+    "name": "p3i-annotation-followup",
+    "report": "reports/performance_v2/p3i-annotation-followup.json",
+    "command": [
+      "scripts/benchmark_suite.py",
+      "--archives",
+      "candidate=.bootstrap/performance_v2/p3i/source/submission.zip",
+      "--cases",
+      "concrete_strength,adult_income,dry_beans",
+      "--seeds",
+      "42,53",
+      "--budget",
+      "120",
+      "--modes",
+      "deterministic,live-agent",
+      "--max-calls",
+      "2",
+      "--report",
+      "reports/performance_v2/p3i-annotation-followup.json"
+    ]
+  },
+  {
+    "name": "p3i-exact-cli-matrix",
+    "report": "reports/performance_v2/p3i-exact-cli-matrix.json",
+    "command": [
+      "scripts/verify_zip.py",
+      "--zip",
+      ".bootstrap/performance_v2/p3i/source/submission.zip",
+      "--scenarios",
+      "iid,integer_labels,binary_imbalance,multiclass_imbalance,group,future,text,wide,unseen,singleton,logloss,missing,negative,locale,inf,all_null,official_regression,official_classification",
+      "--abrupt",
+      "--report",
+      "reports/performance_v2/p3i-exact-cli-matrix.json"
+    ]
+  },
+  {
+    "name": "p3i-denied-qwen",
+    "report": "reports/performance_v2/p3i-denied-qwen.json",
+    "command": [
+      "scripts/verify_zip.py",
+      "--zip",
+      ".bootstrap/performance_v2/p3i/source/submission.zip",
+      "--scenarios",
+      "iid",
+      "--deny-qwen",
+      "--report",
+      "reports/performance_v2/p3i-denied-qwen.json"
+    ]
+  },
+  {
+    "name": "p3i-platform-compliance",
+    "report": "reports/performance_v2/p3i-platform-compliance.json",
+    "command": [
+      "scripts/audit_platform.py",
+      "--zip",
+      ".bootstrap/performance_v2/p3i/source/submission.zip",
+      "--report",
+      "reports/performance_v2/p3i-platform-compliance.json"
+    ]
+  }
+]

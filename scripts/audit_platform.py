@@ -27,7 +27,7 @@ sys.path.insert(0,str(ROOT))
 def audit_static(archive):
     import re
     from atlas.utils import code_digest
-    allowed={'numpy','pandas','sklearn','scipy','psutil','lightgbm','xgboost','httpx','optuna','atlas'}
+    allowed={'numpy','pandas','sklearn','scipy','psutil','catboost','lightgbm','xgboost','httpx','optuna','atlas'}
     packages={'sklearn':'scikit-learn'}
     requirements=(ROOT/'artifacts/official/requirements-folder.txt').read_bytes()
     installed_in_image={match.group(1).lower() for line in requirements.decode().splitlines()
@@ -60,7 +60,7 @@ def audit_static(archive):
             'no_runtime_installer_or_alternative_llm':True,'runtime_code_sha256':code_digest()}
 
 
-def complete_case(upload,root,scenario,nested=False):
+def complete_case(upload,root,scenario,nested=False,external_timeout=300):
     import numpy as np
     import pandas as pd
     from scripts.synthetic import create
@@ -105,12 +105,12 @@ def complete_case(upload,root,scenario,nested=False):
     try:
         with logfile.open('w') as log:
             proc=subprocess.Popen(['python3','solution.py','task.md'],cwd=root,env=env,stdout=log,stderr=log)
-            try:proc.wait(timeout=90)
+            try:proc.wait(timeout=external_timeout)
             except subprocess.TimeoutExpired:
                 proc.terminate()
                 try:proc.wait(timeout=8)
                 except subprocess.TimeoutExpired:proc.kill();proc.wait()
-                raise AssertionError('Complete fixture exceeded 90 seconds; see '+str(logfile))
+                raise AssertionError('Complete fixture exceeded '+str(external_timeout)+' seconds; see '+str(logfile))
         assert proc.returncode==0,logfile.read_text()[-5000:]
     finally:
         server.shutdown();server.server_close();thread.join(timeout=2)
@@ -127,7 +127,7 @@ def complete_case(upload,root,scenario,nested=False):
     summaries=list((root/'.atlas').glob('*/summary.json'));assert len(summaries)==1
     summary=json.loads(summaries[0].read_text())
     assert summary['runtime_code_sha256']==code_digest()
-    assert summary['budget_seconds']==900 and not summary['cancelled']
+    assert summary['budget_seconds']==10500 and not summary['cancelled']
     assert summary['mode']=='live-agent' and summary['qwen_calls']>=1 and requests
     assert requests[0]['model']=='qwen/qwen3.8-27b'
     history=[json.loads(line) for line in (summaries[0].parent/'experiments.jsonl').read_text().splitlines()]
@@ -169,15 +169,17 @@ def main():
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--zip',type=Path,default=ROOT/'submission.zip')
     parser.add_argument('--report',type=Path,default=ROOT/'reports/platform-compliance.json')
+    parser.add_argument('--external-timeout',type=float,default=900,
+                        help='Guard per naturally completed exact-CLI fixture; does not change the 10500-second runtime budget')
     args=parser.parse_args()
     static=audit_static(args.zip)
     runs=ROOT/'runs';runs.mkdir(exist_ok=True)
     directory=Path(tempfile.mkdtemp(prefix='platform-audit-',dir=runs))
     upload=directory/'upload';upload.mkdir()
     with zipfile.ZipFile(args.zip) as z:z.extractall(upload)
-    cases=[complete_case(upload,directory/'regression','iid'),
-           complete_case(upload,directory/'classification','integer_labels',nested=True),
-           complete_case(upload,directory/'temporal','future')]
+    cases=[complete_case(upload,directory/'regression','iid',external_timeout=args.external_timeout),
+           complete_case(upload,directory/'classification','integer_labels',nested=True,external_timeout=args.external_timeout),
+           complete_case(upload,directory/'temporal','future',external_timeout=args.external_timeout)]
     result={'status':'LOCAL_PLATFORM_CONTRACT_PASSED','static':static,'complete_runs':cases,
             'api_check':'Local OpenAI-compatible HTTP stub, not a real LLM; no organizer key used',
             'limitations':['Organizer Docker image is unavailable locally; execution verified on Python 3.12 macOS',

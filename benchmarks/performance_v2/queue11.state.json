@@ -1,0 +1,19 @@
+{
+  "started_at_utc": "2026-10-22T15:35:02.546541+00:00",
+  "jobs": [
+    {
+      "name": "final-selected-source-report",
+      "started_at_utc": "2026-10-22T16:11:13.932340+00:00",
+      "command": [
+        "scripts/finalize_performance_v2.py"
+      ],
+      "returncode": 1,
+      "finished_at_utc": "2026-10-22T16:11:14.099775+00:00",
+      "status": "failed",
+      "report": "/Users/mac/Documents/projects/alfaautoresearch/reports/performance_v2/final_release_audit.json",
+      "log": "/Users/mac/Documents/projects/alfaautoresearch/reports/performance_v2/final_release_audit.log"
+    }
+  ],
+  "waiting_for": "benchmarks/performance_v2/queue10.state.json",
+  "status": "completed"
+}

@@ -1,0 +1,15 @@
+{
+  "declared_at_utc": "2026-10-22T22:03:09.049827+00:00",
+  "purpose": "Operational response to all-five probe timeouts and valid_dummy outputs on the large mixed-text case at120s, both arms and both seeds. No second outer scoring and no algorithm change.",
+  "source_case": "beyond_emscad",
+  "seed": 42,
+  "mode": "deterministic",
+  "budget_seconds": 900,
+  "threads": 8,
+  "memory_mb": 8192,
+  "max_qwen_calls": 0,
+  "source_sha256": "cb82433fb9700c62be8a95d60bbb939dc8bf9100a2e8577ccb8cb5ddec7d11ad",
+  "archive_sha256": "daa1087f405e21a698375e81e1960c422bd29b6363d2e7c2dc8f36e807226b8b",
+  "driver_sha256": "98af2ef21e08b00e4225cb6bd380bde7e9365ce952defab80f402e4319a1e542",
+  "criterion": "Must produce a trained valid CSV with original IDs/order, finite probabilities, unchanged inputs and full refit. Preserve failure if not met. No external answers read, no external metric, no replacement of original120s outcomes."
+}

@@ -5,21 +5,24 @@ from .models import FAMILIES
 from .expressions import ExpressionError,validate_expressions
 
 PARAMS={
-'linear':{'alpha':(.0001,1e5),'C':(.0001,1e4)},
+'linear':{'alpha':(.0001,1e5),'C':(.0001,1e4),'text_analyzer':('word','char','word_char')},
+'catboost':{'iterations':(20,8000),'depth':(3,10),'learning_rate':(.005,.3),'l2_leaf_reg':(0,100),'random_strength':(0,10),'rsm':(.3,1),'border_count':(32,254)},
 'hist':{'iterations':(20,3000),'learning_rate':(.005,.3),'max_leaf_nodes':(4,127),'l2_regularization':(0,100),'min_samples_leaf':(2,200)},
 'extra_trees':{'iterations':(20,1000),'min_samples_leaf':(1,100),'max_features':(.1,1.),'max_depth':(2,40)},
 'lightgbm':{'stopping_metric':('loss','primary'),'iterations':(20,5000),'num_leaves':(7,255),'learning_rate':(.005,.3),'min_child_samples':(5,250),'reg_lambda':(0,100),'colsample_bytree':(.3,1),'subsample':(.5,1)},
 'xgboost':{'iterations':(20,3000),'max_depth':(2,12),'learning_rate':(.005,.3),'min_child_weight':(1,100),'reg_lambda':(0,100),'colsample_bytree':(.3,1),'subsample':(.5,1)}}
-for _family in {'hist','extra_trees','lightgbm','xgboost'}:PARAMS[_family]['text_svd_components']=(0,128)
-INTEGER={'iterations','depth','max_depth','num_leaves','min_child_samples','max_leaf_nodes','min_samples_leaf','text_svd_components'}
+for _family in {'hist','extra_trees','catboost','lightgbm','xgboost'}:PARAMS[_family]['text_svd_components']=(0,128)
+for _family in {'hist','extra_trees','catboost','lightgbm','xgboost'}:PARAMS[_family]['seed_bag']=(1,3)
+PARAMS['lightgbm'].update(category_encoding=('native','target'),target_smoothing=(1,1000))
+INTEGER={'iterations','depth','max_depth','num_leaves','min_child_samples','max_leaf_nodes','min_samples_leaf','text_svd_components','border_count','seed_bag'}
 OP_ARITY={'log1p':1,'sqrt':1,'square':1,'ratio':2,'difference':2,'product':2,'group_mean':2,'frequency':-1,'text_stats':-1,'drop':-1,'ip':-1,'clip':-1,'combine':2}
-MODEL_PACKAGE={'lightgbm':'lightgbm','xgboost':'xgboost'}
+MODEL_PACKAGE={'catboost':'catboost','lightgbm':'lightgbm','xgboost':'xgboost'}
 
 class RecipeError(ValueError):pass
 
 def validate(raw,spec,remaining=10800,seen=None):
     if not isinstance(raw,dict):raise RecipeError('Recipe must be an object')
-    allowed={'id','parent_experiment','statement','evidence','operation','model_family','params','feature_ops','feature_expressions','target_transform','validation_plan_id','max_runtime_sec','expected_rationale'}
+    allowed={'id','parent_experiment','statement','evidence','operation','model_family','params','feature_ops','feature_expressions','target_transform','validation_plan_id','max_runtime_sec','expected_rationale','hypothesis'}
     unknown=set(raw)-allowed
     if unknown:raise RecipeError('Unknown recipe fields: '+', '.join(sorted(str(key)[:60] for key in unknown)[:8]))
     family=raw.get('model_family')
@@ -33,6 +36,13 @@ def validate(raw,spec,remaining=10800,seen=None):
     p=raw.get('params',{})
     if not isinstance(p,dict) or set(p)-set(PARAMS[family])-{'weight'}:raise RecipeError('Unknown model params')
     for k,v in p.items():
+        if k=='category_encoding':
+            if not isinstance(v,str) or v not in {'native','target'}:raise RecipeError('Invalid category encoding')
+            if v=='target' and spec.validation_plan.get('kind')=='time':raise RecipeError('Target encoding has no verified temporal cross-fitting policy')
+            continue
+        if k=='text_analyzer':
+            if not isinstance(v,str) or v not in {'word','char','word_char'}:raise RecipeError('Invalid sparse text representation')
+            continue
         if k=='stopping_metric':
             if not isinstance(v,str) or v not in {'loss','primary'} or v=='primary' and not spec.classification:raise RecipeError('Invalid primary stopping metric')
             continue
@@ -66,6 +76,13 @@ def validate(raw,spec,remaining=10800,seen=None):
     clean['id']=str(raw.get('id','candidate'))[:80]
     clean['statement']=str(raw.get('statement',''))[:1000]
     clean['parent_experiment']=raw.get('parent_experiment')
+    if 'hypothesis' in raw:
+        hypothesis=raw['hypothesis']
+        if not isinstance(hypothesis,dict) or set(hypothesis)-{'kind','failure_mode','expected_effect','uncertainty','stop_condition'}:
+            raise RecipeError('Invalid hypothesis metadata')
+        if any(not isinstance(value,str) or len(value)>240 for value in hypothesis.values()):
+            raise RecipeError('Hypothesis metadata must contain bounded strings')
+        clean['hypothesis']=dict(hypothesis)
     digest=recipe_hash(clean)
     if seen is not None and digest in seen:raise RecipeError('Duplicate hypothesis')
     return clean

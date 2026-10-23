@@ -4,17 +4,56 @@ import numpy as np
 from sklearn.utils.class_weight import compute_sample_weight
 from .features import FeatureBuilder,MatrixBuilder
 
-FAMILIES={'linear','hist','extra_trees','lightgbm','xgboost'}
+FAMILIES={'linear','hist','extra_trees','catboost','lightgbm','xgboost'}
 
 
 def fit_predict(data,recipe,train_idx,valid_idx,seed=42,threads=8,refit=False,iterations_override=None,feature_function=None,progress_path=None):
     spec=data.spec;cl=spec.classification;family=recipe['model_family'];params=dict(recipe.get('params',{}));ops=recipe.get('feature_ops',[])
+    bag=params.pop('seed_bag',1)
+    if bag>1:
+        import copy
+        single=copy.deepcopy(recipe);single['params'].pop('seed_bag')
+        fits=[fit_predict(data,single,train_idx,valid_idx,seed+1009*number,threads,refit,
+            iterations_override,feature_function,progress_path) for number in range(bag)]
+        return (np.mean([fit[0] for fit in fits],axis=0),np.mean([fit[1] for fit in fits],axis=0),
+            {'iterations':int(np.median([fit[2]['iterations'] for fit in fits])),
+             'features':fits[0][2]['features'],'diagnostics':{'seed_bagging':{
+                'seeds':[seed+1009*number for number in range(bag)],'members':bag,
+                'fold_train_rows':len(train_idx),'fold_valid_rows':len(valid_idx)}}})
     transform=recipe.get('target_transform','none')
     a=data.train.iloc[train_idx];b=data.train.iloc[valid_idx]
-    f=FeatureBuilder(spec,ops,feature_function,recipe.get('feature_expressions',[])).fit(a)
-    za=f.transform(a);zb=f.transform(b);zt=f.transform(data.test)
+    f=FeatureBuilder(spec,ops,feature_function,recipe.get('feature_expressions',[]))
+    za=f.fit_transform(a);zb=f.transform(b);zt=f.transform(data.test)
+    encoding=params.pop('category_encoding','native');smoothing=params.pop('target_smoothing',20.)
+    encoding_info=None;categoricals=list(f.cat);numericals=list(f.num)
+    if encoding=='target':
+        from .encoding import CrossfitTargetEncoder
+        from pandas.util import hash_pandas_object
+        if spec.validation_plan.get('kind')=='time':raise ValueError('Temporal target encoding is unavailable')
+        selected=[column for column in f.cat if column not in spec.text_candidates][:12]
+        if not selected:raise ValueError('Target encoding requires ordinary categorical features')
+        if len(spec.labels)>32 or len(train_idx)>200000:raise ValueError('Target-encoding memory bound')
+        groups=None;validation=spec.validation_plan
+        if validation.get('kind')=='group':
+            groups=a[validation['group_column']].fillna('__MISSING__').astype(str).to_numpy()
+        elif validation.get('kind')=='duplicate_group':groups=hash_pandas_object(a[spec.features],index=False).to_numpy()
+        target=data.y[train_idx]
+        if recipe.get('target_transform')=='log1p':target=np.log1p(target)
+        encoder=CrossfitTargetEncoder(len(spec.labels) if cl else 0,smoothing,seed)
+        training=encoder.fit_transform(za[selected],target,groups)
+        held=encoder.transform(zb[selected]) if len(zb) else np.empty((0,training.shape[1]),dtype=np.float32)
+        inference=encoder.transform(zt[selected])
+        names=['__atlas_te_'+str(i) for i in range(training.shape[1])]
+        for frame,values in [(za,training),(zb,held),(zt,inference)]:
+            if set(names)&set(frame):raise ValueError('Target-encoding feature collision')
+            frame.drop(columns=selected,inplace=True)
+            for i,name in enumerate(names):frame[name]=values[:,i]
+        categoricals=[column for column in f.cat if column not in selected];numericals=list(f.num)+names
+        encoding_info={'columns':selected,'smoothing':smoothing,'folds':encoder.fold_records,
+                       'group_preserving':groups is not None,'training_encoding':'cross-fitted; own row/group targets excluded'}
     text_components=params.pop('text_svd_components',64)
-    matrix=MatrixBuilder('linear' if family=='linear' else family,f.cat,f.num,spec.text_candidates,text_components,seed).fit(za)
+    text_analyzer=params.pop('text_analyzer','word')
+    matrix=MatrixBuilder('linear' if family=='linear' else family,categoricals,numericals,spec.text_candidates,text_components,seed,text_analyzer).fit(za)
     xa=matrix.transform(za);xv=matrix.transform(zb) if len(valid_idx) else None;xt=matrix.transform(zt)
     encoded_names=list(xa.columns) if family!='linear' else []
     if family!='linear':
@@ -35,7 +74,17 @@ def fit_predict(data,recipe,train_idx,valid_idx,seed=42,threads=8,refit=False,it
     loss='absolute_error' if spec.metric.name=='mae' else 'squared_error'
     common=dict(random_state=seed)
     fit_args={}
-    if family=='lightgbm':
+    if family=='catboost':
+        from catboost import CatBoostClassifier,CatBoostRegressor
+        objective=('MultiClass' if len(spec.labels)>2 else 'Logloss') if cl else 'MAE' if spec.metric.name=='mae' else 'RMSE'
+        model=(CatBoostClassifier if cl else CatBoostRegressor)(
+            iterations=rounds,depth=params.pop('depth',6),learning_rate=params.pop('learning_rate',.05),
+            loss_function=objective,task_type='CPU',thread_count=threads,random_seed=seed,
+            allow_writing_files=False,verbose=False,**params)
+        fit_args['cat_features']=[i for i,name in enumerate(encoded_names) if name in f.cat]
+        if len(valid_idx) and not refit:
+            fit_args.update(eval_set=(xv,yv),early_stopping_rounds=60,use_best_model=True)
+    elif family=='lightgbm':
         import lightgbm as lgb
         objective=('multiclass' if len(spec.labels)>2 else 'binary') if cl else 'regression_l1' if spec.metric.name=='mae' else 'regression'
         model=(lgb.LGBMClassifier if cl else lgb.LGBMRegressor)(n_estimators=rounds,learning_rate=params.pop('learning_rate',.045),num_leaves=params.pop('num_leaves',31),verbosity=-1,n_jobs=threads,objective=objective,deterministic=True,force_col_wise=True,**common,**params)
@@ -88,6 +137,9 @@ def fit_predict(data,recipe,train_idx,valid_idx,seed=42,threads=8,refit=False,it
     pv=predict(xv) if len(valid_idx) else np.empty((0,len(spec.labels))) if cl else np.empty(0)
     pt=predict(xt)
     best=getattr(model,'best_iteration_',None) or getattr(model,'tree_count_',None) or rounds
+    if family=='catboost':
+        best_iteration=model.get_best_iteration()
+        best=best_iteration+1 if best_iteration is not None and best_iteration>=0 else model.tree_count_
     if family=='linear':
         count=getattr(model,'n_iter_',None)
         if count is not None:best=int(np.max(count))
@@ -96,6 +148,7 @@ def fit_predict(data,recipe,train_idx,valid_idx,seed=42,threads=8,refit=False,it
         except AttributeError:pass
     importance=getattr(model,'feature_importances_',None)
     diagnostics={'feature_importance':dict(sorted(zip(encoded_names,map(float,importance)),key=lambda t:-t[1])[:15])} if importance is not None else {}
+    if encoding_info:diagnostics['target_encoding']=encoding_info
     text_info={c:{'components':p.components,'vocabulary':len(p.vectorizer.vocabulary_),'fit_rows':p.fit_rows} for c,p in matrix.text_projections.items()}
     if text_info:diagnostics['text_projections']=text_info
     train_metric=None

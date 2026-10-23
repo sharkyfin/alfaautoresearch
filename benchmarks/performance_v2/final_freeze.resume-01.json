@@ -1,0 +1,177 @@
+{
+  "resumed_at_utc": "2026-10-22T21:28:45.714999+00:00",
+  "reason": "User requested continuation; no original evaluator/queue processes remain, partial report is running with15 completed rows.",
+  "freeze_sha256": "139f18ffb5f817d45d85de954e554ade4586ad4756ea6bb63bd1060b9bfdcc26",
+  "opened_marker_sha256": "679f492585519fff9b85014fe819fde529afbdb2975ac62ee1d65b8d71da449a",
+  "preserved_snapshot": "/Users/mac/Documents/projects/alfaautoresearch/.bootstrap/performance_v2/interrupted/final-lockbox-before-resume-01.json",
+  "preserved_snapshot_sha256": "a3eaf4124171ece1ee85acc6c7a851cf094cc203015341d10bc7dd534ad9e731",
+  "preserved_rows": 15,
+  "missing_keys": [
+    [
+      "beyond_telemonitoring_parkinsons_biomedical_voice_measurements",
+      53,
+      "candidate",
+      "live-agent"
+    ],
+    [
+      "beyond_forest_fires",
+      42,
+      "baseline",
+      "live-agent"
+    ],
+    [
+      "beyond_forest_fires",
+      42,
+      "candidate",
+      "live-agent"
+    ],
+    [
+      "beyond_forest_fires",
+      53,
+      "baseline",
+      "live-agent"
+    ],
+    [
+      "beyond_forest_fires",
+      53,
+      "candidate",
+      "live-agent"
+    ],
+    [
+      "beyond_qsar_fish_toxicity",
+      42,
+      "baseline",
+      "live-agent"
+    ],
+    [
+      "beyond_qsar_fish_toxicity",
+      42,
+      "candidate",
+      "live-agent"
+    ],
+    [
+      "beyond_qsar_fish_toxicity",
+      53,
+      "baseline",
+      "live-agent"
+    ],
+    [
+      "beyond_qsar_fish_toxicity",
+      53,
+      "candidate",
+      "live-agent"
+    ],
+    [
+      "beyond_student_portuguese_performance",
+      42,
+      "baseline",
+      "live-agent"
+    ],
+    [
+      "beyond_student_portuguese_performance",
+      42,
+      "candidate",
+      "live-agent"
+    ],
+    [
+      "beyond_student_portuguese_performance",
+      53,
+      "baseline",
+      "live-agent"
+    ],
+    [
+      "beyond_student_portuguese_performance",
+      53,
+      "candidate",
+      "live-agent"
+    ],
+    [
+      "beyond_biomechanical_orthopaedic_prediction",
+      42,
+      "baseline",
+      "live-agent"
+    ],
+    [
+      "beyond_biomechanical_orthopaedic_prediction",
+      42,
+      "candidate",
+      "live-agent"
+    ],
+    [
+      "beyond_biomechanical_orthopaedic_prediction",
+      53,
+      "baseline",
+      "live-agent"
+    ],
+    [
+      "beyond_biomechanical_orthopaedic_prediction",
+      53,
+      "candidate",
+      "live-agent"
+    ],
+    [
+      "beyond_emscad",
+      42,
+      "baseline",
+      "live-agent"
+    ],
+    [
+      "beyond_emscad",
+      42,
+      "candidate",
+      "live-agent"
+    ],
+    [
+      "beyond_emscad",
+      53,
+      "baseline",
+      "live-agent"
+    ],
+    [
+      "beyond_emscad",
+      53,
+      "candidate",
+      "live-agent"
+    ],
+    [
+      "beyond_5g_energy_consumption",
+      42,
+      "baseline",
+      "live-agent"
+    ],
+    [
+      "beyond_5g_energy_consumption",
+      42,
+      "candidate",
+      "live-agent"
+    ],
+    [
+      "beyond_5g_energy_consumption",
+      53,
+      "baseline",
+      "live-agent"
+    ],
+    [
+      "beyond_5g_energy_consumption",
+      53,
+      "candidate",
+      "live-agent"
+    ]
+  ],
+  "runtime_scorer_archives_protocol_unchanged": true,
+  "resume_driver_sha256": "ce0f92e9a527dc27ac57847ad7fa72c6afbf5f7ada609e85adfbab6b36156bef",
+  "new_run_root": "/Users/mac/Documents/projects/alfaautoresearch/runs/performance-v2-final-resume-zn28dxry",
+  "new_versions": {
+    "baseline": {
+      "runtime": "/Users/mac/Documents/projects/alfaautoresearch/runs/performance-v2-final-resume-zn28dxry/runtime-baseline",
+      "zip_sha": "228593d0ddc7a82c21d0201b61c63ab3f163d913bb8644272fb8b9e5e29b14b5",
+      "source_sha": "e2f776a1bdeb35a2010a1cba434733fd6edf6d97566cd045a832c1ee27dbb7d9"
+    },
+    "candidate": {
+      "runtime": "/Users/mac/Documents/projects/alfaautoresearch/runs/performance-v2-final-resume-zn28dxry/runtime-candidate",
+      "zip_sha": "daa1087f405e21a698375e81e1960c422bd29b6363d2e7c2dc8f36e807226b8b",
+      "source_sha": "cb82433fb9700c62be8a95d60bbb939dc8bf9100a2e8577ccb8cb5ddec7d11ad"
+    }
+  },
+  "policy": "No completed key retried, no selection by observed scores; execute only missing keys with exact frozen trial-loop source. Preserve all interrupted artifacts."
+}

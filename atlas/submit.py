@@ -40,6 +40,11 @@ def validate_frame(data: Dataset,frame: pd.DataFrame):
         if spec.classification and spec.prediction_kind=='label':
             if not frame[c].isin(spec.labels).all(): raise ValueError('Invalid label')
         elif not np.isfinite(pd.to_numeric(frame[c],errors='coerce')).all(): raise ValueError('Nonfinite output')
+    if spec.classification and spec.prediction_kind=='probability':
+        values=frame[list(spec.probability_columns)].to_numpy(dtype=float)
+        if (values<0).any() or (values>1+1e-8).any():raise ValueError('Output probability outside [0,1]')
+        if values.shape[1]==len(spec.labels) and not np.allclose(values.sum(1),1.,atol=1e-5):
+            raise ValueError('Output class probabilities do not sum to one')
 
 
 def checkpoint(data: Dataset,prediction,path: Path | None=None):
@@ -65,5 +70,9 @@ def dummy_prediction(y,spec,n):
     if spec.classification:
         counts=np.bincount(y.astype(int),minlength=len(spec.labels));return np.tile(counts/counts.sum(),(n,1))
     scale=max(float(np.max(np.abs(y))),1.)
+    if spec.metric.name=='mape':
+        order=np.argsort(y);weights=1/np.maximum(np.abs(y[order]),np.finfo(float).eps)
+        value=y[order[np.searchsorted(np.cumsum(weights/weights.sum()),.5)]]
+        return np.full(n,value,dtype=float)
     value=np.median(y/scale)*scale if spec.metric.name=='mae' else np.expm1(np.log1p(y).mean()) if spec.metric.name=='rmsle' else np.mean(y/scale)*scale
     return np.full(n,value,dtype=float)

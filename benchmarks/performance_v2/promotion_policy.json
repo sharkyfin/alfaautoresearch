@@ -1,0 +1,25 @@
+{
+  "declared_at_utc": "2026-10-22T07:15:50.108211+00:00",
+  "scope": "Selection after development, before opening the reserved final datasets",
+  "quality_panel": "Original HEAD vs P3h on 13 available development datasets x seeds 42,53, equal 120-second caps",
+  "quality_preference": {
+    "minimum_median_relative_gain": 0,
+    "wins_at_least_losses": true,
+    "tie_tolerance_relative": 0.001,
+    "material_single_pair_regression_review_threshold": 0.1,
+    "aggregation": "Per-seed results and per-dataset means both retained; positive utility-oriented relative gain; never mean raw heterogeneous scores"
+  },
+  "reliability": "No added unexplained dummy-only, invalid CSV, crash, OOM or timeout failures on available paired cases. Functional gates must match selected runtime SHA. Source availability failures do not become zero quality scores.",
+  "efficiency": "Retain full refit and inspect checkpoint latency / wall / CPU / RSS; report trade-offs instead of interpreting a longer budget as a quality gain.",
+  "component_policy": "Keep optional specialists only with measured subset utility and task-local validation. Do not force target encoding or fold averaging by default.",
+  "final_policy": "Freeze archive hashes and all ten cases before data download. Report all frozen final scores, including regressions; no algorithm adjustment after opening. >=8 successfully paired distinct datasets desired; unsupported original-baseline metrics are separate unpaired capability checks.",
+  "fallback": "If P3h fails promotion, preserve it as a research version; choose the last verified Pareto candidate using development observations, and run the required exact-source gates before final opening.",
+  "no_platform_submission": true,
+  "revisions": [
+    {
+      "at_utc": "2026-10-22T07:43:20.010566+00:00",
+      "change": "Candidate P3g -> P3h before broad comparison starts; thresholds unchanged",
+      "reason": "Measured word+char improvement on both SMS seeds was not guaranteed an initial probe when a non-linear candidate led. Add a text-classification-only early sparse probe; one targeted regression test passed."
+    }
+  ]
+}

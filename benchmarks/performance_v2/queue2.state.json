@@ -1,0 +1,25 @@
+{
+  "started_at_utc": "2026-10-21T22:28:37.522173+00:00",
+  "jobs": [
+    {
+      "name": "llm-a0-a1-a2",
+      "started_at_utc": "2026-10-21T23:30:49.850833+00:00",
+      "command": [
+        "scripts/benchmark_suite.py",
+        "--archives",
+        "reference=.bootstrap/performance_v2/p3e/source/submission.zip",
+        "--cases",
+        "concrete_strength,adult_income,dry_beans",
+        "--budget",
+        "120",
+        "--seeds",
+        "42,53",
+        "--report",
+        "reports/performance_v2/llm-a0-a1-a2.json",
+        "--modes",
+        "deterministic,live-agent,fixed-allocation"
+      ]
+    }
+  ],
+  "waiting_for": "benchmarks/performance_v2/queue1.state.json"
+}

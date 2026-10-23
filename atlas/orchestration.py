@@ -4,6 +4,7 @@ import hashlib,json,os,signal,time,traceback,tempfile
 from pathlib import Path
 import numpy as np
 from .utils import code_digest
+from .metrics import UnsupportedTask
 from .contract import read_inputs
 from .task import load,leakage_signals
 from .submit import checkpoint,dummy_prediction
@@ -15,24 +16,40 @@ from .research import controlled_hypothesis,ablation_options,accepts_ablation
 from .search import SearchController,mock_hypothesis,retain_finalists,estimate_runtime
 from .agent import QwenClient,researcher_context
 from .judge import evaluate,meaningful_gain
-from .ensemble import choose_blend,tune_multipliers,adjust_probabilities,robust_utility
+from .ensemble import choose_blend,tune_multipliers,adjust_probabilities,robust_utility,store_oof
 
 
 def emit(event,**values):print(json.dumps({'event':event,**values},ensure_ascii=False,allow_nan=False),flush=True)
 
-def run(task_path,started=None,budget_seconds=900,mode='auto',seed=42,threads=8,max_experiments=60,memory_mb=24576,run_dir=None,strict=True,research_client=None):
+def run(task_path,started=None,budget_seconds=10500,mode='auto',seed=42,threads=8,max_experiments=240,memory_mb=24576,run_dir=None,strict=True,research_client=None,ensemble_strategy='greedy',finalization='refit'):
+    if ensemble_strategy not in {'none','weighted','greedy'} or finalization not in {'refit','fold_average'}:
+        raise ValueError('Invalid ensemble/finalization policy')
+    if run_dir and Path(run_dir).exists() and any(Path(run_dir).iterdir()):
+        raise ValueError('run_dir must be empty; choose a new directory for each run')
     # Install before the first atomic CSV becomes visible. A platform SIGTERM
     # immediately after that checkpoint must take the graceful path as well.
     stop={'requested':False}
     def handle_signal(signum,frame):stop['requested']=True
     old_handlers={s:signal.signal(s,handle_signal) for s in (signal.SIGTERM,signal.SIGINT)}
     try:
-        return _run(task_path,started,budget_seconds,mode,seed,threads,max_experiments,memory_mb,run_dir,strict,research_client,stop)
+        return _run(task_path,started,budget_seconds,mode,seed,threads,max_experiments,memory_mb,run_dir,strict,research_client,stop,ensemble_strategy,finalization)
+    except Exception as error:
+        # Failures before the main loop also need provenance. Do not overwrite
+        # a supplied, nonempty run_dir or claim an older CSV is a valid fallback.
+        parent=Path(task_path).resolve().parent/'.atlas';parent.mkdir(parents=True,exist_ok=True)
+        directory=Path(tempfile.mkdtemp(prefix='setup_failure_',dir=parent))
+        summary={'runtime_code_sha256':code_digest(),'status':'unsupported_task' if isinstance(error,UnsupportedTask) else 'fatal_setup',
+            'terminal_phase':'setup','checkpoint_kind':'unverified_existing_output' if (parent.parent/'submission.csv').exists() else 'missing',
+            'output_exists':(parent.parent/'submission.csv').exists(),'trained_output':False,'fit_success':0,
+            'budget_seconds':float(budget_seconds),'fatal_exception':{'exception_class':type(error).__name__,'message':str(error)[:500]}}
+        (directory/'summary.json').write_text(json.dumps(summary,ensure_ascii=False,indent=2,allow_nan=False))
+        emit('orchestrator_setup_error',status=summary['status'],summary=str(directory/'summary.json'))
+        return 2 if isinstance(error,UnsupportedTask) else 1
     finally:
         for sig,handler in old_handlers.items():signal.signal(sig,handler)
 
 
-def _run(task_path,started,budget_seconds,mode,seed,threads,max_experiments,memory_mb,run_dir,strict,research_client,stop):
+def _run(task_path,started,budget_seconds,mode,seed,threads,max_experiments,memory_mb,run_dir,strict,research_client,stop,ensemble_strategy,finalization):
     source_digest=code_digest()
     start=started or time.monotonic();budget=Budget(float(budget_seconds),start)
     inputs=read_inputs(task_path);data=load(inputs,strict=strict)
@@ -48,7 +65,10 @@ def _run(task_path,started,budget_seconds,mode,seed,threads,max_experiments,memo
         parent=inputs.task_path.parent/'.atlas';parent.mkdir(exist_ok=True)
         directory=Path(tempfile.mkdtemp(prefix=time.strftime('%Y%m%d_%H%M%S')+'_',dir=parent))
     (directory/'task_spec.json').write_text(json.dumps(data.spec.json(),ensure_ascii=False,indent=2,allow_nan=False))
-    history=[];finalists=[];family_best={};champion=None;confirmed={};blend=None;multipliers=None;refit_published=False;cv_selection={}
+    from .ideas import idea_registry
+    (directory/'idea_registry.json').write_text(json.dumps(idea_registry(data.spec),indent=2))
+    history=[];finalists=[];family_best={};champion=None;confirmed={};blend=None;multipliers=None;refit_published=False;fold_bagged_published=False;cv_selection={}
+    checkpoint_kind='valid_dummy';fatal_error=None
     split,control_plan=selection_splits(data,seed);data.spec.validation_plan=split.json()
     data.spec.suspicious_leakage_features=leakage_signals(data,split.train)
     qwen=research_client if research_client is not None else QwenClient('live' if mode in {'auto','live-agent'} else 'disabled')
@@ -62,7 +82,9 @@ def _run(task_path,started,budget_seconds,mode,seed,threads,max_experiments,memo
         history.append(result);register(directory/'experiments.jsonl',result)
         emit('experiment',id=result['experiment_id'],family=result['recipe']['model_family'],status=result['status'],score=result.get('metric_value'),accepted=result.get('accepted',False),seconds=round(result['runtime_sec'],3))
     def publish(candidate):
+        nonlocal checkpoint_kind
         checkpoint(data,candidate['predictions'][1]);digest=hashlib.sha256(inputs.output.read_bytes()).hexdigest()
+        checkpoint_kind='confirmed_champion' if candidate.get('confirmation_metrics') else 'trained_checkpoint'
         meta={k:v for k,v in candidate.items() if k not in {'predictions','split'}}
         meta['output_sha256']=digest
         (directory/'champion.json').write_text(json.dumps(meta,ensure_ascii=False,indent=2,allow_nan=False))
@@ -77,7 +99,6 @@ def _run(task_path,started,budget_seconds,mode,seed,threads,max_experiments,memo
         emit('CONFIRMATION_PLAN',windows=[s.json() for s in control_plan])
         # Search stops early enough to confirm and refit measured finalists.
         while len(history)<max_experiments and budget.search_remaining>2 and not stop['requested']:
-            if time.monotonic()-start>budget.total*.67 and champion:break
             raw=None;feature_trial=None;feature_parent=None;ablation=None
             if pending_ablation and pending_ablation['checks']<3:
                 for proposal,detail in ablation_options(champion['recipe'],pending_ablation['parent']['recipe'],pending_ablation['attempted']):
@@ -98,10 +119,19 @@ def _run(task_path,started,budget_seconds,mode,seed,threads,max_experiments,memo
             fallback=raw
             if is_research and champion:
                 if actual_mode=='live-agent' and qwen.available:
-                    context=researcher_context(data,history,champion,remaining)
-                    context['recipe_rejections']=[e for e in qwen.events if e['status']=='recipe_rejected'][-3:]
-                    proposed=qwen.propose(context,timeout=max(1,min(40,remaining*.25)))
-                    if proposed is not None:raw=proposed;origin=research_origin
+                    measured=[event['elapsed_seconds'] for event in qwen.events
+                        if event.get('status')=='api_usage' and 'elapsed_seconds' in event]
+                    api_estimate=max(3.,float(np.median(measured))) if measured else 8.
+                    probe_cost=max(1.,champion.get('runtime_sec',1.)*1.3)
+                    final_work=len(control_plan)*sum(c['runtime_sec'] for c in finalists[:3])+1.5*sum(c['runtime_sec'] for c in finalists[:2])
+                    if budget.can_run(probe_cost+api_estimate,finalization_estimate=final_work):
+                        context=researcher_context(data,history,champion,remaining)
+                        context['recipe_rejections']=[e for e in qwen.events if e['status']=='recipe_rejected'][-3:]
+                        api_slack=budget.remaining-max(budget.reserve,final_work)-probe_cost*1.3
+                        proposed=qwen.propose(context,timeout=max(1,min(40,remaining*.25,api_slack)))
+                        if proposed is not None:raw=proposed;origin=research_origin
+                    else:qwen.events.append({'status':'skipped_finalization_reserve','remaining_seconds':round(budget.remaining,3),
+                        'estimated_api_seconds':api_estimate,'estimated_fit_seconds':probe_cost,'estimated_finalization_seconds':final_work})
                 elif actual_mode=='mock-agent' and scheduler.research_index<=3:
                     raw=mock_hypothesis(data.spec,champion,scheduler.research_index);origin='mock'
             attempts=[(raw,origin)]
@@ -196,9 +226,15 @@ def _run(task_path,started,budget_seconds,mode,seed,threads,max_experiments,memo
                     record(result)
             required={window.id for window in control_plan}
             stable=[c for c in ordered if required and {r['split'].id for r in confirmed.get(c['experiment_id'],[])}>=required]
+            if data.spec.metric.name in {'f1_macro','balanced_accuracy'}:
+                stable=[candidate for candidate in stable if all(
+                    row.get('metric_feasibility',{}).get('macro_fold_aggregation_allowed',True)
+                    for row in [candidate,*confirmed[candidate['experiment_id']]])]
             common=required if stable else set()
             common_evidence={c['experiment_id']:[r for r in confirmed[c['experiment_id']] if r['split'].id in common] for c in stable}
             if common:
+                oof=store_oof(directory/'oof_candidates.npz',data,stable,common_evidence)
+                (directory/'oof_manifest.json').write_text(json.dumps(oof,indent=2))
                 for candidate in stable:
                     evidence=common_evidence[candidate['experiment_id']]
                     candidate['robust_utility']=robust_utility([candidate['standardized_utility'],*[r['standardized_utility'] for r in evidence]])
@@ -216,15 +252,31 @@ def _run(task_path,started,budget_seconds,mode,seed,threads,max_experiments,memo
                         'robust_utility':c['robust_utility']} for c in stable]}
                 emit('cross_validation_selected',champion=champion['experiment_id'],folds=1+len(control_plan),candidates=len(stable))
                 if len(stable)>=2:
-                    stage='ENSEMBLE';blend=choose_blend(data,stable,common_evidence)
-                    if blend:checkpoint(data,blend['predictions'][1]);emit('ensemble_accepted',weights=blend['weights'],score=blend['metric_value'],confirmation=blend['confirmation_metric'])
+                    stage='ENSEMBLE';blend=choose_blend(data,stable,common_evidence,ensemble_strategy)
+                    if blend:
+                        checkpoint(data,blend['predictions'][1]);checkpoint_kind='confirmed_champion'
+                        emit('ensemble_accepted',weights=blend['weights'],score=blend['metric_value'],confirmation=blend['confirmation_metric'])
                 if not blend:
                     multipliers=tune_multipliers(data,champion,common_evidence.get(champion['experiment_id']))
-                    if multipliers:checkpoint(data,multipliers['predictions'][1]);emit('probability_adjustment_accepted',score=multipliers['metric_value'],confirmation=multipliers['confirmation_metric'])
+                    if multipliers:
+                        checkpoint(data,multipliers['predictions'][1]);checkpoint_kind='confirmed_champion'
+                        emit('probability_adjustment_accepted',score=multipliers['metric_value'],confirmation=multipliers['confirmation_metric'])
+                if finalization=='fold_average':
+                    components=blend['components'] if blend else [champion]
+                    weights=blend['weights'] if blend else [1.]
+                    predictions=[]
+                    for component in components:
+                        rows=[component,*common_evidence[component['experiment_id']]]
+                        predictions.append(np.mean([row['predictions'][1] for row in rows],axis=0))
+                    final=sum(weight*prediction for weight,prediction in zip(weights,predictions))
+                    if multipliers:final=adjust_probabilities(final,multipliers['weights'])
+                    checkpoint(data,final);fold_bagged_published=True;checkpoint_kind='fold_bagged'
+                    emit('fold_bagged_published',components=len(components),folds=1+len(control_plan))
             else:
-                cv_selection={'planned_folds':1+len(control_plan),'completed_candidates':0,'selection_basis':'search holdout fallback; confirmation incomplete'}
+                cv_selection={'planned_folds':1+len(control_plan),'completed_candidates':0,
+                    'selection_basis':'search holdout fallback; confirmation incomplete or class support prevents comparable macro aggregation'}
         # Publish refit only after every component succeeds; previous good file survives.
-        if champion and not stop['requested']:
+        if champion and not stop['requested'] and not fold_bagged_published:
             stage='FINALIZE';components=blend['components'] if blend else [champion];weights=blend['weights'] if blend else [1.]
             refitted=[];full_split=Split(np.arange(len(data.y)),np.empty(0,dtype=int),'full_refit','All known labels after selection',seed)
             for c in components:
@@ -239,16 +291,27 @@ def _run(task_path,started,budget_seconds,mode,seed,threads,max_experiments,memo
             if len(refitted)==len(components):
                 final=sum(w*p for w,p in zip(weights,refitted))
                 if multipliers:final=adjust_probabilities(final,multipliers['weights'])
-                checkpoint(data,final);refit_published=True;emit('full_refit_published',components=len(components))
+                checkpoint(data,final);refit_published=True;checkpoint_kind='full_refit';emit('full_refit_published',components=len(components))
+        if not champion and not stop['requested'] and not any(row['status']=='ok' for row in history):
+            fatal_error={'exception_class':'NoSuccessfulTraining','message':'No worker completed training; the retained CSV is only an emergency constant fallback'}
+            emit('training_unavailable',failed_experiments=len(history),status='fatal_with_fallback')
+            return 1
         return 0
     except Exception as error:
         # The valid atomic output exists. Keep a diagnostic and exit gracefully.
         emit('orchestrator_error',exception_class=type(error).__name__,message=str(error)[:500])
+        fatal_error={'exception_class':type(error).__name__,'message':str(error)[:500]}
         (directory/'error.txt').write_text(traceback.format_exc())
-        return 0 if inputs.output.exists() else 1
+        return 1
     finally:
         summary={'runtime_code_sha256':source_digest,'mode':actual_mode,'budget_seconds':budget.total,'elapsed_seconds':time.monotonic()-start,'first_checkpoint_latency':first_latency,'validation':split.json(),'metric':data.spec.metric.name,'dummy_utility':initial_utility,'experiments':len(history),'successful_experiments':sum(r['status']=='ok' for r in history),'accepted_experiments':sum(r.get('accepted',False) for r in history),'champion_metric':champion['metric_value'] if champion else None,'champion_recipe':champion['recipe'] if champion else None,'confirmation_metric':champion.get('confirmation_metric') if champion else None,'ensemble':{k:v for k,v in blend.items() if k not in {'components','predictions'}} if blend else None,'multipliers':{k:v for k,v in multipliers.items() if k!='predictions'} if multipliers else None,'qwen_calls':qwen.requests,'qwen_proposals':qwen.calls,'qwen_tokens':qwen.tokens,'qwen_events':qwen.events,'max_live_worker_threads':max((r.get('max_live_threads',0) for r in history),default=0),'peak_worker_memory_mb':max((r['peak_memory_mb'] for r in history),default=0),'cancelled':stop['requested'],'output':str(inputs.output),'output_sha256':hashlib.sha256(inputs.output.read_bytes()).hexdigest() if inputs.output.exists() else None}
         summary['full_refit_published']=refit_published
+        summary.update(status='fatal_with_fallback' if fatal_error and inputs.output.exists() else 'fatal' if fatal_error else checkpoint_kind,
+            terminal_phase=stage,checkpoint_kind=checkpoint_kind,trained_output=checkpoint_kind!='valid_dummy',
+            fit_success=sum(r['status']=='ok' for r in history),
+            search_fit_success=sum(r['status']=='ok' and not r.get('phase') for r in history),
+            full_refit_done=refit_published,fatal_exception=fatal_error,
+            platform_deadline_seconds=10800,platform_safety_margin_seconds=max(0,10800-budget.total))
         summary['adaptive_search']=scheduler.summary()
         summary['cross_validation']=cv_selection
         summary['confirmation_plan']=[s.json() for s in control_plan]
@@ -256,7 +319,8 @@ def _run(task_path,started,budget_seconds,mode,seed,threads,max_experiments,memo
         summary['feature_group_trials']=sum(r.get('feature_trial',{}).get('kind')=='feature_group' for r in history)
         summary['feature_ablation_checks']=sum(r.get('feature_trial',{}).get('kind')=='feature_ablation' for r in history)
         summary['accepted_feature_ablations']=sum(r.get('accepted',False) and r.get('feature_trial',{}).get('kind')=='feature_ablation' for r in history)
-        summary.update(researcher_provider=research_provider,researcher_model=qwen.model if qwen.configured else None,researcher_calls=qwen.requests,researcher_proposals=qwen.calls,researcher_tokens=qwen.tokens,researcher_events=qwen.events)
+        summary.update(researcher_provider=research_provider,researcher_model=qwen.model if qwen.configured else None,researcher_calls=qwen.requests,researcher_proposals=qwen.calls,researcher_tokens=qwen.tokens,researcher_events=qwen.events,
+            ensemble_strategy=ensemble_strategy,finalization_requested=finalization,fold_bagged_done=fold_bagged_published)
         if research_provider!='organizer-qwen':
             summary.update(qwen_calls=0,qwen_proposals=0,qwen_tokens=0,qwen_events=[])
         final_recipe={'output_sha256':summary['output_sha256'],'full_refit':refit_published,'seed':seed,'labels':data.spec.labels,'components':[{'recipe':c['recipe'],'iterations':c.get('refit_iterations',c.get('iterations')),'experiment_id':c['experiment_id']} for c in (blend['components'] if blend else [champion] if champion else [])],'blend_weights':blend['weights'] if blend else [1.],'probability_multipliers':multipliers['weights'] if multipliers else None}

@@ -1,0 +1,17 @@
+[
+  {
+    "name": "final-unseen-live-panel",
+    "command": [
+      "scripts/freeze_final_panel.py",
+      "--candidate",
+      ".bootstrap/performance_v2/p3j/source/submission.zip",
+      "--baseline",
+      ".bootstrap/performance_v2/baseline/source/submission.zip",
+      "--gate-prefix",
+      "p3j",
+      "--report",
+      "reports/performance_v2/final-lockbox-live.json"
+    ],
+    "report": "reports/performance_v2/final-lockbox-live.json"
+  }
+]

@@ -1,0 +1,47 @@
+{
+  "frozen_at_utc": "2026-10-22T21:49:34.093197+00:00",
+  "scope": "Post-freeze external validation on six previously declared OpenML tasks; no algorithm change or promotion based on observed scores. Separate from the original ten-case final panel.",
+  "cases": [
+    "openml_3",
+    "openml_6",
+    "openml_12",
+    "openml_31",
+    "openml_37",
+    "openml_54"
+  ],
+  "manifest_sha256": "292860d1614182f4d84bc1e31f013c66bab9d81fdb4082ff2b9a590af88f2252",
+  "sources": {
+    "baseline": "e2f776a1bdeb35a2010a1cba434733fd6edf6d97566cd045a832c1ee27dbb7d9",
+    "candidate": "cb82433fb9700c62be8a95d60bbb939dc8bf9100a2e8577ccb8cb5ddec7d11ad"
+  },
+  "archives": {
+    "baseline": "228593d0ddc7a82c21d0201b61c63ab3f163d913bb8644272fb8b9e5e29b14b5",
+    "candidate": "daa1087f405e21a698375e81e1960c422bd29b6363d2e7c2dc8f36e807226b8b"
+  },
+  "evaluator_fingerprints": {
+    "atlas/metrics.py": "8f7a79069bf727b7b4e7159dea49b52c2c0e71167d43c8efc0c17ce82ecabdb3",
+    "scripts/benchmark_suite.py": "ffa3fb9f7f0dd4c21c294b45e9190753d97ce4ecc15a0b2a4b502afc8f673297",
+    "scripts/benchmark_data.py": "18c304acdef063f0721032ae5cbdd8c9516e8486f9ce0f6d848fc36c31b20aed",
+    "scripts/benchmark_kaggle.py": "08be2553fa369e98311f66c67853f21f17b50f21f951287d9287ce53ffc32f53",
+    "scripts/kaggle_data.py": "b20249093d69f30e707ed653e2c6b5ae93ab70fbc5772390a636a47e53f2973f",
+    "scripts/source_adapters.py": "420f0369b88ca5f3e3db4a93408cd299283293af7579cbd99f60b33a2d2f7160"
+  },
+  "protocol": {
+    "seeds": [
+      42,
+      53
+    ],
+    "mode": "deterministic",
+    "budget_seconds": 120,
+    "threads": 8,
+    "memory_mb": 8192,
+    "max_calls": 0,
+    "metric": "f1_macro",
+    "original_repeat": 0,
+    "folds": [
+      0,
+      1
+    ]
+  },
+  "license_note": "OpenML metadata declares Public. Retain this exact declaration; do not translate it to CC0/CCBY. Original metadata and URLs are preserved."
+}

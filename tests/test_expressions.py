@@ -153,13 +153,17 @@ def test_formulas_reach_real_worker_and_improve_held_out_interaction(tmp_path):
     assert scores[1] < scores[0] * .1
 
 
-def test_catboost_is_absent_from_execution_search_and_qwen(tmp_path):
+def test_native_catboost_is_capability_gated_in_execution_search_and_qwen(tmp_path):
     data = load(read_inputs(create(tmp_path)))
-    assert 'catboost' not in FAMILIES
-    assert all(r['model_family'] != 'catboost' for r in initial_portfolio(data.spec))
+    assert 'catboost' in FAMILIES
+    assert any(r['model_family'] == 'catboost' for r in initial_portfolio(data.spec))
     context = researcher_context(data, [], None, 60)
-    assert 'catboost' not in context['capabilities']['models']
+    assert 'catboost' in context['capabilities']['models']
     assert 'group_mean' in context['capabilities']['feature_formulas']['functions']
+    validate({'model_family': 'catboost'}, data.spec)
+    data.spec.available_capabilities.pop('catboost')
+    assert all(r['model_family'] != 'catboost' for r in initial_portfolio(data.spec))
+    assert 'catboost' not in researcher_context(data, [], None, 60)['capabilities']['models']
     with pytest.raises(RecipeError): validate({'model_family': 'catboost'}, data.spec)
 
 

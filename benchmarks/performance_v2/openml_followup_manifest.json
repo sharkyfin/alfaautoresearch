@@ -1,0 +1,468 @@
+{
+  "schema_version": 2,
+  "created_at_utc": "2026-10-22T21:48:33.533182+00:00",
+  "source_policy": "Restored OpenML APIs; original task data and predefined folds0/1, Macro F1 study variant; metadata license retained literally as Public, not inferred CC0/CCBY; post-freeze additional evaluation with no model adaptation. Original frozen manifest remains byte-identical.",
+  "reserved_final_cases": [],
+  "seeds": [
+    42,
+    53
+  ],
+  "cases": [
+    {
+      "case": "openml_3",
+      "source": "openml",
+      "task_id": 3,
+      "dataset": "kr-vs-kp",
+      "dataset_id": 3,
+      "version": "1",
+      "source_url": "https://www.openml.org/t/3",
+      "license": "Public",
+      "target": "class",
+      "problem_type": "classification",
+      "metric": "f1_macro",
+      "metric_policy": "Explicit Macro F1 study variant; preserves original OpenML outer splits",
+      "split_regime": "iid",
+      "data_url": "https://openml.org/data/v1/download/3/kr-vs-kp.arff",
+      "split_url": "https://openml.org/api_splits/get/3/Task_3_splits.arff",
+      "cache_directory": "/Users/mac/Documents/projects/alfaautoresearch/artifacts/data/benchmark_v2/openml/3",
+      "metadata_provenance": {
+        "task": {
+          "url": "https://www.openml.org/api/v1/json/task/3",
+          "sha256": "966cac7bf1683bd37d531b125dc90beec5c591794b64cfe19e623f42c70cb3bd",
+          "bytes": 1200,
+          "download_seconds": 0.406
+        },
+        "dataset": {
+          "url": "https://www.openml.org/api/v1/json/data/3",
+          "sha256": "ee4941cc0831285f35e58dc0a94279c9d2a51a3fe0ca9f59ecd927b8d46dba66",
+          "bytes": 4397,
+          "download_seconds": 0.396
+        }
+      },
+      "reserved_phase": "development",
+      "status": "metadata_available",
+      "data_provenance": {
+        "dataset": {
+          "url": "https://openml.org/data/v1/download/3/kr-vs-kp.arff",
+          "sha256": "b22a8a12bd40648400b000bad0545683b8ecd33ac84f2c265dd5c309c832fd69",
+          "bytes": 489987,
+          "download_seconds": 1.274
+        },
+        "splits": {
+          "url": "https://openml.org/api_splits/get/3/Task_3_splits.arff",
+          "sha256": "a0886aee707c3c319627ab4a66be5bf88bb126c4a606dd19a8f67eb96636cd47",
+          "bytes": 465241,
+          "download_seconds": 0.719
+        }
+      },
+      "split_validation_before_training": [
+        {
+          "seed": 42,
+          "rows": 3196,
+          "features": 36,
+          "train": 2876,
+          "test": 320,
+          "classes": 2,
+          "official_repeat": 0,
+          "official_fold": 0,
+          "split_selector_policy": "42/53/71 select original OpenML folds 0/1/2",
+          "dataset_sha256": "b22a8a12bd40648400b000bad0545683b8ecd33ac84f2c265dd5c309c832fd69",
+          "official_splits_sha256": "a0886aee707c3c319627ab4a66be5bf88bb126c4a606dd19a8f67eb96636cd47"
+        },
+        {
+          "seed": 53,
+          "rows": 3196,
+          "features": 36,
+          "train": 2876,
+          "test": 320,
+          "classes": 2,
+          "official_repeat": 0,
+          "official_fold": 1,
+          "split_selector_policy": "42/53/71 select original OpenML folds 0/1/2",
+          "dataset_sha256": "b22a8a12bd40648400b000bad0545683b8ecd33ac84f2c265dd5c309c832fd69",
+          "official_splits_sha256": "a0886aee707c3c319627ab4a66be5bf88bb126c4a606dd19a8f67eb96636cd47"
+        }
+      ]
+    },
+    {
+      "case": "openml_6",
+      "source": "openml",
+      "task_id": 6,
+      "dataset": "letter",
+      "dataset_id": 6,
+      "version": "1",
+      "source_url": "https://www.openml.org/t/6",
+      "license": "Public",
+      "target": "class",
+      "problem_type": "classification",
+      "metric": "f1_macro",
+      "metric_policy": "Explicit Macro F1 study variant; preserves original OpenML outer splits",
+      "split_regime": "iid",
+      "data_url": "https://openml.org/data/v1/download/6/letter.arff",
+      "split_url": "https://openml.org/api_splits/get/6/Task_6_splits.arff",
+      "cache_directory": "/Users/mac/Documents/projects/alfaautoresearch/artifacts/data/benchmark_v2/openml/6",
+      "metadata_provenance": {
+        "task": {
+          "url": "https://www.openml.org/api/v1/json/task/6",
+          "sha256": "0c377647103e1a9d0463908fc69530579506bdc5017749a4615d1ed9cb88a0e9",
+          "bytes": 1123,
+          "download_seconds": 0.372
+        },
+        "dataset": {
+          "url": "https://www.openml.org/api/v1/json/data/6",
+          "sha256": "e18bbf11890232bbec4ad9518a5c91ea362716268aae232806b12e2ad24dffc1",
+          "bytes": 2176,
+          "download_seconds": 0.295
+        }
+      },
+      "reserved_phase": "development",
+      "status": "metadata_available",
+      "data_provenance": {
+        "dataset": {
+          "url": "https://openml.org/data/v1/download/6/letter.arff",
+          "sha256": "a31f2d9ad119a53e182e7371d48981982dbb2b0a5e9f0aa7b73f373857b64e2e",
+          "bytes": 720419,
+          "download_seconds": 1.463
+        },
+        "splits": {
+          "url": "https://openml.org/api_splits/get/6/Task_6_splits.arff",
+          "sha256": "609c99846f98ad3e1af2ee6a684978414d0a4487991692e211ddfae017cae480",
+          "bytes": 3069035,
+          "download_seconds": 0.98
+        }
+      },
+      "split_validation_before_training": [
+        {
+          "seed": 42,
+          "rows": 20000,
+          "features": 16,
+          "train": 18000,
+          "test": 2000,
+          "classes": 26,
+          "official_repeat": 0,
+          "official_fold": 0,
+          "split_selector_policy": "42/53/71 select original OpenML folds 0/1/2",
+          "dataset_sha256": "a31f2d9ad119a53e182e7371d48981982dbb2b0a5e9f0aa7b73f373857b64e2e",
+          "official_splits_sha256": "609c99846f98ad3e1af2ee6a684978414d0a4487991692e211ddfae017cae480"
+        },
+        {
+          "seed": 53,
+          "rows": 20000,
+          "features": 16,
+          "train": 18000,
+          "test": 2000,
+          "classes": 26,
+          "official_repeat": 0,
+          "official_fold": 1,
+          "split_selector_policy": "42/53/71 select original OpenML folds 0/1/2",
+          "dataset_sha256": "a31f2d9ad119a53e182e7371d48981982dbb2b0a5e9f0aa7b73f373857b64e2e",
+          "official_splits_sha256": "609c99846f98ad3e1af2ee6a684978414d0a4487991692e211ddfae017cae480"
+        }
+      ]
+    },
+    {
+      "case": "openml_12",
+      "source": "openml",
+      "task_id": 12,
+      "dataset": "mfeat-factors",
+      "dataset_id": 12,
+      "version": "1",
+      "source_url": "https://www.openml.org/t/12",
+      "license": "Public",
+      "target": "class",
+      "problem_type": "classification",
+      "metric": "f1_macro",
+      "metric_policy": "Explicit Macro F1 study variant; preserves original OpenML outer splits",
+      "split_regime": "iid",
+      "data_url": "https://openml.org/data/v1/download/12/mfeat-factors.arff",
+      "split_url": "https://openml.org/api_splits/get/12/Task_12_splits.arff",
+      "cache_directory": "/Users/mac/Documents/projects/alfaautoresearch/artifacts/data/benchmark_v2/openml/12",
+      "metadata_provenance": {
+        "task": {
+          "url": "https://www.openml.org/api/v1/json/task/12",
+          "sha256": "4a9170a7af369b3e37d6c9e6ede15b20de7dc93682f5ec73f7ac3e1fe816dac6",
+          "bytes": 1171,
+          "download_seconds": 0.526
+        },
+        "dataset": {
+          "url": "https://www.openml.org/api/v1/json/data/12",
+          "sha256": "10612b96ed5fdf1ce62505c688ce6b4fed4351787750a2e60bac1fde7128af9d",
+          "bytes": 2251,
+          "download_seconds": 0.326
+        }
+      },
+      "reserved_phase": "development",
+      "status": "metadata_available",
+      "data_provenance": {
+        "dataset": {
+          "url": "https://openml.org/data/v1/download/12/mfeat-factors.arff",
+          "sha256": "609d8f01dbf3f34a953617cc3586ddbb897d98013eba4ef4a4bf73791205ae5c",
+          "bytes": 1475655,
+          "download_seconds": 1.03
+        },
+        "splits": {
+          "url": "https://openml.org/api_splits/get/12/Task_12_splits.arff",
+          "sha256": "ebdae74ff695373a6802f783737863bf7980e9a4e825458d7cff8bdb664974df",
+          "bytes": 287042,
+          "download_seconds": 0.66
+        }
+      },
+      "split_validation_before_training": [
+        {
+          "seed": 42,
+          "rows": 2000,
+          "features": 216,
+          "train": 1800,
+          "test": 200,
+          "classes": 10,
+          "official_repeat": 0,
+          "official_fold": 0,
+          "split_selector_policy": "42/53/71 select original OpenML folds 0/1/2",
+          "dataset_sha256": "609d8f01dbf3f34a953617cc3586ddbb897d98013eba4ef4a4bf73791205ae5c",
+          "official_splits_sha256": "ebdae74ff695373a6802f783737863bf7980e9a4e825458d7cff8bdb664974df"
+        },
+        {
+          "seed": 53,
+          "rows": 2000,
+          "features": 216,
+          "train": 1800,
+          "test": 200,
+          "classes": 10,
+          "official_repeat": 0,
+          "official_fold": 1,
+          "split_selector_policy": "42/53/71 select original OpenML folds 0/1/2",
+          "dataset_sha256": "609d8f01dbf3f34a953617cc3586ddbb897d98013eba4ef4a4bf73791205ae5c",
+          "official_splits_sha256": "ebdae74ff695373a6802f783737863bf7980e9a4e825458d7cff8bdb664974df"
+        }
+      ]
+    },
+    {
+      "case": "openml_31",
+      "source": "openml",
+      "task_id": 31,
+      "dataset": "credit-g",
+      "dataset_id": 31,
+      "version": "1",
+      "source_url": "https://www.openml.org/t/31",
+      "license": "Public",
+      "target": "class",
+      "problem_type": "classification",
+      "metric": "f1_macro",
+      "metric_policy": "Explicit Macro F1 study variant; preserves original OpenML outer splits",
+      "split_regime": "iid",
+      "data_url": "https://openml.org/data/v1/download/31/credit-g.arff",
+      "split_url": "https://openml.org/api_splits/get/31/Task_31_splits.arff",
+      "cache_directory": "/Users/mac/Documents/projects/alfaautoresearch/artifacts/data/benchmark_v2/openml/31",
+      "metadata_provenance": {
+        "task": {
+          "url": "https://www.openml.org/api/v1/json/task/31",
+          "sha256": "833ffd1e24c3d68617dec1377eb8049fa8e7aa195a83401195e1093c1d8a677d",
+          "bytes": 1215,
+          "download_seconds": 0.392
+        },
+        "dataset": {
+          "url": "https://www.openml.org/api/v1/json/data/31",
+          "sha256": "0a42592519aeb3f473eac041a5b65c9054d46cf94665c489386dbe3371348f6a",
+          "bytes": 2627,
+          "download_seconds": 0.325
+        }
+      },
+      "reserved_phase": "development",
+      "status": "metadata_available",
+      "data_provenance": {
+        "dataset": {
+          "url": "https://openml.org/data/v1/download/31/credit-g.arff",
+          "sha256": "768be84ef749110d5fcac109a6541f2df190e8c6987e1dc432c0a4f29d0642f5",
+          "bytes": 162291,
+          "download_seconds": 0.63
+        },
+        "splits": {
+          "url": "https://openml.org/api_splits/get/31/Task_31_splits.arff",
+          "sha256": "71a9403433b9461501ecddd9388889c519d423fbaf33a4f5832484ed8dece7b5",
+          "bytes": 138037,
+          "download_seconds": 0.611
+        }
+      },
+      "split_validation_before_training": [
+        {
+          "seed": 42,
+          "rows": 1000,
+          "features": 20,
+          "train": 900,
+          "test": 100,
+          "classes": 2,
+          "official_repeat": 0,
+          "official_fold": 0,
+          "split_selector_policy": "42/53/71 select original OpenML folds 0/1/2",
+          "dataset_sha256": "768be84ef749110d5fcac109a6541f2df190e8c6987e1dc432c0a4f29d0642f5",
+          "official_splits_sha256": "71a9403433b9461501ecddd9388889c519d423fbaf33a4f5832484ed8dece7b5"
+        },
+        {
+          "seed": 53,
+          "rows": 1000,
+          "features": 20,
+          "train": 900,
+          "test": 100,
+          "classes": 2,
+          "official_repeat": 0,
+          "official_fold": 1,
+          "split_selector_policy": "42/53/71 select original OpenML folds 0/1/2",
+          "dataset_sha256": "768be84ef749110d5fcac109a6541f2df190e8c6987e1dc432c0a4f29d0642f5",
+          "official_splits_sha256": "71a9403433b9461501ecddd9388889c519d423fbaf33a4f5832484ed8dece7b5"
+        }
+      ]
+    },
+    {
+      "case": "openml_37",
+      "source": "openml",
+      "task_id": 37,
+      "dataset": "diabetes",
+      "dataset_id": 37,
+      "version": "1",
+      "source_url": "https://www.openml.org/t/37",
+      "license": "Public",
+      "target": "class",
+      "problem_type": "classification",
+      "metric": "f1_macro",
+      "metric_policy": "Explicit Macro F1 study variant; preserves original OpenML outer splits",
+      "split_regime": "iid",
+      "data_url": "https://openml.org/data/v1/download/37/diabetes.arff",
+      "split_url": "https://openml.org/api_splits/get/37/Task_37_splits.arff",
+      "cache_directory": "/Users/mac/Documents/projects/alfaautoresearch/artifacts/data/benchmark_v2/openml/37",
+      "metadata_provenance": {
+        "task": {
+          "url": "https://www.openml.org/api/v1/json/task/37",
+          "sha256": "7c758f0528c370d6cc44128dd25f8c01bbf47a0ace3f8d6023ec428c13af3815",
+          "bytes": 1204,
+          "download_seconds": 0.333
+        },
+        "dataset": {
+          "url": "https://www.openml.org/api/v1/json/data/37",
+          "sha256": "9c5737c190ab2ed1cfcc84bf1c0a281ece11acd3dce065706217d1b0f5e3d2e7",
+          "bytes": 4761,
+          "download_seconds": 0.333
+        }
+      },
+      "reserved_phase": "development",
+      "status": "metadata_available",
+      "data_provenance": {
+        "dataset": {
+          "url": "https://openml.org/data/v1/download/37/diabetes.arff",
+          "sha256": "4eddd5b2b64679e8888348e306520a393d6a28e1ddc9643cfb76fc5d912d6d40",
+          "bytes": 37419,
+          "download_seconds": 0.55
+        },
+        "splits": {
+          "url": "https://openml.org/api_splits/get/37/Task_37_splits.arff",
+          "sha256": "f5ca971820ad97796ee82226bdb77d23425e67f427d7329a4cc32d789c31cd1f",
+          "bytes": 105789,
+          "download_seconds": 0.539
+        }
+      },
+      "split_validation_before_training": [
+        {
+          "seed": 42,
+          "rows": 768,
+          "features": 8,
+          "train": 691,
+          "test": 77,
+          "classes": 2,
+          "official_repeat": 0,
+          "official_fold": 0,
+          "split_selector_policy": "42/53/71 select original OpenML folds 0/1/2",
+          "dataset_sha256": "4eddd5b2b64679e8888348e306520a393d6a28e1ddc9643cfb76fc5d912d6d40",
+          "official_splits_sha256": "f5ca971820ad97796ee82226bdb77d23425e67f427d7329a4cc32d789c31cd1f"
+        },
+        {
+          "seed": 53,
+          "rows": 768,
+          "features": 8,
+          "train": 691,
+          "test": 77,
+          "classes": 2,
+          "official_repeat": 0,
+          "official_fold": 1,
+          "split_selector_policy": "42/53/71 select original OpenML folds 0/1/2",
+          "dataset_sha256": "4eddd5b2b64679e8888348e306520a393d6a28e1ddc9643cfb76fc5d912d6d40",
+          "official_splits_sha256": "f5ca971820ad97796ee82226bdb77d23425e67f427d7329a4cc32d789c31cd1f"
+        }
+      ]
+    },
+    {
+      "case": "openml_54",
+      "source": "openml",
+      "task_id": 54,
+      "dataset": "hepatitis",
+      "dataset_id": 55,
+      "version": "1",
+      "source_url": "https://www.openml.org/t/54",
+      "license": "Public",
+      "target": "Class",
+      "problem_type": "classification",
+      "metric": "f1_macro",
+      "metric_policy": "Explicit Macro F1 study variant; preserves original OpenML outer splits",
+      "split_regime": "iid",
+      "data_url": "https://openml.org/data/v1/download/55/hepatitis.arff",
+      "split_url": "https://openml.org/api_splits/get/54/Task_54_splits.arff",
+      "cache_directory": "/Users/mac/Documents/projects/alfaautoresearch/artifacts/data/benchmark_v2/openml/54",
+      "metadata_provenance": {
+        "task": {
+          "url": "https://www.openml.org/api/v1/json/task/54",
+          "sha256": "9445b202a311fb718505ce74e79f0d599957bfd3c77563d4d03d5fac2b5095ff",
+          "bytes": 1104,
+          "download_seconds": 0.333
+        },
+        "dataset": {
+          "url": "https://www.openml.org/api/v1/json/data/55",
+          "sha256": "ab7b251653ebfc046838ef4a849a0c76c37e4b2e441ba484641d9ab7ad6dcba9",
+          "bytes": 6578,
+          "download_seconds": 0.361
+        }
+      },
+      "reserved_phase": "development",
+      "status": "metadata_available",
+      "data_provenance": {
+        "dataset": {
+          "url": "https://openml.org/data/v1/download/55/hepatitis.arff",
+          "sha256": "a0fb4010d5c9d53eac80a59e5c3bb319743f8682455c68a7b2e87d9f4ce19ce9",
+          "bytes": 17175,
+          "download_seconds": 0.491
+        },
+        "splits": {
+          "url": "https://openml.org/api_splits/get/54/Task_54_splits.arff",
+          "sha256": "022e9d2bfb29166372f18e4724d306ceb492da9577ca40becd229718e3029117",
+          "bytes": 20583,
+          "download_seconds": 0.478
+        }
+      },
+      "split_validation_before_training": [
+        {
+          "seed": 42,
+          "rows": 155,
+          "features": 19,
+          "train": 139,
+          "test": 16,
+          "classes": 2,
+          "official_repeat": 0,
+          "official_fold": 0,
+          "split_selector_policy": "42/53/71 select original OpenML folds 0/1/2",
+          "dataset_sha256": "a0fb4010d5c9d53eac80a59e5c3bb319743f8682455c68a7b2e87d9f4ce19ce9",
+          "official_splits_sha256": "022e9d2bfb29166372f18e4724d306ceb492da9577ca40becd229718e3029117"
+        },
+        {
+          "seed": 53,
+          "rows": 155,
+          "features": 19,
+          "train": 139,
+          "test": 16,
+          "classes": 2,
+          "official_repeat": 0,
+          "official_fold": 1,
+          "split_selector_policy": "42/53/71 select original OpenML folds 0/1/2",
+          "dataset_sha256": "a0fb4010d5c9d53eac80a59e5c3bb319743f8682455c68a7b2e87d9f4ce19ce9",
+          "official_splits_sha256": "022e9d2bfb29166372f18e4724d306ceb492da9577ca40becd229718e3029117"
+        }
+      ]
+    }
+  ]
+}

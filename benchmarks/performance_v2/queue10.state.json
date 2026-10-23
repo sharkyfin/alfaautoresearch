@@ -1,0 +1,27 @@
+{
+  "started_at_utc": "2026-10-22T15:35:01.422537+00:00",
+  "jobs": [
+    {
+      "name": "final-unseen-live-panel",
+      "started_at_utc": "2026-10-22T16:08:32.744853+00:00",
+      "command": [
+        "scripts/freeze_final_panel.py",
+        "--candidate",
+        ".bootstrap/performance_v2/p3j/source/submission.zip",
+        "--baseline",
+        ".bootstrap/performance_v2/baseline/source/submission.zip",
+        "--gate-prefix",
+        "p3j",
+        "--report",
+        "reports/performance_v2/final-lockbox-live.json"
+      ],
+      "returncode": 1,
+      "finished_at_utc": "2026-10-22T16:11:10.387573+00:00",
+      "status": "failed",
+      "report": "/Users/mac/Documents/projects/alfaautoresearch/reports/performance_v2/final-lockbox-live.json",
+      "log": "/Users/mac/Documents/projects/alfaautoresearch/reports/performance_v2/final-lockbox-live.log"
+    }
+  ],
+  "waiting_for": "benchmarks/performance_v2/queue9.state.json",
+  "status": "completed"
+}

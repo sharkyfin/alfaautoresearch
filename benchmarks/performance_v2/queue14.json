@@ -1,0 +1,38 @@
+[
+  {
+    "name": "restored-openml-six-task-external-validation",
+    "report": "reports/performance_v2/openml-restored-120.json",
+    "command": [
+      "scripts/benchmark_suite.py",
+      "--manifest",
+      "benchmarks/performance_v2/openml_followup_manifest.json",
+      "--archives",
+      "baseline=.bootstrap/performance_v2/baseline/source/submission.zip,candidate=.bootstrap/performance_v2/p3j/source/submission.zip",
+      "--cases",
+      "development",
+      "--modes",
+      "deterministic",
+      "--seeds",
+      "42,53",
+      "--budget",
+      "120",
+      "--threads",
+      "8",
+      "--memory-mb",
+      "8192",
+      "--max-calls",
+      "0",
+      "--report",
+      "reports/performance_v2/openml-restored-120.json"
+    ]
+  },
+  {
+    "name": "large-mixed-text-operational-headroom-qa",
+    "report": "reports/performance_v2/large_text_runtime.json",
+    "command": [
+      "scripts/verify_large_text_runtime.py",
+      "--budget",
+      "900"
+    ]
+  }
+]

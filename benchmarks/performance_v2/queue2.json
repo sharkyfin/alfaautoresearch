@@ -1,0 +1,99 @@
+[
+  {
+    "name": "llm-a0-a1-a2",
+    "report": "reports/performance_v2/llm-a0-a1-a2.json",
+    "command": [
+      "scripts/benchmark_suite.py",
+      "--archives",
+      "reference=.bootstrap/performance_v2/p3e/source/submission.zip",
+      "--cases",
+      "concrete_strength,adult_income,dry_beans",
+      "--budget",
+      "120",
+      "--seeds",
+      "42,53",
+      "--report",
+      "reports/performance_v2/llm-a0-a1-a2.json",
+      "--modes",
+      "deterministic,live-agent,fixed-allocation"
+    ]
+  },
+  {
+    "name": "native-target-encoding",
+    "report": "reports/performance_v2/native-target-encoding.json",
+    "command": [
+      "scripts/benchmark_suite.py",
+      "--archives",
+      "baseline=.bootstrap/performance_v2/p3e/source/submission.zip,candidate=.bootstrap/performance_v2/p3e/source/submission.zip,cat=.bootstrap/performance_v2/p3e/source/submission.zip",
+      "--cases",
+      "california_housing,adult_income,beyond_healthcare_insurance_expenses",
+      "--budget",
+      "120",
+      "--seeds",
+      "42,53",
+      "--report",
+      "reports/performance_v2/native-target-encoding.json",
+      "--recipe-by-arm",
+      "baseline=benchmarks/performance_v2/native.json,candidate=benchmarks/performance_v2/target.json,cat=benchmarks/performance_v2/cat.json"
+    ]
+  },
+  {
+    "name": "seed-bagging",
+    "report": "reports/performance_v2/seed-bagging.json",
+    "command": [
+      "scripts/benchmark_suite.py",
+      "--archives",
+      "baseline=.bootstrap/performance_v2/p3e/source/submission.zip,candidate=.bootstrap/performance_v2/p3e/source/submission.zip",
+      "--cases",
+      "concrete_strength,dry_beans",
+      "--budget",
+      "90",
+      "--seeds",
+      "42,53",
+      "--report",
+      "reports/performance_v2/seed-bagging.json",
+      "--recipe-by-arm",
+      "baseline=benchmarks/performance_v2/native.json,candidate=benchmarks/performance_v2/seed_bag.json"
+    ]
+  },
+  {
+    "name": "ensemble-policies",
+    "report": "reports/performance_v2/ensemble-policies.json",
+    "command": [
+      "scripts/benchmark_suite.py",
+      "--archives",
+      "baseline=.bootstrap/performance_v2/p3e/source/submission.zip,weighted=.bootstrap/performance_v2/p3e/source/submission.zip,greedy=.bootstrap/performance_v2/p3e/source/submission.zip,fold=.bootstrap/performance_v2/p3e/source/submission.zip",
+      "--cases",
+      "concrete_strength,dry_beans,beyond_airfoil_self_noise",
+      "--budget",
+      "120",
+      "--seeds",
+      "42,53",
+      "--report",
+      "reports/performance_v2/ensemble-policies.json",
+      "--blend-by-arm",
+      "baseline=none,weighted=weighted,greedy=greedy,fold=greedy",
+      "--finalization-by-arm",
+      "fold=fold_average"
+    ]
+  },
+  {
+    "name": "official-train-holdout",
+    "report": "reports/performance_v2/official-train-holdout.json",
+    "command": [
+      "scripts/benchmark_suite.py",
+      "--archives",
+      "candidate=.bootstrap/performance_v2/p3e/source/submission.zip",
+      "--cases",
+      "official_regression,official_classification",
+      "--budget",
+      "300",
+      "--seeds",
+      "42",
+      "--report",
+      "reports/performance_v2/official-train-holdout.json",
+      "--manifest",
+      "benchmarks/performance_v2/official_manifest.json"
+    ]
+  }
+]

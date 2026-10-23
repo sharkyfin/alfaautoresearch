@@ -1,0 +1,18 @@
+[
+  {
+    "name": "first-final-opening-after-launch-path-repair",
+    "report": "reports/performance_v2/final-lockbox-live.json",
+    "log": "reports/performance_v2/final-lockbox-live-retry.log",
+    "command": [
+      ".bootstrap/performance_v2/launch_existing_freeze.py"
+    ]
+  },
+  {
+    "name": "final-selected-source-report",
+    "report": "reports/performance_v2/final_release_audit.json",
+    "log": "reports/performance_v2/final_release_audit-retry.log",
+    "command": [
+      "scripts/finalize_performance_v2.py"
+    ]
+  }
+]

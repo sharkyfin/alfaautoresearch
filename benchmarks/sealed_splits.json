@@ -1,0 +1,778 @@
+{
+  "schema_version": 2,
+  "source_policy": "Original splits retained. External truth stays in evaluator memory. Final reserved datasets are not reused for tuning.",
+  "reservations": [
+    {
+      "case": "california_housing",
+      "source": "kaggle",
+      "dataset": "camnugent/california-housing-prices",
+      "task_id": null,
+      "dataset_id": null,
+      "version": 1,
+      "revision": null,
+      "reserved_phase": "development",
+      "license": "CC0: Public Domain",
+      "split_regime": null,
+      "metric": "rmse",
+      "status": "metadata_available"
+    },
+    {
+      "case": "adult_income",
+      "source": "kaggle",
+      "dataset": "uciml/adult-census-income",
+      "task_id": null,
+      "dataset_id": null,
+      "version": 3,
+      "revision": null,
+      "reserved_phase": "development",
+      "license": "CC0: Public Domain",
+      "split_regime": null,
+      "metric": "f1_macro",
+      "status": "metadata_available"
+    },
+    {
+      "case": "sms_spam",
+      "source": "kaggle",
+      "dataset": "team-ai/spam-text-message-classification",
+      "task_id": null,
+      "dataset_id": null,
+      "version": 1,
+      "revision": null,
+      "reserved_phase": "development",
+      "license": "CC0: Public Domain",
+      "split_regime": null,
+      "metric": "f1_macro",
+      "status": "metadata_available"
+    },
+    {
+      "case": "concrete_strength",
+      "source": "kaggle",
+      "dataset": "elikplim/concrete-compressive-strength-data-set",
+      "task_id": null,
+      "dataset_id": null,
+      "version": 1,
+      "revision": null,
+      "reserved_phase": "development",
+      "license": "CC BY 4.0",
+      "split_regime": null,
+      "metric": "rmse",
+      "status": "metadata_available"
+    },
+    {
+      "case": "dry_beans",
+      "source": "kaggle",
+      "dataset": "muratkokludataset/dry-bean-dataset",
+      "task_id": null,
+      "dataset_id": null,
+      "version": 1,
+      "revision": null,
+      "reserved_phase": "development",
+      "license": "CC0: Public Domain",
+      "split_regime": null,
+      "metric": "f1_macro",
+      "status": "metadata_available"
+    },
+    {
+      "case": "beyond_airfoil_self_noise",
+      "source": "beyondarena",
+      "dataset": "airfoil_self_noise",
+      "task_id": null,
+      "dataset_id": null,
+      "version": null,
+      "revision": "2ecfe882ccfb814fc27c4de10a64ceefd5d7655c",
+      "reserved_phase": "development",
+      "license": "CC BY 4.0",
+      "split_regime": "iid",
+      "metric": "rmse",
+      "status": "metadata_available",
+      "original_split_file": "experiment_metadata.predictive-ml-splits-mold-v1.json",
+      "original_split_sha256": "795135aa847dc7ab519c96c1bf81605bd0c14b956ff73b6f21f757670ba89a61",
+      "seed_selector": "42/53/71 select original repeats 0/1/2, first original fold",
+      "source_parquet_identity": {
+        "path": "airfoil_self_noise/019d7366-4673-7d9a-9821-35604af616f6/dataset.parquet",
+        "size": 19476,
+        "oid": "1cd60a9e08f3a201e3527f93a567e8fde46b4527",
+        "lfs": {
+          "oid": "5abdf9c0c8d9d8df8c5edef3eb611411f7b286dd3344362f5014550c9f94c22d",
+          "size": 19476,
+          "pointerSize": 130
+        }
+      }
+    },
+    {
+      "case": "beyond_parkinsons_biomedical_voice_measurements",
+      "source": "beyondarena",
+      "dataset": "parkinsons_biomedical_voice_measurements",
+      "task_id": null,
+      "dataset_id": null,
+      "version": null,
+      "revision": "2ecfe882ccfb814fc27c4de10a64ceefd5d7655c",
+      "reserved_phase": "development",
+      "license": "CC BY 4.0",
+      "split_regime": "grouped",
+      "metric": "roc_auc",
+      "status": "metadata_available",
+      "original_split_file": "experiment_metadata.predictive-ml-splits-mold-v1.json",
+      "original_split_sha256": "aa5c216546b45a53fc041d1ac59522313d21bc33a446e5851e2d1f3e5aa5aa57",
+      "seed_selector": "42/53/71 select original repeats 0/1/2, first original fold",
+      "source_parquet_identity": {
+        "path": "parkinsons_biomedical_voice_measurements/019d738d-db39-7b5b-83dc-664e66da1854/dataset.parquet",
+        "size": 49785,
+        "oid": "57ff55aa18c30bf8c74d24d821e3810a4069427d",
+        "lfs": {
+          "oid": "da290942eed7c2c644aba6bbc16cd8a1ec3a025fe421f1eb5cd59c13b8cc1e6b",
+          "size": 49785,
+          "pointerSize": 130
+        }
+      }
+    },
+    {
+      "case": "beyond_asp_potassco_classification",
+      "source": "beyondarena",
+      "dataset": "asp_potassco_classification",
+      "task_id": null,
+      "dataset_id": null,
+      "version": null,
+      "revision": "2ecfe882ccfb814fc27c4de10a64ceefd5d7655c",
+      "reserved_phase": "development",
+      "license": "GPLv3",
+      "split_regime": "grouped",
+      "metric": "log_loss",
+      "status": "metadata_available",
+      "original_split_file": "experiment_metadata.predictive-ml-splits-mold-v1.json",
+      "original_split_sha256": "c2b5285a8fc27a26cf1112e951595ea0a64b278201c67ca05942869b6cc131cc",
+      "seed_selector": "42/53/71 select original repeats 0/1/2, first original fold",
+      "source_parquet_identity": {
+        "path": "asp_potassco_classification/019d73ec-935f-7f88-8a82-af3ad2f44e9f/dataset.parquet",
+        "size": 644618,
+        "oid": "1b52632595d16d77ec48ec9bd21fe06ffda13fac",
+        "lfs": {
+          "oid": "ceaa8cf744b681d3852d1138ddf9f5fbb5250cd9970e39af7cd46342a6e6b92a",
+          "size": 644618,
+          "pointerSize": 131
+        }
+      }
+    },
+    {
+      "case": "beyond_garments_worker_productivity",
+      "source": "beyondarena",
+      "dataset": "garments_worker_productivity",
+      "task_id": null,
+      "dataset_id": null,
+      "version": null,
+      "revision": "2ecfe882ccfb814fc27c4de10a64ceefd5d7655c",
+      "reserved_phase": "development",
+      "license": "CC BY 4.0",
+      "split_regime": "temporal",
+      "metric": "rmse",
+      "status": "metadata_available",
+      "original_split_file": "experiment_metadata.predictive-ml-splits-mold-v1.json",
+      "original_split_sha256": "6e6558303e1789f6ead4b5803a28eda1405f263712d39612f67871c79116cfa2",
+      "seed_selector": "42/53/71 select original repeats 0/1/2, first original fold",
+      "source_parquet_identity": {
+        "path": "garments_worker_productivity/019db501-f4c4-7de2-b626-fcb769c7d82e/dataset.parquet",
+        "size": 31047,
+        "oid": "e345f7d38ea9c36d186092db3a4e1638bcaa6f8c",
+        "lfs": {
+          "oid": "746d05d55042379b84013a3e82e262dcc68d8047227590112d70e940b03417a7",
+          "size": 31047,
+          "pointerSize": 130
+        }
+      }
+    },
+    {
+      "case": "beyond_healthcare_insurance_expenses",
+      "source": "beyondarena",
+      "dataset": "healthcare_insurance_expenses",
+      "task_id": null,
+      "dataset_id": null,
+      "version": null,
+      "revision": "2ecfe882ccfb814fc27c4de10a64ceefd5d7655c",
+      "reserved_phase": "development",
+      "license": "Database Contents License (DbCL) v1.0",
+      "split_regime": "iid",
+      "metric": "rmse",
+      "status": "metadata_available",
+      "original_split_file": "experiment_metadata.predictive-ml-splits-mold-v1.json",
+      "original_split_sha256": "c8d70aed788c02ab85c001ef5f210175e11a1613833a8a996c7180efe072b2da",
+      "seed_selector": "42/53/71 select original repeats 0/1/2, first original fold",
+      "source_parquet_identity": {
+        "path": "healthcare_insurance_expenses/019d7367-f8cf-77a8-86e8-cabed951a9f6/dataset.parquet",
+        "size": 23961,
+        "oid": "50d32a3708df565b95d3745b057a6411e100551e",
+        "lfs": {
+          "oid": "aa0627c22e0828758607ec846478061877d4970b58b75f2fc674e1c4ba5131c8",
+          "size": 23961,
+          "pointerSize": 130
+        }
+      }
+    },
+    {
+      "case": "beyond_cardiotocography",
+      "source": "beyondarena",
+      "dataset": "cardiotocography",
+      "task_id": null,
+      "dataset_id": null,
+      "version": null,
+      "revision": "2ecfe882ccfb814fc27c4de10a64ceefd5d7655c",
+      "reserved_phase": "development",
+      "license": "CC BY 4.0",
+      "split_regime": "grouped",
+      "metric": "log_loss",
+      "status": "metadata_available",
+      "original_split_file": "experiment_metadata.predictive-ml-splits-mold-v1.json",
+      "original_split_sha256": "3c4cd829301cb3402f9a934499648dcbc5d341c2f342a41146efdf2acb4499a8",
+      "seed_selector": "42/53/71 select original repeats 0/1/2, first original fold",
+      "source_parquet_identity": {
+        "path": "cardiotocography/019d7392-12c2-7a87-991c-13a7246555d4/dataset.parquet",
+        "size": 55881,
+        "oid": "30323d540b006a488ea0b94649b4ba5db8a8be90",
+        "lfs": {
+          "oid": "c80bf1f66b940dd5a8c509552a52aadd5e6b2ccd5655a0c942690eeb415dc379",
+          "size": 55881,
+          "pointerSize": 130
+        }
+      }
+    },
+    {
+      "case": "beyond_thyroid_discordant",
+      "source": "beyondarena",
+      "dataset": "thyroid_discordant",
+      "task_id": null,
+      "dataset_id": null,
+      "version": null,
+      "revision": "2ecfe882ccfb814fc27c4de10a64ceefd5d7655c",
+      "reserved_phase": "development",
+      "license": "CC BY 4.0",
+      "split_regime": "iid",
+      "metric": "roc_auc",
+      "status": "metadata_available",
+      "original_split_file": "experiment_metadata.predictive-ml-splits-mold-v1.json",
+      "original_split_sha256": "aa4c3b8eb79097f1491e93da97f60d4fa85862e2d1ae47bd125e3a2dd31d8728",
+      "seed_selector": "42/53/71 select original repeats 0/1/2, first original fold",
+      "source_parquet_identity": {
+        "path": "thyroid_discordant/019d7374-1c19-79e6-986d-2afd2c16101e/dataset.parquet",
+        "size": 52030,
+        "oid": "2cd4779626a2caba4182b11179a186e91cf6ccc4",
+        "lfs": {
+          "oid": "850bd39b52987424abe2657ee2237fa7b8aff79cd98277a038d8acb76432eb85",
+          "size": 52030,
+          "pointerSize": 130
+        }
+      }
+    },
+    {
+      "case": "beyond_ecoli_proteins",
+      "source": "beyondarena",
+      "dataset": "ecoli_proteins",
+      "task_id": null,
+      "dataset_id": null,
+      "version": null,
+      "revision": "2ecfe882ccfb814fc27c4de10a64ceefd5d7655c",
+      "reserved_phase": "development",
+      "license": "CC BY 4.0",
+      "split_regime": "iid",
+      "metric": "log_loss",
+      "status": "metadata_available",
+      "original_split_file": "experiment_metadata.predictive-ml-splits-mold-v1.json",
+      "original_split_sha256": "6141af560bde4e4c7c911bbf7ee171613dcd0cfee60818e100c351d7eeddb685",
+      "seed_selector": "42/53/71 select original repeats 0/1/2, first original fold",
+      "source_parquet_identity": {
+        "path": "ecoli_proteins/019d736a-d6d2-7e28-aeff-7da6b7126b9d/dataset.parquet",
+        "size": 7918,
+        "oid": "a76a2a346a4db8c9ada4e5eb2af2ef5da8079594",
+        "lfs": {
+          "oid": "4789762d4a76445ed627a3ec78d2273431b9d9758455996a3f9b2ac890a32546",
+          "size": 7918,
+          "pointerSize": 129
+        }
+      }
+    },
+    {
+      "case": "beyond_body_density_prediction",
+      "source": "beyondarena",
+      "dataset": "body_density_prediction",
+      "task_id": null,
+      "dataset_id": null,
+      "version": null,
+      "revision": "2ecfe882ccfb814fc27c4de10a64ceefd5d7655c",
+      "reserved_phase": "excluded",
+      "license": "None",
+      "split_regime": "iid",
+      "metric": "rmse",
+      "status": "dataset_not_licensed",
+      "original_split_file": "experiment_metadata.predictive-ml-splits-mold-v1.json",
+      "original_split_sha256": "39dd5dff4ceada5b2e9a56bfd6083231c1b6d424b50a7d29b24b93b4889fccf9",
+      "seed_selector": "42/53/71 select original repeats 0/1/2, first original fold",
+      "source_parquet_identity": {
+        "path": "body_density_prediction/019d736a-6e2b-77a5-ae25-1222ef4fe4e9/dataset.parquet",
+        "size": 19136,
+        "oid": "f3ee5de5516d28b65938cf75cdfb805613c2eb50",
+        "lfs": {
+          "oid": "92bd8bc0a8e6be471f933f12b141a8dda6d881cdf106ff51b74fbf2f10848cd7",
+          "size": 19136,
+          "pointerSize": 130
+        }
+      }
+    },
+    {
+      "case": "beyond_coffee_rating_prediction",
+      "source": "beyondarena",
+      "dataset": "coffee_rating_prediction",
+      "task_id": null,
+      "dataset_id": null,
+      "version": null,
+      "revision": "2ecfe882ccfb814fc27c4de10a64ceefd5d7655c",
+      "reserved_phase": "excluded",
+      "license": "None",
+      "split_regime": "temporal",
+      "metric": "rmse",
+      "status": "dataset_not_licensed",
+      "original_split_file": "experiment_metadata.predictive-ml-splits-mold-v1.json",
+      "original_split_sha256": "74cc90570ad27fe09deeea0313c5d92ea4ea39baf09cbfea85317e5326a05b2e",
+      "seed_selector": "42/53/71 select original repeats 0/1/2, first original fold",
+      "source_parquet_identity": {
+        "path": "coffee_rating_prediction/019d7388-dffd-7bc4-ab3d-40bf6581786e/dataset.parquet",
+        "size": 502229,
+        "oid": "3a1a1825a78c06004da8a925a9bccdd422bd3993",
+        "lfs": {
+          "oid": "dd980c1ccdbe81a5f9fce28cf5d4bc0074246b0bce5a22263d4f63770157088d",
+          "size": 502229,
+          "pointerSize": 131
+        }
+      }
+    },
+    {
+      "case": "beyond_bank_customer_churn",
+      "source": "beyondarena",
+      "dataset": "bank_customer_churn",
+      "task_id": null,
+      "dataset_id": null,
+      "version": null,
+      "revision": "2ecfe882ccfb814fc27c4de10a64ceefd5d7655c",
+      "reserved_phase": "final_lockbox",
+      "license": "Public Domain",
+      "split_regime": "iid",
+      "metric": "roc_auc",
+      "status": "metadata_available",
+      "original_split_file": "experiment_metadata.predictive-ml-splits-mold-v1.json",
+      "original_split_sha256": "93fa42046376000fb6085028d98e29b0354b0ebc83dc1de7a9b8e2f79223cc3f",
+      "seed_selector": "42/53/71 select original repeats 0/1/2, first original fold",
+      "source_parquet_identity": {
+        "path": "bank_customer_churn/019d7366-99cc-77cc-8d41-5c3ccc8eff96/dataset.parquet",
+        "size": 173801,
+        "oid": "bbbc739e31038ee59bb2c68bcb66ee2cf42c6d8d",
+        "lfs": {
+          "oid": "0271e474b3d3ea88bdc7e799b5e896961554f872d68e4dc37b339b76b899ec9d",
+          "size": 173801,
+          "pointerSize": 131
+        }
+      },
+      "pre_freeze_state": "metadata and original split indices only; parquet absent"
+    },
+    {
+      "case": "beyond_online_shoppers_purchasing_intention_dataset",
+      "source": "beyondarena",
+      "dataset": "online_shoppers_purchasing_intention_dataset",
+      "task_id": null,
+      "dataset_id": null,
+      "version": null,
+      "revision": "2ecfe882ccfb814fc27c4de10a64ceefd5d7655c",
+      "reserved_phase": "final_lockbox",
+      "license": "CC BY 4.0",
+      "split_regime": "iid",
+      "metric": "roc_auc",
+      "status": "metadata_available",
+      "original_split_file": "experiment_metadata.predictive-ml-splits-mold-v1.json",
+      "original_split_sha256": "d837783133c153bdb9a8ff5fefe3e3648a3a22cd6791f7ee6a88a631d2378974",
+      "seed_selector": "42/53/71 select original repeats 0/1/2, first original fold",
+      "source_parquet_identity": {
+        "path": "online_shoppers_purchasing_intention_dataset/019d7445-801c-7a91-831e-5f6725779505/dataset.parquet",
+        "size": 328222,
+        "oid": "aa27de857e1d7b26145dc5193482e2c4bebdf81a",
+        "lfs": {
+          "oid": "681eee9141c54454bc7bdb0579624371a2e65b6b35a1ac2d5601a00cef441a42",
+          "size": 328222,
+          "pointerSize": 131
+        }
+      },
+      "pre_freeze_state": "metadata and original split indices only; parquet absent"
+    },
+    {
+      "case": "beyond_predict_students_dropout_and_academic_success",
+      "source": "beyondarena",
+      "dataset": "predict_students_dropout_and_academic_success",
+      "task_id": null,
+      "dataset_id": null,
+      "version": null,
+      "revision": "2ecfe882ccfb814fc27c4de10a64ceefd5d7655c",
+      "reserved_phase": "final_lockbox",
+      "license": "CC BY 4.0",
+      "split_regime": "iid",
+      "metric": "log_loss",
+      "status": "metadata_available",
+      "original_split_file": "experiment_metadata.predictive-ml-splits-mold-v1.json",
+      "original_split_sha256": "373ccd35b5613d918e093b422e9f8f1efc9ba8a045e2fd739d11697428611726",
+      "seed_selector": "42/53/71 select original repeats 0/1/2, first original fold",
+      "source_parquet_identity": {
+        "path": "predict_students_dropout_and_academic_success/019d7369-3ffd-7889-91d3-46e5b502f4ec/dataset.parquet",
+        "size": 125053,
+        "oid": "787f247484db07880e045cb61f856f822cbce9e8",
+        "lfs": {
+          "oid": "369f78746734446be68e72f4f4400fbb19f248b35bac869052583ae960d212cd",
+          "size": 125053,
+          "pointerSize": 131
+        }
+      },
+      "pre_freeze_state": "metadata and original split indices only; parquet absent"
+    },
+    {
+      "case": "beyond_telemonitoring_parkinsons_biomedical_voice_measurements",
+      "source": "beyondarena",
+      "dataset": "telemonitoring_parkinsons_biomedical_voice_measurements",
+      "task_id": null,
+      "dataset_id": null,
+      "version": null,
+      "revision": "2ecfe882ccfb814fc27c4de10a64ceefd5d7655c",
+      "reserved_phase": "final_lockbox",
+      "license": "CC BY 4.0",
+      "split_regime": "grouped",
+      "metric": "rmse",
+      "status": "metadata_available",
+      "original_split_file": "experiment_metadata.predictive-ml-splits-mold-v1.json",
+      "original_split_sha256": "d86882e9048aa0aa71c394230fb6c24c11bfffa38dff63c202bff2ac13381629",
+      "seed_selector": "42/53/71 select original repeats 0/1/2, first original fold",
+      "source_parquet_identity": {
+        "path": "telemonitoring_parkinsons_biomedical_voice_measurements/019d7391-4b65-7d0e-a950-684a098c3df9/dataset.parquet",
+        "size": 78345,
+        "oid": "bb7951ae75718ed44a396f667f94bab7ab10c18f",
+        "lfs": {
+          "oid": "4c52f44e71d80762654dd6d6d910f8a6a360824d9bdc769b2b1d051479b9bf37",
+          "size": 78345,
+          "pointerSize": 130
+        }
+      },
+      "pre_freeze_state": "metadata and original split indices only; parquet absent"
+    },
+    {
+      "case": "beyond_forest_fires",
+      "source": "beyondarena",
+      "dataset": "forest_fires",
+      "task_id": null,
+      "dataset_id": null,
+      "version": null,
+      "revision": "2ecfe882ccfb814fc27c4de10a64ceefd5d7655c",
+      "reserved_phase": "final_lockbox",
+      "license": "CC BY 4.0",
+      "split_regime": "iid",
+      "metric": "rmse",
+      "status": "metadata_available",
+      "original_split_file": "experiment_metadata.predictive-ml-splits-mold-v1.json",
+      "original_split_sha256": "377da64d8a7bc79fa24dfa1a2946f491d6405798839a7e27ebfb5155947803c6",
+      "seed_selector": "42/53/71 select original repeats 0/1/2, first original fold",
+      "source_parquet_identity": {
+        "path": "forest_fires/019d736b-2610-7f4f-ae46-3f6a4c98962e/dataset.parquet",
+        "size": 18748,
+        "oid": "c9e207b2b6719d6d53f95ee396f17a3651fd99ac",
+        "lfs": {
+          "oid": "125c6398c679ca4720164357aefeb126ae3b184eb58c95b306ed4dc3b54350ff",
+          "size": 18748,
+          "pointerSize": 130
+        }
+      },
+      "pre_freeze_state": "metadata and original split indices only; parquet absent"
+    },
+    {
+      "case": "beyond_climate_model_weather_forecasting",
+      "source": "beyondarena",
+      "dataset": "climate_model_weather_forecasting",
+      "task_id": null,
+      "dataset_id": null,
+      "version": null,
+      "revision": null,
+      "reserved_phase": "excluded",
+      "license": null,
+      "split_regime": null,
+      "metric": null,
+      "status": "download_blocked"
+    },
+    {
+      "case": "beyond_qsar_fish_toxicity",
+      "source": "beyondarena",
+      "dataset": "qsar_fish_toxicity",
+      "task_id": null,
+      "dataset_id": null,
+      "version": null,
+      "revision": "2ecfe882ccfb814fc27c4de10a64ceefd5d7655c",
+      "reserved_phase": "final_lockbox",
+      "license": "CC BY 4.0",
+      "split_regime": "iid",
+      "metric": "rmse",
+      "status": "metadata_available",
+      "original_split_file": "experiment_metadata.predictive-ml-splits-mold-v1.json",
+      "original_split_sha256": "cc912743458199ff4f1ffb7053103de046870e1cb66adae59ebfda9739c05588",
+      "seed_selector": "42/53/71 select original repeats 0/1/2, first original fold",
+      "source_parquet_identity": {
+        "path": "qsar_fish_toxicity/019d7369-62fc-7ea1-9c58-8ac89144f820/dataset.parquet",
+        "size": 23693,
+        "oid": "548fe9ce050a709b162913462a599c007ee7dd1f",
+        "lfs": {
+          "oid": "35cd656d0981d21211159bdffd6818f718947d3f7e813155458d7827de7fa54d",
+          "size": 23693,
+          "pointerSize": 130
+        }
+      },
+      "pre_freeze_state": "metadata and original split indices only; parquet absent"
+    },
+    {
+      "case": "beyond_student_portuguese_performance",
+      "source": "beyondarena",
+      "dataset": "student_portuguese_performance",
+      "task_id": null,
+      "dataset_id": null,
+      "version": null,
+      "revision": "2ecfe882ccfb814fc27c4de10a64ceefd5d7655c",
+      "reserved_phase": "final_lockbox",
+      "license": "CC BY 4.0",
+      "split_regime": "iid",
+      "metric": "rmse",
+      "status": "metadata_available",
+      "original_split_file": "experiment_metadata.predictive-ml-splits-mold-v1.json",
+      "original_split_sha256": "19d8b5aca3883c9a740488942a19c2434c428dbb23ab92e8cea0261a07ece224",
+      "seed_selector": "42/53/71 select original repeats 0/1/2, first original fold",
+      "source_parquet_identity": {
+        "path": "student_portuguese_performance/019d7374-09f4-79ea-a27f-1ad571967f90/dataset.parquet",
+        "size": 25166,
+        "oid": "4bb6b38ee4b2993a0c191a8123d9eeada1c8f7f6",
+        "lfs": {
+          "oid": "4edb13167646b87fbc089984b671de7dbca49213b4d71626f05fdc298436097c",
+          "size": 25166,
+          "pointerSize": 130
+        }
+      },
+      "pre_freeze_state": "metadata and original split indices only; parquet absent"
+    },
+    {
+      "case": "beyond_fiat_500",
+      "source": "beyondarena",
+      "dataset": "fiat_500",
+      "task_id": null,
+      "dataset_id": null,
+      "version": null,
+      "revision": "2ecfe882ccfb814fc27c4de10a64ceefd5d7655c",
+      "reserved_phase": "excluded",
+      "license": "CC0: Public Domain",
+      "split_regime": "iid",
+      "metric": "rmse",
+      "status": "metadata_available",
+      "original_split_file": "experiment_metadata.predictive-ml-splits-mold-v1.json",
+      "original_split_sha256": "9ac03b57d28f63a32595716dc3ceec569f6d28326e55d7c71a8df837a27b19e9",
+      "seed_selector": "42/53/71 select original repeats 0/1/2, first original fold",
+      "source_parquet_identity": {
+        "path": "fiat_500/019d7367-9b82-78a9-a53a-570038a28d0a/dataset.parquet",
+        "size": 26059,
+        "oid": "4ae2bd94cdf50d991cff60292ded67cb6dae1587",
+        "lfs": {
+          "oid": "472ec1a2c1793560f015de5100cd357b783608c80eda5558bf7d06a75d446e9b",
+          "size": 26059,
+          "pointerSize": 130
+        }
+      }
+    },
+    {
+      "case": "beyond_biomechanical_orthopaedic_prediction",
+      "source": "beyondarena",
+      "dataset": "biomechanical_orthopaedic_prediction",
+      "task_id": null,
+      "dataset_id": null,
+      "version": null,
+      "revision": "2ecfe882ccfb814fc27c4de10a64ceefd5d7655c",
+      "reserved_phase": "final_lockbox",
+      "license": "CC BY 4.0",
+      "split_regime": "iid",
+      "metric": "log_loss",
+      "status": "metadata_available",
+      "original_split_file": "experiment_metadata.predictive-ml-splits-mold-v1.json",
+      "original_split_sha256": "6bcdec910a21299844fbdbf9d912ad44312eeef8373a04f442f1f3f4f1a7f3dd",
+      "seed_selector": "42/53/71 select original repeats 0/1/2, first original fold",
+      "source_parquet_identity": {
+        "path": "biomechanical_orthopaedic_prediction/019d736a-4c2d-74b6-95a3-c63bd4b8fff7/dataset.parquet",
+        "size": 21658,
+        "oid": "f2720f4e7101cced7998f7ac09f5ef5e98bab3de",
+        "lfs": {
+          "oid": "2ae1d66ce1f7d2ff712b75d75d4c5c0f7d8f672125385108a0281c57b5df02cb",
+          "size": 21658,
+          "pointerSize": 130
+        }
+      },
+      "pre_freeze_state": "metadata and original split indices only; parquet absent"
+    },
+    {
+      "case": "beyond_emscad",
+      "source": "beyondarena",
+      "dataset": "emscad",
+      "task_id": null,
+      "dataset_id": null,
+      "version": null,
+      "revision": "2ecfe882ccfb814fc27c4de10a64ceefd5d7655c",
+      "reserved_phase": "final_lockbox",
+      "license": "CC0: Public Domain",
+      "split_regime": "iid",
+      "metric": "roc_auc",
+      "status": "metadata_available",
+      "original_split_file": "experiment_metadata.predictive-ml-splits-mold-v1.json",
+      "original_split_sha256": "8f535201454f13182f08021307f41ad4c82e21b9ac777aa1f4054d11e0a6347c",
+      "seed_selector": "42/53/71 select original repeats 0/1/2, first original fold",
+      "source_parquet_identity": {
+        "path": "emscad/019d736a-ed4a-7aaa-89df-d52558565db9/dataset.parquet",
+        "size": 22280166,
+        "oid": "7d5beb2e00b896d5b37fe3dac3dc6162e341e4f7",
+        "lfs": {
+          "oid": "47b7760210751b5dd193917147eb3845ddb80936aefbcb3466bc7176801c7e33",
+          "size": 22280166,
+          "pointerSize": 133
+        }
+      },
+      "pre_freeze_state": "metadata and original split indices only; parquet absent"
+    },
+    {
+      "case": "beyond_5g_energy_consumption",
+      "source": "beyondarena",
+      "dataset": "5g_energy_consumption",
+      "task_id": null,
+      "dataset_id": null,
+      "version": null,
+      "revision": "2ecfe882ccfb814fc27c4de10a64ceefd5d7655c",
+      "reserved_phase": "final_lockbox",
+      "license": "MIT",
+      "split_regime": "grouped",
+      "metric": "MAPE",
+      "status": "metadata_available",
+      "original_split_file": "experiment_metadata.predictive-ml-splits-mold-v1.json",
+      "original_split_sha256": "dedb1a8df2669b72e19618b6b30b633a273d211516ed2f4ca3341c84ea4b8c19",
+      "seed_selector": "42/53/71 select original repeats 0/1/2, first original fold",
+      "source_parquet_identity": {
+        "path": "5g_energy_consumption/019db4c5-d45f-7c07-80c9-bdd75ea01338/dataset.parquet",
+        "size": 1384420,
+        "oid": "afc2d2c2d90ed7d568d37f63716518fa51800c44",
+        "lfs": {
+          "oid": "c4d4a20c8ff72fca12ffe83eda9e2324eadc7596ffa76471ec4ba6743cd5d83e",
+          "size": 1384420,
+          "pointerSize": 132
+        }
+      },
+      "pre_freeze_state": "metadata and original split indices only; parquet absent"
+    },
+    {
+      "case": "beyond_miami_housing",
+      "source": "beyondarena",
+      "dataset": "miami_housing",
+      "task_id": null,
+      "dataset_id": null,
+      "version": null,
+      "revision": "2ecfe882ccfb814fc27c4de10a64ceefd5d7655c",
+      "reserved_phase": "excluded",
+      "license": "CC BY-NC-SA",
+      "split_regime": "iid",
+      "metric": "rmse",
+      "status": "metadata_available",
+      "original_split_file": "experiment_metadata.predictive-ml-splits-mold-v1.json",
+      "original_split_sha256": "9c9e5119e4d6bb5bb8b72aa21192f7359c65dd407efbf8ad1496202bcbe6c6ca",
+      "seed_selector": "42/53/71 select original repeats 0/1/2, first original fold",
+      "source_parquet_identity": {
+        "path": "miami_housing/019d7368-cda5-7177-b500-4986a5e77a82/dataset.parquet",
+        "size": 1044625,
+        "oid": "e02c7723c366f9e41dcfd35998262db70f68cf2f",
+        "lfs": {
+          "oid": "549d13f4d5cbd531cfdb85cb54d4faa282fdcf3a5d43337f79fcdfb3a6b4cd13",
+          "size": 1044625,
+          "pointerSize": 132
+        }
+      }
+    },
+    {
+      "case": "openml_3",
+      "source": "openml",
+      "dataset": "OpenML task 3 (metadata unavailable)",
+      "task_id": 3,
+      "dataset_id": null,
+      "version": null,
+      "revision": null,
+      "reserved_phase": "development",
+      "license": null,
+      "split_regime": null,
+      "metric": "f1_macro",
+      "status": "download_blocked"
+    },
+    {
+      "case": "openml_6",
+      "source": "openml",
+      "dataset": "OpenML task 6 (metadata unavailable)",
+      "task_id": 6,
+      "dataset_id": null,
+      "version": null,
+      "revision": null,
+      "reserved_phase": "development",
+      "license": null,
+      "split_regime": null,
+      "metric": "f1_macro",
+      "status": "download_blocked"
+    },
+    {
+      "case": "openml_12",
+      "source": "openml",
+      "dataset": "OpenML task 12 (metadata unavailable)",
+      "task_id": 12,
+      "dataset_id": null,
+      "version": null,
+      "revision": null,
+      "reserved_phase": "development",
+      "license": null,
+      "split_regime": null,
+      "metric": "f1_macro",
+      "status": "download_blocked"
+    },
+    {
+      "case": "openml_31",
+      "source": "openml",
+      "dataset": "OpenML task 31 (metadata unavailable)",
+      "task_id": 31,
+      "dataset_id": null,
+      "version": null,
+      "revision": null,
+      "reserved_phase": "development",
+      "license": null,
+      "split_regime": null,
+      "metric": "f1_macro",
+      "status": "download_blocked"
+    },
+    {
+      "case": "openml_37",
+      "source": "openml",
+      "dataset": "OpenML task 37 (metadata unavailable)",
+      "task_id": 37,
+      "dataset_id": null,
+      "version": null,
+      "revision": null,
+      "reserved_phase": "development",
+      "license": null,
+      "split_regime": null,
+      "metric": "f1_macro",
+      "status": "download_blocked"
+    },
+    {
+      "case": "openml_54",
+      "source": "openml",
+      "dataset": "OpenML task 54 (metadata unavailable)",
+      "task_id": 54,
+      "dataset_id": null,
+      "version": null,
+      "revision": null,
+      "reserved_phase": "development",
+      "license": null,
+      "split_regime": null,
+      "metric": "f1_macro",
+      "status": "download_blocked"
+    }
+  ]
+}

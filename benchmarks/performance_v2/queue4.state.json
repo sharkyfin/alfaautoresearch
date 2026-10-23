@@ -1,0 +1,65 @@
+{
+  "started_at_utc": "2026-10-22T06:36:48.462597+00:00",
+  "jobs": [
+    {
+      "name": "p3h-frozen-full-tests",
+      "started_at_utc": "2026-10-22T07:49:10.483701+00:00",
+      "command": [
+        ".bootstrap/performance_v2/p3h/source/scripts/check_all.py"
+      ],
+      "returncode": 0,
+      "finished_at_utc": "2026-10-22T07:51:35.118549+00:00",
+      "status": "completed",
+      "report": "/Users/mac/Documents/projects/alfaautoresearch/.bootstrap/performance_v2/p3h/source/reports/test-state.json",
+      "log": "/Users/mac/Documents/projects/alfaautoresearch/.bootstrap/performance_v2/p3h/source/reports/test-state.log"
+    },
+    {
+      "name": "p3h-broad-two-seeds",
+      "started_at_utc": "2026-10-22T07:51:35.119322+00:00",
+      "command": [
+        "scripts/benchmark_suite.py",
+        "--archives",
+        "baseline=.bootstrap/performance_v2/baseline/source/submission.zip,candidate=.bootstrap/performance_v2/p3h/source/submission.zip",
+        "--cases",
+        "development",
+        "--budget",
+        "120",
+        "--seeds",
+        "42,53",
+        "--report",
+        "reports/performance_v2/p3h-broad-120.json"
+      ],
+      "returncode": 0,
+      "finished_at_utc": "2026-10-22T09:02:35.865159+00:00",
+      "status": "completed",
+      "report": "/Users/mac/Documents/projects/alfaautoresearch/reports/performance_v2/p3h-broad-120.json",
+      "log": "/Users/mac/Documents/projects/alfaautoresearch/reports/performance_v2/p3h-broad-120.log"
+    },
+    {
+      "name": "api-admission-live",
+      "started_at_utc": "2026-10-22T09:02:35.866833+00:00",
+      "command": [
+        "scripts/benchmark_suite.py",
+        "--archives",
+        "candidate=.bootstrap/performance_v2/p3h/source/submission.zip",
+        "--cases",
+        "concrete_strength,adult_income,dry_beans",
+        "--seeds",
+        "42,53",
+        "--budget",
+        "120",
+        "--modes",
+        "live-agent,fixed-allocation",
+        "--report",
+        "reports/performance_v2/api-admission-live.json"
+      ],
+      "returncode": 0,
+      "finished_at_utc": "2026-10-22T09:21:02.531946+00:00",
+      "status": "completed",
+      "report": "/Users/mac/Documents/projects/alfaautoresearch/reports/performance_v2/api-admission-live.json",
+      "log": "/Users/mac/Documents/projects/alfaautoresearch/reports/performance_v2/api-admission-live.log"
+    }
+  ],
+  "waiting_for": "benchmarks/performance_v2/queue3.state.json",
+  "status": "completed"
+}

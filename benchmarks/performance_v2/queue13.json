@@ -1,0 +1,26 @@
+[
+  {
+    "name": "audited-final-missing-only-resume",
+    "report": "reports/performance_v2/final-lockbox-live.json",
+    "log": "reports/performance_v2/final-lockbox-resume-01.log",
+    "command": [
+      "scripts/resume_frozen_final.py"
+    ],
+    "command_mode": "explicit_audited_final_resume"
+  },
+  {
+    "name": "final-complete-tests",
+    "report": "reports/performance_v2/post-resume-test-gate.json",
+    "command": [
+      ".bootstrap/performance_v2/post_resume_tests.py"
+    ]
+  },
+  {
+    "name": "final-selected-source-report",
+    "report": "reports/performance_v2/final_release_audit.json",
+    "log": "reports/performance_v2/final_release_audit-resume-01.log",
+    "command": [
+      "scripts/finalize_performance_v2.py"
+    ]
+  }
+]
