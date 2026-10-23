@@ -9,7 +9,7 @@ from .metrics import UnsupportedTask
 from .contract import read_inputs
 from .task import load,leakage_signals
 from .submit import checkpoint,dummy_prediction
-from .validation import selection_splits,Split
+from .validation import research_splits as selection_splits,Split,split_index_digest,confirmation_batches
 from .budget import Budget
 from .experiments import Executor,register
 from .recipes import validate,RecipeError,recipe_hash
@@ -72,6 +72,19 @@ def _run(task_path,started,budget_seconds,mode,seed,threads,max_experiments,memo
     checkpoint_kind='valid_dummy';fatal_error=None
     challenger_state={'eligible':False,'reason':'no_trained_champion','reserve_seconds':0.};challenger_candidate=None;challenger_planned=False
     split,control_plan=selection_splits(data,seed);data.spec.validation_plan=split.json()
+    control_jobs=confirmation_batches(control_plan,seed)
+    control_fits=len(control_jobs)
+    if control_plan:
+        pool=np.union1d(split.train,split.valid)
+        data.spec.validation_plan.update(confirmation_isolation='sealed',search_pool_sha256=split_index_digest(pool),
+            search_pool_rows=len(pool),confirmation_train_sha256=split_index_digest(control_plan[0].train))
+        target=data.y[pool]
+        if data.spec.classification:
+            labels,counts=np.unique(target,return_counts=True)
+            data.spec.profile['target']={'counts':{str(data.spec.labels[int(label)]):int(count) for label,count in zip(labels,counts)}}
+        else:data.spec.profile['target']={'quantiles':{str(q):float(v) for q,v in zip([0,.01,.25,.5,.75,.99,1],np.quantile(target,[0,.01,.25,.5,.75,.99,1]))}}
+        data.spec.profile['target_scope']='Search pool only; sealed control targets excluded'
+
     data.spec.suspicious_leakage_features=leakage_signals(data,split.train)
     qwen=research_client if research_client is not None else QwenClient('live' if mode in {'auto','live-agent'} else 'disabled')
     research_origin=getattr(qwen,'origin','qwen');research_provider=getattr(qwen,'provider','organizer-qwen')
@@ -105,6 +118,7 @@ def _run(task_path,started,budget_seconds,mode,seed,threads,max_experiments,memo
         emit('CONFIRMATION_PLAN',windows=[s.json() for s in control_plan])
         # Search stops early enough to confirm and refit measured finalists.
         while len(history)<max_experiments and budget.search_remaining>2 and not stop['requested']:
+            scheduler.research_enabled=actual_mode=='live-agent' and qwen.available
             raw=None;feature_trial=None;feature_parent=None;ablation=None
             if pending_ablation and pending_ablation['checks']<3:
                 for proposal,detail in ablation_options(champion['recipe'],pending_ablation['parent']['recipe'],pending_ablation['attempted']):
@@ -124,16 +138,18 @@ def _run(task_path,started,budget_seconds,mode,seed,threads,max_experiments,memo
             remaining=budget.search_remaining
             fallback=raw
             if is_research and champion:
-                if actual_mode=='live-agent' and qwen.available:
+                if actual_mode=='live-agent' and qwen.available and scheduler.research_due(champion):
                     measured=[event['elapsed_seconds'] for event in qwen.events
                         if event.get('status')=='api_usage' and 'elapsed_seconds' in event]
                     api_estimate=max(3.,float(np.median(measured))) if measured else 8.
                     probe_cost=max(1.,champion.get('runtime_sec',1.)*1.3)
-                    final_work=len(control_plan)*sum(c['runtime_sec'] for c in finalists[:3])+1.5*sum(c['runtime_sec'] for c in finalists[:2])+challenger_state['reserve_seconds']
+                    final_work=control_fits*sum(c['runtime_sec'] for c in finalists[:3])+1.5*sum(c['runtime_sec'] for c in finalists[:2])+challenger_state['reserve_seconds']
                     if budget.can_run(probe_cost+api_estimate,finalization_estimate=final_work):
                         context=researcher_context(data,history,champion,remaining)
+                        context['research_evidence']['api_latency_median_seconds']=api_estimate
                         context['recipe_rejections']=[e for e in qwen.events if e['status']=='recipe_rejected'][-3:]
                         api_slack=budget.remaining-max(budget.reserve,final_work)-probe_cost*1.3
+                        scheduler.note_research(champion)
                         proposed=qwen.propose(context,timeout=max(1,min(40,remaining*.25,api_slack)))
                         if proposed is not None:raw=proposed;origin=research_origin
                     else:qwen.events.append({'status':'skipped_finalization_reserve','remaining_seconds':round(budget.remaining,3),
@@ -166,17 +182,19 @@ def _run(task_path,started,budget_seconds,mode,seed,threads,max_experiments,memo
                         qwen.events.append({'status':'recipe_rejected','reason':str(error)})
                         if sum(e['status']=='recipe_rejected' for e in qwen.events)>=3:qwen.open=True
             else:continue
+            if research_strategy and research_strategy.get('allocation'):scheduler.set_focus(research_strategy['allocation'])
             scheduler.seen.add(recipe_hash(r))
             # Reserve enough for a measured full-data refit before trying longer fits.
             refit_cost=champion['runtime_sec']*1.5 if champion else 0
             estimate=estimate_runtime(r,history,timeout,budget.total)
             if champion and not challenger_planned:
                 challenger_state=automl.plan(data,champion,budget,control_plan);challenger_planned=True
-            final_work=len(control_plan)*sum(c['runtime_sec'] for c in finalists[:3])+1.5*sum(c['runtime_sec'] for c in finalists[:2])+challenger_state['reserve_seconds']
+            final_work=control_fits*sum(c['runtime_sec'] for c in finalists[:3])+1.5*sum(c['runtime_sec'] for c in finalists[:2])+challenger_state['reserve_seconds']
             if champion and not budget.can_run(estimate,finalization_estimate=final_work):break
             timeout=min(timeout,max(1,budget.remaining-max(budget.reserve,refit_cost)))
             if ablation is not None:pending_ablation['checks']+=1
             result,predictions=executor.run(r,split,timeout,seed)
+            result['reference_utility']=champion['standardized_utility'] if champion else initial_utility
             if research_strategy:result['research_strategy']=research_strategy
             result['origin']=origin;result['accepted']=False;result['estimated_runtime_sec']=estimate
             if feature_trial:result['feature_trial']=feature_trial
@@ -237,23 +255,31 @@ def _run(task_path,started,budget_seconds,mode,seed,threads,max_experiments,memo
             stage='CONFIRMATION'
             ordered=[champion]+[c for c in finalists if c['experiment_id']!=champion['experiment_id']]
             ordered=ordered[:3]+([challenger_candidate] if challenger_candidate else [])
-            for second in control_plan:
+            for batch,windows in control_jobs:
                 if stop['requested']:break
                 for candidate in ordered:
                     if stop['requested']:break
-                    estimate=max(2,candidate['runtime_sec'])
+                    estimate=max(2,candidate['runtime_sec'])*1.4
                     if not budget.can_run(estimate,champion['runtime_sec']*1.3):break
-                    r=dict(candidate['recipe']);r['validation_plan_id']=second.id
+                    r=dict(candidate['recipe']);r['validation_plan_id']=batch.id
                     timeout=min(estimate*2+5,budget.search_remaining,max(2,budget.remaining*.3))
-                    if candidate['recipe']['model_family']==automl.FAMILY:
-                        timeout=min(timeout,challenger_state['worker_seconds'])
-                    result,predictions=run_candidate({**candidate,'recipe':r},second,timeout,second.seed)
-                    result['accepted']=False;result['phase']='confirmation'
+                    if candidate['recipe']['model_family']==automl.FAMILY:timeout=min(timeout,challenger_state['worker_seconds'])
+                    rounds=candidate.get('bag_iterations',candidate.get('iterations'))
+                    result,predictions=run_candidate({**candidate,'recipe':r},batch,timeout,batch.seed,
+                        evaluation_only=True,iterations_override=rounds)
+                    result.update(accepted=False,phase='confirmation',confirmation_windows=[w.id for w in windows],
+                        hyperparameters_frozen=True,early_stopping_on_controls=False)
                     if result['status']=='ok' and predictions is not None:
-                        try:
-                            result.update(evaluate(data,second,predictions,result))
-                            confirmed.setdefault(candidate['experiment_id'],[]).append({**result,'predictions':predictions,'split':second})
-                        except ValueError as error:result.update(status='judge_error',message=str(error))
+                        offset=0;metrics=[]
+                        for window in windows:
+                            valid=predictions[0][offset:offset+len(window.valid)];offset+=len(window.valid)
+                            try:
+                                evidence={**result,**evaluate(data,window,(valid,predictions[1]),result),
+                                    'predictions':(valid,predictions[1]),'split':window}
+                                confirmed.setdefault(candidate['experiment_id'],[]).append(evidence)
+                                metrics.append({'split_id':window.id,'metric_value':evidence['metric_value']})
+                            except ValueError as error:metrics.append({'split_id':window.id,'error':str(error)})
+                        result['control_metrics']=metrics
                     record(result)
             required={window.id for window in control_plan}
             stable=[c for c in ordered if required and {r['split'].id for r in confirmed.get(c['experiment_id'],[])}>=required]
@@ -315,7 +341,7 @@ def _run(task_path,started,budget_seconds,mode,seed,threads,max_experiments,memo
                 if budget.remaining<max(1.5,estimate*.45):break
                 timeout=max(1,min(estimate*2+5,budget.remaining-min(5,budget.reserve*.25)))
                 if c['recipe']['model_family']==automl.FAMILY:timeout=min(timeout,challenger_state['worker_seconds']*1.8)
-                result,predictions=run_candidate(c,full_split,timeout,seed,refit=True,iterations_override=c.get('refit_iterations',c.get('iterations')))
+                result,predictions=run_candidate(c,full_split,timeout,seed,refit=True,iterations_override=c.get('bag_iterations',c.get('refit_iterations',c.get('iterations'))))
                 result['accepted']=False;result['phase']='refit'
                 record(result)
                 if result['status']!='ok' or predictions is None:break
@@ -351,6 +377,10 @@ def _run(task_path,started,budget_seconds,mode,seed,threads,max_experiments,memo
         summary['adaptive_search']=scheduler.summary()
         summary['cross_validation']=cv_selection
         summary['confirmation_plan']=[s.json() for s in control_plan]
+        summary['validation_guards']={'sealed_before_search':bool(control_plan),
+            'search_pool_rows':len(np.union1d(split.train,split.valid)),'confirmation_fits_per_candidate':control_fits,
+            'validation_windows':len(control_plan),'control_labels_used_for_early_stopping':False,
+            'target_profile_scope':data.spec.profile.get('target_scope','Search-only task without controls')}
         summary['confirmation_metrics']=champion.get('confirmation_metrics',[]) if champion else []
         summary['feature_group_trials']=sum(r.get('feature_trial',{}).get('kind')=='feature_group' for r in history)
         summary['feature_ablation_checks']=sum(r.get('feature_trial',{}).get('kind')=='feature_ablation' for r in history)

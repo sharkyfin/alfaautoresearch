@@ -249,7 +249,11 @@ def test_time_controls_are_fixed_before_scores_and_used_by_orchestrator(tmp_path
     assert summary['full_refit_published'] and not (run_dir/'error.txt').exists()
     for family in ['linear', 'lightgbm']:
         seen = [split for name, split, refit in calls if name == family and not refit]
-        assert len(seen) == 3 and len({split.id for split in seen}) == 3
+        assert len(seen) == 2 and len({split.id for split in seen}) == 2
+        assert not set(seen[0].train) & set(seen[1].valid)
+        assert not set(seen[0].valid) & set(seen[1].valid)
+    assert summary['validation_guards']['confirmation_fits_per_candidate'] == 1
+    assert summary['validation_guards']['control_labels_used_for_early_stopping'] is False
 
 
 def test_non_temporal_tasks_use_two_controls_and_time_gap_is_never_relaxed(tmp_path):

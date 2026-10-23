@@ -111,6 +111,10 @@ def load(inputs: Inputs, strict=False, profile_data=True) -> Dataset:
     positive_match=re.search(r'(?:positive_label|positive class|положительный класс)\s*[:=]\s*[`"\x27]?([^`"\x27\s,]+)',desc)
     if positive_match and labels:
         matches=[i for i,l in enumerate(labels) if str(l).lower()==positive_match.group(1)]
+        if not matches:
+            token=positive_match.group(1)
+            # Sentence punctuation is commentary unless it is part of an exact label.
+            matches=[i for i,l in enumerate(labels) if str(l).lower()==token.rstrip('.;:!?')]
         if not matches: raise UnsupportedTask('Unknown positive class')
         positive=matches[0]
     metric=Metric(metric_name,len(labels),positive,metric_kwargs)

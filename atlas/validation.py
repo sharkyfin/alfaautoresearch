@@ -197,3 +197,69 @@ def design(data: Dataset,seed=42,fraction=.2) -> Split:
         return Split(a,b,'rare_degraded','Too few examples for stratification',seed)
     a,b=train_test_split(idx,test_size=fraction,random_state=seed)
     return Split(a,b,'random','IID regression; no evidence for grouped/forward validation',seed)
+
+
+def research_splits(data: Dataset,seed=42):
+    """Seal controls before search: their labels never enter any search fit.
+
+    Both controls share one training pool, allowing a single frozen confirmation
+    fit. Temporal controls are two future windows from one common forecast origin.
+    """
+    import copy
+    base=design(data,seed)
+    if len(data.y)<100 or base.kind.startswith('unsupported') or not len(base.valid):
+        return replace(base,reason=base.reason+'; no independent controls on a tiny/unsupported task'),[]
+    outer=design(data,seed+7229,fraction=.2)
+    if not len(outer.valid) or len(outer.train)<20:return base,[]
+    def view(indices):
+        subset=copy.copy(data);subset.spec=copy.deepcopy(data.spec)
+        subset.train=data.train.iloc[indices].reset_index(drop=True);subset.y=data.y[indices]
+        return subset
+    pool=np.asarray(outer.train)
+    inner=design(view(pool),seed,fraction=.25)
+    if not len(inner.valid) or len(inner.train)<2:return base,[]
+    primary=replace(inner,train=pool[inner.train],valid=pool[inner.valid],
+        reason='Search holdout inside training-only pool; independent controls sealed before search')
+    sealed=np.asarray(outer.valid)
+    partition=design(view(sealed),seed+8191,fraction=.5)
+    pieces=[sealed[partition.train],sealed[partition.valid]] if len(partition.valid) else [sealed]
+    controls=[]
+    for number,valid in enumerate(pieces,1):
+        if not len(valid):continue
+        controls.append(Split(pool.copy(),valid,outer.kind,
+            'Sealed confirmation '+str(number)+'; fixed candidate, no tuning/early stopping on these labels',
+            seed+1009+number,outer.time_column,outer.gap_rows,outer.group_column))
+    # Indices and global schema are safe metadata; target values stay unavailable
+    # to the researcher until all candidate recipes have been frozen.
+    for window in [primary,*controls]:
+        if len(np.intersect1d(window.train,window.valid)):raise ValueError('Sealed split overlap')
+    forbidden=np.unique(np.concatenate([s.valid for s in controls]))
+    if len(np.intersect1d(forbidden,np.union1d(primary.train,primary.valid))):
+        raise ValueError('Control labels entered the search pool')
+    if data.spec.classification:
+        def support(window):
+            a=np.bincount(data.y[window.train],minlength=len(data.spec.labels))
+            b=np.bincount(data.y[window.valid],minlength=len(data.spec.labels))
+            return replace(window,class_support={'train':a.tolist(),'valid':b.tolist(),'unvalidated_class_indices':np.flatnonzero(b==0).tolist()})
+        primary=support(primary);controls=[support(s) for s in controls]
+    return primary,controls
+
+
+def split_index_digest(indices):
+    return hashlib.sha256(np.asarray(sorted(indices),dtype=np.int64).tobytes()).hexdigest()
+
+
+def confirmation_batches(windows,seed=42):
+    """Same frozen training indices -> one fit, multiple untouched evaluations."""
+    batches=[]
+    for window in windows:
+        previous=next((item for item in batches if np.array_equal(item[0].train,window.train)),None)
+        if previous is not None:previous[1].append(window)
+        else:batches.append([window,[window]])
+    out=[]
+    for first,parts in batches:
+        valid=np.concatenate([p.valid for p in parts])
+        if len(np.unique(valid))!=len(valid):raise ValueError('Confirmation windows overlap')
+        joint=replace(first,valid=valid,seed=seed,reason='One frozen fit for '+str(len(parts))+' sealed control windows')
+        out.append((joint,parts))
+    return out

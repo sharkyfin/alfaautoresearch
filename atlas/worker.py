@@ -40,9 +40,11 @@ def execute(job_path,feature_function=None):
                 from .challenger import fit_predict as challenger_fit
                 pv,pt,info=challenger_fit(data,split['train'],split['valid'],root,
                     job['timeout_seconds'],job['seed'],job['threads'],job['memory_mb'],
-                    policy=job.get('challenger_policy'),source_artifact=job.get('source_artifact'),refit=job.get('refit',False))
+                    policy=job.get('challenger_policy'),source_artifact=job.get('source_artifact'),refit=job.get('refit',False),evaluation_only=job.get('evaluation_only',False))
             else:
-                pv,pt,info=fit_predict(data,job['recipe'],split['train'],split['valid'],seed=job['seed'],threads=job['threads'],refit=job.get('refit',False),iterations_override=job.get('iterations_override'),feature_function=feature_function,progress_path=root/'progress.json')
+                pv,pt,info=fit_predict(data,job['recipe'],split['train'],split['valid'],seed=job['seed'],threads=job['threads'],refit=job.get('refit',False),iterations_override=job.get('iterations_override'),feature_function=feature_function,progress_path=root/'progress.json',evaluation_only=job.get('evaluation_only',False))
+        info['fit_role']='refit' if job.get('refit') else 'confirmation' if job.get('evaluation_only') else 'search'
+        if job.get('refit') or job.get('evaluation_only'):info['fit_validation_rows']=0
         info['resource_limits']=limits
         info['load_seconds']=load_seconds
         info['warnings']=[str(w.message)[:500] for w in caught[:20]]

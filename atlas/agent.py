@@ -13,7 +13,7 @@ feature_expressions is a list of objects with name, expression and optional shor
 feature_mode defaults to append: return only new features; accepted parent features are retained automatically. Set replace only for an explicit feature ablation and provide the complete replacement feature lists. A new formula with an existing name updates it. feature_ops retain the legacy op/columns format.
 For a feature hypothesis, change at most four feature definitions/operations. Keep the champion model family, all model parameters and target_transform unchanged: the executor holds them fixed to measure the feature contribution. Successful feature groups may be simplified by bounded leave-one-change-out ablations. Propose model/parameter changes separately, with no feature changes.
 Group statistics and frequencies are fitted only on the training fold. Never use target or ID columns. Never request tools, shell, Python statements, attribute access, imports, files, credentials, network, pretrained models, external data, metric changes or validation changes.
-Choose only supplied models, parameters and formula capabilities. Target transforms: none or log1p for nonnegative regression. The independent judge measures the fixed primary metric. Learn from actual failures. Optional strategy: {"direction": one of strategic_options.directions, "reason": short evidence-based string, "family": optional eligible family, "effort": quick|standard|deep}. You may return only {"strategy": ...} for model/budget directions: the controller compiles it into a legal recipe. Semantic direction requires an explicit feature recipe. A model direction must not alter features. Use weakest-class/residual diagnostics, positive/negative evidence, costs, remaining time and missing families to choose a direction; no claim of measured complementarity without evidence. It affects this experiment only, never bypasses controls. Return one JSON object.'''
+Choose only supplied models, parameters and formula capabilities. Target transforms: none or log1p for nonnegative regression. The independent judge measures the fixed primary metric. Learn from actual failures. Optional strategy: {"direction": one of strategic_options.directions, "reason": evidence-based string of at most 240 characters, "family": optional eligible family, "effort": quick|standard|deep, "allocation": optional explore|exploit for compute_allocation}. You may return only {"strategy": ...} for model/budget directions: the controller compiles it into a legal recipe. Semantic direction requires an explicit feature recipe. A model direction must not alter features. Use weakest-class/residual diagnostics, positive/negative evidence, costs, remaining time and missing families to choose a direction; no claim of measured complementarity without evidence. A compute_allocation action may request explore or exploit for at most three subsequent fits; it never bypasses family quarantine, deadlines or independent controls. Other directions affect this experiment only. Return one JSON object.'''
 
 def compact_diagnostics(detail):
     if not isinstance(detail,dict):return {}
@@ -135,6 +135,9 @@ def normalize_annotations(recipe):
     elif isinstance(hypothesis,dict):
         for key in ['kind','failure_mode','expected_effect','uncertainty','stop_condition']:
             if key in hypothesis:normalize(hypothesis,key,'hypothesis.'+key)
+    strategy=clean.get('strategy')
+    if isinstance(strategy,dict) and 'reason' in strategy:
+        normalize(strategy,'reason','strategy.reason')
     formulas=clean.get('feature_expressions',[])
     if isinstance(formulas,list):
         for number,formula in enumerate(formulas):
@@ -241,9 +244,15 @@ class QwenClient:
 def research_evidence(history):
     """Bounded task-local evidence retained after verbose recent rows are trimmed."""
     from .recipes import recipe_hash
-    families={};negative=[];seen=set()
+    families={};negative=[];seen=set();directions={}
     for row in history:
         if row.get('phase'):continue
+        action=row.get('research_strategy',{}).get('direction')
+        if action:
+            entry=directions.setdefault(action,{'direction':action,'attempted':0,'accepted':0,'seconds':0.,'positive_utility_delta':0.})
+            entry['attempted']+=1;entry['accepted']+=bool(row.get('accepted'));entry['seconds']+=max(0.,row.get('runtime_sec',0.))
+            if row.get('standardized_utility') is not None and row.get('reference_utility') is not None:
+                entry['positive_utility_delta']+=max(0.,row['standardized_utility']-row['reference_utility'])
         family=row.get('recipe',{}).get('model_family')
         if family is None:continue
         item=families.setdefault(family,{'family':family,'successful':0,'failed':0,'seconds':0.,'accepted':0})
@@ -265,7 +274,7 @@ def research_evidence(history):
             'operations':recipe.get('feature_ops',[])[:2]})
         if len(negative)>=4:break
     for item in families.values():item['seconds']=round(item['seconds'],2)
-    return {'families':list(families.values())[:6],'negative_hypotheses':negative,
+    return {'directions':[{**v,'seconds':round(v['seconds'],2),'positive_utility_delta':round(v['positive_utility_delta'],6)} for v in directions.values()][:7],'families':list(families.values())[:6],'negative_hypotheses':negative,
             'scope':'Internal fixed search split only; control folds and external scores excluded'}
 
 

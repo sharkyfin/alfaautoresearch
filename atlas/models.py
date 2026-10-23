@@ -7,17 +7,17 @@ from .features import FeatureBuilder,MatrixBuilder
 FAMILIES={'linear','hist','extra_trees','catboost','lightgbm','xgboost'}
 
 
-def fit_predict(data,recipe,train_idx,valid_idx,seed=42,threads=8,refit=False,iterations_override=None,feature_function=None,progress_path=None):
+def fit_predict(data,recipe,train_idx,valid_idx,seed=42,threads=8,refit=False,iterations_override=None,feature_function=None,progress_path=None,evaluation_only=False):
     spec=data.spec;cl=spec.classification;family=recipe['model_family'];params=dict(recipe.get('params',{}));ops=recipe.get('feature_ops',[])
     bag=params.pop('seed_bag',1)
     if bag>1:
         import copy
         single=copy.deepcopy(recipe);single['params'].pop('seed_bag')
         fits=[fit_predict(data,single,train_idx,valid_idx,seed+1009*number,threads,refit,
-            iterations_override,feature_function,progress_path) for number in range(bag)]
+            iterations_override[number] if isinstance(iterations_override,list) else iterations_override,feature_function,progress_path,evaluation_only) for number in range(bag)]
         return (np.mean([fit[0] for fit in fits],axis=0),np.mean([fit[1] for fit in fits],axis=0),
             {'iterations':int(np.median([fit[2]['iterations'] for fit in fits])),
-             'features':fits[0][2]['features'],'diagnostics':{'seed_bagging':{
+             'bag_iterations':[fit[2]['iterations'] for fit in fits],'features':fits[0][2]['features'],'diagnostics':{'seed_bagging':{
                 'seeds':[seed+1009*number for number in range(bag)],'members':bag,
                 'fold_train_rows':len(train_idx),'fold_valid_rows':len(valid_idx)}}})
     transform=recipe.get('target_transform','none')
@@ -60,10 +60,11 @@ def fit_predict(data,recipe,train_idx,valid_idx,seed=42,threads=8,refit=False,it
         safe_names=[f'f{i:05d}' for i in range(xa.shape[1])]
         for frame in (xa,xv,xt):
             if frame is not None:frame.columns=safe_names
-    y=data.y[train_idx];yv=data.y[valid_idx]
+    y=data.y[train_idx];yv=None if evaluation_only else data.y[valid_idx]
     if transform=='log1p':
         if cl or (y<0).any():raise ValueError('Invalid log target transform')
-        y=np.log1p(y);yv=np.log1p(yv)
+        y=np.log1p(y)
+        if yv is not None:yv=np.log1p(yv)
     weight=params.pop('weight','none');stopping_metric=params.pop('stopping_metric','loss')
     sample_weight=None
     if cl and weight!='none':
@@ -82,14 +83,14 @@ def fit_predict(data,recipe,train_idx,valid_idx,seed=42,threads=8,refit=False,it
             loss_function=objective,task_type='CPU',thread_count=threads,random_seed=seed,
             allow_writing_files=False,verbose=False,**params)
         fit_args['cat_features']=[i for i,name in enumerate(encoded_names) if name in f.cat]
-        if len(valid_idx) and not refit:
+        if len(valid_idx) and not refit and not evaluation_only:
             fit_args.update(eval_set=(xv,yv),early_stopping_rounds=60,use_best_model=True)
     elif family=='lightgbm':
         import lightgbm as lgb
         objective=('multiclass' if len(spec.labels)>2 else 'binary') if cl else 'regression_l1' if spec.metric.name=='mae' else 'regression'
         model=(lgb.LGBMClassifier if cl else lgb.LGBMRegressor)(n_estimators=rounds,learning_rate=params.pop('learning_rate',.045),num_leaves=params.pop('num_leaves',31),verbosity=-1,n_jobs=threads,objective=objective,deterministic=True,force_col_wise=True,**common,**params)
         if params.get('subsample',1.)<1.:model.set_params(subsample_freq=1)
-        if len(valid_idx) and not refit:
+        if len(valid_idx) and not refit and not evaluation_only:
             if stopping_metric=='primary' and cl:
                 classes=np.unique(y)
                 def primary_metric(y_true,probabilities):
@@ -105,7 +106,7 @@ def fit_predict(data,recipe,train_idx,valid_idx,seed=42,threads=8,refit=False,it
         from xgboost import XGBClassifier,XGBRegressor
         objective='multi:softprob' if cl and len(spec.labels)>2 else 'binary:logistic' if cl else 'reg:absoluteerror' if spec.metric.name=='mae' else 'reg:squarederror'
         model=(XGBClassifier if cl else XGBRegressor)(n_estimators=rounds,learning_rate=params.pop('learning_rate',.05),max_depth=params.pop('max_depth',6),tree_method='hist',n_jobs=threads,objective=objective,**common,**params)
-        if len(valid_idx) and not refit:model.set_params(early_stopping_rounds=60);fit_args['eval_set']=[(xv,yv)];fit_args['verbose']=False
+        if len(valid_idx) and not refit and not evaluation_only:model.set_params(early_stopping_rounds=60);fit_args['eval_set']=[(xv,yv)];fit_args['verbose']=False
     elif family=='hist':
         from sklearn.ensemble import HistGradientBoostingClassifier,HistGradientBoostingRegressor
         model=(HistGradientBoostingClassifier if cl else HistGradientBoostingRegressor)(max_iter=rounds,learning_rate=params.pop('learning_rate',.08),max_leaf_nodes=params.pop('max_leaf_nodes',31),early_stopping=False,**common,**params,**({} if cl else {'loss':loss}))
@@ -157,4 +158,5 @@ def fit_predict(data,recipe,train_idx,valid_idx,seed=42,threads=8,refit=False,it
         train_metric=spec.metric.score(data.y[train_idx][:2048],predict(sample))
     except ValueError as error:
         diagnostics['training_metric_unavailable']=str(error)[:200]
-    return pv,pt,{'iterations':int(best),'features':xa.shape[1],'diagnostics':diagnostics,'train_sample_metric':train_metric}
+    return pv,pt,{'iterations':int(best),'features':xa.shape[1],'diagnostics':diagnostics,'train_sample_metric':train_metric,'fit_validation_rows':0 if evaluation_only or refit else len(valid_idx),
+        'fit_role':'refit' if refit else 'confirmation' if evaluation_only else 'search'}

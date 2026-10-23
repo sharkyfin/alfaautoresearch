@@ -104,15 +104,17 @@ def test_finalist_must_win_across_all_planned_folds_not_only_search(tmp_path,mon
     from atlas import orchestration
     from atlas.experiments import Executor
     task=create(tmp_path/'data',n=240);data=load(read_inputs(task))
-    primary,controls=selection_splits(data)
+    from atlas.validation import research_splits
+    primary,controls=research_splits(data)
     refits=[]
     def fit(self,recipe,split,timeout,seed=42,**kwargs):
         self.counter+=1
         family=recipe['model_family'];is_primary=split.id==primary.id
         result={'experiment_id':f'exp_{self.counter:04d}','recipe':recipe,'status':'ok',
-                'runtime_sec':.01,'peak_memory_mb':1.,'diagnostics':{},'iterations':10 if is_primary else 20}
+                'runtime_sec':.01,'peak_memory_mb':1.,'diagnostics':{},'iterations':kwargs.get('iterations_override') or 10 if is_primary else kwargs.get('iterations_override') or 20}
+        if kwargs.get('evaluation_only'):assert kwargs['iterations_override']==10
         if kwargs.get('refit'):refits.append((family,kwargs['iterations_override']))
-        if incomplete and family=='lightgbm' and split.id==controls[-1].id:
+        if incomplete and family=='lightgbm' and kwargs.get('evaluation_only'):
             result['status']='worker_error';return result,None
         error=.1 if family=='lightgbm' and is_primary else 3. if family=='lightgbm' else 1.
         return result,(self.data.y[split.valid]+error,np.zeros(len(self.data.test)))
@@ -124,7 +126,7 @@ def test_finalist_must_win_across_all_planned_folds_not_only_search(tmp_path,mon
     assert summary['cross_validation']['planned_folds']==3
     assert summary['cross_validation']['completed_candidates']==(1 if incomplete else 2)
     assert all(len(c['fold_metrics'])==3 for c in summary['cross_validation']['candidates'])
-    assert refits==[('linear',20)] and summary['full_refit_published']
+    assert refits==[('linear',10)] and summary['full_refit_published']
     assert not (directory/'error.txt').exists()
 
 

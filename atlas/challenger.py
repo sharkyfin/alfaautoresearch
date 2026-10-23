@@ -25,33 +25,52 @@ def plan(data, champion, budget, controls, available=None):
     if available is None: available = availability()
     if not available: return {**result, 'reason': 'approved_autogluon_1.3.1_unavailable'}
     spec = data.spec
-    if not controls or spec.validation_plan.get('kind') not in {'random', 'stratified', 'group', 'duplicate_group'}:
+    if not controls or spec.validation_plan.get('kind') not in {'random', 'stratified', 'group', 'duplicate_group', 'time'}:
         return {**result, 'reason': 'time_or_unconfirmed_policy_not_verified'}
     try:
-        for window in controls: verify_split(data,window.train,window.valid)
+        for window in controls: verify_split(data,window.train,window.valid,evaluation_only=data.spec.validation_plan.get('confirmation_isolation')=='sealed')
     except ValueError as error:
         return {**result,'reason':str(error)}
+    if spec.validation_plan.get('kind')=='time' and spec.validation_plan.get('confirmation_isolation')!='sealed':
+        return {**result,'reason':'temporal_requires_sealed_fixed_policy'}
     if spec.text_candidates or len(data.y) > 200000 or len(spec.features) > 500 or len(data.y) < 100:
         return {**result, 'reason': 'dataset_cost_outside_bounded_classical_policy'}
     if spec.classification and (len(spec.labels) > 50 or any(set(data.y[s.train]) != set(range(len(spec.labels))) for s in controls)):
         return {**result, 'reason': 'class_support_not_comparable'}
     main_cost = max(budget.reserve, champion['runtime_sec'] * (len(controls) + 2) * 1.6)
     allocation = min(1800., budget.total * .30, max(0., budget.remaining - main_cost))
-    cap = min(360., allocation / (len(controls) + 2.8))
+    control_fits=1 if controls and all(np.array_equal(s.train,controls[0].train) for s in controls) else len(controls)
+    cap = min(360., allocation / (control_fits + 2.8))
     if cap < 20.: return {**result, 'reason': 'insufficient_confirmation_and_refit_budget'}
     return {'eligible': True, 'reason': 'bounded_classical_portfolio', 'worker_seconds': cap,
-            'reserve_seconds': allocation, 'main_reserve_seconds': main_cost}
+            'reserve_seconds': cap*(control_fits+2.8), 'main_reserve_seconds': main_cost,'confirmation_fits':control_fits}
 
 
 
-def verify_split(data, train_idx, valid_idx):
+def verify_split(data, train_idx, valid_idx,evaluation_only=False):
     train_idx=np.asarray(train_idx);valid_idx=np.asarray(valid_idx)
     if not len(train_idx) or not len(valid_idx) or len(np.intersect1d(train_idx,valid_idx)):
         raise ValueError('challenger_split_overlap_or_empty')
-    if not np.array_equal(np.sort(np.concatenate((train_idx,valid_idx))),np.arange(len(data.y))):
+    if data.spec.validation_plan.get('confirmation_isolation')=='sealed':
+        from .validation import split_index_digest
+        if min(train_idx.min(),valid_idx.min())<0 or max(train_idx.max(),valid_idx.max())>=len(data.y):
+            raise ValueError('challenger_split_index_out_of_bounds')
+        key='confirmation_train_sha256' if evaluation_only else 'search_pool_sha256'
+        indices=train_idx if evaluation_only else np.concatenate((train_idx,valid_idx))
+        if split_index_digest(indices)!=data.spec.validation_plan[key]:raise ValueError('challenger_frozen_pool_mismatch')
+    elif not np.array_equal(np.sort(np.concatenate((train_idx,valid_idx))),np.arange(len(data.y))):
         raise ValueError('challenger_split_does_not_cover_all_labels')
     plan=data.spec.validation_plan
-    if plan.get('kind')=='group':
+    if plan.get('kind')=='time':
+        column=plan.get('time_column')
+        if column not in data.train:raise ValueError('challenger_time_column_missing')
+        dates=pd.to_datetime(data.train[column],errors='coerce',utc=True)
+        a=dates.iloc[train_idx];b=dates.iloc[valid_idx]
+        if a.isna().any() or b.isna().any() or a.max()>=b.min():raise ValueError('challenger_temporal_boundary_leakage')
+        gap=int(((dates>a.max())&(dates<b.min())).sum())
+        if gap<plan.get('gap_rows',0):raise ValueError('challenger_temporal_gap_violation')
+        groups=None
+    elif plan.get('kind')=='group':
         column=plan.get('group_column')
         if column not in data.train: raise ValueError('challenger_group_column_missing')
         groups=data.train[column].fillna('__MISSING__').astype(str).to_numpy()
@@ -90,9 +109,11 @@ def aligned_prediction(value, spec, rows):
 
 class CanonicalScore:
     """Picklable bridge: the exact trusted TaskSpec scorer, including class order."""
-    def __init__(self, metric): self.metric = metric
+    def __init__(self, metric, log_target=False):self.metric=metric;self.log_target=log_target
     def __call__(self, y, prediction, **kwargs):
         p = np.asarray(prediction)
+        if self.log_target:
+            y=np.expm1(y);p=np.maximum(np.expm1(np.clip(p,-30,50)),0.)
         if self.metric.n_classes == 2 and p.ndim == 1: p = np.column_stack((1-p, p))
         if not self.metric.n_classes and self.metric.name == 'rmsle': p = np.maximum(p, 0.)
         return self.metric.score(y, p)
@@ -123,7 +144,7 @@ def freeze_policy(predictor):
 
 
 def fit_predict(data, train_idx, valid_idx, root, seconds, seed, threads, memory_mb,
-                policy=None, source_artifact=None, refit=False):
+                policy=None, source_artifact=None, refit=False,evaluation_only=False):
     from autogluon.tabular import TabularPredictor
     from autogluon.features.generators import AutoMLPipelineFeatureGenerator
     from autogluon.core.metrics import make_scorer
@@ -131,24 +152,12 @@ def fit_predict(data, train_idx, valid_idx, root, seconds, seed, threads, memory
     if not availability(): raise ValueError('Only approved AutoGluon 1.3.1 is supported')
     root = Path(root)
     spec = data.spec
-    if refit:
-        if not policy or not source_artifact: raise ValueError('Refit requires original frozen challenger artifacts')
-        saved = Path(source_artifact)
-        predictor = TabularPredictor.load(str(saved/'automl'), verbosity=0)
-        manifest = json.loads((saved/'challenger_policy.json').read_text())
-        if manifest != policy: raise ValueError('Refit policy does not match original model')
-        coverage = np.load(saved/'split.npz', allow_pickle=False)
-        combined = np.concatenate((coverage['train'], coverage['valid']))
-        if len(combined) != len(data.y) or set(combined) != set(range(len(data.y))):
-            raise ValueError('Original challenger does not cover all labels for full refit')
-        fb = FeatureBuilder(spec, [])
-        fb.fit_transform(data.train.iloc[coverage['train']])
-        test = fb.transform(data.test)
-        models = {}
-        for leaf in policy['components']:
-            mapping = predictor.refit_full(model=leaf['source_model'],num_cpus=min(8,threads),num_gpus=0,fit_strategy='sequential')
-            models[leaf['name']] = mapping[leaf['source_model']]
-        pv = np.empty((0, len(spec.labels))) if spec.classification else np.empty(0)
+    if refit or evaluation_only:
+        if not policy:raise ValueError('Fixed-policy fitting requires a frozen challenger policy')
+        if refit:
+            if not np.array_equal(np.sort(train_idx),np.arange(len(data.y))):raise ValueError('Full refit must cover all known labels')
+        else:verify_split(data,train_idx,valid_idx,evaluation_only=True)
+        return frozen_predict(data,train_idx,valid_idx,root,seconds,seed,threads,policy,refit)
     else:
         verify_split(data,train_idx,valid_idx)
         if spec.classification and set(data.y[train_idx]) != set(range(len(spec.labels))):
@@ -164,8 +173,10 @@ def fit_predict(data, train_idx, valid_idx, root, seconds, seed, threads, memory
         while label in train: label += '_'
         training = train.copy(); training[label] = data.y[train_idx]
         tuning = valid.copy(); tuning[label] = data.y[valid_idx]
+        log_target=spec.metric.name=='rmsle'
+        if log_target:training[label]=np.log1p(training[label]);tuning[label]=np.log1p(tuning[label])
         optimum = 0 if spec.metric.direction < 0 else 1
-        scorer = make_scorer('atlas_' + spec.metric.name, CanonicalScore(spec.metric),
+        scorer = make_scorer('atlas_' + spec.metric.name, CanonicalScore(spec.metric,log_target),
                              optimum=optimum, greater_is_better=spec.metric.direction > 0,
                              needs_proba=spec.classification)
         if policy:
@@ -197,17 +208,19 @@ def fit_predict(data, train_idx, valid_idx, root, seconds, seed, threads, memory
                 raise ValueError('A frozen challenger component failed; partial portfolio forbidden')
         else:
             policy = freeze_policy(predictor)
+            policy['target_transform']='log1p' if log_target else 'none'
             models = {leaf['name']: leaf['source_model'] for leaf in policy['components']}
         (root/'challenger_policy.json').write_text(json.dumps(policy, allow_nan=False))
-        pv = sum(leaf['weight'] * _predict(predictor, valid, spec, models[leaf['name']]) for leaf in policy['components'])
-    pt = sum(leaf['weight'] * _predict(predictor, test, spec, models[leaf['name']]) for leaf in policy['components'])
+        pv = sum(leaf['weight'] * _predict(predictor, valid, spec, models[leaf['name']],policy.get('target_transform')=='log1p') for leaf in policy['components'])
+    pt = sum(leaf['weight'] * _predict(predictor, test, spec, models[leaf['name']],policy.get('target_transform')=='log1p') for leaf in policy['components'])
     return pv, pt, {'challenger_policy': policy, 'selected_models': models,
                     'features': len(spec.features), 'iterations': None,
-                    'diagnostics': {}, 'train_sample_metric': None}
+                    'diagnostics': {}, 'train_sample_metric': None,'fit_validation_rows':len(valid_idx),'fit_role':'search'}
 
 
-def _predict(predictor, frame, spec, model):
+def _predict(predictor, frame, spec, model,log_target=False):
     value = predictor.predict_proba(frame, model=model, as_multiclass=True) if spec.classification else predictor.predict(frame, model=model)
+    if log_target:value=np.maximum(np.expm1(np.clip(np.asarray(value),-30,50)),0.)
     return aligned_prediction(value, spec, len(frame))
 
 
@@ -220,3 +233,57 @@ def bounded_model_params(family, params, threads):
     elif family=='CAT':result.update(thread_count=cpus,task_type='CPU')
     else:raise ValueError('Unapproved challenger model family')
     return result
+
+
+def frozen_predict(data,train_idx,valid_idx,root,seconds,seed,threads,policy,refit=False):
+    """Fit the frozen leaf models directly, with NO tuning/validation labels.
+
+    AutoGluon Predictor.fit(tuning_data=...) would early-stop on the controls.
+    Its public model interface accepts X_val=None and uses fixed training steps.
+    """
+    start=time.monotonic()
+    import gc
+    from autogluon.tabular.models import LGBModel,CatBoostModel,RFModel,XTModel
+    from autogluon.features.generators import AutoMLPipelineFeatureGenerator
+    from autogluon.core.metrics import make_scorer
+    from .features import FeatureBuilder
+    spec=data.spec;root=Path(root);root.mkdir(parents=True,exist_ok=True)
+    if policy.get('version')!=VERSION or not 1<=len(policy.get('components',[]))<=6:raise ValueError('Unknown frozen portfolio')
+    weights=np.asarray([leaf['weight'] for leaf in policy['components']],dtype=float)
+    if not np.isfinite(weights).all() or (weights<=0).any() or not np.isclose(weights.sum(),1.):raise ValueError('Invalid frozen weights')
+    fb=FeatureBuilder(spec,[]);a=fb.fit_transform(data.train.iloc[train_idx])
+    b=fb.transform(data.train.iloc[valid_idx]);test=fb.transform(data.test)
+    log_target=policy.get('target_transform')=='log1p'
+    y=np.log1p(data.y[train_idx]) if log_target else data.y[train_idx]
+    gen=AutoMLPipelineFeatureGenerator(verbosity=0,enable_text_ngram_features=False,enable_raw_text_features=False)
+    a=gen.fit_transform(a,pd.Series(y,index=a.index));b=gen.transform(b) if len(b) else b;test=gen.transform(test)
+    scorer=make_scorer('atlas_'+spec.metric.name,CanonicalScore(spec.metric,log_target),
+        optimum=0 if spec.metric.direction<0 else 1,greater_is_better=spec.metric.direction>0,needs_proba=spec.classification)
+    classes={'GBM':LGBModel,'CAT':CatBoostModel,'RF':RFModel,'XT':XTModel}
+    pv=np.zeros((len(valid_idx),len(spec.labels))) if spec.classification else np.zeros(len(valid_idx))
+    pt=np.zeros((len(test),len(spec.labels))) if spec.classification else np.zeros(len(test))
+    records=[]
+    def decode(model,frame):
+        if not len(frame):return np.empty((0,len(spec.labels))) if spec.classification else np.empty(0)
+        values=np.asarray(model.predict_proba(frame))
+        if spec.classification:
+            if values.ndim==1:values=np.column_stack((1-values,values))
+            values=pd.DataFrame(values,columns=range(len(spec.labels)),index=frame.index)
+        elif log_target:values=np.maximum(np.expm1(np.clip(values,-30,50)),0.)
+        return aligned_prediction(values,spec,len(frame))
+    for index,leaf in enumerate(policy['components']):
+        if leaf['family'] not in classes:raise ValueError('Unapproved frozen model')
+        remaining=seconds-(time.monotonic()-start)
+        if remaining<=1:raise TimeoutError('Frozen portfolio fitting budget exhausted')
+        params=bounded_model_params(leaf['family'],leaf['params'],threads)
+        model=classes[leaf['family']](path=str(root/'frozen_models'),name=leaf['name'],problem_type=spec.problem_type,
+            eval_metric=scorer,hyperparameters=params)
+        model.fit(X=a,y=pd.Series(y,index=a.index),X_val=None,y_val=None,
+            feature_metadata=gen.feature_metadata,num_classes=len(spec.labels) if spec.classification else None,
+            time_limit=max(.5,remaining*.85),num_cpus=min(8,threads),num_gpus=0,verbosity=0)
+        pv+=leaf['weight']*decode(model,b);pt+=leaf['weight']*decode(model,test)
+        records.append({'family':leaf['family'],'requested_params':params,'trained_params':model.params_trained})
+        del model;gc.collect()
+    return pv,pt,{'challenger_policy':policy,'frozen_components':records,'features':len(spec.features),'iterations':None,
+        'diagnostics':{},'train_sample_metric':None,'fit_validation_rows':0,'fit_role':'refit' if refit else 'confirmation',
+        'model_fit_rows':len(train_idx),'confirmation_algorithm':'frozen leaves and weights; no validation/tuning data'}

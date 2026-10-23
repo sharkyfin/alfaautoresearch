@@ -22,13 +22,17 @@ def initial_portfolio(spec,budget=10800):
     out.append(recipe('hist',{'iterations':min(350,rounds)},statement='Histogram boosting diversity'))
     out.append(recipe('extra_trees',{'iterations':min(250,rounds),'min_samples_leaf':2},statement='Randomized trees for complementary errors'))
     if 'xgboost' in spec.available_capabilities:out.append(recipe('xgboost',{'iterations':rounds,'max_depth':6},statement='Regularized histogram booster diversity'))
-    if spec.classification and spec.metric.name in {'f1','f1_macro','balanced_accuracy'} and 'lightgbm' in spec.available_capabilities:
+    if spec.classification and spec.metric.name in {'f1','f1_macro','balanced_accuracy','average_precision','pr_auc'} and 'lightgbm' in spec.available_capabilities:
         counts=list(spec.profile.get('target',{}).get('counts',{}).values())
         if counts and max(counts)/max(min(counts),1)>=3:
             out.insert(2,recipe('lightgbm',{'iterations':rounds,'num_leaves':31,'min_child_samples':30,'weight':'sqrt','stopping_metric':'primary'},statement='Measured minority-weighted booster with early stopping on the actual primary metric'))
             position=next(i for i,r in enumerate(out) if r['model_family']=='extra_trees')+1
             ops=[{'op':'frequency','columns':spec.categorical_features[:8]}] if spec.categorical_features else []
             out.insert(position,recipe('extra_trees',{'iterations':min(250,rounds),'min_samples_leaf':2,'weight':'sqrt'},ops,statement='Weighted randomized trees with fold-fitted category rarity'))
+    if getattr(getattr(spec,'metric',None),'name',None)=='rmsle':
+        for candidate in out:
+            candidate['target_transform']='log1p'
+            candidate['statement']+='; squared log-space loss matches RMSLE'
     return out
 
 def retain_finalists(candidates,limit=3):
@@ -50,6 +54,8 @@ class SearchController:
         self.queue=initial_portfolio(spec,budget.total)
         self.initial_attempts=0;self.family_best={};self.hpo=AdaptiveTPE(spec,seed);self.stop_reason=None
         self.observations=[];self.priority_events=[]
+        self.research_enabled=mode=='live-agent';self.research_requests=0;self.last_research_observation=0;self.last_research_family=None
+        self.focus=None;self.focus_remaining=0;self.focus_events=[]
         self.research_limit=(min(384,max(96,int(budget.total/15))) if budget.total>=1800 else min(192,max(48,int(budget.total/30))))
     def observe(self,result):
         self.hpo.observe(result)
@@ -59,6 +65,7 @@ class SearchController:
         value=result.get('standardized_utility')
         self.observations.append({'family':family,'ok':result.get('status')=='ok',
             'seconds':max(.1,result.get('runtime_sec',1.)),
+            'accepted':bool(result.get('accepted')),
             'normalized_gain':max(0.,(value-old)/max(abs(old),1e-6)) if value is not None and old is not None else 0.})
         if result.get('status')!='ok' or result.get('standardized_utility') is None:return
         family=result['recipe']['model_family'];old=self.family_best.get(family)
@@ -76,9 +83,36 @@ class SearchController:
     def summary(self):
         return {**self.hpo.summary(),'stop_reason':self.stop_reason,'research_steps':self.research_index,
                 'research_limit':self.research_limit,'family_priorities':self.priority_events[-20:],
+                'research_requests':self.research_requests,'research_focus':self.focus_events[-12:],
                 'quarantined_families':sorted(f for f,n in self.failures.items() if n>=2)}
+    def research_due(self,champion=None):
+        if not self.research_enabled or self.research_requests>=8:return False
+        successful=sum(row['ok'] for row in self.observations)
+        if successful<2:return False
+        if self.research_requests==0:return True
+        if self.queue:return False
+        distance=successful-self.last_research_observation
+        if distance<max(3,min(12,2*self.research_requests)):return False
+        changed=champion is not None and champion['recipe']['model_family']!=self.last_research_family
+        if self.research_requests>=2 and self.budget.remaining>self.budget.total*(1-.1*self.research_requests) and not changed:return False
+        recent=self.observations[-distance:]
+        return changed or not any(row.get('accepted') for row in recent)
+    def note_research(self,champion):
+        self.research_requests+=1;self.last_research_observation=sum(row['ok'] for row in self.observations)
+        self.last_research_family=champion['recipe']['model_family']
+    def set_focus(self,allocation):
+        if allocation not in {'explore','exploit'}:raise RecipeError('Unknown bounded compute allocation')
+        self.focus=allocation;self.focus_remaining=3
+        self.focus_events.append({'action':'set','allocation':allocation,'max_fits':3,'remaining_seconds':round(self.budget.remaining,2)})
     def prioritized_family(self,ranked):
         """Task-local improvement/cost rule; no policy learned from benchmarks."""
+        if self.focus_remaining>0:
+            viable=[c for c in ranked if self.failures.get(c['recipe']['model_family'],0)<2]
+            if viable:
+                chosen=max(viable,key=lambda c:c['standardized_utility']) if self.focus=='exploit' else min(viable,key=lambda c:self.hpo.family_proposals.get(c['recipe']['model_family'],0))
+                self.focus_remaining-=1
+                self.focus_events.append({'action':'execute','allocation':self.focus,'family':chosen['recipe']['model_family'],'fits_left':self.focus_remaining})
+                return chosen
         best=ranked[0]['standardized_utility'];scores=[]
         for candidate in ranked:
             family=candidate['recipe']['model_family']
@@ -112,7 +146,12 @@ class SearchController:
             if not eligible:
                 self.stop_reason='All observed model families are quarantined';return None
             champion=eligible[0]
-        spec=self.spec;base=copy.deepcopy(champion['recipe']);base.pop('validation_plan_id',None);base['parent_experiment']=champion['experiment_id'];base['id']=f'local_{self.research_index}'
+        spec=self.spec
+        associations=champion.get('diagnostics',{}).get('error_associations',[])
+        informed=[r.get('column') for r in associations]
+        numeric=list(dict.fromkeys([c for c in informed if c in spec.numeric_features]+spec.numeric_features))
+        categorical=list(dict.fromkeys([c for c in informed if c in spec.categorical_features]+spec.categorical_features))
+        base=copy.deepcopy(champion['recipe']);base.pop('validation_plan_id',None);base['parent_experiment']=champion['experiment_id'];base['id']=f'local_{self.research_index}'
         family=base['model_family'];i=self.research_index
         growth=None
         if i==10 and self.budget.total>=1800 and family!='linear' and base['params'].get('seed_bag',1)==1:
@@ -128,12 +167,11 @@ class SearchController:
                 proposal=copy.deepcopy(base)
                 proposal['params']['iterations']=min(maximum,rounds*2)
                 if recipe_hash(proposal) not in self.seen:growth=proposal
-        if growth is None and (i>=9 or recovering) and self.hpo.enabled and eligible:
-            ranked=eligible[:(3 if self.budget.total>=1800 else 2)]
+        if growth is None and (i>=9 or recovering) and self.hpo.enabled and eligible and not self.research_due(champion):
+            ranked=eligible
             # Give the second family regular opportunities even after a narrow
             # early winner. Its own measured features/transform stay attached.
-            index=1 if len(ranked)>1 and i%3==0 else 0
-            parent=self.prioritized_family(ranked) if self.budget.total>=1800 else ranked[index]
+            parent=self.prioritized_family(ranked)
             raw=self.hpo.propose(parent,self.seen)
             if raw is not None:
                 self.stage='HYPERPARAMETER_SEARCH';return raw
@@ -148,16 +186,16 @@ class SearchController:
         elif not spec.classification and i==1 and min(spec.profile['target']['quantiles'].values())>=0:
             base['target_transform']='log1p';base['statement']='Skewed nonnegative target may benefit from log training, scored on original scale'
         elif i in {2,3} and spec.categorical_features:
-            base['feature_ops']=[{'op':'frequency','columns':spec.categorical_features[:8]}];base['statement']='Fold-fitted category frequency may expose rarity without target leakage'
+            base['feature_ops']=[{'op':'frequency','columns':categorical[:8]}];base['statement']='Fold-fitted category frequency may expose rarity without target leakage'
             if i==3:base['params']['weight']='balanced' if spec.classification else 'none'
         elif i in {4,5} and len(spec.numeric_features)>=2:
-            cols=spec.numeric_features[:2];base['feature_ops']=[{'op':'ratio' if i==4 else 'product','columns':cols}];base['statement']='Bounded numeric interaction may capture nonlinear rates'
+            cols=numeric[:2];base['feature_ops']=[{'op':'ratio' if i==4 else 'product','columns':cols}];base['statement']='Bounded numeric interaction may capture nonlinear rates'
         elif i==6 and spec.numeric_features:
-            base['feature_ops']=[{'op':'clip','columns':spec.numeric_features[:8]}];base['statement']='Fold-fitted clipped copies may reduce outlier sensitivity while retaining originals'
+            base['feature_ops']=[{'op':'clip','columns':numeric[:8]}];base['statement']='Fold-fitted clipped copies may reduce outlier sensitivity while retaining originals'
         elif i==7 and len(spec.categorical_features)>=2:
-            base['feature_ops']=[{'op':'combine','columns':spec.categorical_features[:2]}];base['statement']='Categorical composition may expose conditional patterns'
+            base['feature_ops']=[{'op':'combine','columns':categorical[:2]}];base['statement']='Categorical composition may expose conditional patterns'
         elif i==8 and spec.categorical_features and spec.numeric_features:
-            base['feature_ops']=[{'op':'group_mean','columns':[spec.categorical_features[0],spec.numeric_features[0]]}];base['statement']='Training-fold feature aggregate may capture group scale without target encoding'
+            base['feature_ops']=[{'op':'group_mean','columns':[categorical[0],numeric[0]]}];base['statement']='Training-fold feature aggregate may capture group scale without target encoding'
         else:
             base['statement']='Focused local hyperparameter search around measured champion'
             if family=='catboost':base['params'].update(depth=int(self.rng.choice([4,6,8])),l2_leaf_reg=float(self.rng.choice([1,3,10,30])))
@@ -202,7 +240,7 @@ STRATEGIC_DIRECTIONS = {'improve_family', 'another_family', 'semantic_features',
 def strategic_options(spec, history, champion, remaining):
     """Legal actions with task-local cost evidence; no extra Qwen call or labels."""
     rows = [r for r in history if not r.get('phase')]
-    failures = {f: sum(r.get('status') != 'ok' for r in rows if r['recipe']['model_family'] == f) for f in PARAMS}
+    failures = {f: sum(r.get('status') != 'ok' for r in rows if r.get('recipe',{}).get('model_family') == f) for f in PARAMS}
     families = [f for f in PARAMS if failures[f] < 2 and
                 (f not in {'catboost', 'lightgbm', 'xgboost'} or f in spec.available_capabilities)]
     current = champion['recipe']['model_family'] if champion else None
@@ -212,19 +250,19 @@ def strategic_options(spec, history, champion, remaining):
     directions = ['improve_family', 'semantic_features', 'compute_allocation']
     alternatives = [f for f in families if f != current]
     if alternatives: directions += ['another_family', 'complementarity']
-    if spec.classification and imbalance and spec.metric.name in {'f1', 'f1_macro', 'balanced_accuracy'}: directions.append('imbalance')
+    if spec.classification and imbalance and spec.metric.name in {'f1', 'f1_macro', 'balanced_accuracy','average_precision','pr_auc'}: directions.append('imbalance')
     if nonnegative: directions.append('target_transform')
     costs = []
     for family in families:
-        observations = [r for r in rows if r['recipe']['model_family'] == family]
-        times = [r['runtime_sec'] for r in observations if r.get('status') == 'ok']
+        observations = [r for r in rows if r.get('recipe',{}).get('model_family') == family]
+        times = [r['runtime_sec'] for r in observations if r.get('status') == 'ok' and r.get('runtime_sec') is not None]
         costs.append({'family': family, 'tested': len(observations),
                       'accepted': sum(bool(r.get('accepted')) for r in observations),
                       'median_seconds': round(float(np.median(times)), 2) if times else None,
                       'failed': failures[family]})
     return {'directions': directions, 'families': families, 'family_costs': costs,
             'remaining_seconds': round(remaining),
-            'efforts': ['quick', 'standard', 'deep'],
+            'efforts': ['quick', 'standard', 'deep'],'compute_allocations':['explore','exploit'],'allocation_horizon_fits':3,
             'scope': 'One bounded experiment; no control labels, metric changes or new API calls. '
                      'Complementarity is a hypothesis, confirmed only by existing independent ensemble selection.'}
 
@@ -233,7 +271,7 @@ def resolve_strategy(raw, scheduler, champion, history, fallback, remaining):
     """Compile a direction-only suggestion into the existing typed Recipe DSL."""
     if not isinstance(raw, dict) or 'strategy' not in raw: return raw, None
     action = raw['strategy']
-    if not isinstance(action, dict) or set(action) - {'direction', 'reason', 'family', 'effort'}:
+    if not isinstance(action, dict) or set(action) - {'direction', 'reason', 'family', 'effort','allocation'}:
         raise RecipeError('Invalid research strategy fields')
     if not isinstance(action.get('reason', ''), str) or len(action.get('reason', '')) > 240:
         raise RecipeError('Research strategy reason must be a bounded string')
@@ -241,6 +279,8 @@ def resolve_strategy(raw, scheduler, champion, history, fallback, remaining):
     direction = action.get('direction'); effort = action.get('effort', 'standard')
     if not isinstance(direction, str) or direction not in options['directions'] or effort not in options['efforts']:
         raise RecipeError('Research strategy is not eligible for this task')
+    if 'allocation' in action and (direction!='compute_allocation' or not isinstance(action['allocation'],str) or action['allocation'] not in {'explore','exploit'}):
+        raise RecipeError('Compute allocation must be explore or exploit and task-bounded')
     parent = champion['recipe']; current = parent['model_family']; family = action.get('family', current)
     if not isinstance(family, str) or family not in options['families']:
         raise RecipeError('Research strategy selected an unavailable or quarantined family')
@@ -295,5 +335,5 @@ def resolve_strategy(raw, scheduler, champion, history, fallback, remaining):
     estimate = measured[0] if measured else max(3., scheduler.budget.total*.03)
     scale = {'quick': 1.5, 'standard': 3., 'deep': 6.}[effort]
     proposal['max_runtime_sec'] = min(proposal.get('max_runtime_sec', 300), max(3., estimate*scale+3), max(1., remaining))
-    return proposal, {**action, 'resolved_family': family, 'estimated_fit_seconds': estimate,
+    return proposal, {**action,**({'allocation':action.get('allocation','exploit')} if direction=='compute_allocation' else {}), 'resolved_family': family, 'estimated_fit_seconds': estimate,
                       'worker_cap_seconds': proposal['max_runtime_sec']}

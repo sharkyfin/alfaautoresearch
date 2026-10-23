@@ -8,7 +8,7 @@ from atlas import challenger,orchestration
 from atlas.metrics import Metric
 from atlas.contract import read_inputs
 from atlas.task import load
-from atlas.validation import selection_splits
+from atlas.validation import research_splits as selection_splits,split_index_digest
 from atlas.search import SearchController,recipe,resolve_strategy,strategic_options
 from atlas.budget import Budget
 from atlas.recipes import validate,RecipeError
@@ -17,7 +17,9 @@ from scripts.synthetic import create
 
 def fixture_data(tmp_path,scenario='iid'):
     data=load(read_inputs(create(tmp_path,scenario,n=180)))
-    split,controls=selection_splits(data);data.spec.validation_plan=split.json()
+    split,controls=selection_splits(data);data.spec.validation_plan={**split.json(),
+        'confirmation_isolation':'sealed','search_pool_sha256':split_index_digest(__import__('numpy').concatenate((split.train,split.valid))),
+        'confirmation_train_sha256':split_index_digest(controls[0].train)}
     base=recipe('linear',{'alpha':10} if not data.spec.classification else {'C':1})
     champion={'recipe':base,'experiment_id':'primary','runtime_sec':2.,'standardized_utility':-1.,'metric_value':1.,'status':'ok'}
     return data,split,controls,champion
@@ -27,7 +29,7 @@ def test_challenger_budget_prices_controls_and_refit(tmp_path):
     d,s,c,b=fixture_data(tmp_path)
     p=challenger.plan(d,b,Budget(360),c,available=True)
     assert p['eligible'] and p['worker_seconds']>=20
-    assert p['worker_seconds']*(len(c)+2.8)<=p['reserve_seconds']<=108
+    assert p['worker_seconds']*(p['confirmation_fits']+2.8)<=p['reserve_seconds']<=108
     assert not challenger.plan(d,b,Budget(120),c,available=True)['eligible']
     assert not challenger.plan(d,None,Budget(360),c,available=True)['eligible']
     assert not challenger.plan(d,b,Budget(360),c,available=False)['eligible']
@@ -124,37 +126,20 @@ def test_strategy_quarantine_and_controls_excluded(tmp_path):
 
 
 def test_frozen_ag_adapter_uses_exact_topology_no_ensemble_research(tmp_path,monkeypatch):
-    import sys,types
-    calls=[]
-    d,s,c,b=fixture_data(tmp_path/'data')
-    class Generator:
-        def __init__(self,**kwargs):calls.append(('generator',kwargs))
-        def fit_transform(self,x,y):
-            assert set(x.index)==set(d.train.iloc[s.train].index)
-            calls.append(('prefit',len(x)));return x
-    class Predictor:
-        def __init__(self,**kwargs):calls.append(('init',kwargs))
-        def fit(self,train,**kwargs):calls.append(('fit',kwargs));return self
-        def model_names(self):return ['AtlasFrozen_0','AtlasFrozen_1']
-        def predict(self,frame,model):return np.full(len(frame),2. if model=='AtlasFrozen_0' else 6.)
-    modules={name:types.ModuleType(name) for name in ['autogluon','autogluon.tabular','autogluon.features','autogluon.features.generators','autogluon.core','autogluon.core.metrics']}
-    modules['autogluon.tabular'].TabularPredictor=Predictor
-    modules['autogluon.features.generators'].AutoMLPipelineFeatureGenerator=Generator
-    modules['autogluon.core.metrics'].make_scorer=lambda *args,**kwargs:kwargs
-    for name,value in modules.items():monkeypatch.setitem(sys.modules,name,value)
-    monkeypatch.setattr(challenger,'availability',lambda:True)
+    from test_final_validation import install_fake_ag
+    calls=[];d,s,c,b=fixture_data(tmp_path/'data');install_fake_ag(monkeypatch,d.spec,calls)
     policy={'version':'1.3.1','components':[
-        {'family':'GBM','params':{'num_boost_round':17},'weight':.75,'name':'AtlasFrozen_0','source_model':'oldgbm'},
-        {'family':'CAT','params':{'iterations':31},'weight':.25,'name':'AtlasFrozen_1','source_model':'oldcat'}]}
-    out=tmp_path/'worker';out.mkdir()
-    pv,pt,info=challenger.fit_predict(d,s.train,s.valid,out,30,42,8,8192,policy=policy)
-    np.testing.assert_allclose(pv,3.);np.testing.assert_allclose(pt,3.)
-    fit=next(value for name,value in calls if name=='fit')
-    assert fit['num_bag_folds']==0 and fit['num_stack_levels']==0 and fit['num_gpus']==0 and fit['num_cpus']==8
-    assert not fit['fit_weighted_ensemble'] and not fit['dynamic_stacking'] and not fit['calibrate']
-    assert fit['tuning_data'].index.tolist()==d.train.iloc[s.valid].index.tolist()
-    assert fit['hyperparameters']['GBM'][0]['num_boost_round']==17
-    assert info['challenger_policy']==policy
+        {'family':'GBM','params':{'num_boost_round':17},'weight':.75,'name':'AtlasFrozen_0'},
+        {'family':'CAT','params':{'iterations':31},'weight':.25,'name':'AtlasFrozen_1'}]}
+    pv,pt,info=challenger.fit_predict(d,c[0].train,c[0].valid,tmp_path/'worker',30,42,8,8192,policy=policy,evaluation_only=True)
+    np.testing.assert_allclose(pv,1.);np.testing.assert_allclose(pt,1.)
+    fits=[value for name,value in calls if name=='fit']
+    assert len(fits)==2 and all(f['X_val'] is None and f['y_val'] is None for f in fits)
+    assert all(f['num_gpus']==0 and f['num_cpus']==8 for f in fits)
+    init=[value for name,value in calls if name=='init']
+    assert init[0]['hyperparameters']['num_boost_round']==17
+    assert init[1]['hyperparameters']['iterations']==31
+    assert info['challenger_policy']==policy and info['fit_validation_rows']==0
 
 
 def test_qwen_strategy_keeps_existing_context_wire_budget(tmp_path):
@@ -211,24 +196,15 @@ def test_ag_preflight_requires_official_reload_dependency(monkeypatch,setuptools
     assert challenger.availability()==eligible
 
 
-def test_ag_refit_reuses_original_all_label_artifact_and_bounded_cpu(tmp_path,monkeypatch):
-    import sys,types
-    d,s,c,b=fixture_data(tmp_path/'data');saved=tmp_path/'source';saved.mkdir()
-    policy={'version':'1.3.1','components':[{'family':'GBM','params':{},'weight':1.,'name':'frozen','source_model':'source_gbm'}]}
-    (saved/'challenger_policy.json').write_text(json.dumps(policy));np.savez(saved/'split.npz',train=s.train,valid=s.valid)
-    calls=[]
-    class Predictor:
-        @classmethod
-        def load(cls,path,verbosity):assert path==str(saved/'automl');return cls()
-        def refit_full(self,**kw):calls.append(kw);return {'source_gbm':'source_gbm_FULL'}
-        def predict(self,frame,model):assert model=='source_gbm_FULL';return np.ones(len(frame))
-    modules={name:types.ModuleType(name) for name in ['autogluon','autogluon.tabular','autogluon.features','autogluon.features.generators','autogluon.core','autogluon.core.metrics']}
-    modules['autogluon.tabular'].TabularPredictor=Predictor
-    modules['autogluon.features.generators'].AutoMLPipelineFeatureGenerator=object
-    modules['autogluon.core.metrics'].make_scorer=lambda *args,**kwargs:None
-    for name,value in modules.items():monkeypatch.setitem(sys.modules,name,value)
-    monkeypatch.setattr(challenger,'availability',lambda:True)
-    pv,pt,info=challenger.fit_predict(d,np.arange(len(d.y)),np.array([],dtype=int),tmp_path/'refit',30,42,12,8192,
-                                    policy=policy,source_artifact=saved,refit=True)
+def test_ag_refit_uses_frozen_leaves_all_labels_and_bounded_cpu(tmp_path,monkeypatch):
+    from test_final_validation import install_fake_ag
+    d,s,c,b=fixture_data(tmp_path/'data');calls=[];install_fake_ag(monkeypatch,d.spec,calls)
+    policy={'version':'1.3.1','components':[{'family':'GBM','params':{'num_boost_round':37},'weight':1.,'name':'frozen'}]}
+    pv,pt,info=challenger.fit_predict(d,np.arange(len(d.y)),np.array([],dtype=int),tmp_path/'refit',30,42,12,8192,policy=policy,refit=True)
     assert not len(pv) and len(pt)==len(d.test)
-    assert calls==[{'model':'source_gbm','num_cpus':8,'num_gpus':0,'fit_strategy':'sequential'}]
+    fit=next(value for name,value in calls if name=='fit')
+    assert fit['num_cpus']==8 and fit['num_gpus']==0 and fit['X_val'] is None and fit['y_val'] is None
+    np.testing.assert_array_equal(fit['y'],d.y)
+    assert info['model_fit_rows']==len(d.y)
+    with pytest.raises(ValueError,match='cover all known'):
+        challenger.fit_predict(d,s.train,s.valid,tmp_path/'bad-refit',30,42,8,8192,policy=policy,refit=True)

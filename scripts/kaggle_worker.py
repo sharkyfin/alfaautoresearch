@@ -15,7 +15,7 @@ def main():
     started = time.monotonic()
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('task')
-    parser.add_argument('--mode', choices=['lightgbm', 'deterministic', 'live-agent','fixed-allocation','autogluon','flaml'], required=True)
+    parser.add_argument('--mode', choices=['lightgbm', 'deterministic', 'live-agent','fixed-allocation','autogluon','flaml','catboost'], required=True)
     parser.add_argument('--budget', type=float, required=True)
     parser.add_argument('--seed', type=int, default=42)
     parser.add_argument('--threads', type=int, default=8)
@@ -28,8 +28,8 @@ def main():
     parser.add_argument('--finalization',choices=['refit','fold_average'])
     args = parser.parse_args()
     for name in ['OMP_NUM_THREADS', 'MKL_NUM_THREADS', 'OPENBLAS_NUM_THREADS', 'NUMEXPR_NUM_THREADS', 'VECLIB_MAXIMUM_THREADS']:
-        os.environ[name] = str(args.threads)
-    if args.mode in {'autogluon','flaml'}:
+        os.environ[name] = '1'
+    if args.mode in {'autogluon','flaml','catboost'}:
         from scripts.backend_worker import run_backend
         return run_backend(args,started)
     from atlas.agent import QwenClient
@@ -42,7 +42,7 @@ def main():
         def restricted_capabilities(strict=False):
             return {key:value for key,value in original_capabilities(strict).items() if key not in excluded}
         task_module.capabilities=restricted_capabilities
-    experiments = 240 if args.budget>=900 else 30
+    experiments = 480
     if args.fixed_recipe:
         import json
         fixed=json.loads(args.fixed_recipe.read_text())
